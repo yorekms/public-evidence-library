@@ -33,7 +33,7 @@ function downloadCSV(rows,name){const columns=[...new Set(rows.flatMap(r=>Object
 let packetPromise;
 function sourcePacket(loadJSON){if(!packetPromise)packetPromise=loadJSON('/data/economic-valuation.json').then(packet=>({packet,...preparePPP(packet)})).catch(error=>{packetPromise=null;throw error;});return packetPromise;}
 function historyTable(root,rows,series){const details=el('details','source-table');details.append(el('summary','',`Inspect this country’s native history · ${rows.length.toLocaleString()} rows`));const wrap=el('div','table-scroll'),table=el('table'),head=el('thead'),tr=el('tr');for(const title of['Country / economy','Source year','Published value / unit','Source status and footnote'])tr.append(el('th','',title));head.append(tr);table.append(head);const body=el('tbody');for(const r of rows){const row=el('tr'),name=el('td','',r.geo_name||r.geo_id),year=el('td','',finite(r.year)?r.year:'Source-defined period'),value=el('td',numeric(r)?'numeric':'status-value',numeric(r)?format(r.value):'Unavailable / ineligible'),status=el('td','',r.status||'No native status supplied.');name.append(el('small','',r.geo_id));value.append(el('small','',r.unit||series.unit));if(r.native_obs_status)status.append(el('small','','Native observation status: '+r.native_obs_status));if(r.native_footnote)status.append(el('small','',r.native_footnote));row.append(name,year,value,status);body.append(row);}table.append(body);wrap.append(table);details.append(wrap);root.append(details);}
-async function render({root,historyRoot,params,loadJSON,navigate,isCurrent,plot}){
+async function render({root,historyRoot,params,loadJSON,navigate,isCurrent,plot,syncFrame}){
  root.replaceChildren(el('p','page-status','Opening the published purchasing-power context…'));historyRoot.replaceChildren();
  try{
   const prepared=await sourcePacket(loadJSON);if(!isCurrent())return;
@@ -42,7 +42,8 @@ async function render({root,historyRoot,params,loadJSON,navigate,isCurrent,plot}
   const requested=params.get('series'),selectedMeta=catalogue.series.find(s=>s.id===requested)||catalogue.series[0],years=selectedMeta.years,requestedYear=params.get('year'),year=finite(requestedYear)&&years.includes(Number(requestedYear))?Number(requestedYear):years.includes(2022)?2022:years.at(-1);
   const requestedPlace=params.get('place'),place=selectedMeta.places.some(p=>p.id===requestedPlace)?requestedPlace:'';
   const working=new URLSearchParams({series:selectedMeta.id,...(finite(year)?{year:String(year)}:{}),...(place?{place}:{})});
-  const selected=await window.PublicWorldMaps.render({root,catalogue,index,loadEvidence:id=>Promise.resolve(bySeries[id]||null),loadJSON,params:working,navigate,isCurrent,historyHrefFor:({series,place})=>'#prices?'+new URLSearchParams({series,place,...(finite(year)?{year:String(year)}:{}),section:'history'})});
+  let selected={series:selectedMeta.id,year:String(year??''),place};
+  selected=await window.PublicWorldMaps.render({root,catalogue,index,loadEvidence:id=>Promise.resolve(bySeries[id]||null),loadJSON,params:working,navigate,isCurrent,enableTimeline:true,onFrameChange:p=>{Object.assign(selected,{series:p.series,year:String(p.year),place:p.place});syncFrame?.(p);},historyHrefFor:({series,place,year})=>'#prices?'+new URLSearchParams({series,place,...(finite(year)?{year:String(year)}:{}),section:'history'})});
   if(!isCurrent()||!selected)return;
   const series=bySeries[selected.series].series,records=bySeries[selected.series].records;
   const note=el('p','limitation','Published PPP national-account estimates are used directly. Blank native observation statuses do not establish direct measurement; the source methods include official accounts and staff estimates. Missing source cells remain unavailable.');root.append(note);
