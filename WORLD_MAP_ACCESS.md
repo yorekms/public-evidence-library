@@ -1,0 +1,11 @@
+# World maps and the preserved research collection
+
+Open https://public-evidence-library-yorek.tasty-siren-3221.chatgpt.site/#maps . World maps is in the main navigation and Home actions. The map page includes 111 published country measures, native source-year controls, country selection with polygon zoom, source tables and full native-field CSV downloads. Selected measure/year/country settings are remembered within the browser tab; private notes and analytical results are not navigation state.
+
+The same page has an explicit directory of nine existing local workspaces: research Home; complete data/raised maps; world commodity flows; global environmental footprints; trade/government; assets/owners; facilities/energy; economic accounts/models; Virginia coal. Those links open the existing workbench on the visitor's own computer and require its local service. They are not hosted API replicas. The full workbench is not replaced by the public library.
+
+Public data: 7,811-measure catalogue, 22 collections, 290 explorable measures and 114,555 native source rows. This update adds 10,072 country-history rows by expanding the three existing wheat histories to all retained source countries/economies. Other selections retain their scope notes. Small economies without one of the177 map polygons remain in the country selector, table and CSV. Historical years use the retained geometry, not reconstructed historical borders. Source latest-available periods and native country/year variation remain labeled; no missing years/values are filled.
+
+Full local data:13,431,313 retained numerical rows plus separate flow/ownership/account evidence. All100 original workbench data files remain byte-identical. Saved public version1 and its source archive remain preserved; this is an additive version2 interface/data-scope update. The environmental animation withdrawn earlier remains withdrawn. Civic Voice's audience and participant storage are unchanged.
+
+Verification receipts and backups are local in qa/: MAP_ACCESS_DATA_PRESERVATION.json, WORLD_MAP_DATA_EXPANSION.json, WORLD_MAP_BROWSER_REVIEW.json, WORLD_MAP_DEPLOYMENT.json and WORLD_MAP_READBACK.md. No claim of new causal economic inference or hosted participant collection is made.

@@ -1,1 +1,2919 @@
-{"schema":"public-evidence.snapshot-manifest/v1","edition":"public-evidence-2026-10-31","created_utc":"2026-10-31T19:12:27.751563+00:00","catalogue_measures":7811,"catalogue_datasets":22,"retained_local_rows":13431313,"public_evidence_measures":290,"public_evidence_rows":104483,"public_full_collections":["bea-history","fiscal-history","frozen-atlas","pension-history"],"selection_note":"Full original atlas and BEA/pension/fiscal histories; declared place subsets for newer food examples; exact original-source definitions and flags retained. Overlapping source collections are not independent samples.","files":[{"id":"bea::SARPP-1","retained_rows":867,"hosted_rows":867,"file":"data/evidence/a39dce5b7eefb7745ef2.json","bytes":330496,"sha256":"871d1f791d3349bf342dddd7da8d355ac961bb548e7f7465b6b6f9191c065700","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::median-gross-rent-income-percent","retained_rows":51,"hosted_rows":51,"file":"data/evidence/0057255b47ee1c7cd09b.json","bytes":29359,"sha256":"f53ff6a3a93297f94da3ce5f4d314278abf893ae0493659f16b880e3a0242357","subset":null,"source_record_fields_preserved":true},{"id":"education::education-bachelors-or-higher","retained_rows":51,"hosted_rows":51,"file":"data/evidence/dd78648c80f99bed8f2a.json","bytes":30461,"sha256":"8248a2409ef16212c527a4b7ca21bf93479fefc2a798d1faf0e1048224b9036c","subset":null,"source_record_fields_preserved":true},{"id":"fiscal-history::federal-net-per-capita","retained_rows":459,"hosted_rows":459,"file":"data/evidence/babdfab196247a7dc789.json","bytes":206382,"sha256":"a961898f0943a3911d506a0eb027b65c84968be5bed28bb617bcbfec4367b582","subset":null,"source_record_fields_preserved":true},{"id":"food-history-fbs::2511-5142-1000-t","retained_rows":2397,"hosted_rows":154,"file":"data/evidence/0b41e9deed1b20781cc4.json","bytes":110525,"sha256":"ddd54272d330c781b91922077012a3150b3ae1dffc3fa347111b15384379ea1c","subset":"Hosted subset: selected named reporting countries/economies, retaining their original source IDs and all available source years. The complete country collection remains in the original source.","source_record_fields_preserved":true},{"id":"food-history-fbs::2511-5511-1000-t","retained_rows":1657,"hosted_rows":154,"file":"data/evidence/d50b20e8287be86ff835.json","bytes":111490,"sha256":"e4c6e8773b2e3e8dcb05d9197ee53ec26623daca63c490e8ea1edd6c335f37a1","subset":"Hosted subset: selected named reporting countries/economies, retaining their original source IDs and all available source years. The complete country collection remains in the original source.","source_record_fields_preserved":true},{"id":"food-history-qcl::15-5510-t","retained_rows":6968,"hosted_rows":642,"file":"data/evidence/50bab7456b776f406dfa.json","bytes":425619,"sha256":"f99b524780416280cfbfce9b82f42f0f91055a9f85fcae86598dfb0e73d6e61b","subset":"Hosted subset: selected named reporting countries/economies, retaining their original source IDs and all available source years. The complete country collection remains in the original source.","source_record_fields_preserved":true},{"id":"income::median-household-income","retained_rows":51,"hosted_rows":51,"file":"data/evidence/8397fd1b7212d0816f7a.json","bytes":28343,"sha256":"f9112fafb9686c78a37f7e621c641909b21b24229c49308a53606b56f1f0d33a","subset":null,"source_record_fields_preserved":true},{"id":"nass-food::crops:counties:2ee0b4391e7a2c86","retained_rows":190837,"hosted_rows":14891,"file":"data/evidence/2e995360d639d8d5b62f.json","bytes":7059743,"sha256":"0221757003a12134046c2e1cfc5b6bf4e24be7738b36526374bf9543048e0889","subset":"Hosted subset: all retained records with native five-digit county identifiers beginning 51 (Virginia) or 19 (Iowa). Other counties remain in the full retained research dataset and original USDA downloads.","source_record_fields_preserved":true},{"id":"nass-food::crops:counties:3cc956a1d4db2ca1","retained_rows":191410,"hosted_rows":15047,"file":"data/evidence/41596e3d8e6b22729e31.json","bytes":7096251,"sha256":"81b7499f3a3602fb3ea4930e4972950f00b38ea5bd461aecfccc2a1a8b968e42","subset":"Hosted subset: all retained records with native five-digit county identifiers beginning 51 (Virginia) or 19 (Iowa). Other counties remain in the full retained research dataset and original USDA downloads.","source_record_fields_preserved":true},{"id":"nass-food::crops:states:846b0bd3f58ffa00","retained_rows":6998,"hosted_rows":6998,"file":"data/evidence/9339fb195eb7cb1eb638.json","bytes":3223313,"sha256":"2a3264b115adcb9b04d5e619853087dc74a10feb6dfa72696ae0fc89f35ca6d5","subset":null,"source_record_fields_preserved":true},{"id":"ppd::return-10yr","retained_rows":6325,"hosted_rows":6325,"file":"data/evidence/c64ba31dad4f39f15219.json","bytes":3828610,"sha256":"ef2719dbe2a92ee078f15c9e4fe1577d5267a916ae188bdd266305e245062bfd","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-reported-voted-citizens","retained_rows":51,"hosted_rows":51,"file":"data/evidence/57a2e6f85a651fe8671f.json","bytes":27386,"sha256":"281e98c9564ca9aa7e92079a421b77350f93d93cd50453ce36b984306de4bcbe","subset":null,"source_record_fields_preserved":true},{"id":"ridgeway-energy::CLPRB","retained_rows":1275,"hosted_rows":1275,"file":"data/evidence/263565e2937c56d0dc0e.json","bytes":531982,"sha256":"db386deddb62457ef7597af7f3d5b945198a5bb2716dd97e45852c8ad9a4c1a0","subset":null,"source_record_fields_preserved":true},{"id":"ridgeway-energy::SOPRB","retained_rows":1275,"hosted_rows":1275,"file":"data/evidence/32fbc61a0b5264da33b6.json","bytes":531569,"sha256":"08ae9b0d97ebe3c686dbb9679c64325511f9568e382d0b18a04f6db56e9a6d3c","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-total-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/78c03d49cb85b91735c4.json","bytes":31544,"sha256":"f0b4820472c302cd97a28708dc6f1c5694189d464da4eef2e8f59bbacc19bea9","subset":null,"source_record_fields_preserved":true},{"id":"voting-administration::eac-turnout-of-active-registered","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e4e58f5cbe512de2e3db.json","bytes":31711,"sha256":"19b5392892cd7dc0aa658f5ada41e78784b9068154c42b932e75ae08bc365bdd","subset":null,"source_record_fields_preserved":true},{"id":"wellbeing::depression-diagnosis","retained_rows":50,"hosted_rows":50,"file":"data/evidence/767e5285a083c458afe2.json","bytes":23036,"sha256":"ef66efcd4ce3d305dfc585deb314e212b196e6ee9857b2aa1a53be64463d69c8","subset":null,"source_record_fields_preserved":true},{"id":"wellbeing::life-satisfaction","retained_rows":35,"hosted_rows":35,"file":"data/evidence/8d72ad64f186ed49f9ba.json","bytes":17062,"sha256":"a2096b2fafb2d452794ac844307ff491ea8b8b4e58d936d11d01f0513492434b","subset":null,"source_record_fields_preserved":true},{"id":"wellbeing::selected-ssri-fills","retained_rows":51,"hosted_rows":51,"file":"data/evidence/0e4f6a2542d48e6974b4.json","bytes":28993,"sha256":"4a5236e3fbabcdb6029ca63b561e580e83031f8e33410812ccb6fef8c02df277","subset":null,"source_record_fields_preserved":true},{"id":"income::real-per-capita-personal-income","retained_rows":51,"hosted_rows":51,"file":"data/evidence/ec67b3e3afc09e000bb4.json","bytes":26727,"sha256":"3adaad41cdf8d0de09ca0c1c30144139914716fdbf6759b8b60991fbac599ca2","subset":null,"source_record_fields_preserved":true},{"id":"income::real-per-capita-pce","retained_rows":51,"hosted_rows":51,"file":"data/evidence/703a0cfa0fb97798b1d8.json","bytes":26055,"sha256":"23f1620a5208b3a00886256371f72ceaf5697a11cedd21f511531cd256c96dab","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::median-monthly-gross-rent","retained_rows":51,"hosted_rows":51,"file":"data/evidence/a3cb6966e6b18bc9414f.json","bytes":28610,"sha256":"16622aee50eb84b227f8255d39b327ffe6a1f17d5e53db615d2342745ac690de","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::rpp-all-items","retained_rows":51,"hosted_rows":51,"file":"data/evidence/39f3de67828f0a144846.json","bytes":25916,"sha256":"be94a28c8113f8f113362763d247c434ab548fd13a364c309fd5bfeeed2aecd9","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::rpp-goods","retained_rows":51,"hosted_rows":51,"file":"data/evidence/4baca8d570a91ead0780.json","bytes":25779,"sha256":"cd406e7896a585ba6f8281ca83e2cc1071d44e6967972d3f7320393d2cff00cf","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::rpp-housing","retained_rows":51,"hosted_rows":51,"file":"data/evidence/7afc1f7f3330b37b18fd.json","bytes":26225,"sha256":"da3ac888bbd6caddc43eab8f1428be16c4947897ee56434dce5b121c02080236","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::rpp-utilities","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e7d63636f8d1d01bb852.json","bytes":25883,"sha256":"4c45be4605b4e92639d538633645974a35fe84a3e5baf09b9809ae5d4dd6efaa","subset":null,"source_record_fields_preserved":true},{"id":"cost-of-living::rpp-other-services","retained_rows":51,"hosted_rows":51,"file":"data/evidence/47df51267b3032747c27.json","bytes":26316,"sha256":"c7c87c8c5d4626a8d1cc5aebd8c6a9a0bc1b5b495d6da3e4bca5c8a6c7b12d3e","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-deceased-donors-all","retained_rows":51,"hosted_rows":51,"file":"data/evidence/408687535dd8b4368e2d.json","bytes":30591,"sha256":"637842f87c16cace766edc365aff2eb7fd1185cd59c2a98f93f56644d5a98ad9","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-deceased-donors-heart","retained_rows":51,"hosted_rows":51,"file":"data/evidence/3fad0ccbc153d9ce4003.json","bytes":30759,"sha256":"416e5394b0d16dbdf88aa8219df936975ca3d9cfcd7ed31b20399052f779f22f","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-deceased-donors-kidney","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e09989717895ed8cd922.json","bytes":30769,"sha256":"7cc101d8179d255c77a491a0f262ca2a3121ab10042a28c720992853f82b4a7d","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-deceased-donors-liver","retained_rows":51,"hosted_rows":51,"file":"data/evidence/532ec6a71eb42efce4e6.json","bytes":30711,"sha256":"5c5c547aef0470169b596e04bf0310fe47742cdaca2e6cac89b08b9c014a3cee","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-deceased-donors-lung","retained_rows":51,"hosted_rows":51,"file":"data/evidence/3dc313c4fed0e16c3c89.json","bytes":30697,"sha256":"de2a4dcf74df41ef4b3849565d5f4183efcda16556832b76dcf9508d9b364069","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-deceased-donors-pancreas","retained_rows":51,"hosted_rows":51,"file":"data/evidence/74a765a74dab1fcf3c5c.json","bytes":31036,"sha256":"ca3b7ef4b7f7451f45ba9e923d9793649540e9e51d147796bd8b0eb3b7821e62","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-living-donors-all","retained_rows":51,"hosted_rows":51,"file":"data/evidence/79dfd1cb853c068342fc.json","bytes":30379,"sha256":"fab4f8b6425c9979996c9fe94caeec2392e120cb0113c002cbd5fab3699d88d3","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-living-donors-kidney","retained_rows":51,"hosted_rows":51,"file":"data/evidence/1202f6793adae2fa27c3.json","bytes":30555,"sha256":"8e9ba66c109813dba357312fc2d8660e5b6a547170c91017fe1e2165101ce9b9","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-living-donors-liver","retained_rows":51,"hosted_rows":51,"file":"data/evidence/c6242a205efa8fce5411.json","bytes":30768,"sha256":"6e442873e6845a5d24b4c1370f72dfdd9d7480eb9c7cb84426c435689330e195","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-all","retained_rows":51,"hosted_rows":51,"file":"data/evidence/9f33b1aa5659b97c6da5.json","bytes":31441,"sha256":"ac536b5bc29e1182027397ba55e78ddf03e63fca550886e971aed758079c76b3","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-heart","retained_rows":51,"hosted_rows":51,"file":"data/evidence/685e2c6a55d146e1af4b.json","bytes":31537,"sha256":"930613bd5d6dd866c344cdf743618d383fb8eba4b990e2fe0af833c7b77d1208","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-kidney","retained_rows":51,"hosted_rows":51,"file":"data/evidence/fc54704bf158d9274804.json","bytes":31595,"sha256":"d2c7bfd667770802248faa1047b537f2b48a699f27c35926e6b707ce52216516","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-kidney-pancreas","retained_rows":51,"hosted_rows":51,"file":"data/evidence/c03af590d696dbcf9327.json","bytes":32204,"sha256":"10a0f4f9c8bdb36391c4bbd16ad22a87193cd2d3eee3d89d721180ddeb0d593c","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-liver","retained_rows":51,"hosted_rows":51,"file":"data/evidence/0284faa2e36efad22a5f.json","bytes":31493,"sha256":"ee567d6b2bee778f42ee1625b0f916496a56dbcac47444c4396754ae954ce6a0","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-lung","retained_rows":51,"hosted_rows":51,"file":"data/evidence/498547f86c0852ccdfa8.json","bytes":31505,"sha256":"30bc77b8e63f183699ab93aef0ea590cea415c302b40a81b6d8ed9979bfbc0cc","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-waitlist-additions-pancreas","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b40cd07146a4185c6878.json","bytes":31939,"sha256":"1ddb48f443721c4d879ec5285257df65faf3c457ea8a3f1853245b83dd43b34f","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-all","retained_rows":51,"hosted_rows":51,"file":"data/evidence/284fffa9a6af64c21889.json","bytes":31311,"sha256":"ac9c30360c274cc9f8b0171c85bb9c9bc0e4085f5ba58688468468623f488efc","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-heart","retained_rows":51,"hosted_rows":51,"file":"data/evidence/ad09b7f4f3add28307d6.json","bytes":31445,"sha256":"283b00de49d456d5da24fc2f2b1f100fa08d2bd8d75341ef3e5771cb597751f8","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-kidney","retained_rows":51,"hosted_rows":51,"file":"data/evidence/4ae223d95bfda4c7ee9c.json","bytes":31461,"sha256":"f17a05eb103d5f54429a4b60efbf12c31513edd240fb70a853538363ff62b896","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-kidney-pancreas","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b18916f1dafe5cf5cc2f.json","bytes":32141,"sha256":"238fc3b936ab049bc382dc853ca83a70a2c3e4db6888b8907f44a27c6e270935","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-liver","retained_rows":51,"hosted_rows":51,"file":"data/evidence/3f51737ac7d6f332c92e.json","bytes":31381,"sha256":"3097611690e4619fef591f133d276eab168ea761aca708eb471096d4c6081d3a","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-lung","retained_rows":51,"hosted_rows":51,"file":"data/evidence/483c57cfdb8df1151ac9.json","bytes":31407,"sha256":"b193a3ac631d46e60043d0a41f5cef5c1a2575fb2939c7863d7118680980dff4","subset":null,"source_record_fields_preserved":true},{"id":"organ-donation-residence::organ-recipients-pancreas","retained_rows":51,"hosted_rows":51,"file":"data/evidence/27cd3e1b68c5b5adf5cb.json","bytes":31850,"sha256":"6bbaf84b004265ef96af0d78d201f9f19aab6138fb519cc80ca5d809c3c6ba24","subset":null,"source_record_fields_preserved":true},{"id":"intestine-program-center-state::intestine-program-recipients-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/14ad9dfb24e81ef55adf.json","bytes":35179,"sha256":"66aae91add7d19d1af1c404ffbd39a44b1f194ef553b9cbd9661b140561a28e8","subset":null,"source_record_fields_preserved":true},{"id":"intestine-program-center-state::intestine-program-waitlist-end-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/3aa4df1e8034b86b08ed.json","bytes":34634,"sha256":"0fcfa253a4fd39ed947ff36a616c124d3dee63f5add5871844a24f6d3d68d447","subset":null,"source_record_fields_preserved":true},{"id":"intestine-program-center-state::intestine-program-new-registrations-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b6cc267ab1e6e39e6962.json","bytes":34621,"sha256":"44735f6a0140fa4f7c404ec1c10b0b83352cb2031a57073b73267441478586f7","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/9e466129586f2ac2da9e.json","bytes":29913,"sha256":"4b70554baa3f2db4e1f070b1cbf731bc6ca5cc27092c6615a960972b0d0c7484","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/6daf4d00bcb1996e5390.json","bytes":30574,"sha256":"afbf873f8d0069cef1e9c02f86a92309845d5a911a704d248e1aadc762464618","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-receipts-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/89177fc313eaac3535ad.json","bytes":30105,"sha256":"747811aeb638fe30e3abbb30e54fe723360e3f90ed2703d54da363c409096758","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-spending-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/3b50a0f7c38a0eb6cf9a.json","bytes":30154,"sha256":"b937b63093912219048b165fed73f40cd96c5ec20c5b517b2065b4371de4337d","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-receipts-per-capita-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/c7df3da685de9cd19846.json","bytes":30837,"sha256":"57659e4c7e9775b6ea58dc576d5f6b5a5ca83ddd5b2749e83478622dcba40a52","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-spending-per-capita-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b65a402180bbbfbe279f.json","bytes":30860,"sha256":"35e2ed425333f6d915b346d8e57dad6f61484d166973711060035eed72136468","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-spending-per-dollar-2023","retained_rows":51,"hosted_rows":51,"file":"data/evidence/c5b2194b6d796f88cb47.json","bytes":31152,"sha256":"c64e22b36db25348f0e4ea3e5b4b511017d996c657cf653bab97fb9efff02a65","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2022","retained_rows":51,"hosted_rows":51,"file":"data/evidence/848892e5d10c4cd126f8.json","bytes":30039,"sha256":"e8a8f293955f53192ae00ee2702ed416661378d1a59da89b71239be766a734ca","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2022","retained_rows":51,"hosted_rows":51,"file":"data/evidence/2c24183dd02e5ffa17f8.json","bytes":30698,"sha256":"0f3692e370456489290acf582cabd1d81bc5062e98e90d1c6e52054eac5b5c99","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2021","retained_rows":51,"hosted_rows":51,"file":"data/evidence/d5bb24cbf542a543a4e7.json","bytes":30709,"sha256":"500280b0c4e67feca8029d60f276f643a0487c823f5995dc39e969ee22f5ac79","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2021","retained_rows":51,"hosted_rows":51,"file":"data/evidence/2300a22685e5a6c40e5c.json","bytes":31362,"sha256":"f94c3713664dbd8cf237694654a28592a42d15630a989513e1245ef105ed8015","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2020","retained_rows":51,"hosted_rows":51,"file":"data/evidence/f145c50ee58da1b078c5.json","bytes":30715,"sha256":"e11638f222bdf394d2a1b5c317043c3568f8ddf74c00c82abf93971b0b3be95a","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2020","retained_rows":51,"hosted_rows":51,"file":"data/evidence/5e23a14ae4a344138de8.json","bytes":31374,"sha256":"14a035ed75f4ff1446fb6f0ab260bae266aedb5d0bba95af8a29759706732b51","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2019","retained_rows":51,"hosted_rows":51,"file":"data/evidence/80349df19a9faf638989.json","bytes":30667,"sha256":"4b2d29c3f23b9abf167ac594b6feef528521af545e480760ad71c0e051c20731","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2019","retained_rows":51,"hosted_rows":51,"file":"data/evidence/0d13357bdc8466e54d5d.json","bytes":31332,"sha256":"8b934cbf8db1cd831e327ca4d1edb50a9995b4440353f8bc026d6fbdbbb96246","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2018","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e4eb50476e06393dd989.json","bytes":30669,"sha256":"bda3e344299d5de9aeafe3036f3e985cf9cd4bf8f14d74f6986b874ddd274f82","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2018","retained_rows":51,"hosted_rows":51,"file":"data/evidence/7c9af7cf85b1ebc6374b.json","bytes":31328,"sha256":"53888b5caebbc9b57f5750a734fa4dd1cd8a75a2203dc1c0a585800345e14d38","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2017","retained_rows":51,"hosted_rows":51,"file":"data/evidence/708aed1566ed01e22ee5.json","bytes":30665,"sha256":"473b162d1be7de3ab3de73749ba9a424535b6abcdb86597820070a5f9cb75f59","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2017","retained_rows":51,"hosted_rows":51,"file":"data/evidence/ff200ea286e2b8f50181.json","bytes":31322,"sha256":"b084b1b44408dc7e5f1e7ca40f99a1c85b6dcee06841886aba7eb82f79b35124","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2016","retained_rows":51,"hosted_rows":51,"file":"data/evidence/09f20235768f36eacde5.json","bytes":30667,"sha256":"c3e74bc4418e0d44b5da5ac6d40469bb9952bbd3888e2a76fc178d8ef0b8ecc7","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2016","retained_rows":51,"hosted_rows":51,"file":"data/evidence/f13518f3f1dd3358d34d.json","bytes":31320,"sha256":"7c2c6e2e000ce9c6a5270f78a51de16edfd88d7db4cc99d9a1bef133add6d785","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-2015","retained_rows":51,"hosted_rows":51,"file":"data/evidence/47a643ab475289b7de67.json","bytes":30667,"sha256":"903f5bf7426191d506218cfb6fbc38c31a4050c6ff51f1cbfc78e26604b6895c","subset":null,"source_record_fields_preserved":true},{"id":"federal-fiscal-balance::federal-net-per-capita-2015","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b5cf57f5e65fe3aae456.json","bytes":31332,"sha256":"47246b5e0ad1f6ff969b89da5eb3442debea58c7430bfd48cc33346d8bb31928","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-general-sales-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/a1a6e5a2d6d559c96bb2.json","bytes":30438,"sha256":"ac1d859b0cbf133461b15e96719d91fa43d72c9e6916fce8469b752d0e7d530d","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-individual-income-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/d11ef62fb57149b1047d.json","bytes":30580,"sha256":"a9cfd5f06da908664f5344254c45411c7e4b5c460ee0b331555e1048540c398f","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-corporate-income-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/bb82d4704c1af1d3a47a.json","bytes":30512,"sha256":"9a14b2cbcb26d350b537ee95565359d284fed9410fadd08ebece6e1b3748f479","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-property-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/1c5ab33de1864c20d9d1.json","bytes":29844,"sha256":"02d7a1e317549355c2f4ebbb4a6bf752b651fc797fa8e4b100ef8f57b5e9d75c","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-severance-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/9989af11c373944b4654.json","bytes":29802,"sha256":"342c988916c397e70d346894d8dd67de0ab4d89c450009abd463430fc24031a0","subset":null,"source_record_fields_preserved":true},{"id":"state-government-tax-receipts::state-tax-motor-fuels-2025","retained_rows":51,"hosted_rows":51,"file":"data/evidence/6f231f8b9e74f9d1c9e3.json","bytes":30270,"sha256":"29ee2053347599bebcbb790f62425dbc962cce704d2229d7da42e9350aee8ef1","subset":null,"source_record_fields_preserved":true},{"id":"voting-administration::eac-total-registered","retained_rows":51,"hosted_rows":51,"file":"data/evidence/5a65a71bbd491ceb049f.json","bytes":29274,"sha256":"9c43cf50b8c3dad530d5c3fcbcd5877ef33624ee249f5f4d3ee995074f254d45","subset":null,"source_record_fields_preserved":true},{"id":"voting-administration::eac-active-registered","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e882fc63f17c0908e72f.json","bytes":29356,"sha256":"2dab416d6c8a8fc0b610d30116ea8deced65a77974e45ea2f680ce190a785478","subset":null,"source_record_fields_preserved":true},{"id":"voting-administration::eac-counted-ballot-voters","retained_rows":51,"hosted_rows":51,"file":"data/evidence/713985d0236980747e57.json","bytes":29623,"sha256":"cbd488331b4a8c345b58e0f44bd4dd3f84718cee6a6f9571c009652e488cf0ef","subset":null,"source_record_fields_preserved":true},{"id":"voting-administration::eac-turnout-of-all-registered","retained_rows":51,"hosted_rows":51,"file":"data/evidence/00409fe056556bd84b3b.json","bytes":31920,"sha256":"635c53c158092eba669a8971b4fead46734ce5dc89c43852da58c81aaa8795ff","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-reported-registered-citizens","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b3e6916281c47642429e.json","bytes":27726,"sha256":"e69a0d682c3a8401fce8836df73c5d1a0545e655ed8a9a95cb0b52fec53332da","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-reported-voted-adults","retained_rows":51,"hosted_rows":51,"file":"data/evidence/bf9629c740550ea77bb9.json","bytes":27410,"sha256":"e5026133314e56545561c468aa00a1db88b3f577ce2c24e4f7b3766961084fbf","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-reported-registered-adults","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b202a17275d068d54f11.json","bytes":27629,"sha256":"1a633d4b64f9bfb66aa0b8c2cf64df7bc07c0b9a0fe6da1c1a69c8bb39362173","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-reported-voted-count","retained_rows":51,"hosted_rows":51,"file":"data/evidence/dc062fc6f03b8d7c9e88.json","bytes":28122,"sha256":"81176ac1cc20c9dc065acafb27d56dd4143aae915ad1884fe8d997a1c449236e","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-reported-registered-count","retained_rows":51,"hosted_rows":51,"file":"data/evidence/383d72737014b0a47c52.json","bytes":28394,"sha256":"c36d69903ca5c55d06957e9cbf7902f82f8c090afb4870cba7170de4247c3de1","subset":null,"source_record_fields_preserved":true},{"id":"reported-voting::cps-voted-of-reported-registered","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e15811f3da37bebebc03.json","bytes":31032,"sha256":"15a1d964d50bda6b36ab1fea3dce5714d95e60a231cf514034f40a80c36f46eb","subset":null,"source_record_fields_preserved":true},{"id":"education::education-hs-or-higher","retained_rows":51,"hosted_rows":51,"file":"data/evidence/60431a83e53946b10444.json","bytes":30250,"sha256":"85ff96a365dffa49543b53671b9dc205e11b846bc82a9de4a673d50f95a72ee9","subset":null,"source_record_fields_preserved":true},{"id":"education::education-graduate-professional","retained_rows":51,"hosted_rows":51,"file":"data/evidence/655cf2f3c34edcac9c59.json","bytes":30785,"sha256":"fc306a4fa5953136699009935f2e314124a714e2d2aa09ed775ee89bd7ad0cfb","subset":null,"source_record_fields_preserved":true},{"id":"education::education-less-than-high-school","retained_rows":51,"hosted_rows":51,"file":"data/evidence/cd813ff6e6a922761ebf.json","bytes":30782,"sha256":"5f846f45fc464f62d31af80e59a85f6e6bcef9153c1880131e25ca35aa8f936a","subset":null,"source_record_fields_preserved":true},{"id":"education::education-high-school-only","retained_rows":51,"hosted_rows":51,"file":"data/evidence/d81a94a6bbe24133060a.json","bytes":30533,"sha256":"792c527319f7b36fb24a8a5c982f1cc29c466395c160209732017c5fdb454093","subset":null,"source_record_fields_preserved":true},{"id":"education::education-some-college-no-degree","retained_rows":51,"hosted_rows":51,"file":"data/evidence/120b29f847819c0504f4.json","bytes":30833,"sha256":"ecdb4ad358d5f6950139aa4806e04b491fb6ee97410ddcccd21c47ed3dfea0ad","subset":null,"source_record_fields_preserved":true},{"id":"education::education-associate-only","retained_rows":51,"hosted_rows":51,"file":"data/evidence/c9eb0cf2c545c13b07d8.json","bytes":30354,"sha256":"510b7862a46dad67eefe01dc661f2a2de249dd322638b9219ac38e772e239c2e","subset":null,"source_record_fields_preserved":true},{"id":"education::education-bachelors-only","retained_rows":51,"hosted_rows":51,"file":"data/evidence/7de65bb61a2f61b25838.json","bytes":30400,"sha256":"0a1f7af6137ddc65aac1335f1bd347a96e2b5b76c12721ae108a6e2ae00b8b65","subset":null,"source_record_fields_preserved":true},{"id":"education::education-population-25plus","retained_rows":51,"hosted_rows":51,"file":"data/evidence/1d3fa1ab3c5d7a280c52.json","bytes":28482,"sha256":"107374d56803e314b84ae13209bb46580cd42e5f549fa114f41a34205c7f1917","subset":null,"source_record_fields_preserved":true},{"id":"presidential-results::fec-trump-share","retained_rows":51,"hosted_rows":51,"file":"data/evidence/0b01aed8bf6c9acfdc4c.json","bytes":29316,"sha256":"80da77f063b99bb7d27c5883b4849ed75789bf4138baccbce03ee20565453cda","subset":null,"source_record_fields_preserved":true},{"id":"presidential-results::fec-harris-share","retained_rows":51,"hosted_rows":51,"file":"data/evidence/f757d8cbb2e1dfe161f1.json","bytes":29367,"sha256":"f710b3f8de11c2d8d0f05ec8a1a17282451ef0f89c4ad9ce01912f6728be4b6f","subset":null,"source_record_fields_preserved":true},{"id":"presidential-results::fec-other-share","retained_rows":51,"hosted_rows":51,"file":"data/evidence/ec280fb57d86374ef000.json","bytes":29370,"sha256":"bfaa2d0ca2a51d92a75210cc164436f182cb2afde1fb18ed8805a97a69170693","subset":null,"source_record_fields_preserved":true},{"id":"presidential-results::fec-presidential-votes-total","retained_rows":51,"hosted_rows":51,"file":"data/evidence/9dfb8636aa6419409379.json","bytes":27751,"sha256":"b9f07c60a488bef11ff038e3ae9e28d7b0cc5a35276fcd929668fa349a91cdaf","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-hs-or-higher","retained_rows":133,"hosted_rows":133,"file":"data/evidence/82856a4ed8126636bfc4.json","bytes":82372,"sha256":"a28dc77d6d1912516d943bf2a2716c123b8f0b424a637b3966db72b530fafa31","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-bachelors-or-higher","retained_rows":133,"hosted_rows":133,"file":"data/evidence/4365622c0d2c2885ba64.json","bytes":83457,"sha256":"e533264087411b2e539aaca72906d3e9cfd250f766e2a2f11f265dd6a068d767","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-graduate-professional","retained_rows":133,"hosted_rows":133,"file":"data/evidence/f44964a88a85c52c31dc.json","bytes":83697,"sha256":"aa66bc2633fe79506133fb9d78e998bc6d38e8fa77b415bd4cde62f00241cbca","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-less-than-high-school","retained_rows":133,"hosted_rows":133,"file":"data/evidence/ea53de02c530149bb070.json","bytes":83732,"sha256":"82f9e17bcc32933bab4d89e9e6b3ea61c3d637018c08dc7b2df02d23d652e371","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-high-school-only","retained_rows":133,"hosted_rows":133,"file":"data/evidence/2073230c7e1bc0773d2a.json","bytes":83095,"sha256":"ba054585f41d88201155b186dde6b8694dcde5e9b963c8a314c0ee769a88a7ef","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-some-college-no-degree","retained_rows":133,"hosted_rows":133,"file":"data/evidence/ed07b03ebc777c4cfef7.json","bytes":83895,"sha256":"fcba685a81d888088ca9807d3f57d4e547ff5cf63fe35ae40cb4d4f368185265","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-associate-only","retained_rows":133,"hosted_rows":133,"file":"data/evidence/24cf60e95e52e9ce3e0e.json","bytes":82712,"sha256":"86923cf0a40ff48fbcfe1437aa34fac396f47c6041d126c2aa0c3128b5ff5c19","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-bachelors-only","retained_rows":133,"hosted_rows":133,"file":"data/evidence/df2dfb2c4de22e2c0acf.json","bytes":82828,"sha256":"b35d5810e7811833e9b492b100572c460329781bad8ad675f5f08fd4a92848b2","subset":null,"source_record_fields_preserved":true},{"id":"virginia-education::va-education-population-25plus","retained_rows":133,"hosted_rows":133,"file":"data/evidence/ea6bb050f6b50983c55e.json","bytes":76897,"sha256":"ab4ea910f15f5c8d3d29288f28b1877a33dafa1f79325a506db95c579ad4f765","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-plugins-total","retained_rows":133,"hosted_rows":133,"file":"data/evidence/257d9e1ae566afb8efd1.json","bytes":63811,"sha256":"870c8307cd13d9e496d1af88dc656635c74a86b0c466fa96b2a4cf73e41e90b4","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-plugins-per-1000-residents","retained_rows":133,"hosted_rows":133,"file":"data/evidence/3a9c03a2e81f5ea4c1b8.json","bytes":73665,"sha256":"5d7cc3f3dae8eb5d777fe17045e5d1944b4cc8b2b6247337ca6f1c70cc14897b","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-bev-total","retained_rows":133,"hosted_rows":133,"file":"data/evidence/8c3a6e287c29e413fa57.json","bytes":62562,"sha256":"e769dd259b06aae7800b071c57f63f1d7ec5cad22628657ef657bbb3fe7deb16","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-phev-total","retained_rows":133,"hosted_rows":133,"file":"data/evidence/f8f45af4da9c1d681130.json","bytes":62730,"sha256":"d52669e35dcf4959a519c25298f8abf3fde79a8dd74e8e76dccb7870dda4af94","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-model-ford-f-150","retained_rows":133,"hosted_rows":133,"file":"data/evidence/70db90fb10a24231dc6e.json","bytes":68821,"sha256":"c20349febfdc92301a167be69fb6e7103f4c904257fb06f7e7853542a15bc227","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-model-rivian-r1t","retained_rows":133,"hosted_rows":133,"file":"data/evidence/74117bee5368ce75d177.json","bytes":68767,"sha256":"83752928b5b1e0c1a1cad1fb42003f307929f756e85d69c932585213101fe85b","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-model-tesla-cybertruck","retained_rows":133,"hosted_rows":133,"file":"data/evidence/db2fcbbdfb83e2086e7e.json","bytes":69601,"sha256":"763a7a2580379cf6fe7ffa94cecd398a3d9043c8592d8a222acd45b6b5082f77","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-model-tesla-model-y","retained_rows":133,"hosted_rows":133,"file":"data/evidence/d832f697646ba570cbbf.json","bytes":69409,"sha256":"a44655855e00ba59d6b69df435cc4a704e86fea8cb2c54d167520b3ae14ccb9b","subset":null,"source_record_fields_preserved":true},{"id":"virginia-vehicles::va-model-chevrolet-silverado-ev","retained_rows":133,"hosted_rows":133,"file":"data/evidence/003e46df35c8514d60e2.json","bytes":70375,"sha256":"7a578a84033193dc8fb2a40bcbfa8e077aaa00076c99b7bd8e48b284bad1881d","subset":null,"source_record_fields_preserved":true},{"id":"urban-settlements::urban-population-2020","retained_rows":2611,"hosted_rows":2611,"file":"data/evidence/fce17393545017c29321.json","bytes":1396342,"sha256":"d9673bc4ee50d20fab28add4948460a63568a4e31224708c9697aaaebfb630fa","subset":null,"source_record_fields_preserved":true},{"id":"urban-settlements::urban-density-2020","retained_rows":2611,"hosted_rows":2611,"file":"data/evidence/503c5c7f79a251aee56c.json","bytes":1448176,"sha256":"7bc583db4e6d3a3b3170df241598d151a0e7d5d8ce3ed2e91cdeef953cb0b3e7","subset":null,"source_record_fields_preserved":true},{"id":"urban-settlements::urban-land-2020","retained_rows":2611,"hosted_rows":2611,"file":"data/evidence/dec4af74e71566f81c47.json","bytes":1360605,"sha256":"24cb8513322d665f3921b4f424af11e7404440b509eb354b856adb19d4508397","subset":null,"source_record_fields_preserved":true},{"id":"virginia-drainage-basins::virginia-drainage-basins-area","retained_rows":13,"hosted_rows":13,"file":"data/evidence/0b195c971487ec16d86a.json","bytes":8783,"sha256":"d5548a6ed32954a266778d1a221ca9325a13931556de61aad3a96784c5cff6f6","subset":null,"source_record_fields_preserved":true},{"id":"drainage-regions::drainage-regions-area","retained_rows":22,"hosted_rows":22,"file":"data/evidence/364bd7c51093166ddb41.json","bytes":13123,"sha256":"8f632a6f4682d293376213163adfc8e47a8354f556d577c87545e3990982650e","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::TEPRB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/a3e093255feed1dd23c8.json","bytes":18385,"sha256":"d2e0543f9f1d70171c9a933a2c4a9010a613f638d04870a7c927ff825362b4eb","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::TETCB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/e63689196dbd71b1ab1a.json","bytes":18434,"sha256":"8408bfc816ef06806caf7a46307d7b1ce2e1b4124b48cf160de9f75955b2be4e","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::CLPRB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/db40fc9deeef31d5019c.json","bytes":18043,"sha256":"7b03d7085e997f4987529a7cffa327164c70e8be24b816af465c459180d67844","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::CLTCB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/153cf90f48bb777c02a6.json","bytes":18246,"sha256":"bd6a00e8fe2e125440b3a2ef79a4338e7c72147db048ecde299d18e8d0d4dfeb","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::PAPRB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/961714b9df3f167fd6e9.json","bytes":18141,"sha256":"5d79b8135142d2a51e0633517fa43ac261b52efb0fd4f69436c1473d6a1c6e70","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::PATCB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/cfebf96dc51048651403.json","bytes":18400,"sha256":"05bc217586c6cd1997ae368074f1553a3ec8258b9b6ff1f54fbbe5b37719bb2a","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::NGMPB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/835449dc978aecdd02f3.json","bytes":18137,"sha256":"a8a5b26aa602f862ac3d21729fe9578fac3a86f44a656355b564ecf5c2e3593b","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::NGTCB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/512d230851a87f62900e.json","bytes":18418,"sha256":"57eef6225778353fa89e4b30c6e6da0c8c8d27182e65a6cb6dafe4fcb616d8fb","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::TERCB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/02294f9617fae6dbcd01.json","bytes":18378,"sha256":"ed15e6ccbf2269df091d7200c8d9446ffb944f20246c599e2fb46efa0dff7d05","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::TEICB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/8544a51a63b578be2fea.json","bytes":18391,"sha256":"d55efb59403d762e26d2b78ade9ab58c4f8d1b07f7747707abf96960e7aff828","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::TECCB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/1ba7f3c8aec7ddb84e9f.json","bytes":18375,"sha256":"759a8d32958ced534b54a1cae5a98f3ac65d5a84ccdaaa36a908e927d4cb18c5","subset":null,"source_record_fields_preserved":true},{"id":"state-energy::TEACB","retained_rows":51,"hosted_rows":51,"file":"data/evidence/9be44994ce2da4f2f618.json","bytes":18399,"sha256":"027206ef53b5c1e37ea93d0b33c31b4fc4e12c9386440789528d15c83e8ad559","subset":null,"source_record_fields_preserved":true},{"id":"water::agriculture_withdrawal_share","retained_rows":178,"hosted_rows":178,"file":"data/evidence/c0b7fdc4f4770f696382.json","bytes":77514,"sha256":"ccb85697268a1c2c6096d501ed16cc91504a9b47cf37ff43f094ec69202f854c","subset":null,"source_record_fields_preserved":true},{"id":"water::industry_withdrawal_share","retained_rows":177,"hosted_rows":177,"file":"data/evidence/7686f2017c32455b08a8.json","bytes":75953,"sha256":"46df95c5bf5cf5ee78b5a55e9eefa16c1cf164b10da3bb755d0e69db5d697c62","subset":null,"source_record_fields_preserved":true},{"id":"water::domestic_withdrawal_share","retained_rows":177,"hosted_rows":177,"file":"data/evidence/5251a2f2e7f607285560.json","bytes":76029,"sha256":"55fee26fd5c5513a60a58c06b70c15b151b273d9900628141bc7180153e6b05a","subset":null,"source_record_fields_preserved":true},{"id":"water::total_withdrawals","retained_rows":179,"hosted_rows":179,"file":"data/evidence/2fe9e2039f743f86a9f0.json","bytes":71628,"sha256":"dd4f74be59d8854935d5cf8176cc007ecb3a6a393262032b7bdd2304dcd33cdd","subset":null,"source_record_fields_preserved":true},{"id":"water::water_stress","retained_rows":176,"hosted_rows":176,"file":"data/evidence/1830fe93c0e145347e7f.json","bytes":71399,"sha256":"f54512f82863aefb646b12bcfb4bdba9ae7bf538600d328c2772eb29cbbfc4ec","subset":null,"source_record_fields_preserved":true},{"id":"minerals::cobalt-production-mine-production","retained_rows":12,"hosted_rows":12,"file":"data/evidence/67d1c1b805adcf4c6421.json","bytes":5828,"sha256":"cbd5e3793ab0b392c2eaa9017cc1c69b0049b3a467c4b679b4577cd76dcb6040","subset":null,"source_record_fields_preserved":true},{"id":"minerals::copper-production-mine-production","retained_rows":17,"hosted_rows":17,"file":"data/evidence/ddd02dfb8222facf467c.json","bytes":7708,"sha256":"a78d4af8b31cb82148738260c395eb6f42b55a2f4d8532663948ebbe299e365e","subset":null,"source_record_fields_preserved":true},{"id":"minerals::gold-production-mine-production","retained_rows":13,"hosted_rows":13,"file":"data/evidence/a6f8c434fc5c569e6aa4.json","bytes":6067,"sha256":"8212c362493b344127c742995f23e64de8d4942eab82d961191bde70122c5c72","subset":null,"source_record_fields_preserved":true},{"id":"minerals::iron-ore-production-mine-production-usable-ore","retained_rows":17,"hosted_rows":17,"file":"data/evidence/355af7e073c2ec9fb2e1.json","bytes":7978,"sha256":"66d25fb2526f6c74364bc5998b869fef383dfae9d726abc26b80d5bec3b340fc","subset":null,"source_record_fields_preserved":true},{"id":"minerals::lithium-production-mine-production","retained_rows":10,"hosted_rows":10,"file":"data/evidence/749cfcc24a79fc23cb8f.json","bytes":5090,"sha256":"d4d7e6ef5b3798fc43e2af37262e2853923e2ee7259b005fce4d902f013ee7d5","subset":null,"source_record_fields_preserved":true},{"id":"minerals::nickel-production-mine-production","retained_rows":9,"hosted_rows":9,"file":"data/evidence/25030391e3b45b799e3f.json","bytes":4777,"sha256":"af03a007f3c16f6ff9b5b7f788e8a5c08fd0ac5c23010a60bf0aa0c5967bdeec","subset":null,"source_record_fields_preserved":true},{"id":"minerals::phosphate-rock-production-mine-production","retained_rows":24,"hosted_rows":24,"file":"data/evidence/17854ee79a05a096b71f.json","bytes":10426,"sha256":"0e7506b040a5aa5fdfcf77d589d336fb605c0c58e40bee3bb60c3f5f824a64fc","subset":null,"source_record_fields_preserved":true},{"id":"minerals::rare-earths-production-mine-production","retained_rows":16,"hosted_rows":16,"file":"data/evidence/cb51c3ece76418977a34.json","bytes":7309,"sha256":"07682d0ad09bdcb08d4c7a93f2ad2f86a0a8014f7696f5cbc0a336e9eb2aeb53","subset":null,"source_record_fields_preserved":true},{"id":"minerals::cobalt-reserves-reserves","retained_rows":12,"hosted_rows":12,"file":"data/evidence/5fe841eead739265136a.json","bytes":5749,"sha256":"454cd74b9638a985c2128750bede937b1645421483701e53b84c2bcdbfe84787","subset":null,"source_record_fields_preserved":true},{"id":"minerals::copper-reserves-reserves","retained_rows":17,"hosted_rows":17,"file":"data/evidence/af8286e1d340d5c938c1.json","bytes":7593,"sha256":"451f220b0f6a65f691f0e2c791b23700929fdcb7e72fb7f0e4e143d34e0f6054","subset":null,"source_record_fields_preserved":true},{"id":"minerals::gold-reserves-reserves","retained_rows":13,"hosted_rows":13,"file":"data/evidence/3c5544241f65fc2f7f14.json","bytes":5983,"sha256":"42f52359da91d6af481568835041779add54d750dcc2f4886423dcd507f338f5","subset":null,"source_record_fields_preserved":true},{"id":"minerals::iron-ore-reserves-reserves-million-metric-tons-crude-ore","retained_rows":17,"hosted_rows":17,"file":"data/evidence/bc40330a9945bbffa6e1.json","bytes":8118,"sha256":"5759ab65bdd45c6fd6fbad6b87d026ee5a14fc75293a39059b6592b1c4234585","subset":null,"source_record_fields_preserved":true},{"id":"minerals::iron-ore-reserves-reserves-million-metric-tons-iron-content","retained_rows":17,"hosted_rows":17,"file":"data/evidence/aa5f08090ffe2696259e.json","bytes":8148,"sha256":"11f2f087336b0afd1be4df8dcf314c861715ab434514241f948cc1e3733a7d50","subset":null,"source_record_fields_preserved":true},{"id":"minerals::lithium-reserves-reserves","retained_rows":10,"hosted_rows":10,"file":"data/evidence/e1ceb955ca202b8c0c54.json","bytes":5037,"sha256":"b15df7e6a9e0e0bc80b906a957c13d29c4084d4358475db172df1a1cfdcf68ea","subset":null,"source_record_fields_preserved":true},{"id":"minerals::nickel-reserves-reserves","retained_rows":9,"hosted_rows":9,"file":"data/evidence/37f9a3268ece420b3c4c.json","bytes":4713,"sha256":"c1b08ba769bc5b0c23d6bf2e5f91f00d2a761df8f2507ad6edf4fe037db491dc","subset":null,"source_record_fields_preserved":true},{"id":"minerals::phosphate-rock-reserves-reserves","retained_rows":24,"hosted_rows":24,"file":"data/evidence/3b95309ad8204054bf80.json","bytes":10309,"sha256":"e52edf3ff1b990341abdbedff95934dc45a2c1c6cccdff727e082dd982ee16a8","subset":null,"source_record_fields_preserved":true},{"id":"minerals::rare-earths-reserves-reserves","retained_rows":16,"hosted_rows":16,"file":"data/evidence/b12b7a4e9eac34ddcc05.json","bytes":7203,"sha256":"de2bca6ea72b5134e715301ad43387d3904cf0caf11205cb35fd2eaa421bd427","subset":null,"source_record_fields_preserved":true},{"id":"crops::wheat","retained_rows":123,"hosted_rows":123,"file":"data/evidence/1c82d5c2b5937f09ee14.json","bytes":44508,"sha256":"3689dfaaf6614a4ffe954732f427e401b4cd5de20994884b0a643cc35dc30f52","subset":null,"source_record_fields_preserved":true},{"id":"crops::maize-corn","retained_rows":169,"hosted_rows":169,"file":"data/evidence/c729e087e2695544baf8.json","bytes":61457,"sha256":"009588e947edb74042c4ff4d118d8178d717ce6d71ca491480eec8615426aaaa","subset":null,"source_record_fields_preserved":true},{"id":"crops::rice","retained_rows":138,"hosted_rows":138,"file":"data/evidence/5eb660b0195f6e0610f3.json","bytes":49533,"sha256":"f9c467d1b9b6562aa17b0904f1c2635deeab8e961d9a217fd072f38bbf03d844","subset":null,"source_record_fields_preserved":true},{"id":"crops::soya-beans","retained_rows":114,"hosted_rows":114,"file":"data/evidence/0ed1ae466d2b5dcc263d.json","bytes":41657,"sha256":"960b6ecc18776b772b52c0cd420033440b8978dd66e60bd6b764392f5403432a","subset":null,"source_record_fields_preserved":true},{"id":"crops::coffee-green","retained_rows":79,"hosted_rows":79,"file":"data/evidence/0806fde23c6188f3b041.json","bytes":29540,"sha256":"633dd28abb5c5cd4d9ce1611f930ce77dbb399c92a5e804ab4b1643f37850f56","subset":null,"source_record_fields_preserved":true},{"id":"crops::cocoa-beans","retained_rows":59,"hosted_rows":59,"file":"data/evidence/f66f51ec3b9e7d821e88.json","bytes":22362,"sha256":"ce4d1d21b01e248ace6e67dca92e4ec339a5812734b8691aa043d4381e01a83e","subset":null,"source_record_fields_preserved":true},{"id":"crops::seed-cotton-unginned","retained_rows":93,"hosted_rows":93,"file":"data/evidence/0cf69eccd38d7e478eed.json","bytes":35362,"sha256":"94d4362f10a35faa793e7aa8d1721c730ec7fb2e3f45252f4b04a310471f7c02","subset":null,"source_record_fields_preserved":true},{"id":"crops::oil-palm-fruit","retained_rows":43,"hosted_rows":43,"file":"data/evidence/af4a24d7b832b69c57b1.json","bytes":17025,"sha256":"9a5af814765e6335949bc3b7d193fde31738856f120af7b2e6baed5dbeae63f9","subset":null,"source_record_fields_preserved":true},{"id":"food-use::wheat-and-products-production","retained_rows":117,"hosted_rows":117,"file":"data/evidence/c04c4125d4034eb1381a.json","bytes":45418,"sha256":"de0e96d6e173cee322b72461ccd634536f42c2b6e10dc95de89b41818670889c","subset":null,"source_record_fields_preserved":true},{"id":"food-use::wheat-and-products-food","retained_rows":175,"hosted_rows":175,"file":"data/evidence/e9ccf9e253762dec75d3.json","bytes":66362,"sha256":"dd67c0a9ccaaada39097c27ee44755a2f376ced42e86f3d03e2fd17370ca233a","subset":null,"source_record_fields_preserved":true},{"id":"food-use::wheat-and-products-feed","retained_rows":168,"hosted_rows":168,"file":"data/evidence/f7558c8948fcd378ce5f.json","bytes":63453,"sha256":"9efae86b51b95d52b19bc5a8ee8a43ef8d2eacbd6d289999ac0a0d5f115bc973","subset":null,"source_record_fields_preserved":true},{"id":"food-use::wheat-and-products-processing","retained_rows":71,"hosted_rows":71,"file":"data/evidence/5689ee67677896d8198a.json","bytes":27842,"sha256":"e404f79d3353e0664c8c61db0096cdb63e633e0f6071deee8e6b0f46d60653e2","subset":null,"source_record_fields_preserved":true},{"id":"food-use::wheat-and-products-import-quantity","retained_rows":175,"hosted_rows":175,"file":"data/evidence/a8ec7664a73f1721ef6d.json","bytes":68311,"sha256":"4aa75e63db65b87e52865440fb5921d1cdc4774f01ae224ef179c990f7582db4","subset":null,"source_record_fields_preserved":true},{"id":"food-use::wheat-and-products-export-quantity","retained_rows":171,"hosted_rows":171,"file":"data/evidence/037ca7660d5aceed0cfc.json","bytes":66487,"sha256":"e95be6647e61ec2174526340d7b62f969a2b413b3c62eb61f37bd40b1c46e1b1","subset":null,"source_record_fields_preserved":true},{"id":"food-use::maize-and-products-production","retained_rows":155,"hosted_rows":155,"file":"data/evidence/f0857f089806c3dde785.json","bytes":59718,"sha256":"7c1c13df3c81e37979977ee84e890ec75113c63ec7f6364d2e0b4be2cb3350fc","subset":null,"source_record_fields_preserved":true},{"id":"food-use::maize-and-products-food","retained_rows":172,"hosted_rows":172,"file":"data/evidence/19e03fddd4803ae4ee37.json","bytes":65021,"sha256":"7bdfd7f8d80e74179e470ed1db903a95b313faf0c8cf8d245c677fa62584c8df","subset":null,"source_record_fields_preserved":true},{"id":"food-use::maize-and-products-feed","retained_rows":172,"hosted_rows":172,"file":"data/evidence/3bb11a7035e7c6e85c40.json","bytes":65105,"sha256":"8778cfd0027d711bbe1290fd4ce3a2b407267c1b9c47656c4f74b8227aed3d46","subset":null,"source_record_fields_preserved":true},{"id":"food-use::maize-and-products-processing","retained_rows":96,"hosted_rows":96,"file":"data/evidence/9eb903d8e98e07ded8ef.json","bytes":37383,"sha256":"7d4821060a5f22d21ea2f1985049f0e127ccc5db519e98b225078891dbf5dcb3","subset":null,"source_record_fields_preserved":true},{"id":"food-use::maize-and-products-import-quantity","retained_rows":175,"hosted_rows":175,"file":"data/evidence/91c2d91a613d1dbaa227.json","bytes":68111,"sha256":"f0634ca408e91fa4a60345ef538612b0d413165d5a85e931d3d006df50043e93","subset":null,"source_record_fields_preserved":true},{"id":"food-use::maize-and-products-export-quantity","retained_rows":150,"hosted_rows":150,"file":"data/evidence/ca70cf4363525fa61887.json","bytes":58339,"sha256":"7a6fda88be3625e2b87c86d6bad33682537f9b9a7fedfed96e2629e1957c9359","subset":null,"source_record_fields_preserved":true},{"id":"food-use::rice-and-products-production","retained_rows":128,"hosted_rows":128,"file":"data/evidence/5a02d2dee84cb5a6ac26.json","bytes":49415,"sha256":"ab6865d86aef265930070525ed51b17ea0f310c03555d62d2c80b0fcd793915b","subset":null,"source_record_fields_preserved":true},{"id":"food-use::rice-and-products-food","retained_rows":175,"hosted_rows":175,"file":"data/evidence/33fd0147eaee6add4446.json","bytes":66059,"sha256":"e1a9a43d602bfdf157719bb0066843ee432277029bebb040215f7b403e7deaa1","subset":null,"source_record_fields_preserved":true},{"id":"food-use::rice-and-products-feed","retained_rows":160,"hosted_rows":160,"file":"data/evidence/e687a4d4eccf13eb895d.json","bytes":60165,"sha256":"cc8ca6115c0fb2c1988aefd72597c704a9ca4bef82c6383decd1ccd9dddf62d0","subset":null,"source_record_fields_preserved":true},{"id":"food-use::rice-and-products-processing","retained_rows":61,"hosted_rows":61,"file":"data/evidence/695ebdc6bdb2338586c3.json","bytes":24175,"sha256":"66fadb96adf310a6c48254d10a7da6b9c9e2a2c253ef07caf82cf568a9c295a9","subset":null,"source_record_fields_preserved":true},{"id":"food-use::rice-and-products-import-quantity","retained_rows":175,"hosted_rows":175,"file":"data/evidence/db0a9bf94af0ca774b27.json","bytes":67906,"sha256":"3499bfd7d00d2afc88e4ae4d2cfea3e588789ff9d779f8aba1c9b191aa62422e","subset":null,"source_record_fields_preserved":true},{"id":"food-use::rice-and-products-export-quantity","retained_rows":156,"hosted_rows":156,"file":"data/evidence/9ae075d55fb845d06e71.json","bytes":60397,"sha256":"8081ac8097c70886053c4150a7a32afc15c6fd471c6152dfdb0a30e8273cfaf1","subset":null,"source_record_fields_preserved":true},{"id":"food-use::soyabeans-production","retained_rows":107,"hosted_rows":107,"file":"data/evidence/7c536395ff1b28ed5c6e.json","bytes":40465,"sha256":"8beaac8708aefa377c21d2133be1e20a7763a8b91b55edf10ff00b532d53393e","subset":null,"source_record_fields_preserved":true},{"id":"food-use::soyabeans-food","retained_rows":175,"hosted_rows":175,"file":"data/evidence/3134eb2b6c8678c55be0.json","bytes":64101,"sha256":"c4308e4280ca21d975117db87ec620a6e7c0d9a6fd2c4552e0cf7c526d8f3b47","subset":null,"source_record_fields_preserved":true},{"id":"food-use::soyabeans-feed","retained_rows":133,"hosted_rows":133,"file":"data/evidence/9789d38cddecff5eb8f5.json","bytes":49135,"sha256":"a3e569f406dd245ade81db3e152cdf8f71e9c9e06234b4c740e4cca6d1e67fd6","subset":null,"source_record_fields_preserved":true},{"id":"food-use::soyabeans-processing","retained_rows":100,"hosted_rows":100,"file":"data/evidence/005fbe92a888882f6f84.json","bytes":38113,"sha256":"9f155bc92bc2ddfe907933235e06223e725df21a8798f6d721d30b5763e15bdc","subset":null,"source_record_fields_preserved":true},{"id":"food-use::soyabeans-import-quantity","retained_rows":175,"hosted_rows":175,"file":"data/evidence/c91a2191810bc605b50f.json","bytes":66246,"sha256":"7824ded87bad178193f2e2a78c22d8cbb1863747dd38bc75f65a8140a01397ac","subset":null,"source_record_fields_preserved":true},{"id":"food-use::soyabeans-export-quantity","retained_rows":138,"hosted_rows":138,"file":"data/evidence/55785df87ea8fa63dde1.json","bytes":52441,"sha256":"98759a2fa3cdc84ec87286f6ab619509f52c86d22fab9d445733d5476d9c2a23","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::oil_production_twh","retained_rows":219,"hosted_rows":219,"file":"data/evidence/4896b8fdaec666482af0.json","bytes":91431,"sha256":"b310d46430352c0d9b5dc1d0f1460d898107f3aacce940cdea3883019d97f1db","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::oil_energy_twh","retained_rows":79,"hosted_rows":79,"file":"data/evidence/6925b841c281af8986c5.json","bytes":33972,"sha256":"57b1f5402cdaf0913b0ec495bde5c7176430c13608ffcff3006984a316dcf763","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::gas_production_twh","retained_rows":219,"hosted_rows":219,"file":"data/evidence/8dbddb59e1fd9687907a.json","bytes":91479,"sha256":"d76537902d359d2be3e83df6789df0d7df7ccf0410424cc57fae15951e4b5c4f","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::gas_energy_twh","retained_rows":79,"hosted_rows":79,"file":"data/evidence/3605c1cf62828dbecced.json","bytes":33937,"sha256":"36bd94d0c7c59e3f844117f9a24bb802733d9163dc749a3e5333297a24fcaf5a","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::coal_production_twh","retained_rows":219,"hosted_rows":219,"file":"data/evidence/e866a3a421b558058c80.json","bytes":91284,"sha256":"0d1dc6d172ba2c9a1d1e350491788cf15d10c5d2db71617a60fb030d499744f8","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::coal_energy_twh","retained_rows":79,"hosted_rows":79,"file":"data/evidence/74ef49c40a466f89bcc1.json","bytes":34077,"sha256":"ada5a4e2f2babf2ff2d4da773a278f7be0e40bc4fdfa6136b9043abb84197692","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::electricity_generation_twh","retained_rows":214,"hosted_rows":214,"file":"data/evidence/468640af598350927966.json","bytes":90651,"sha256":"0cbf71ad6857994028b6f9851435673b9be920a640106266d1dd5d8057529fca","subset":null,"source_record_fields_preserved":true},{"id":"global-energy::electricity_demand_twh","retained_rows":214,"hosted_rows":214,"file":"data/evidence/4278e7c3c334df2f9504.json","bytes":89793,"sha256":"f1f52b540c6288c1a6b9c046194c4c2f8832114da5f9862f92cdf5734f092158","subset":null,"source_record_fields_preserved":true},{"id":"forests-fisheries::forest_area","retained_rows":209,"hosted_rows":209,"file":"data/evidence/ee287117d0cc0c007bbf.json","bytes":79816,"sha256":"2546aff08fb9ce0c7392450a74d595e71b097fa588fc1c36d753cc04113d830d","subset":null,"source_record_fields_preserved":true},{"id":"forests-fisheries::total_production","retained_rows":215,"hosted_rows":215,"file":"data/evidence/dc8ca47fb82a5cedc5f1.json","bytes":85604,"sha256":"9b7e8439a55aa9db6a75f18e6a92ccb3ce42a1c531ffcd5b2d0c86e5305df66c","subset":null,"source_record_fields_preserved":true},{"id":"forests-fisheries::capture_production","retained_rows":215,"hosted_rows":215,"file":"data/evidence/704781c4286f13f8494b.json","bytes":85912,"sha256":"098a73704ec3391825bdd7a9c525b837196e8876bb90d992239d82a91be578fd","subset":null,"source_record_fields_preserved":true},{"id":"forests-fisheries::aquaculture_production","retained_rows":215,"hosted_rows":215,"file":"data/evidence/cb18b82745b9d72a1bc3.json","bytes":86098,"sha256":"b09ebc31e56ea514802b9718abf8af9f2f3e08990e6c0f8ecfb4b1c8b81f5404","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::corn_grain","retained_rows":50,"hosted_rows":50,"file":"data/evidence/29dddb2c795c6c1768f4.json","bytes":19558,"sha256":"ef57f8ac9ac77a877c1b110dd14c6f6e6030ac0da91672ce009e6757a9442d3f","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::corn_silage","retained_rows":50,"hosted_rows":50,"file":"data/evidence/c1934944de1463d419e9.json","bytes":19779,"sha256":"a569942174e007f2a69cb83bae7c3bb0488c913e955fd7045ebfd8ff3e026afd","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::sorghum_grain","retained_rows":50,"hosted_rows":50,"file":"data/evidence/0849052879daddcf65fa.json","bytes":19854,"sha256":"064f308f8c34584a143cf7c84d6caa7062939f2ad55d39dd41c200db1369d57f","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::sorghum_silage","retained_rows":50,"hosted_rows":50,"file":"data/evidence/e95fa152e134e6f37f17.json","bytes":20188,"sha256":"c6ce6cd5e098c0c53811cb74164abcc916d4452371679f147f449dc6473be522","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::oats","retained_rows":50,"hosted_rows":50,"file":"data/evidence/f1e75f641c0f6a6b9821.json","bytes":19264,"sha256":"a8da7c7a0a66c987c3059e77c456461929225c5bb84ae233b867fc59d12c2649","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::barley","retained_rows":50,"hosted_rows":50,"file":"data/evidence/e45862dedcb602d9a4b3.json","bytes":19368,"sha256":"f7b0d1630deccd87ae3c03c16f04444558b240173636c1727472bdf06c8880d1","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::wheat_all","retained_rows":50,"hosted_rows":50,"file":"data/evidence/db53e93d8d380642d7f2.json","bytes":19528,"sha256":"4cf8031a506bcc2d5fca00ad8dcb674a0c5382db097a5731592580825ddb517f","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::wheat_winter","retained_rows":50,"hosted_rows":50,"file":"data/evidence/e1e48e37025dbe228317.json","bytes":19682,"sha256":"7d8f743d96dff90cb4e7cb88ebadf615f69d934c2312ef681cee3c6d968f37d1","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::wheat_other_spring","retained_rows":50,"hosted_rows":50,"file":"data/evidence/b2e4d0c2ea8a9b52e9f2.json","bytes":20109,"sha256":"434af41f02a298c127b7599c02a37f953586376629b139cb797f30415ca3490f","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::wheat_durum","retained_rows":50,"hosted_rows":50,"file":"data/evidence/0ceb378bd8b9c2d0a966.json","bytes":19735,"sha256":"b8a9871bd7a61e795b8d02aabc150db1ac251de258399ef2bb4e0ba13a150def","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::rice_all","retained_rows":50,"hosted_rows":50,"file":"data/evidence/bfc5a02d9cb9c26d5e4c.json","bytes":20505,"sha256":"c7d03f0ddf09c81f3cc77f36886df531e92d50d54e08ed49fc7f6a8568d7484e","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::rye","retained_rows":50,"hosted_rows":50,"file":"data/evidence/3bb368b8b0e822844711.json","bytes":19310,"sha256":"973df4d21d5619cbc9dc884a8ae80ef9ceadbefa6dd8895e07696229c533ffff","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::proso_millet","retained_rows":50,"hosted_rows":50,"file":"data/evidence/f1d36ac38bd88c106e1a.json","bytes":19795,"sha256":"e9b461b7603f2cca2268d7185b90c54ebb195b717c2da0a5fc1d9917e53d942c","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::hay_all","retained_rows":50,"hosted_rows":50,"file":"data/evidence/a011de242278f8088ce6.json","bytes":19575,"sha256":"73ea44c485e489c4e47aaf91d394256033584b93b28eaed82ad677faca9261c4","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::hay_alfalfa","retained_rows":50,"hosted_rows":50,"file":"data/evidence/c557bf2843b062dc8ff6.json","bytes":19802,"sha256":"c4f3e5956b216bc0257324f66b2200c55b17e06a3bebd9dec9336f42edb67da6","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::hay_other","retained_rows":50,"hosted_rows":50,"file":"data/evidence/2ccbca870579e0f86eb6.json","bytes":19657,"sha256":"f462c649e935c425669df8c7d6f62898a84d157825018ea9507d9123f78a6d06","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::peanuts","retained_rows":50,"hosted_rows":50,"file":"data/evidence/529bcbfeca31bacf8733.json","bytes":19479,"sha256":"656c61d1601d1456ac5e2a86835f773e5c6d3221ec60d74f53d681d7d424c8ba","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::canola","retained_rows":50,"hosted_rows":50,"file":"data/evidence/5f13704b8e2ee356cc2e.json","bytes":19440,"sha256":"c628ac7f44667e1bf947841df264ed19d324204efe4f368e80ae695d7aa79753","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::soybeans","retained_rows":50,"hosted_rows":50,"file":"data/evidence/41f601f0bedc8bf20ad4.json","bytes":19548,"sha256":"5facd87063cb85aeb510c69dedaa1e278455a0356121002656b594cc7e3fb5f1","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::flaxseed","retained_rows":50,"hosted_rows":50,"file":"data/evidence/0468e232b523e2fd27e2.json","bytes":19594,"sha256":"734258788c4ac9b5c1ba3aff5478da19fb9ee5cb96c328593ce931bca8b9a8b9","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::safflower","retained_rows":50,"hosted_rows":50,"file":"data/evidence/3a64cbcab6e99adedaab.json","bytes":19583,"sha256":"a8a7eeeb2fc9afc54a70818543a85b9f6105dcf4d30566f1f385b78b1824ba9e","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::cotton_all","retained_rows":50,"hosted_rows":50,"file":"data/evidence/3ebc0de22a2ed3db9592.json","bytes":20422,"sha256":"40aa3341172f07b156eb684634d479176298053eaefab1f55e0546517a9acb25","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::cottonseed","retained_rows":50,"hosted_rows":50,"file":"data/evidence/013471629fda7bafa060.json","bytes":19886,"sha256":"81a6b52a3b6fefa773586b7435d89c980756b5f107a87e4359d8feae457c35f5","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::tobacco","retained_rows":50,"hosted_rows":50,"file":"data/evidence/56b97116b8a5dd6ee853.json","bytes":19461,"sha256":"d2c98625ae946b617c1de531a28149dfd7db9061a4b297121ef999c88d9d4d45","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::sugarbeets","retained_rows":50,"hosted_rows":50,"file":"data/evidence/5b71b654b01afaab069d.json","bytes":19945,"sha256":"aff05b2ac9240c3d6f6da41727c90de45159134e2eeb5c7345de9049f2c176f7","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::potatoes","retained_rows":50,"hosted_rows":50,"file":"data/evidence/73d034c2b3095a48e7fd.json","bytes":20478,"sha256":"5b1bd4fb5816e16684ae83477c2adb1ce7ca06f04cb3c98e42292115d0834d98","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::dry_edible_beans","retained_rows":50,"hosted_rows":50,"file":"data/evidence/96968a7cbd3f74817a89.json","bytes":20901,"sha256":"9b648b0f2bec3fea83810c4a91054a57a90d8014771baca8ade89bdaeae3fd1d","subset":null,"source_record_fields_preserved":true},{"id":"state-crops::dry_edible_peas","retained_rows":50,"hosted_rows":50,"file":"data/evidence/c35d555968ea6582e44c.json","bytes":20845,"sha256":"20e61dd6f65ff44e84ecde9f905d6832a99af5965b84bc1f4f1783f7f8c3325d","subset":null,"source_record_fields_preserved":true},{"id":"wellbeing::past-year-mde","retained_rows":51,"hosted_rows":51,"file":"data/evidence/b9c56c0f15722fe91d04.json","bytes":27301,"sha256":"570ae7f4353c7957e29d183b4b88fa282de7c00a33d377ad810f9e3f52a47673","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2603-imports","retained_rows":86,"hosted_rows":86,"file":"data/evidence/91037edd96a197992158.json","bytes":34918,"sha256":"1ae84c028138041af796778adc50a26d14551bbd9bf1d2d682b067646ea78b23","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2603-exports","retained_rows":72,"hosted_rows":72,"file":"data/evidence/a7c4ed1f781271715a1b.json","bytes":29832,"sha256":"81efe044e39a8710d4460cf9e2e907f55c7123975b389a4fd48b9f1b9d4a7e7a","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::7403-imports","retained_rows":139,"hosted_rows":139,"file":"data/evidence/83a1ff0f5aa994537c4d.json","bytes":55760,"sha256":"62decc44610ad1a81a590aa82d3a6a1ecc5f039a704292a03f4db74560999e76","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::7403-exports","retained_rows":113,"hosted_rows":113,"file":"data/evidence/3fd493c2edcf5baaee4c.json","bytes":45868,"sha256":"fe3338c7c867b137f3a6de84f5bb965ffe56e9a9a18822ac78f81701b4c9dc40","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2604-imports","retained_rows":53,"hosted_rows":53,"file":"data/evidence/3651f7de455ce4899fb3.json","bytes":22096,"sha256":"566fb7d5af0916ad92f21ba808789360515d1c9a20f19001138433133c878762","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2604-exports","retained_rows":38,"hosted_rows":38,"file":"data/evidence/4195ef647683b2c00ef0.json","bytes":16450,"sha256":"0556324c916345997ffeb06722d1bdb2cf25e447be1a2c0c068e78eef507e6d7","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::7502-imports","retained_rows":101,"hosted_rows":101,"file":"data/evidence/b1fc9790eadb877af1d9.json","bytes":40932,"sha256":"0d767072134bf1f5634717a93211a6c64f745b4fbdfb28b23fda7244265caf77","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::7502-exports","retained_rows":57,"hosted_rows":57,"file":"data/evidence/7c794e466679c01cb3b0.json","bytes":23806,"sha256":"4303bc9e464257904823c4e385c58e630c517f14fc96682a1b9cd890545b7849","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2605-imports","retained_rows":47,"hosted_rows":47,"file":"data/evidence/a2abaafb8d062635e396.json","bytes":19646,"sha256":"1e6b0b2058a0be5b07fec831272e2f3be98a3c543dbda69789e95e6fc822df8c","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2605-exports","retained_rows":26,"hosted_rows":26,"file":"data/evidence/c56ababb3e1819343f43.json","bytes":11654,"sha256":"1afec28fde1ab9182f2719927d6b2bb3d869f1cbee1e3b5c6eee03773234fe9c","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::283691-imports","retained_rows":96,"hosted_rows":96,"file":"data/evidence/7c493647206b74a7c213.json","bytes":38912,"sha256":"2c404b000d52c508fff77d29b8dd05d06b4d52df19dace724a97799413c0f6df","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::283691-exports","retained_rows":46,"hosted_rows":46,"file":"data/evidence/21788f0b124af974584f.json","bytes":19536,"sha256":"f875f5e5285222d26354593e2a3d45b4eeefdd9414ce3fbd7286f179f12a7405","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::282520-imports","retained_rows":82,"hosted_rows":82,"file":"data/evidence/9fa168d0825b7e67ac84.json","bytes":33529,"sha256":"ad4f2406ce9944baf63c5d13461b2d8d0e1a419ffa780d8ddf7812b7e91c38f2","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::282520-exports","retained_rows":43,"hosted_rows":43,"file":"data/evidence/2564273ef35898a2c8e1.json","bytes":18349,"sha256":"8d1cbd391a973409205909d603aee7812b4b119c7d71e211aae3b3ad415add5c","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2709-imports","retained_rows":115,"hosted_rows":115,"file":"data/evidence/e3596f5bf1749c57405c.json","bytes":46534,"sha256":"951c3ad1ae9c5814343d5257c2054eff422b39be973101ebb4b10bf33cb65e1b","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2709-exports","retained_rows":85,"hosted_rows":85,"file":"data/evidence/a29c446e7cb335b48bc9.json","bytes":34950,"sha256":"297eddad049ccbb3033db808919992e4a5cde50553404e99f0f47477dc808a65","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2711-imports","retained_rows":146,"hosted_rows":146,"file":"data/evidence/42c0238dc12574d19a61.json","bytes":59086,"sha256":"0074ddbc3eb8f63dc5d95c5050cf5a697fc261fe1d742efc05c0079de0dee8e0","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2711-exports","retained_rows":110,"hosted_rows":110,"file":"data/evidence/e77a2139826158cf175b.json","bytes":44746,"sha256":"71f07692d0ab7944c9d46e331f64af4570be6e9855048c76f843db554d2dddd4","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2701-imports","retained_rows":141,"hosted_rows":141,"file":"data/evidence/afe2726fe06cefb6e45e.json","bytes":56714,"sha256":"91177e396875da38f042f944afca471909d599592e19e044b9930ed8b258f1cf","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::2701-exports","retained_rows":84,"hosted_rows":84,"file":"data/evidence/11b24e918188363defd1.json","bytes":34258,"sha256":"33b7874fb81a2d8d2ecf1cac90efb31958e7f9b4df24caa8c85ff7de718e9600","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1001-imports","retained_rows":144,"hosted_rows":144,"file":"data/evidence/da177768825973affb32.json","bytes":58074,"sha256":"0cc76563ac0aad56625c1fd4c9e54231f4b3b295809b0c7a63d0629db8d7f5e4","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1001-exports","retained_rows":99,"hosted_rows":99,"file":"data/evidence/4422ae261d962b170f92.json","bytes":40104,"sha256":"fa30037286431dc5f1f5931c875401a970b327333178e03f70fd0ed01f6d89ff","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1005-imports","retained_rows":147,"hosted_rows":147,"file":"data/evidence/b8f8ad52d15c0bd74772.json","bytes":59278,"sha256":"5293b379b018a7744bd5c02fad00c1120ca65b1f7bda16d55a16901d33196c26","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1005-exports","retained_rows":117,"hosted_rows":117,"file":"data/evidence/6b174b4d4fa80e7bd94a.json","bytes":47196,"sha256":"2eab94c6e5b2ed15185d736f207340284f3e2f31feaafbc83bdafa968f4ac690","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1006-imports","retained_rows":147,"hosted_rows":147,"file":"data/evidence/ce547208b4dd6e419915.json","bytes":59322,"sha256":"c6c4afa905a7d1aa49351cc27c2d527314214a150eab61ddff3f0409e2311b9e","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1006-exports","retained_rows":129,"hosted_rows":129,"file":"data/evidence/b21edd6fa070e5b44d35.json","bytes":51880,"sha256":"88574a394fe9a4c73897505435cffcf286c755e37658e6ffa7dc486ee53aca93","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1201-imports","retained_rows":143,"hosted_rows":143,"file":"data/evidence/c3be048c6e41bdada57b.json","bytes":57388,"sha256":"15a3e4a17a19d40c8762ba53e097a76eb4b1dd03ef73ec291bcf203fa48356d8","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1201-exports","retained_rows":94,"hosted_rows":94,"file":"data/evidence/fe1004ea6f0dbbdb3d5d.json","bytes":38168,"sha256":"490409ec20c33109364f422b1b3b91bbede512e6d3391c0de0ed1e2e61589cd0","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::0901-imports","retained_rows":147,"hosted_rows":147,"file":"data/evidence/d2fb8354b9b2feaec425.json","bytes":59236,"sha256":"864223b95faff0ab766346eb22329e3b84af663e0b668dca97130b4b413e8b8d","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::0901-exports","retained_rows":131,"hosted_rows":131,"file":"data/evidence/db7b46225f430f1d0dcb.json","bytes":52806,"sha256":"d0380ce5d60c3e265bed2c64d36c2824637ca90ab991650d3695b78ed225b425","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1801-imports","retained_rows":125,"hosted_rows":125,"file":"data/evidence/9ad8d80dd2a49cbbbffc.json","bytes":50115,"sha256":"7a21e4433fe073990f7ff72087539b2e03237bdc806b7e94c1ec8ac37516ad13","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1801-exports","retained_rows":87,"hosted_rows":87,"file":"data/evidence/3d5e2bf3c07800be3179.json","bytes":35463,"sha256":"35ab9dadd16302c0041c54157a6181f41a3c6e53a4e0e4ee7175de6968de490d","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1511-imports","retained_rows":146,"hosted_rows":146,"file":"data/evidence/04905fe9490a5103b17b.json","bytes":58824,"sha256":"27952c1256d5b3229435e2920cd74209fea55bc4f57caef13c431777b0cbfc92","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::1511-exports","retained_rows":106,"hosted_rows":106,"file":"data/evidence/6be0fa844c5d6b4d2acb.json","bytes":42910,"sha256":"e57332610a6afb06c27991463bccf747beeb9cb5832e29fc7d7d01b72cfac970","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::5201-imports","retained_rows":140,"hosted_rows":140,"file":"data/evidence/e7929c3319d5888d785b.json","bytes":55926,"sha256":"4b313d8617477511f2df04a2a66bd1de53ff52e5199224a58a0192370e2e30e5","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::5201-exports","retained_rows":108,"hosted_rows":108,"file":"data/evidence/45c742b81968017b1e57.json","bytes":43490,"sha256":"ac05f06366a8abfe82143c5613e976796adfc8d1aa1265026efd217fbc3f6dea","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::3102-imports","retained_rows":147,"hosted_rows":147,"file":"data/evidence/fda4d285b494e03487a3.json","bytes":59323,"sha256":"d8e1d44ff0bdccf01adbb756036915994f9d41642b3d9b4c5a1008674500147e","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::3102-exports","retained_rows":114,"hosted_rows":114,"file":"data/evidence/713ecfaa52160f617d45.json","bytes":46237,"sha256":"8745c9e844db1489a71ded07821ca6c2b4daaa5c6c33a415b93838a7409e3ea0","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::3104-imports","retained_rows":143,"hosted_rows":143,"file":"data/evidence/6cf81292131693977a1c.json","bytes":57460,"sha256":"9a5065dc37d98da4cc1776bcae96e4f52af03a3319946d03e7f5bacec09fd691","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::3104-exports","retained_rows":92,"hosted_rows":92,"file":"data/evidence/8c46c8885912774ec54f.json","bytes":37430,"sha256":"a725d9efe7b29cf7aa012712e57f1a3458b153e13dabf0f47ffb515b481b1797","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::4403-imports","retained_rows":144,"hosted_rows":144,"file":"data/evidence/04246feeacfc6fceda5e.json","bytes":57731,"sha256":"8def347ba30a9d4e62109a02159b039145b4afdf616de46950942001c77b4552","subset":null,"source_record_fields_preserved":true},{"id":"trade-pilot::4403-exports","retained_rows":113,"hosted_rows":113,"file":"data/evidence/312bd6954539e03016ff.json","bytes":45639,"sha256":"9454e97edfdaa362f87608d7b982e0780143a012cd6172ed0fca734079e58107","subset":null,"source_record_fields_preserved":true},{"id":"bea::SAIRPD-1","retained_rows":867,"hosted_rows":867,"file":"data/evidence/ce11d7dde503956ccadb.json","bytes":331641,"sha256":"f2098a1b51baa6a2af561247cf1ba049a3c25a317ee24d02ab53aed384c34651","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPI-1","retained_rows":867,"hosted_rows":867,"file":"data/evidence/eb94c3cdcfdb0abbe55f.json","bytes":357597,"sha256":"52ec4d0e16454e8ebea0d45b0939f551df166e116062389435037dde7bf4bb96","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPI-2","retained_rows":867,"hosted_rows":867,"file":"data/evidence/ad3c076b117c4fa3f169.json","bytes":344108,"sha256":"c09d9f65dba3fd0cea438fd257308e8412ff486ad2398fd2e9768f26ba6f71ce","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPI-3","retained_rows":867,"hosted_rows":867,"file":"data/evidence/16d069599da74c62fae5.json","bytes":357445,"sha256":"ffb40f739797a1b00fccd37410375d7d4ea027b2736b7621d1e7cc7a001184dc","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPI-4","retained_rows":867,"hosted_rows":867,"file":"data/evidence/933d6d2049b3a7127618.json","bytes":344096,"sha256":"face3dbb8413260fa456a3d1f927b0d93542cd61bab8b8ef61d956ed785f0d52","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPP-2","retained_rows":867,"hosted_rows":867,"file":"data/evidence/fab7c0979c3f433852d5.json","bytes":330608,"sha256":"0bf28dcb5daaea6a4ab2ae81f7a478bff370785f15fceeb9a486ee812984c01c","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPP-3","retained_rows":867,"hosted_rows":867,"file":"data/evidence/85b48611c74ae09b65e9.json","bytes":330682,"sha256":"0197b989242c3fa370184f3de15ea4651d13db6a196fbd865f5153eacaf2e691","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPP-4","retained_rows":867,"hosted_rows":867,"file":"data/evidence/2268c63e7b653d71e394.json","bytes":330627,"sha256":"56adbc5b4fd7e8d9a01f8481436efba30e6096790d369928ab83a18d036c289b","subset":null,"source_record_fields_preserved":true},{"id":"bea::SARPP-5","retained_rows":867,"hosted_rows":867,"file":"data/evidence/5b32baa91bb82e22d500.json","bytes":330762,"sha256":"3d7b760a0f9275f006d2aeeebe927d42a5d2d27c818bbd7a21ddaf8d8933469f","subset":null,"source_record_fields_preserved":true},{"id":"ppd::return-1yr","retained_rows":6325,"hosted_rows":6325,"file":"data/evidence/5f20fd81373bf22f272e.json","bytes":3815831,"sha256":"dd0655327389ed936b78d5aa80144fc31f9771f4341424cfe948869d5bcc586a","subset":null,"source_record_fields_preserved":true},{"id":"ppd::return-3yr","retained_rows":6325,"hosted_rows":6325,"file":"data/evidence/99a1062c3d3a160e11d3.json","bytes":3834332,"sha256":"6c8522e48beaa00ba1dee9a63ad82f9d5bb52e002ebcc5fc75c74d7dbbc98abf","subset":null,"source_record_fields_preserved":true},{"id":"ppd::return-5yr","retained_rows":6325,"hosted_rows":6325,"file":"data/evidence/1a87cb17e4a21126d5fd.json","bytes":3831742,"sha256":"4926d87f93995e15f1a40ab458d7aa0fcf02db88302af7fe3a085a578d016ecb","subset":null,"source_record_fields_preserved":true},{"id":"fiscal-history::federal-net","retained_rows":459,"hosted_rows":459,"file":"data/evidence/3e7058fd9ab51c4af53e.json","bytes":198516,"sha256":"b6eb4b3520afe1b58f13fcf3e28f6e822132894d2479729747e646935039d329","subset":null,"source_record_fields_preserved":true}]}
+{
+  "schema": "public-evidence.snapshot-manifest/v1",
+  "edition": "public-evidence-2026-10-31",
+  "created_utc": "2026-10-31T19:12:27.751563+00:00",
+  "catalogue_measures": 7811,
+  "catalogue_datasets": 22,
+  "retained_local_rows": 13431313,
+  "public_evidence_measures": 290,
+  "public_evidence_rows": 114555,
+  "public_full_collections": [
+    "bea-history",
+    "fiscal-history",
+    "frozen-atlas",
+    "pension-history"
+  ],
+  "selection_note": "Complete native rows are published for all original atlas, BEA history, pension history and matched federal fiscal measures, plus the three hosted world wheat-history measures and the selected U.S. food/energy examples. Other hosted subsets retain explicit geographic coverage labels. The complete local warehouse remains separate.",
+  "files": [
+    {
+      "id": "bea::SARPP-1",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/a39dce5b7eefb7745ef2.json",
+      "bytes": 330496,
+      "sha256": "871d1f791d3349bf342dddd7da8d355ac961bb548e7f7465b6b6f9191c065700",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::median-gross-rent-income-percent",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/0057255b47ee1c7cd09b.json",
+      "bytes": 29359,
+      "sha256": "f53ff6a3a93297f94da3ce5f4d314278abf893ae0493659f16b880e3a0242357",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-bachelors-or-higher",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/dd78648c80f99bed8f2a.json",
+      "bytes": 30461,
+      "sha256": "8248a2409ef16212c527a4b7ca21bf93479fefc2a798d1faf0e1048224b9036c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "fiscal-history::federal-net-per-capita",
+      "retained_rows": 459,
+      "hosted_rows": 459,
+      "file": "data/evidence/babdfab196247a7dc789.json",
+      "bytes": 206382,
+      "sha256": "a961898f0943a3911d506a0eb027b65c84968be5bed28bb617bcbfec4367b582",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-history-fbs::2511-5142-1000-t",
+      "retained_rows": 2397,
+      "hosted_rows": 2397,
+      "file": "data/evidence/0b41e9deed1b20781cc4.json",
+      "bytes": 1647022,
+      "sha256": "65b2d7510e1e9f17acc8657df0ae39b8efc3499135a21e1bf4bde574eb595ada",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-history-fbs::2511-5511-1000-t",
+      "retained_rows": 1657,
+      "hosted_rows": 1657,
+      "file": "data/evidence/d50b20e8287be86ff835.json",
+      "bytes": 1148654,
+      "sha256": "2be674364198283239ffa0d37d5d882da6075dab509a3d218b0138418d9d8b60",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-history-qcl::15-5510-t",
+      "retained_rows": 6968,
+      "hosted_rows": 6968,
+      "file": "data/evidence/50bab7456b776f406dfa.json",
+      "bytes": 4535032,
+      "sha256": "454fff0c799cec16ae5a218be1fd1489430d632ed6f6a62db835276570fb2270",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "income::median-household-income",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/8397fd1b7212d0816f7a.json",
+      "bytes": 28343,
+      "sha256": "f9112fafb9686c78a37f7e621c641909b21b24229c49308a53606b56f1f0d33a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "nass-food::crops:counties:2ee0b4391e7a2c86",
+      "retained_rows": 190837,
+      "hosted_rows": 14891,
+      "file": "data/evidence/2e995360d639d8d5b62f.json",
+      "bytes": 7059743,
+      "sha256": "0221757003a12134046c2e1cfc5b6bf4e24be7738b36526374bf9543048e0889",
+      "subset": "Hosted subset: all retained records with native five-digit county identifiers beginning 51 (Virginia) or 19 (Iowa). Other counties remain in the full retained research dataset and original USDA downloads.",
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "nass-food::crops:counties:3cc956a1d4db2ca1",
+      "retained_rows": 191410,
+      "hosted_rows": 15047,
+      "file": "data/evidence/41596e3d8e6b22729e31.json",
+      "bytes": 7096251,
+      "sha256": "81b7499f3a3602fb3ea4930e4972950f00b38ea5bd461aecfccc2a1a8b968e42",
+      "subset": "Hosted subset: all retained records with native five-digit county identifiers beginning 51 (Virginia) or 19 (Iowa). Other counties remain in the full retained research dataset and original USDA downloads.",
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "nass-food::crops:states:846b0bd3f58ffa00",
+      "retained_rows": 6998,
+      "hosted_rows": 6998,
+      "file": "data/evidence/9339fb195eb7cb1eb638.json",
+      "bytes": 3223313,
+      "sha256": "2a3264b115adcb9b04d5e619853087dc74a10feb6dfa72696ae0fc89f35ca6d5",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "ppd::return-10yr",
+      "retained_rows": 6325,
+      "hosted_rows": 6325,
+      "file": "data/evidence/c64ba31dad4f39f15219.json",
+      "bytes": 3828610,
+      "sha256": "ef2719dbe2a92ee078f15c9e4fe1577d5267a916ae188bdd266305e245062bfd",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-reported-voted-citizens",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/57a2e6f85a651fe8671f.json",
+      "bytes": 27386,
+      "sha256": "281e98c9564ca9aa7e92079a421b77350f93d93cd50453ce36b984306de4bcbe",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "ridgeway-energy::CLPRB",
+      "retained_rows": 1275,
+      "hosted_rows": 1275,
+      "file": "data/evidence/263565e2937c56d0dc0e.json",
+      "bytes": 531982,
+      "sha256": "db386deddb62457ef7597af7f3d5b945198a5bb2716dd97e45852c8ad9a4c1a0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "ridgeway-energy::SOPRB",
+      "retained_rows": 1275,
+      "hosted_rows": 1275,
+      "file": "data/evidence/32fbc61a0b5264da33b6.json",
+      "bytes": 531569,
+      "sha256": "08ae9b0d97ebe3c686dbb9679c64325511f9568e382d0b18a04f6db56e9a6d3c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-total-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/78c03d49cb85b91735c4.json",
+      "bytes": 31544,
+      "sha256": "f0b4820472c302cd97a28708dc6f1c5694189d464da4eef2e8f59bbacc19bea9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "voting-administration::eac-turnout-of-active-registered",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e4e58f5cbe512de2e3db.json",
+      "bytes": 31711,
+      "sha256": "19b5392892cd7dc0aa658f5ada41e78784b9068154c42b932e75ae08bc365bdd",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "wellbeing::depression-diagnosis",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/767e5285a083c458afe2.json",
+      "bytes": 23036,
+      "sha256": "ef66efcd4ce3d305dfc585deb314e212b196e6ee9857b2aa1a53be64463d69c8",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "wellbeing::life-satisfaction",
+      "retained_rows": 35,
+      "hosted_rows": 35,
+      "file": "data/evidence/8d72ad64f186ed49f9ba.json",
+      "bytes": 17062,
+      "sha256": "a2096b2fafb2d452794ac844307ff491ea8b8b4e58d936d11d01f0513492434b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "wellbeing::selected-ssri-fills",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/0e4f6a2542d48e6974b4.json",
+      "bytes": 28993,
+      "sha256": "4a5236e3fbabcdb6029ca63b561e580e83031f8e33410812ccb6fef8c02df277",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "income::real-per-capita-personal-income",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/ec67b3e3afc09e000bb4.json",
+      "bytes": 26727,
+      "sha256": "3adaad41cdf8d0de09ca0c1c30144139914716fdbf6759b8b60991fbac599ca2",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "income::real-per-capita-pce",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/703a0cfa0fb97798b1d8.json",
+      "bytes": 26055,
+      "sha256": "23f1620a5208b3a00886256371f72ceaf5697a11cedd21f511531cd256c96dab",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::median-monthly-gross-rent",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/a3cb6966e6b18bc9414f.json",
+      "bytes": 28610,
+      "sha256": "16622aee50eb84b227f8255d39b327ffe6a1f17d5e53db615d2342745ac690de",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::rpp-all-items",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/39f3de67828f0a144846.json",
+      "bytes": 25916,
+      "sha256": "be94a28c8113f8f113362763d247c434ab548fd13a364c309fd5bfeeed2aecd9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::rpp-goods",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/4baca8d570a91ead0780.json",
+      "bytes": 25779,
+      "sha256": "cd406e7896a585ba6f8281ca83e2cc1071d44e6967972d3f7320393d2cff00cf",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::rpp-housing",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/7afc1f7f3330b37b18fd.json",
+      "bytes": 26225,
+      "sha256": "da3ac888bbd6caddc43eab8f1428be16c4947897ee56434dce5b121c02080236",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::rpp-utilities",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e7d63636f8d1d01bb852.json",
+      "bytes": 25883,
+      "sha256": "4c45be4605b4e92639d538633645974a35fe84a3e5baf09b9809ae5d4dd6efaa",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "cost-of-living::rpp-other-services",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/47df51267b3032747c27.json",
+      "bytes": 26316,
+      "sha256": "c7c87c8c5d4626a8d1cc5aebd8c6a9a0bc1b5b495d6da3e4bca5c8a6c7b12d3e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-deceased-donors-all",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/408687535dd8b4368e2d.json",
+      "bytes": 30591,
+      "sha256": "637842f87c16cace766edc365aff2eb7fd1185cd59c2a98f93f56644d5a98ad9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-deceased-donors-heart",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/3fad0ccbc153d9ce4003.json",
+      "bytes": 30759,
+      "sha256": "416e5394b0d16dbdf88aa8219df936975ca3d9cfcd7ed31b20399052f779f22f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-deceased-donors-kidney",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e09989717895ed8cd922.json",
+      "bytes": 30769,
+      "sha256": "7cc101d8179d255c77a491a0f262ca2a3121ab10042a28c720992853f82b4a7d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-deceased-donors-liver",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/532ec6a71eb42efce4e6.json",
+      "bytes": 30711,
+      "sha256": "5c5c547aef0470169b596e04bf0310fe47742cdaca2e6cac89b08b9c014a3cee",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-deceased-donors-lung",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/3dc313c4fed0e16c3c89.json",
+      "bytes": 30697,
+      "sha256": "de2a4dcf74df41ef4b3849565d5f4183efcda16556832b76dcf9508d9b364069",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-deceased-donors-pancreas",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/74a765a74dab1fcf3c5c.json",
+      "bytes": 31036,
+      "sha256": "ca3b7ef4b7f7451f45ba9e923d9793649540e9e51d147796bd8b0eb3b7821e62",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-living-donors-all",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/79dfd1cb853c068342fc.json",
+      "bytes": 30379,
+      "sha256": "fab4f8b6425c9979996c9fe94caeec2392e120cb0113c002cbd5fab3699d88d3",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-living-donors-kidney",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/1202f6793adae2fa27c3.json",
+      "bytes": 30555,
+      "sha256": "8e9ba66c109813dba357312fc2d8660e5b6a547170c91017fe1e2165101ce9b9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-living-donors-liver",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/c6242a205efa8fce5411.json",
+      "bytes": 30768,
+      "sha256": "6e442873e6845a5d24b4c1370f72dfdd9d7480eb9c7cb84426c435689330e195",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-all",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/9f33b1aa5659b97c6da5.json",
+      "bytes": 31441,
+      "sha256": "ac536b5bc29e1182027397ba55e78ddf03e63fca550886e971aed758079c76b3",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-heart",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/685e2c6a55d146e1af4b.json",
+      "bytes": 31537,
+      "sha256": "930613bd5d6dd866c344cdf743618d383fb8eba4b990e2fe0af833c7b77d1208",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-kidney",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/fc54704bf158d9274804.json",
+      "bytes": 31595,
+      "sha256": "d2c7bfd667770802248faa1047b537f2b48a699f27c35926e6b707ce52216516",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-kidney-pancreas",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/c03af590d696dbcf9327.json",
+      "bytes": 32204,
+      "sha256": "10a0f4f9c8bdb36391c4bbd16ad22a87193cd2d3eee3d89d721180ddeb0d593c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-liver",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/0284faa2e36efad22a5f.json",
+      "bytes": 31493,
+      "sha256": "ee567d6b2bee778f42ee1625b0f916496a56dbcac47444c4396754ae954ce6a0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-lung",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/498547f86c0852ccdfa8.json",
+      "bytes": 31505,
+      "sha256": "30bc77b8e63f183699ab93aef0ea590cea415c302b40a81b6d8ed9979bfbc0cc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-waitlist-additions-pancreas",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b40cd07146a4185c6878.json",
+      "bytes": 31939,
+      "sha256": "1ddb48f443721c4d879ec5285257df65faf3c457ea8a3f1853245b83dd43b34f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-all",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/284fffa9a6af64c21889.json",
+      "bytes": 31311,
+      "sha256": "ac9c30360c274cc9f8b0171c85bb9c9bc0e4085f5ba58688468468623f488efc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-heart",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/ad09b7f4f3add28307d6.json",
+      "bytes": 31445,
+      "sha256": "283b00de49d456d5da24fc2f2b1f100fa08d2bd8d75341ef3e5771cb597751f8",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-kidney",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/4ae223d95bfda4c7ee9c.json",
+      "bytes": 31461,
+      "sha256": "f17a05eb103d5f54429a4b60efbf12c31513edd240fb70a853538363ff62b896",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-kidney-pancreas",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b18916f1dafe5cf5cc2f.json",
+      "bytes": 32141,
+      "sha256": "238fc3b936ab049bc382dc853ca83a70a2c3e4db6888b8907f44a27c6e270935",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-liver",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/3f51737ac7d6f332c92e.json",
+      "bytes": 31381,
+      "sha256": "3097611690e4619fef591f133d276eab168ea761aca708eb471096d4c6081d3a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-lung",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/483c57cfdb8df1151ac9.json",
+      "bytes": 31407,
+      "sha256": "b193a3ac631d46e60043d0a41f5cef5c1a2575fb2939c7863d7118680980dff4",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "organ-donation-residence::organ-recipients-pancreas",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/27cd3e1b68c5b5adf5cb.json",
+      "bytes": 31850,
+      "sha256": "6bbaf84b004265ef96af0d78d201f9f19aab6138fb519cc80ca5d809c3c6ba24",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "intestine-program-center-state::intestine-program-recipients-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/14ad9dfb24e81ef55adf.json",
+      "bytes": 35179,
+      "sha256": "66aae91add7d19d1af1c404ffbd39a44b1f194ef553b9cbd9661b140561a28e8",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "intestine-program-center-state::intestine-program-waitlist-end-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/3aa4df1e8034b86b08ed.json",
+      "bytes": 34634,
+      "sha256": "0fcfa253a4fd39ed947ff36a616c124d3dee63f5add5871844a24f6d3d68d447",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "intestine-program-center-state::intestine-program-new-registrations-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b6cc267ab1e6e39e6962.json",
+      "bytes": 34621,
+      "sha256": "44735f6a0140fa4f7c404ec1c10b0b83352cb2031a57073b73267441478586f7",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/9e466129586f2ac2da9e.json",
+      "bytes": 29913,
+      "sha256": "4b70554baa3f2db4e1f070b1cbf731bc6ca5cc27092c6615a960972b0d0c7484",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/6daf4d00bcb1996e5390.json",
+      "bytes": 30574,
+      "sha256": "afbf873f8d0069cef1e9c02f86a92309845d5a911a704d248e1aadc762464618",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-receipts-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/89177fc313eaac3535ad.json",
+      "bytes": 30105,
+      "sha256": "747811aeb638fe30e3abbb30e54fe723360e3f90ed2703d54da363c409096758",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-spending-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/3b50a0f7c38a0eb6cf9a.json",
+      "bytes": 30154,
+      "sha256": "b937b63093912219048b165fed73f40cd96c5ec20c5b517b2065b4371de4337d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-receipts-per-capita-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/c7df3da685de9cd19846.json",
+      "bytes": 30837,
+      "sha256": "57659e4c7e9775b6ea58dc576d5f6b5a5ca83ddd5b2749e83478622dcba40a52",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-spending-per-capita-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b65a402180bbbfbe279f.json",
+      "bytes": 30860,
+      "sha256": "35e2ed425333f6d915b346d8e57dad6f61484d166973711060035eed72136468",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-spending-per-dollar-2023",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/c5b2194b6d796f88cb47.json",
+      "bytes": 31152,
+      "sha256": "c64e22b36db25348f0e4ea3e5b4b511017d996c657cf653bab97fb9efff02a65",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2022",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/848892e5d10c4cd126f8.json",
+      "bytes": 30039,
+      "sha256": "e8a8f293955f53192ae00ee2702ed416661378d1a59da89b71239be766a734ca",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2022",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/2c24183dd02e5ffa17f8.json",
+      "bytes": 30698,
+      "sha256": "0f3692e370456489290acf582cabd1d81bc5062e98e90d1c6e52054eac5b5c99",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2021",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/d5bb24cbf542a543a4e7.json",
+      "bytes": 30709,
+      "sha256": "500280b0c4e67feca8029d60f276f643a0487c823f5995dc39e969ee22f5ac79",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2021",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/2300a22685e5a6c40e5c.json",
+      "bytes": 31362,
+      "sha256": "f94c3713664dbd8cf237694654a28592a42d15630a989513e1245ef105ed8015",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2020",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/f145c50ee58da1b078c5.json",
+      "bytes": 30715,
+      "sha256": "e11638f222bdf394d2a1b5c317043c3568f8ddf74c00c82abf93971b0b3be95a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2020",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/5e23a14ae4a344138de8.json",
+      "bytes": 31374,
+      "sha256": "14a035ed75f4ff1446fb6f0ab260bae266aedb5d0bba95af8a29759706732b51",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2019",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/80349df19a9faf638989.json",
+      "bytes": 30667,
+      "sha256": "4b2d29c3f23b9abf167ac594b6feef528521af545e480760ad71c0e051c20731",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2019",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/0d13357bdc8466e54d5d.json",
+      "bytes": 31332,
+      "sha256": "8b934cbf8db1cd831e327ca4d1edb50a9995b4440353f8bc026d6fbdbbb96246",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2018",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e4eb50476e06393dd989.json",
+      "bytes": 30669,
+      "sha256": "bda3e344299d5de9aeafe3036f3e985cf9cd4bf8f14d74f6986b874ddd274f82",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2018",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/7c9af7cf85b1ebc6374b.json",
+      "bytes": 31328,
+      "sha256": "53888b5caebbc9b57f5750a734fa4dd1cd8a75a2203dc1c0a585800345e14d38",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2017",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/708aed1566ed01e22ee5.json",
+      "bytes": 30665,
+      "sha256": "473b162d1be7de3ab3de73749ba9a424535b6abcdb86597820070a5f9cb75f59",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2017",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/ff200ea286e2b8f50181.json",
+      "bytes": 31322,
+      "sha256": "b084b1b44408dc7e5f1e7ca40f99a1c85b6dcee06841886aba7eb82f79b35124",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2016",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/09f20235768f36eacde5.json",
+      "bytes": 30667,
+      "sha256": "c3e74bc4418e0d44b5da5ac6d40469bb9952bbd3888e2a76fc178d8ef0b8ecc7",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2016",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/f13518f3f1dd3358d34d.json",
+      "bytes": 31320,
+      "sha256": "7c2c6e2e000ce9c6a5270f78a51de16edfd88d7db4cc99d9a1bef133add6d785",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-2015",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/47a643ab475289b7de67.json",
+      "bytes": 30667,
+      "sha256": "903f5bf7426191d506218cfb6fbc38c31a4050c6ff51f1cbfc78e26604b6895c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "federal-fiscal-balance::federal-net-per-capita-2015",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b5cf57f5e65fe3aae456.json",
+      "bytes": 31332,
+      "sha256": "47246b5e0ad1f6ff969b89da5eb3442debea58c7430bfd48cc33346d8bb31928",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-general-sales-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/a1a6e5a2d6d559c96bb2.json",
+      "bytes": 30438,
+      "sha256": "ac1d859b0cbf133461b15e96719d91fa43d72c9e6916fce8469b752d0e7d530d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-individual-income-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/d11ef62fb57149b1047d.json",
+      "bytes": 30580,
+      "sha256": "a9cfd5f06da908664f5344254c45411c7e4b5c460ee0b331555e1048540c398f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-corporate-income-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/bb82d4704c1af1d3a47a.json",
+      "bytes": 30512,
+      "sha256": "9a14b2cbcb26d350b537ee95565359d284fed9410fadd08ebece6e1b3748f479",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-property-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/1c5ab33de1864c20d9d1.json",
+      "bytes": 29844,
+      "sha256": "02d7a1e317549355c2f4ebbb4a6bf752b651fc797fa8e4b100ef8f57b5e9d75c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-severance-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/9989af11c373944b4654.json",
+      "bytes": 29802,
+      "sha256": "342c988916c397e70d346894d8dd67de0ab4d89c450009abd463430fc24031a0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-government-tax-receipts::state-tax-motor-fuels-2025",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/6f231f8b9e74f9d1c9e3.json",
+      "bytes": 30270,
+      "sha256": "29ee2053347599bebcbb790f62425dbc962cce704d2229d7da42e9350aee8ef1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "voting-administration::eac-total-registered",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/5a65a71bbd491ceb049f.json",
+      "bytes": 29274,
+      "sha256": "9c43cf50b8c3dad530d5c3fcbcd5877ef33624ee249f5f4d3ee995074f254d45",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "voting-administration::eac-active-registered",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e882fc63f17c0908e72f.json",
+      "bytes": 29356,
+      "sha256": "2dab416d6c8a8fc0b610d30116ea8deced65a77974e45ea2f680ce190a785478",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "voting-administration::eac-counted-ballot-voters",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/713985d0236980747e57.json",
+      "bytes": 29623,
+      "sha256": "cbd488331b4a8c345b58e0f44bd4dd3f84718cee6a6f9571c009652e488cf0ef",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "voting-administration::eac-turnout-of-all-registered",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/00409fe056556bd84b3b.json",
+      "bytes": 31920,
+      "sha256": "635c53c158092eba669a8971b4fead46734ce5dc89c43852da58c81aaa8795ff",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-reported-registered-citizens",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b3e6916281c47642429e.json",
+      "bytes": 27726,
+      "sha256": "e69a0d682c3a8401fce8836df73c5d1a0545e655ed8a9a95cb0b52fec53332da",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-reported-voted-adults",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/bf9629c740550ea77bb9.json",
+      "bytes": 27410,
+      "sha256": "e5026133314e56545561c468aa00a1db88b3f577ce2c24e4f7b3766961084fbf",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-reported-registered-adults",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b202a17275d068d54f11.json",
+      "bytes": 27629,
+      "sha256": "1a633d4b64f9bfb66aa0b8c2cf64df7bc07c0b9a0fe6da1c1a69c8bb39362173",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-reported-voted-count",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/dc062fc6f03b8d7c9e88.json",
+      "bytes": 28122,
+      "sha256": "81176ac1cc20c9dc065acafb27d56dd4143aae915ad1884fe8d997a1c449236e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-reported-registered-count",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/383d72737014b0a47c52.json",
+      "bytes": 28394,
+      "sha256": "c36d69903ca5c55d06957e9cbf7902f82f8c090afb4870cba7170de4247c3de1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "reported-voting::cps-voted-of-reported-registered",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e15811f3da37bebebc03.json",
+      "bytes": 31032,
+      "sha256": "15a1d964d50bda6b36ab1fea3dce5714d95e60a231cf514034f40a80c36f46eb",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-hs-or-higher",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/60431a83e53946b10444.json",
+      "bytes": 30250,
+      "sha256": "85ff96a365dffa49543b53671b9dc205e11b846bc82a9de4a673d50f95a72ee9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-graduate-professional",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/655cf2f3c34edcac9c59.json",
+      "bytes": 30785,
+      "sha256": "fc306a4fa5953136699009935f2e314124a714e2d2aa09ed775ee89bd7ad0cfb",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-less-than-high-school",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/cd813ff6e6a922761ebf.json",
+      "bytes": 30782,
+      "sha256": "5f846f45fc464f62d31af80e59a85f6e6bcef9153c1880131e25ca35aa8f936a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-high-school-only",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/d81a94a6bbe24133060a.json",
+      "bytes": 30533,
+      "sha256": "792c527319f7b36fb24a8a5c982f1cc29c466395c160209732017c5fdb454093",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-some-college-no-degree",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/120b29f847819c0504f4.json",
+      "bytes": 30833,
+      "sha256": "ecdb4ad358d5f6950139aa4806e04b491fb6ee97410ddcccd21c47ed3dfea0ad",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-associate-only",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/c9eb0cf2c545c13b07d8.json",
+      "bytes": 30354,
+      "sha256": "510b7862a46dad67eefe01dc661f2a2de249dd322638b9219ac38e772e239c2e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-bachelors-only",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/7de65bb61a2f61b25838.json",
+      "bytes": 30400,
+      "sha256": "0a1f7af6137ddc65aac1335f1bd347a96e2b5b76c12721ae108a6e2ae00b8b65",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "education::education-population-25plus",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/1d3fa1ab3c5d7a280c52.json",
+      "bytes": 28482,
+      "sha256": "107374d56803e314b84ae13209bb46580cd42e5f549fa114f41a34205c7f1917",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "presidential-results::fec-trump-share",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/0b01aed8bf6c9acfdc4c.json",
+      "bytes": 29316,
+      "sha256": "80da77f063b99bb7d27c5883b4849ed75789bf4138baccbce03ee20565453cda",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "presidential-results::fec-harris-share",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/f757d8cbb2e1dfe161f1.json",
+      "bytes": 29367,
+      "sha256": "f710b3f8de11c2d8d0f05ec8a1a17282451ef0f89c4ad9ce01912f6728be4b6f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "presidential-results::fec-other-share",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/ec280fb57d86374ef000.json",
+      "bytes": 29370,
+      "sha256": "bfaa2d0ca2a51d92a75210cc164436f182cb2afde1fb18ed8805a97a69170693",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "presidential-results::fec-presidential-votes-total",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/9dfb8636aa6419409379.json",
+      "bytes": 27751,
+      "sha256": "b9f07c60a488bef11ff038e3ae9e28d7b0cc5a35276fcd929668fa349a91cdaf",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-hs-or-higher",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/82856a4ed8126636bfc4.json",
+      "bytes": 82372,
+      "sha256": "a28dc77d6d1912516d943bf2a2716c123b8f0b424a637b3966db72b530fafa31",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-bachelors-or-higher",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/4365622c0d2c2885ba64.json",
+      "bytes": 83457,
+      "sha256": "e533264087411b2e539aaca72906d3e9cfd250f766e2a2f11f265dd6a068d767",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-graduate-professional",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/f44964a88a85c52c31dc.json",
+      "bytes": 83697,
+      "sha256": "aa66bc2633fe79506133fb9d78e998bc6d38e8fa77b415bd4cde62f00241cbca",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-less-than-high-school",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/ea53de02c530149bb070.json",
+      "bytes": 83732,
+      "sha256": "82f9e17bcc32933bab4d89e9e6b3ea61c3d637018c08dc7b2df02d23d652e371",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-high-school-only",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/2073230c7e1bc0773d2a.json",
+      "bytes": 83095,
+      "sha256": "ba054585f41d88201155b186dde6b8694dcde5e9b963c8a314c0ee769a88a7ef",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-some-college-no-degree",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/ed07b03ebc777c4cfef7.json",
+      "bytes": 83895,
+      "sha256": "fcba685a81d888088ca9807d3f57d4e547ff5cf63fe35ae40cb4d4f368185265",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-associate-only",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/24cf60e95e52e9ce3e0e.json",
+      "bytes": 82712,
+      "sha256": "86923cf0a40ff48fbcfe1437aa34fac396f47c6041d126c2aa0c3128b5ff5c19",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-bachelors-only",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/df2dfb2c4de22e2c0acf.json",
+      "bytes": 82828,
+      "sha256": "b35d5810e7811833e9b492b100572c460329781bad8ad675f5f08fd4a92848b2",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-education::va-education-population-25plus",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/ea6bb050f6b50983c55e.json",
+      "bytes": 76897,
+      "sha256": "ab4ea910f15f5c8d3d29288f28b1877a33dafa1f79325a506db95c579ad4f765",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-plugins-total",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/257d9e1ae566afb8efd1.json",
+      "bytes": 63811,
+      "sha256": "870c8307cd13d9e496d1af88dc656635c74a86b0c466fa96b2a4cf73e41e90b4",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-plugins-per-1000-residents",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/3a9c03a2e81f5ea4c1b8.json",
+      "bytes": 73665,
+      "sha256": "5d7cc3f3dae8eb5d777fe17045e5d1944b4cc8b2b6247337ca6f1c70cc14897b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-bev-total",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/8c3a6e287c29e413fa57.json",
+      "bytes": 62562,
+      "sha256": "e769dd259b06aae7800b071c57f63f1d7ec5cad22628657ef657bbb3fe7deb16",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-phev-total",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/f8f45af4da9c1d681130.json",
+      "bytes": 62730,
+      "sha256": "d52669e35dcf4959a519c25298f8abf3fde79a8dd74e8e76dccb7870dda4af94",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-model-ford-f-150",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/70db90fb10a24231dc6e.json",
+      "bytes": 68821,
+      "sha256": "c20349febfdc92301a167be69fb6e7103f4c904257fb06f7e7853542a15bc227",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-model-rivian-r1t",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/74117bee5368ce75d177.json",
+      "bytes": 68767,
+      "sha256": "83752928b5b1e0c1a1cad1fb42003f307929f756e85d69c932585213101fe85b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-model-tesla-cybertruck",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/db2fcbbdfb83e2086e7e.json",
+      "bytes": 69601,
+      "sha256": "763a7a2580379cf6fe7ffa94cecd398a3d9043c8592d8a222acd45b6b5082f77",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-model-tesla-model-y",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/d832f697646ba570cbbf.json",
+      "bytes": 69409,
+      "sha256": "a44655855e00ba59d6b69df435cc4a704e86fea8cb2c54d167520b3ae14ccb9b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-vehicles::va-model-chevrolet-silverado-ev",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/003e46df35c8514d60e2.json",
+      "bytes": 70375,
+      "sha256": "7a578a84033193dc8fb2a40bcbfa8e077aaa00076c99b7bd8e48b284bad1881d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "urban-settlements::urban-population-2020",
+      "retained_rows": 2611,
+      "hosted_rows": 2611,
+      "file": "data/evidence/fce17393545017c29321.json",
+      "bytes": 1396342,
+      "sha256": "d9673bc4ee50d20fab28add4948460a63568a4e31224708c9697aaaebfb630fa",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "urban-settlements::urban-density-2020",
+      "retained_rows": 2611,
+      "hosted_rows": 2611,
+      "file": "data/evidence/503c5c7f79a251aee56c.json",
+      "bytes": 1448176,
+      "sha256": "7bc583db4e6d3a3b3170df241598d151a0e7d5d8ce3ed2e91cdeef953cb0b3e7",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "urban-settlements::urban-land-2020",
+      "retained_rows": 2611,
+      "hosted_rows": 2611,
+      "file": "data/evidence/dec4af74e71566f81c47.json",
+      "bytes": 1360605,
+      "sha256": "24cb8513322d665f3921b4f424af11e7404440b509eb354b856adb19d4508397",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "virginia-drainage-basins::virginia-drainage-basins-area",
+      "retained_rows": 13,
+      "hosted_rows": 13,
+      "file": "data/evidence/0b195c971487ec16d86a.json",
+      "bytes": 8783,
+      "sha256": "d5548a6ed32954a266778d1a221ca9325a13931556de61aad3a96784c5cff6f6",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "drainage-regions::drainage-regions-area",
+      "retained_rows": 22,
+      "hosted_rows": 22,
+      "file": "data/evidence/364bd7c51093166ddb41.json",
+      "bytes": 13123,
+      "sha256": "8f632a6f4682d293376213163adfc8e47a8354f556d577c87545e3990982650e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::TEPRB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/a3e093255feed1dd23c8.json",
+      "bytes": 18385,
+      "sha256": "d2e0543f9f1d70171c9a933a2c4a9010a613f638d04870a7c927ff825362b4eb",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::TETCB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/e63689196dbd71b1ab1a.json",
+      "bytes": 18434,
+      "sha256": "8408bfc816ef06806caf7a46307d7b1ce2e1b4124b48cf160de9f75955b2be4e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::CLPRB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/db40fc9deeef31d5019c.json",
+      "bytes": 18043,
+      "sha256": "7b03d7085e997f4987529a7cffa327164c70e8be24b816af465c459180d67844",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::CLTCB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/153cf90f48bb777c02a6.json",
+      "bytes": 18246,
+      "sha256": "bd6a00e8fe2e125440b3a2ef79a4338e7c72147db048ecde299d18e8d0d4dfeb",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::PAPRB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/961714b9df3f167fd6e9.json",
+      "bytes": 18141,
+      "sha256": "5d79b8135142d2a51e0633517fa43ac261b52efb0fd4f69436c1473d6a1c6e70",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::PATCB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/cfebf96dc51048651403.json",
+      "bytes": 18400,
+      "sha256": "05bc217586c6cd1997ae368074f1553a3ec8258b9b6ff1f54fbbe5b37719bb2a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::NGMPB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/835449dc978aecdd02f3.json",
+      "bytes": 18137,
+      "sha256": "a8a5b26aa602f862ac3d21729fe9578fac3a86f44a656355b564ecf5c2e3593b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::NGTCB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/512d230851a87f62900e.json",
+      "bytes": 18418,
+      "sha256": "57eef6225778353fa89e4b30c6e6da0c8c8d27182e65a6cb6dafe4fcb616d8fb",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::TERCB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/02294f9617fae6dbcd01.json",
+      "bytes": 18378,
+      "sha256": "ed15e6ccbf2269df091d7200c8d9446ffb944f20246c599e2fb46efa0dff7d05",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::TEICB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/8544a51a63b578be2fea.json",
+      "bytes": 18391,
+      "sha256": "d55efb59403d762e26d2b78ade9ab58c4f8d1b07f7747707abf96960e7aff828",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::TECCB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/1ba7f3c8aec7ddb84e9f.json",
+      "bytes": 18375,
+      "sha256": "759a8d32958ced534b54a1cae5a98f3ac65d5a84ccdaaa36a908e927d4cb18c5",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-energy::TEACB",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/9be44994ce2da4f2f618.json",
+      "bytes": 18399,
+      "sha256": "027206ef53b5c1e37ea93d0b33c31b4fc4e12c9386440789528d15c83e8ad559",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "water::agriculture_withdrawal_share",
+      "retained_rows": 178,
+      "hosted_rows": 178,
+      "file": "data/evidence/c0b7fdc4f4770f696382.json",
+      "bytes": 77514,
+      "sha256": "ccb85697268a1c2c6096d501ed16cc91504a9b47cf37ff43f094ec69202f854c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "water::industry_withdrawal_share",
+      "retained_rows": 177,
+      "hosted_rows": 177,
+      "file": "data/evidence/7686f2017c32455b08a8.json",
+      "bytes": 75953,
+      "sha256": "46df95c5bf5cf5ee78b5a55e9eefa16c1cf164b10da3bb755d0e69db5d697c62",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "water::domestic_withdrawal_share",
+      "retained_rows": 177,
+      "hosted_rows": 177,
+      "file": "data/evidence/5251a2f2e7f607285560.json",
+      "bytes": 76029,
+      "sha256": "55fee26fd5c5513a60a58c06b70c15b151b273d9900628141bc7180153e6b05a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "water::total_withdrawals",
+      "retained_rows": 179,
+      "hosted_rows": 179,
+      "file": "data/evidence/2fe9e2039f743f86a9f0.json",
+      "bytes": 71628,
+      "sha256": "dd4f74be59d8854935d5cf8176cc007ecb3a6a393262032b7bdd2304dcd33cdd",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "water::water_stress",
+      "retained_rows": 176,
+      "hosted_rows": 176,
+      "file": "data/evidence/1830fe93c0e145347e7f.json",
+      "bytes": 71399,
+      "sha256": "f54512f82863aefb646b12bcfb4bdba9ae7bf538600d328c2772eb29cbbfc4ec",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::cobalt-production-mine-production",
+      "retained_rows": 12,
+      "hosted_rows": 12,
+      "file": "data/evidence/67d1c1b805adcf4c6421.json",
+      "bytes": 5828,
+      "sha256": "cbd5e3793ab0b392c2eaa9017cc1c69b0049b3a467c4b679b4577cd76dcb6040",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::copper-production-mine-production",
+      "retained_rows": 17,
+      "hosted_rows": 17,
+      "file": "data/evidence/ddd02dfb8222facf467c.json",
+      "bytes": 7708,
+      "sha256": "a78d4af8b31cb82148738260c395eb6f42b55a2f4d8532663948ebbe299e365e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::gold-production-mine-production",
+      "retained_rows": 13,
+      "hosted_rows": 13,
+      "file": "data/evidence/a6f8c434fc5c569e6aa4.json",
+      "bytes": 6067,
+      "sha256": "8212c362493b344127c742995f23e64de8d4942eab82d961191bde70122c5c72",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::iron-ore-production-mine-production-usable-ore",
+      "retained_rows": 17,
+      "hosted_rows": 17,
+      "file": "data/evidence/355af7e073c2ec9fb2e1.json",
+      "bytes": 7978,
+      "sha256": "66d25fb2526f6c74364bc5998b869fef383dfae9d726abc26b80d5bec3b340fc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::lithium-production-mine-production",
+      "retained_rows": 10,
+      "hosted_rows": 10,
+      "file": "data/evidence/749cfcc24a79fc23cb8f.json",
+      "bytes": 5090,
+      "sha256": "d4d7e6ef5b3798fc43e2af37262e2853923e2ee7259b005fce4d902f013ee7d5",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::nickel-production-mine-production",
+      "retained_rows": 9,
+      "hosted_rows": 9,
+      "file": "data/evidence/25030391e3b45b799e3f.json",
+      "bytes": 4777,
+      "sha256": "af03a007f3c16f6ff9b5b7f788e8a5c08fd0ac5c23010a60bf0aa0c5967bdeec",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::phosphate-rock-production-mine-production",
+      "retained_rows": 24,
+      "hosted_rows": 24,
+      "file": "data/evidence/17854ee79a05a096b71f.json",
+      "bytes": 10426,
+      "sha256": "0e7506b040a5aa5fdfcf77d589d336fb605c0c58e40bee3bb60c3f5f824a64fc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::rare-earths-production-mine-production",
+      "retained_rows": 16,
+      "hosted_rows": 16,
+      "file": "data/evidence/cb51c3ece76418977a34.json",
+      "bytes": 7309,
+      "sha256": "07682d0ad09bdcb08d4c7a93f2ad2f86a0a8014f7696f5cbc0a336e9eb2aeb53",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::cobalt-reserves-reserves",
+      "retained_rows": 12,
+      "hosted_rows": 12,
+      "file": "data/evidence/5fe841eead739265136a.json",
+      "bytes": 5749,
+      "sha256": "454cd74b9638a985c2128750bede937b1645421483701e53b84c2bcdbfe84787",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::copper-reserves-reserves",
+      "retained_rows": 17,
+      "hosted_rows": 17,
+      "file": "data/evidence/af8286e1d340d5c938c1.json",
+      "bytes": 7593,
+      "sha256": "451f220b0f6a65f691f0e2c791b23700929fdcb7e72fb7f0e4e143d34e0f6054",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::gold-reserves-reserves",
+      "retained_rows": 13,
+      "hosted_rows": 13,
+      "file": "data/evidence/3c5544241f65fc2f7f14.json",
+      "bytes": 5983,
+      "sha256": "42f52359da91d6af481568835041779add54d750dcc2f4886423dcd507f338f5",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::iron-ore-reserves-reserves-million-metric-tons-crude-ore",
+      "retained_rows": 17,
+      "hosted_rows": 17,
+      "file": "data/evidence/bc40330a9945bbffa6e1.json",
+      "bytes": 8118,
+      "sha256": "5759ab65bdd45c6fd6fbad6b87d026ee5a14fc75293a39059b6592b1c4234585",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::iron-ore-reserves-reserves-million-metric-tons-iron-content",
+      "retained_rows": 17,
+      "hosted_rows": 17,
+      "file": "data/evidence/aa5f08090ffe2696259e.json",
+      "bytes": 8148,
+      "sha256": "11f2f087336b0afd1be4df8dcf314c861715ab434514241f948cc1e3733a7d50",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::lithium-reserves-reserves",
+      "retained_rows": 10,
+      "hosted_rows": 10,
+      "file": "data/evidence/e1ceb955ca202b8c0c54.json",
+      "bytes": 5037,
+      "sha256": "b15df7e6a9e0e0bc80b906a957c13d29c4084d4358475db172df1a1cfdcf68ea",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::nickel-reserves-reserves",
+      "retained_rows": 9,
+      "hosted_rows": 9,
+      "file": "data/evidence/37f9a3268ece420b3c4c.json",
+      "bytes": 4713,
+      "sha256": "c1b08ba769bc5b0c23d6bf2e5f91f00d2a761df8f2507ad6edf4fe037db491dc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::phosphate-rock-reserves-reserves",
+      "retained_rows": 24,
+      "hosted_rows": 24,
+      "file": "data/evidence/3b95309ad8204054bf80.json",
+      "bytes": 10309,
+      "sha256": "e52edf3ff1b990341abdbedff95934dc45a2c1c6cccdff727e082dd982ee16a8",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "minerals::rare-earths-reserves-reserves",
+      "retained_rows": 16,
+      "hosted_rows": 16,
+      "file": "data/evidence/b12b7a4e9eac34ddcc05.json",
+      "bytes": 7203,
+      "sha256": "de2bca6ea72b5134e715301ad43387d3904cf0caf11205cb35fd2eaa421bd427",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::wheat",
+      "retained_rows": 123,
+      "hosted_rows": 123,
+      "file": "data/evidence/1c82d5c2b5937f09ee14.json",
+      "bytes": 44508,
+      "sha256": "3689dfaaf6614a4ffe954732f427e401b4cd5de20994884b0a643cc35dc30f52",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::maize-corn",
+      "retained_rows": 169,
+      "hosted_rows": 169,
+      "file": "data/evidence/c729e087e2695544baf8.json",
+      "bytes": 61457,
+      "sha256": "009588e947edb74042c4ff4d118d8178d717ce6d71ca491480eec8615426aaaa",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::rice",
+      "retained_rows": 138,
+      "hosted_rows": 138,
+      "file": "data/evidence/5eb660b0195f6e0610f3.json",
+      "bytes": 49533,
+      "sha256": "f9c467d1b9b6562aa17b0904f1c2635deeab8e961d9a217fd072f38bbf03d844",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::soya-beans",
+      "retained_rows": 114,
+      "hosted_rows": 114,
+      "file": "data/evidence/0ed1ae466d2b5dcc263d.json",
+      "bytes": 41657,
+      "sha256": "960b6ecc18776b772b52c0cd420033440b8978dd66e60bd6b764392f5403432a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::coffee-green",
+      "retained_rows": 79,
+      "hosted_rows": 79,
+      "file": "data/evidence/0806fde23c6188f3b041.json",
+      "bytes": 29540,
+      "sha256": "633dd28abb5c5cd4d9ce1611f930ce77dbb399c92a5e804ab4b1643f37850f56",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::cocoa-beans",
+      "retained_rows": 59,
+      "hosted_rows": 59,
+      "file": "data/evidence/f66f51ec3b9e7d821e88.json",
+      "bytes": 22362,
+      "sha256": "ce4d1d21b01e248ace6e67dca92e4ec339a5812734b8691aa043d4381e01a83e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::seed-cotton-unginned",
+      "retained_rows": 93,
+      "hosted_rows": 93,
+      "file": "data/evidence/0cf69eccd38d7e478eed.json",
+      "bytes": 35362,
+      "sha256": "94d4362f10a35faa793e7aa8d1721c730ec7fb2e3f45252f4b04a310471f7c02",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "crops::oil-palm-fruit",
+      "retained_rows": 43,
+      "hosted_rows": 43,
+      "file": "data/evidence/af4a24d7b832b69c57b1.json",
+      "bytes": 17025,
+      "sha256": "9a5af814765e6335949bc3b7d193fde31738856f120af7b2e6baed5dbeae63f9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::wheat-and-products-production",
+      "retained_rows": 117,
+      "hosted_rows": 117,
+      "file": "data/evidence/c04c4125d4034eb1381a.json",
+      "bytes": 45418,
+      "sha256": "de0e96d6e173cee322b72461ccd634536f42c2b6e10dc95de89b41818670889c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::wheat-and-products-food",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/e9ccf9e253762dec75d3.json",
+      "bytes": 66362,
+      "sha256": "dd67c0a9ccaaada39097c27ee44755a2f376ced42e86f3d03e2fd17370ca233a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::wheat-and-products-feed",
+      "retained_rows": 168,
+      "hosted_rows": 168,
+      "file": "data/evidence/f7558c8948fcd378ce5f.json",
+      "bytes": 63453,
+      "sha256": "9efae86b51b95d52b19bc5a8ee8a43ef8d2eacbd6d289999ac0a0d5f115bc973",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::wheat-and-products-processing",
+      "retained_rows": 71,
+      "hosted_rows": 71,
+      "file": "data/evidence/5689ee67677896d8198a.json",
+      "bytes": 27842,
+      "sha256": "e404f79d3353e0664c8c61db0096cdb63e633e0f6071deee8e6b0f46d60653e2",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::wheat-and-products-import-quantity",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/a8ec7664a73f1721ef6d.json",
+      "bytes": 68311,
+      "sha256": "4aa75e63db65b87e52865440fb5921d1cdc4774f01ae224ef179c990f7582db4",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::wheat-and-products-export-quantity",
+      "retained_rows": 171,
+      "hosted_rows": 171,
+      "file": "data/evidence/037ca7660d5aceed0cfc.json",
+      "bytes": 66487,
+      "sha256": "e95be6647e61ec2174526340d7b62f969a2b413b3c62eb61f37bd40b1c46e1b1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::maize-and-products-production",
+      "retained_rows": 155,
+      "hosted_rows": 155,
+      "file": "data/evidence/f0857f089806c3dde785.json",
+      "bytes": 59718,
+      "sha256": "7c1c13df3c81e37979977ee84e890ec75113c63ec7f6364d2e0b4be2cb3350fc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::maize-and-products-food",
+      "retained_rows": 172,
+      "hosted_rows": 172,
+      "file": "data/evidence/19e03fddd4803ae4ee37.json",
+      "bytes": 65021,
+      "sha256": "7bdfd7f8d80e74179e470ed1db903a95b313faf0c8cf8d245c677fa62584c8df",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::maize-and-products-feed",
+      "retained_rows": 172,
+      "hosted_rows": 172,
+      "file": "data/evidence/3bb11a7035e7c6e85c40.json",
+      "bytes": 65105,
+      "sha256": "8778cfd0027d711bbe1290fd4ce3a2b407267c1b9c47656c4f74b8227aed3d46",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::maize-and-products-processing",
+      "retained_rows": 96,
+      "hosted_rows": 96,
+      "file": "data/evidence/9eb903d8e98e07ded8ef.json",
+      "bytes": 37383,
+      "sha256": "7d4821060a5f22d21ea2f1985049f0e127ccc5db519e98b225078891dbf5dcb3",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::maize-and-products-import-quantity",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/91c2d91a613d1dbaa227.json",
+      "bytes": 68111,
+      "sha256": "f0634ca408e91fa4a60345ef538612b0d413165d5a85e931d3d006df50043e93",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::maize-and-products-export-quantity",
+      "retained_rows": 150,
+      "hosted_rows": 150,
+      "file": "data/evidence/ca70cf4363525fa61887.json",
+      "bytes": 58339,
+      "sha256": "7a6fda88be3625e2b87c86d6bad33682537f9b9a7fedfed96e2629e1957c9359",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::rice-and-products-production",
+      "retained_rows": 128,
+      "hosted_rows": 128,
+      "file": "data/evidence/5a02d2dee84cb5a6ac26.json",
+      "bytes": 49415,
+      "sha256": "ab6865d86aef265930070525ed51b17ea0f310c03555d62d2c80b0fcd793915b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::rice-and-products-food",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/33fd0147eaee6add4446.json",
+      "bytes": 66059,
+      "sha256": "e1a9a43d602bfdf157719bb0066843ee432277029bebb040215f7b403e7deaa1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::rice-and-products-feed",
+      "retained_rows": 160,
+      "hosted_rows": 160,
+      "file": "data/evidence/e687a4d4eccf13eb895d.json",
+      "bytes": 60165,
+      "sha256": "cc8ca6115c0fb2c1988aefd72597c704a9ca4bef82c6383decd1ccd9dddf62d0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::rice-and-products-processing",
+      "retained_rows": 61,
+      "hosted_rows": 61,
+      "file": "data/evidence/695ebdc6bdb2338586c3.json",
+      "bytes": 24175,
+      "sha256": "66fadb96adf310a6c48254d10a7da6b9c9e2a2c253ef07caf82cf568a9c295a9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::rice-and-products-import-quantity",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/db0a9bf94af0ca774b27.json",
+      "bytes": 67906,
+      "sha256": "3499bfd7d00d2afc88e4ae4d2cfea3e588789ff9d779f8aba1c9b191aa62422e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::rice-and-products-export-quantity",
+      "retained_rows": 156,
+      "hosted_rows": 156,
+      "file": "data/evidence/9ae075d55fb845d06e71.json",
+      "bytes": 60397,
+      "sha256": "8081ac8097c70886053c4150a7a32afc15c6fd471c6152dfdb0a30e8273cfaf1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::soyabeans-production",
+      "retained_rows": 107,
+      "hosted_rows": 107,
+      "file": "data/evidence/7c536395ff1b28ed5c6e.json",
+      "bytes": 40465,
+      "sha256": "8beaac8708aefa377c21d2133be1e20a7763a8b91b55edf10ff00b532d53393e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::soyabeans-food",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/3134eb2b6c8678c55be0.json",
+      "bytes": 64101,
+      "sha256": "c4308e4280ca21d975117db87ec620a6e7c0d9a6fd2c4552e0cf7c526d8f3b47",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::soyabeans-feed",
+      "retained_rows": 133,
+      "hosted_rows": 133,
+      "file": "data/evidence/9789d38cddecff5eb8f5.json",
+      "bytes": 49135,
+      "sha256": "a3e569f406dd245ade81db3e152cdf8f71e9c9e06234b4c740e4cca6d1e67fd6",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::soyabeans-processing",
+      "retained_rows": 100,
+      "hosted_rows": 100,
+      "file": "data/evidence/005fbe92a888882f6f84.json",
+      "bytes": 38113,
+      "sha256": "9f155bc92bc2ddfe907933235e06223e725df21a8798f6d721d30b5763e15bdc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::soyabeans-import-quantity",
+      "retained_rows": 175,
+      "hosted_rows": 175,
+      "file": "data/evidence/c91a2191810bc605b50f.json",
+      "bytes": 66246,
+      "sha256": "7824ded87bad178193f2e2a78c22d8cbb1863747dd38bc75f65a8140a01397ac",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "food-use::soyabeans-export-quantity",
+      "retained_rows": 138,
+      "hosted_rows": 138,
+      "file": "data/evidence/55785df87ea8fa63dde1.json",
+      "bytes": 52441,
+      "sha256": "98759a2fa3cdc84ec87286f6ab619509f52c86d22fab9d445733d5476d9c2a23",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::oil_production_twh",
+      "retained_rows": 219,
+      "hosted_rows": 219,
+      "file": "data/evidence/4896b8fdaec666482af0.json",
+      "bytes": 91431,
+      "sha256": "b310d46430352c0d9b5dc1d0f1460d898107f3aacce940cdea3883019d97f1db",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::oil_energy_twh",
+      "retained_rows": 79,
+      "hosted_rows": 79,
+      "file": "data/evidence/6925b841c281af8986c5.json",
+      "bytes": 33972,
+      "sha256": "57b1f5402cdaf0913b0ec495bde5c7176430c13608ffcff3006984a316dcf763",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::gas_production_twh",
+      "retained_rows": 219,
+      "hosted_rows": 219,
+      "file": "data/evidence/8dbddb59e1fd9687907a.json",
+      "bytes": 91479,
+      "sha256": "d76537902d359d2be3e83df6789df0d7df7ccf0410424cc57fae15951e4b5c4f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::gas_energy_twh",
+      "retained_rows": 79,
+      "hosted_rows": 79,
+      "file": "data/evidence/3605c1cf62828dbecced.json",
+      "bytes": 33937,
+      "sha256": "36bd94d0c7c59e3f844117f9a24bb802733d9163dc749a3e5333297a24fcaf5a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::coal_production_twh",
+      "retained_rows": 219,
+      "hosted_rows": 219,
+      "file": "data/evidence/e866a3a421b558058c80.json",
+      "bytes": 91284,
+      "sha256": "0d1dc6d172ba2c9a1d1e350491788cf15d10c5d2db71617a60fb030d499744f8",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::coal_energy_twh",
+      "retained_rows": 79,
+      "hosted_rows": 79,
+      "file": "data/evidence/74ef49c40a466f89bcc1.json",
+      "bytes": 34077,
+      "sha256": "ada5a4e2f2babf2ff2d4da773a278f7be0e40bc4fdfa6136b9043abb84197692",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::electricity_generation_twh",
+      "retained_rows": 214,
+      "hosted_rows": 214,
+      "file": "data/evidence/468640af598350927966.json",
+      "bytes": 90651,
+      "sha256": "0cbf71ad6857994028b6f9851435673b9be920a640106266d1dd5d8057529fca",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "global-energy::electricity_demand_twh",
+      "retained_rows": 214,
+      "hosted_rows": 214,
+      "file": "data/evidence/4278e7c3c334df2f9504.json",
+      "bytes": 89793,
+      "sha256": "f1f52b540c6288c1a6b9c046194c4c2f8832114da5f9862f92cdf5734f092158",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "forests-fisheries::forest_area",
+      "retained_rows": 209,
+      "hosted_rows": 209,
+      "file": "data/evidence/ee287117d0cc0c007bbf.json",
+      "bytes": 79816,
+      "sha256": "2546aff08fb9ce0c7392450a74d595e71b097fa588fc1c36d753cc04113d830d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "forests-fisheries::total_production",
+      "retained_rows": 215,
+      "hosted_rows": 215,
+      "file": "data/evidence/dc8ca47fb82a5cedc5f1.json",
+      "bytes": 85604,
+      "sha256": "9b7e8439a55aa9db6a75f18e6a92ccb3ce42a1c531ffcd5b2d0c86e5305df66c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "forests-fisheries::capture_production",
+      "retained_rows": 215,
+      "hosted_rows": 215,
+      "file": "data/evidence/704781c4286f13f8494b.json",
+      "bytes": 85912,
+      "sha256": "098a73704ec3391825bdd7a9c525b837196e8876bb90d992239d82a91be578fd",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "forests-fisheries::aquaculture_production",
+      "retained_rows": 215,
+      "hosted_rows": 215,
+      "file": "data/evidence/cb18b82745b9d72a1bc3.json",
+      "bytes": 86098,
+      "sha256": "b09ebc31e56ea514802b9718abf8af9f2f3e08990e6c0f8ecfb4b1c8b81f5404",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::corn_grain",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/29dddb2c795c6c1768f4.json",
+      "bytes": 19558,
+      "sha256": "ef57f8ac9ac77a877c1b110dd14c6f6e6030ac0da91672ce009e6757a9442d3f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::corn_silage",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/c1934944de1463d419e9.json",
+      "bytes": 19779,
+      "sha256": "a569942174e007f2a69cb83bae7c3bb0488c913e955fd7045ebfd8ff3e026afd",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::sorghum_grain",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/0849052879daddcf65fa.json",
+      "bytes": 19854,
+      "sha256": "064f308f8c34584a143cf7c84d6caa7062939f2ad55d39dd41c200db1369d57f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::sorghum_silage",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/e95fa152e134e6f37f17.json",
+      "bytes": 20188,
+      "sha256": "c6ce6cd5e098c0c53811cb74164abcc916d4452371679f147f449dc6473be522",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::oats",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/f1e75f641c0f6a6b9821.json",
+      "bytes": 19264,
+      "sha256": "a8da7c7a0a66c987c3059e77c456461929225c5bb84ae233b867fc59d12c2649",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::barley",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/e45862dedcb602d9a4b3.json",
+      "bytes": 19368,
+      "sha256": "f7b0d1630deccd87ae3c03c16f04444558b240173636c1727472bdf06c8880d1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::wheat_all",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/db53e93d8d380642d7f2.json",
+      "bytes": 19528,
+      "sha256": "4cf8031a506bcc2d5fca00ad8dcb674a0c5382db097a5731592580825ddb517f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::wheat_winter",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/e1e48e37025dbe228317.json",
+      "bytes": 19682,
+      "sha256": "7d8f743d96dff90cb4e7cb88ebadf615f69d934c2312ef681cee3c6d968f37d1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::wheat_other_spring",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/b2e4d0c2ea8a9b52e9f2.json",
+      "bytes": 20109,
+      "sha256": "434af41f02a298c127b7599c02a37f953586376629b139cb797f30415ca3490f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::wheat_durum",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/0ceb378bd8b9c2d0a966.json",
+      "bytes": 19735,
+      "sha256": "b8a9871bd7a61e795b8d02aabc150db1ac251de258399ef2bb4e0ba13a150def",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::rice_all",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/bfc5a02d9cb9c26d5e4c.json",
+      "bytes": 20505,
+      "sha256": "c7d03f0ddf09c81f3cc77f36886df531e92d50d54e08ed49fc7f6a8568d7484e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::rye",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/3bb368b8b0e822844711.json",
+      "bytes": 19310,
+      "sha256": "973df4d21d5619cbc9dc884a8ae80ef9ceadbefa6dd8895e07696229c533ffff",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::proso_millet",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/f1d36ac38bd88c106e1a.json",
+      "bytes": 19795,
+      "sha256": "e9b461b7603f2cca2268d7185b90c54ebb195b717c2da0a5fc1d9917e53d942c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::hay_all",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/a011de242278f8088ce6.json",
+      "bytes": 19575,
+      "sha256": "73ea44c485e489c4e47aaf91d394256033584b93b28eaed82ad677faca9261c4",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::hay_alfalfa",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/c557bf2843b062dc8ff6.json",
+      "bytes": 19802,
+      "sha256": "c4f3e5956b216bc0257324f66b2200c55b17e06a3bebd9dec9336f42edb67da6",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::hay_other",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/2ccbca870579e0f86eb6.json",
+      "bytes": 19657,
+      "sha256": "f462c649e935c425669df8c7d6f62898a84d157825018ea9507d9123f78a6d06",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::peanuts",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/529bcbfeca31bacf8733.json",
+      "bytes": 19479,
+      "sha256": "656c61d1601d1456ac5e2a86835f773e5c6d3221ec60d74f53d681d7d424c8ba",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::canola",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/5f13704b8e2ee356cc2e.json",
+      "bytes": 19440,
+      "sha256": "c628ac7f44667e1bf947841df264ed19d324204efe4f368e80ae695d7aa79753",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::soybeans",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/41f601f0bedc8bf20ad4.json",
+      "bytes": 19548,
+      "sha256": "5facd87063cb85aeb510c69dedaa1e278455a0356121002656b594cc7e3fb5f1",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::flaxseed",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/0468e232b523e2fd27e2.json",
+      "bytes": 19594,
+      "sha256": "734258788c4ac9b5c1ba3aff5478da19fb9ee5cb96c328593ce931bca8b9a8b9",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::safflower",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/3a64cbcab6e99adedaab.json",
+      "bytes": 19583,
+      "sha256": "a8a7eeeb2fc9afc54a70818543a85b9f6105dcf4d30566f1f385b78b1824ba9e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::cotton_all",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/3ebc0de22a2ed3db9592.json",
+      "bytes": 20422,
+      "sha256": "40aa3341172f07b156eb684634d479176298053eaefab1f55e0546517a9acb25",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::cottonseed",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/013471629fda7bafa060.json",
+      "bytes": 19886,
+      "sha256": "81a6b52a3b6fefa773586b7435d89c980756b5f107a87e4359d8feae457c35f5",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::tobacco",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/56b97116b8a5dd6ee853.json",
+      "bytes": 19461,
+      "sha256": "d2c98625ae946b617c1de531a28149dfd7db9061a4b297121ef999c88d9d4d45",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::sugarbeets",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/5b71b654b01afaab069d.json",
+      "bytes": 19945,
+      "sha256": "aff05b2ac9240c3d6f6da41727c90de45159134e2eeb5c7345de9049f2c176f7",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::potatoes",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/73d034c2b3095a48e7fd.json",
+      "bytes": 20478,
+      "sha256": "5b1bd4fb5816e16684ae83477c2adb1ce7ca06f04cb3c98e42292115d0834d98",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::dry_edible_beans",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/96968a7cbd3f74817a89.json",
+      "bytes": 20901,
+      "sha256": "9b648b0f2bec3fea83810c4a91054a57a90d8014771baca8ade89bdaeae3fd1d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "state-crops::dry_edible_peas",
+      "retained_rows": 50,
+      "hosted_rows": 50,
+      "file": "data/evidence/c35d555968ea6582e44c.json",
+      "bytes": 20845,
+      "sha256": "20e61dd6f65ff44e84ecde9f905d6832a99af5965b84bc1f4f1783f7f8c3325d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "wellbeing::past-year-mde",
+      "retained_rows": 51,
+      "hosted_rows": 51,
+      "file": "data/evidence/b9c56c0f15722fe91d04.json",
+      "bytes": 27301,
+      "sha256": "570ae7f4353c7957e29d183b4b88fa282de7c00a33d377ad810f9e3f52a47673",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2603-imports",
+      "retained_rows": 86,
+      "hosted_rows": 86,
+      "file": "data/evidence/91037edd96a197992158.json",
+      "bytes": 34918,
+      "sha256": "1ae84c028138041af796778adc50a26d14551bbd9bf1d2d682b067646ea78b23",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2603-exports",
+      "retained_rows": 72,
+      "hosted_rows": 72,
+      "file": "data/evidence/a7c4ed1f781271715a1b.json",
+      "bytes": 29832,
+      "sha256": "81efe044e39a8710d4460cf9e2e907f55c7123975b389a4fd48b9f1b9d4a7e7a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::7403-imports",
+      "retained_rows": 139,
+      "hosted_rows": 139,
+      "file": "data/evidence/83a1ff0f5aa994537c4d.json",
+      "bytes": 55760,
+      "sha256": "62decc44610ad1a81a590aa82d3a6a1ecc5f039a704292a03f4db74560999e76",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::7403-exports",
+      "retained_rows": 113,
+      "hosted_rows": 113,
+      "file": "data/evidence/3fd493c2edcf5baaee4c.json",
+      "bytes": 45868,
+      "sha256": "fe3338c7c867b137f3a6de84f5bb965ffe56e9a9a18822ac78f81701b4c9dc40",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2604-imports",
+      "retained_rows": 53,
+      "hosted_rows": 53,
+      "file": "data/evidence/3651f7de455ce4899fb3.json",
+      "bytes": 22096,
+      "sha256": "566fb7d5af0916ad92f21ba808789360515d1c9a20f19001138433133c878762",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2604-exports",
+      "retained_rows": 38,
+      "hosted_rows": 38,
+      "file": "data/evidence/4195ef647683b2c00ef0.json",
+      "bytes": 16450,
+      "sha256": "0556324c916345997ffeb06722d1bdb2cf25e447be1a2c0c068e78eef507e6d7",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::7502-imports",
+      "retained_rows": 101,
+      "hosted_rows": 101,
+      "file": "data/evidence/b1fc9790eadb877af1d9.json",
+      "bytes": 40932,
+      "sha256": "0d767072134bf1f5634717a93211a6c64f745b4fbdfb28b23fda7244265caf77",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::7502-exports",
+      "retained_rows": 57,
+      "hosted_rows": 57,
+      "file": "data/evidence/7c794e466679c01cb3b0.json",
+      "bytes": 23806,
+      "sha256": "4303bc9e464257904823c4e385c58e630c517f14fc96682a1b9cd890545b7849",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2605-imports",
+      "retained_rows": 47,
+      "hosted_rows": 47,
+      "file": "data/evidence/a2abaafb8d062635e396.json",
+      "bytes": 19646,
+      "sha256": "1e6b0b2058a0be5b07fec831272e2f3be98a3c543dbda69789e95e6fc822df8c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2605-exports",
+      "retained_rows": 26,
+      "hosted_rows": 26,
+      "file": "data/evidence/c56ababb3e1819343f43.json",
+      "bytes": 11654,
+      "sha256": "1afec28fde1ab9182f2719927d6b2bb3d869f1cbee1e3b5c6eee03773234fe9c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::283691-imports",
+      "retained_rows": 96,
+      "hosted_rows": 96,
+      "file": "data/evidence/7c493647206b74a7c213.json",
+      "bytes": 38912,
+      "sha256": "2c404b000d52c508fff77d29b8dd05d06b4d52df19dace724a97799413c0f6df",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::283691-exports",
+      "retained_rows": 46,
+      "hosted_rows": 46,
+      "file": "data/evidence/21788f0b124af974584f.json",
+      "bytes": 19536,
+      "sha256": "f875f5e5285222d26354593e2a3d45b4eeefdd9414ce3fbd7286f179f12a7405",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::282520-imports",
+      "retained_rows": 82,
+      "hosted_rows": 82,
+      "file": "data/evidence/9fa168d0825b7e67ac84.json",
+      "bytes": 33529,
+      "sha256": "ad4f2406ce9944baf63c5d13461b2d8d0e1a419ffa780d8ddf7812b7e91c38f2",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::282520-exports",
+      "retained_rows": 43,
+      "hosted_rows": 43,
+      "file": "data/evidence/2564273ef35898a2c8e1.json",
+      "bytes": 18349,
+      "sha256": "8d1cbd391a973409205909d603aee7812b4b119c7d71e211aae3b3ad415add5c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2709-imports",
+      "retained_rows": 115,
+      "hosted_rows": 115,
+      "file": "data/evidence/e3596f5bf1749c57405c.json",
+      "bytes": 46534,
+      "sha256": "951c3ad1ae9c5814343d5257c2054eff422b39be973101ebb4b10bf33cb65e1b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2709-exports",
+      "retained_rows": 85,
+      "hosted_rows": 85,
+      "file": "data/evidence/a29c446e7cb335b48bc9.json",
+      "bytes": 34950,
+      "sha256": "297eddad049ccbb3033db808919992e4a5cde50553404e99f0f47477dc808a65",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2711-imports",
+      "retained_rows": 146,
+      "hosted_rows": 146,
+      "file": "data/evidence/42c0238dc12574d19a61.json",
+      "bytes": 59086,
+      "sha256": "0074ddbc3eb8f63dc5d95c5050cf5a697fc261fe1d742efc05c0079de0dee8e0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2711-exports",
+      "retained_rows": 110,
+      "hosted_rows": 110,
+      "file": "data/evidence/e77a2139826158cf175b.json",
+      "bytes": 44746,
+      "sha256": "71f07692d0ab7944c9d46e331f64af4570be6e9855048c76f843db554d2dddd4",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2701-imports",
+      "retained_rows": 141,
+      "hosted_rows": 141,
+      "file": "data/evidence/afe2726fe06cefb6e45e.json",
+      "bytes": 56714,
+      "sha256": "91177e396875da38f042f944afca471909d599592e19e044b9930ed8b258f1cf",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::2701-exports",
+      "retained_rows": 84,
+      "hosted_rows": 84,
+      "file": "data/evidence/11b24e918188363defd1.json",
+      "bytes": 34258,
+      "sha256": "33b7874fb81a2d8d2ecf1cac90efb31958e7f9b4df24caa8c85ff7de718e9600",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1001-imports",
+      "retained_rows": 144,
+      "hosted_rows": 144,
+      "file": "data/evidence/da177768825973affb32.json",
+      "bytes": 58074,
+      "sha256": "0cc76563ac0aad56625c1fd4c9e54231f4b3b295809b0c7a63d0629db8d7f5e4",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1001-exports",
+      "retained_rows": 99,
+      "hosted_rows": 99,
+      "file": "data/evidence/4422ae261d962b170f92.json",
+      "bytes": 40104,
+      "sha256": "fa30037286431dc5f1f5931c875401a970b327333178e03f70fd0ed01f6d89ff",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1005-imports",
+      "retained_rows": 147,
+      "hosted_rows": 147,
+      "file": "data/evidence/b8f8ad52d15c0bd74772.json",
+      "bytes": 59278,
+      "sha256": "5293b379b018a7744bd5c02fad00c1120ca65b1f7bda16d55a16901d33196c26",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1005-exports",
+      "retained_rows": 117,
+      "hosted_rows": 117,
+      "file": "data/evidence/6b174b4d4fa80e7bd94a.json",
+      "bytes": 47196,
+      "sha256": "2eab94c6e5b2ed15185d736f207340284f3e2f31feaafbc83bdafa968f4ac690",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1006-imports",
+      "retained_rows": 147,
+      "hosted_rows": 147,
+      "file": "data/evidence/ce547208b4dd6e419915.json",
+      "bytes": 59322,
+      "sha256": "c6c4afa905a7d1aa49351cc27c2d527314214a150eab61ddff3f0409e2311b9e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1006-exports",
+      "retained_rows": 129,
+      "hosted_rows": 129,
+      "file": "data/evidence/b21edd6fa070e5b44d35.json",
+      "bytes": 51880,
+      "sha256": "88574a394fe9a4c73897505435cffcf286c755e37658e6ffa7dc486ee53aca93",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1201-imports",
+      "retained_rows": 143,
+      "hosted_rows": 143,
+      "file": "data/evidence/c3be048c6e41bdada57b.json",
+      "bytes": 57388,
+      "sha256": "15a3e4a17a19d40c8762ba53e097a76eb4b1dd03ef73ec291bcf203fa48356d8",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1201-exports",
+      "retained_rows": 94,
+      "hosted_rows": 94,
+      "file": "data/evidence/fe1004ea6f0dbbdb3d5d.json",
+      "bytes": 38168,
+      "sha256": "490409ec20c33109364f422b1b3b91bbede512e6d3391c0de0ed1e2e61589cd0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::0901-imports",
+      "retained_rows": 147,
+      "hosted_rows": 147,
+      "file": "data/evidence/d2fb8354b9b2feaec425.json",
+      "bytes": 59236,
+      "sha256": "864223b95faff0ab766346eb22329e3b84af663e0b668dca97130b4b413e8b8d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::0901-exports",
+      "retained_rows": 131,
+      "hosted_rows": 131,
+      "file": "data/evidence/db7b46225f430f1d0dcb.json",
+      "bytes": 52806,
+      "sha256": "d0380ce5d60c3e265bed2c64d36c2824637ca90ab991650d3695b78ed225b425",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1801-imports",
+      "retained_rows": 125,
+      "hosted_rows": 125,
+      "file": "data/evidence/9ad8d80dd2a49cbbbffc.json",
+      "bytes": 50115,
+      "sha256": "7a21e4433fe073990f7ff72087539b2e03237bdc806b7e94c1ec8ac37516ad13",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1801-exports",
+      "retained_rows": 87,
+      "hosted_rows": 87,
+      "file": "data/evidence/3d5e2bf3c07800be3179.json",
+      "bytes": 35463,
+      "sha256": "35ab9dadd16302c0041c54157a6181f41a3c6e53a4e0e4ee7175de6968de490d",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1511-imports",
+      "retained_rows": 146,
+      "hosted_rows": 146,
+      "file": "data/evidence/04905fe9490a5103b17b.json",
+      "bytes": 58824,
+      "sha256": "27952c1256d5b3229435e2920cd74209fea55bc4f57caef13c431777b0cbfc92",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::1511-exports",
+      "retained_rows": 106,
+      "hosted_rows": 106,
+      "file": "data/evidence/6be0fa844c5d6b4d2acb.json",
+      "bytes": 42910,
+      "sha256": "e57332610a6afb06c27991463bccf747beeb9cb5832e29fc7d7d01b72cfac970",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::5201-imports",
+      "retained_rows": 140,
+      "hosted_rows": 140,
+      "file": "data/evidence/e7929c3319d5888d785b.json",
+      "bytes": 55926,
+      "sha256": "4b313d8617477511f2df04a2a66bd1de53ff52e5199224a58a0192370e2e30e5",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::5201-exports",
+      "retained_rows": 108,
+      "hosted_rows": 108,
+      "file": "data/evidence/45c742b81968017b1e57.json",
+      "bytes": 43490,
+      "sha256": "ac05f06366a8abfe82143c5613e976796adfc8d1aa1265026efd217fbc3f6dea",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::3102-imports",
+      "retained_rows": 147,
+      "hosted_rows": 147,
+      "file": "data/evidence/fda4d285b494e03487a3.json",
+      "bytes": 59323,
+      "sha256": "d8e1d44ff0bdccf01adbb756036915994f9d41642b3d9b4c5a1008674500147e",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::3102-exports",
+      "retained_rows": 114,
+      "hosted_rows": 114,
+      "file": "data/evidence/713ecfaa52160f617d45.json",
+      "bytes": 46237,
+      "sha256": "8745c9e844db1489a71ded07821ca6c2b4daaa5c6c33a415b93838a7409e3ea0",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::3104-imports",
+      "retained_rows": 143,
+      "hosted_rows": 143,
+      "file": "data/evidence/6cf81292131693977a1c.json",
+      "bytes": 57460,
+      "sha256": "9a5065dc37d98da4cc1776bcae96e4f52af03a3319946d03e7f5bacec09fd691",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::3104-exports",
+      "retained_rows": 92,
+      "hosted_rows": 92,
+      "file": "data/evidence/8c46c8885912774ec54f.json",
+      "bytes": 37430,
+      "sha256": "a725d9efe7b29cf7aa012712e57f1a3458b153e13dabf0f47ffb515b481b1797",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::4403-imports",
+      "retained_rows": 144,
+      "hosted_rows": 144,
+      "file": "data/evidence/04246feeacfc6fceda5e.json",
+      "bytes": 57731,
+      "sha256": "8def347ba30a9d4e62109a02159b039145b4afdf616de46950942001c77b4552",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "trade-pilot::4403-exports",
+      "retained_rows": 113,
+      "hosted_rows": 113,
+      "file": "data/evidence/312bd6954539e03016ff.json",
+      "bytes": 45639,
+      "sha256": "9454e97edfdaa362f87608d7b982e0780143a012cd6172ed0fca734079e58107",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SAIRPD-1",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/ce11d7dde503956ccadb.json",
+      "bytes": 331641,
+      "sha256": "f2098a1b51baa6a2af561247cf1ba049a3c25a317ee24d02ab53aed384c34651",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPI-1",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/eb94c3cdcfdb0abbe55f.json",
+      "bytes": 357597,
+      "sha256": "52ec4d0e16454e8ebea0d45b0939f551df166e116062389435037dde7bf4bb96",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPI-2",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/ad3c076b117c4fa3f169.json",
+      "bytes": 344108,
+      "sha256": "c09d9f65dba3fd0cea438fd257308e8412ff486ad2398fd2e9768f26ba6f71ce",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPI-3",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/16d069599da74c62fae5.json",
+      "bytes": 357445,
+      "sha256": "ffb40f739797a1b00fccd37410375d7d4ea027b2736b7621d1e7cc7a001184dc",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPI-4",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/933d6d2049b3a7127618.json",
+      "bytes": 344096,
+      "sha256": "face3dbb8413260fa456a3d1f927b0d93542cd61bab8b8ef61d956ed785f0d52",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPP-2",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/fab7c0979c3f433852d5.json",
+      "bytes": 330608,
+      "sha256": "0bf28dcb5daaea6a4ab2ae81f7a478bff370785f15fceeb9a486ee812984c01c",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPP-3",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/85b48611c74ae09b65e9.json",
+      "bytes": 330682,
+      "sha256": "0197b989242c3fa370184f3de15ea4651d13db6a196fbd865f5153eacaf2e691",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPP-4",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/2268c63e7b653d71e394.json",
+      "bytes": 330627,
+      "sha256": "56adbc5b4fd7e8d9a01f8481436efba30e6096790d369928ab83a18d036c289b",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "bea::SARPP-5",
+      "retained_rows": 867,
+      "hosted_rows": 867,
+      "file": "data/evidence/5b32baa91bb82e22d500.json",
+      "bytes": 330762,
+      "sha256": "3d7b760a0f9275f006d2aeeebe927d42a5d2d27c818bbd7a21ddaf8d8933469f",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "ppd::return-1yr",
+      "retained_rows": 6325,
+      "hosted_rows": 6325,
+      "file": "data/evidence/5f20fd81373bf22f272e.json",
+      "bytes": 3815831,
+      "sha256": "dd0655327389ed936b78d5aa80144fc31f9771f4341424cfe948869d5bcc586a",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "ppd::return-3yr",
+      "retained_rows": 6325,
+      "hosted_rows": 6325,
+      "file": "data/evidence/99a1062c3d3a160e11d3.json",
+      "bytes": 3834332,
+      "sha256": "6c8522e48beaa00ba1dee9a63ad82f9d5bb52e002ebcc5fc75c74d7dbbc98abf",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "ppd::return-5yr",
+      "retained_rows": 6325,
+      "hosted_rows": 6325,
+      "file": "data/evidence/1a87cb17e4a21126d5fd.json",
+      "bytes": 3831742,
+      "sha256": "4926d87f93995e15f1a40ab458d7aa0fcf02db88302af7fe3a085a578d016ecb",
+      "subset": null,
+      "source_record_fields_preserved": true
+    },
+    {
+      "id": "fiscal-history::federal-net",
+      "retained_rows": 459,
+      "hosted_rows": 459,
+      "file": "data/evidence/3e7058fd9ab51c4af53e.json",
+      "bytes": 198516,
+      "sha256": "b6eb4b3520afe1b58f13fcf3e28f6e822132894d2479729747e646935039d329",
+      "subset": null,
+      "source_record_fields_preserved": true
+    }
+  ]
+}
