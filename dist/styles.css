@@ -20,3 +20,5 @@
 .measurement-methods{margin-top:14px;border-top:1px solid #cbd8c6;padding-top:11px}.measurement-methods summary{font-size:14px;color:#345442;cursor:pointer}
 
 #world-comparison-guide{scroll-margin-top:135px}.comparison-guide-link{font-size:14px;margin:0 0 23px}.guide-wide p{color:#405447}
+
+.prices-view #price-context-root{margin-top:28px}.price-home-entry{margin-bottom:32px;border-top:3px solid #557b68}.prices-view .paper p{font-size:14px;line-height:1.7}.prices-view #price-country-history{scroll-margin-top:130px}.price-history-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.price-context-note{font-size:14px;line-height:1.7;color:#40594b}.prices-view .world-map-panel{background:#fffef8}

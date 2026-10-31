@@ -1,0 +1,10 @@
+{
+  "schema": "economic-valuation.public-supplement/v1",
+  "factor_pack_sha256": "997e26c44804b89b2018d05310bb8f5e39d5aa4cc5fdae5ca3820385263f16d6",
+  "bytes": 9417476,
+  "base_year": 2021,
+  "macro_source_series": 2,
+  "macro_country_year_cells": 11284,
+  "native_macro_countries": 217,
+  "scope": "Supplemental national PPP context and U.S. deflator reporting indices; separate from the retained7811measure workbench catalogue."
+}
