@@ -1,0 +1,11 @@
+{
+  "schema": "essentials-costs.budget-data/v1",
+  "bytes": 20340687,
+  "sha256": "2ad523ec2a503974ad007491a9fb07db654cf1331451c7601697823ed21cf12f",
+  "ledger_rows": 1976,
+  "countries": 38,
+  "period": [
+    2000,
+    2025
+  ]
+}

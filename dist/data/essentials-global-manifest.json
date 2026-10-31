@@ -1,0 +1,82 @@
+{
+  "schema": "essentials-costs.global-context/v1",
+  "bytes": 21362116,
+  "sha256": "e1dc51b68a5c3ec17e3daaf97fe0f98c85a0e63cd6aa89866e08ea87138da48e",
+  "coverage": {
+    "series": 14,
+    "records": 22086,
+    "numerical_values": 18457,
+    "by_series": {
+      "wdi::SH.XPD.OOPC.PC.CD": {
+        "records": 5642,
+        "numerical_values": 4559,
+        "economies_with_values": 193
+      },
+      "wdi::SH.XPD.OOPC.PP.CD": {
+        "records": 5642,
+        "numerical_values": 4561,
+        "economies_with_values": 193
+      },
+      "wdi::SH.XPD.OOPC.CH.ZS": {
+        "records": 5642,
+        "numerical_values": 4562,
+        "economies_with_values": 193
+      },
+      "fpn::CoHD_PPP": {
+        "records": 1584,
+        "numerical_values": 1495,
+        "economies_with_values": 167
+      },
+      "fpn::CoHD_LCU": {
+        "records": 1584,
+        "numerical_values": 1558,
+        "economies_with_values": 174
+      },
+      "fpn::CoHD_headcount": {
+        "records": 1584,
+        "numerical_values": 1314,
+        "economies_with_values": 146
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5A_T501::SHARE_DOMESTIC_CONSUMPTION::CP01": {
+        "records": 25,
+        "numerical_values": 25,
+        "economies_with_values": 1
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5A_T501::SHARE_DOMESTIC_CONSUMPTION::CP045": {
+        "records": 25,
+        "numerical_values": 25,
+        "economies_with_values": 1
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5A_T501::SHARE_DOMESTIC_CONSUMPTION::CP06": {
+        "records": 25,
+        "numerical_values": 25,
+        "economies_with_values": 1
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5A_T501::SHARE_DOMESTIC_CONSUMPTION::HOUSING_EX_HOME_ENERGY": {
+        "records": 25,
+        "numerical_values": 25,
+        "economies_with_values": 1
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5_T501::SHARE_DOMESTIC_CONSUMPTION::CP01": {
+        "records": 77,
+        "numerical_values": 77,
+        "economies_with_values": 3
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5_T501::SHARE_DOMESTIC_CONSUMPTION::CP045": {
+        "records": 77,
+        "numerical_values": 77,
+        "economies_with_values": 3
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5_T501::SHARE_DOMESTIC_CONSUMPTION::CP06": {
+        "records": 77,
+        "numerical_values": 77,
+        "economies_with_values": 3
+      },
+      "derived::DSD_NAMAIN10@DF_TABLE5_T501::SHARE_DOMESTIC_CONSUMPTION::HOUSING_EX_HOME_ENERGY": {
+        "records": 77,
+        "numerical_values": 77,
+        "economies_with_values": 3
+      }
+    }
+  }
+}
