@@ -1,0 +1,55 @@
+TAP version 13
+# Subtest: unavailable cells and booleans never become numeric zeros
+ok 1 - unavailable cells and booleans never become numeric zeros
+  ---
+  duration_ms: 1.028496
+  ...
+# Subtest: lines join consecutive source years but break at suppressed cells and Census gaps
+ok 2 - lines join consecutive source years but break at suppressed cells and Census gaps
+  ---
+  duration_ms: 0.929394
+  ...
+# Subtest: source-year enumeration retains actual native years without inserting annual observations
+ok 3 - source-year enumeration retains actual native years without inserting annual observations
+  ---
+  duration_ms: 0.165243
+  ...
+# Subtest: native place and year selection preserves missing records and their original status
+ok 4 - native place and year selection preserves missing records and their original status
+  ---
+  duration_ms: 0.165888
+  ...
+# Subtest: catalogue searches intersect native subject, collection and geographic filters
+ok 5 - catalogue searches intersect native subject, collection and geographic filters
+  ---
+  duration_ms: 0.344784
+  ...
+# Subtest: private review identity changes with evidence edition, question, measure, place or window
+ok 6 - private review identity changes with evidence edition, question, measure, place or window
+  ---
+  duration_ms: 0.136275
+  ...
+# Subtest: public source links reject script/file and local-workbench addresses
+ok 7 - public source links reject script/file and local-workbench addresses
+  ---
+  duration_ms: 0.34801
+  ...
+# Subtest: snapshot selection preserves native nonannual periods, null years and unavailable values
+ok 8 - snapshot selection preserves native nonannual periods, null years and unavailable values
+  ---
+  duration_ms: 0.179655
+  ...
+# Subtest: published bounds retain native zero, absent and one-sided limits without inventing interval type
+ok 9 - published bounds retain native zero, absent and one-sided limits without inventing interval type
+  ---
+  duration_ms: 0.318003
+  ...
+1..9
+# tests 9
+# suites 0
+# pass 9
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 141.884849
