@@ -1,0 +1,85 @@
+{
+  "schema": "household-affordability/v1",
+  "bytes": 25825403,
+  "sha256": "8addf80de5299cd2f95f7e7cbfb062d1a13bd56636c0d42807c3789edb60be4c",
+  "coverage": {
+    "series": 12,
+    "records": 28878,
+    "economies": 218,
+    "numerical_values": 24432,
+    "by_series": {
+      "pip::income::median_2021ppp_daily": {
+        "records": 1161,
+        "numerical_values": 1161,
+        "missing_values": 0,
+        "economies_with_values": 70
+      },
+      "pip::income::mean_2021ppp_daily": {
+        "records": 1161,
+        "numerical_values": 1161,
+        "missing_values": 0,
+        "economies_with_values": 70
+      },
+      "pip::consumption::median_2021ppp_daily": {
+        "records": 770,
+        "numerical_values": 770,
+        "missing_values": 0,
+        "economies_with_values": 121
+      },
+      "pip::consumption::mean_2021ppp_daily": {
+        "records": 770,
+        "numerical_values": 770,
+        "missing_values": 0,
+        "economies_with_values": 121
+      },
+      "oecd::IDD::median_disposable_native": {
+        "records": 612,
+        "numerical_values": 612,
+        "missing_values": 0,
+        "economies_with_values": 45
+      },
+      "oecd::IDD::mean_disposable_native": {
+        "records": 612,
+        "numerical_values": 612,
+        "missing_values": 0,
+        "economies_with_values": 45
+      },
+      "wdi::PA.NUS.PRVT.PLI": {
+        "records": 5642,
+        "numerical_values": 4853,
+        "missing_values": 789,
+        "economies_with_values": 208
+      },
+      "wdi::FP.CPI.TOTL": {
+        "records": 5642,
+        "numerical_values": 4721,
+        "missing_values": 921,
+        "economies_with_values": 192
+      },
+      "derived::HFCE_PC_PPP_2021": {
+        "records": 5642,
+        "numerical_values": 4025,
+        "missing_values": 1617,
+        "economies_with_values": 176
+      },
+      "derived::CPI_2021_100": {
+        "records": 5642,
+        "numerical_values": 4523,
+        "missing_values": 1119,
+        "economies_with_values": 178
+      },
+      "derived::OECD_MEDIAN_DISPOSABLE_CPI_2021": {
+        "records": 612,
+        "numerical_values": 612,
+        "missing_values": 0,
+        "economies_with_values": 45
+      },
+      "derived::OECD_MEAN_DISPOSABLE_CPI_2021": {
+        "records": 612,
+        "numerical_values": 612,
+        "missing_values": 0,
+        "economies_with_values": 45
+      }
+    }
+  }
+}

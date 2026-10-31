@@ -22,3 +22,6 @@
 #world-comparison-guide{scroll-margin-top:135px}.comparison-guide-link{font-size:14px;margin:0 0 23px}.guide-wide p{color:#405447}
 
 .prices-view #price-context-root{margin-top:28px}.price-home-entry{margin-bottom:32px;border-top:3px solid #557b68}.prices-view .paper p{font-size:14px;line-height:1.7}.prices-view #price-country-history{scroll-margin-top:130px}.price-history-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.price-context-note{font-size:14px;line-height:1.7;color:#40594b}.prices-view .world-map-panel{background:#fffef8}
+
+/* Additive household evidence supplement; existing catalogue counts are retained. */
+.household-home-entry{margin-bottom:30px;border-top:3px solid #557b68}.households-view #household-map-root{margin-top:28px}.households-view #household-country-history{scroll-margin-top:135px}.households-view .paper>p{font-size:14px;line-height:1.75}.households-view .household-affordability-panel{padding:0;border:0;margin-top:20px}.household-map-note{font-size:14px;line-height:1.7;border-left:3px solid #8aa591;padding:12px 17px}.households-view .ha-value-number{font-size:19px}.households-view .world-legend p,.households-view .world-period-note,.households-view .world-coverage{font-size:13px}
