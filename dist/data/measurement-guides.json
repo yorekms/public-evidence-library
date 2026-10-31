@@ -1,0 +1,483 @@
+{
+  "schema": "public-evidence.measurement-guides/v1",
+  "revision": "measurement-clarity-2026-10-31",
+  "questions": {
+    "state-food-change": {
+      "title": "Corn production means the amount grown, not output per acre.",
+      "overview": "This question compares USDA estimates of corn grown for grain in different states and reporting years. Keep the commodity, survey program and bushel unit the same.",
+      "measures": [
+        {
+          "series_id": "nass-food::crops:states:846b0bd3f58ffa00",
+          "what": "Estimated total corn-grain production in a state during the NASS reporting year.",
+          "unit": "BU (bushels)",
+          "how_to_read": "A higher value means more grain production. Compare the same year, or follow the state’s actual source years; recent values may be preliminary or forecasts.",
+          "does_not_mean": "It is not yield per acre, farm profit, the amount residents eat, or an error-free count."
+        }
+      ],
+      "compare_prompt": "Before looking at the values, would you expect Iowa or Virginia to produce more corn grain in the same year? What might harvested area and yield each contribute?"
+    },
+    "county-food-change": {
+      "title": "Production and yield answer different questions.",
+      "overview": "Compare the same corn-grain survey measure and year across counties. The published examples cover retained Virginia and Iowa county records; unavailable values remain unavailable.",
+      "measures": [
+        {
+          "series_id": "nass-food::crops:counties:2ee0b4391e7a2c86",
+          "what": "Estimated total corn-grain production within the named county.",
+          "unit": "BU (bushels)",
+          "how_to_read": "More bushels means more total grain production; a larger growing area can affect this total.",
+          "does_not_mean": "It does not say how productive each acre was or how much income farmers earned."
+        },
+        {
+          "series_id": "nass-food::crops:counties:3cc956a1d4db2ca1",
+          "what": "Estimated corn-grain output per acre in the NASS yield measure.",
+          "unit": "BU / ACRE (bushels per acre)",
+          "how_to_read": "A higher yield means more grain per acre under this source definition.",
+          "does_not_mean": "It is not the county’s total production. Suppressed or absent records are not zero."
+        }
+      ],
+      "compare_prompt": "Would two nearby counties be more similar in total production, yield, or both? Keep those predictions separate before inspecting each measure."
+    },
+    "world-food-use": {
+      "title": "Growing food and making food available for people are different accounts.",
+      "overview": "These national series distinguish wheat production from food availability. Check the source domain and unit: the food-balance measures use thousand tonnes, while the crop-production series uses tonnes.",
+      "measures": [
+        {
+          "series_id": "food-history-fbs::2511-5142-1000-t",
+          "what": "Wheat-and-products quantity classified as available for people in FAOSTAT food balances.",
+          "unit": "thousand tonnes",
+          "how_to_read": "A higher value means a larger national quantity available for human consumption.",
+          "does_not_mean": "It is not measured intake, equal household access, or a per-person amount."
+        },
+        {
+          "series_id": "food-history-fbs::2511-5511-1000-t",
+          "what": "National wheat-and-products production in the food-balance account.",
+          "unit": "thousand tonnes",
+          "how_to_read": "Compare this with food availability within the same food-balance definitions.",
+          "does_not_mean": "It is not automatically the amount retained for people to eat."
+        },
+        {
+          "series_id": "food-history-qcl::15-5510-t",
+          "what": "National wheat production in the crop/livestock production source.",
+          "unit": "tonnes",
+          "how_to_read": "This is a separate harvested-product series; preserve its native unit and definition.",
+          "does_not_mean": "It should not be added to the overlapping food-balance production measure."
+        }
+      ],
+      "compare_prompt": "Would you expect a country’s wheat production and food availability to move together? What might trade, feed and processing change?"
+    },
+    "energy-change": {
+      "title": "These are energy-content production estimates.",
+      "overview": "The selected EIA state series express production in a common energy-content unit. They retain one source release and its actual calendar-year observations.",
+      "measures": [
+        {
+          "series_id": "ridgeway-energy::SOPRB",
+          "what": "Estimated solar-energy production attributed to the state in the EIA SEDS series.",
+          "unit": "Billion Btu",
+          "how_to_read": "A higher value means more reported energy content from solar production.",
+          "does_not_mean": "It is not the number of solar installations, a household bill or a direct pollution measure."
+        },
+        {
+          "series_id": "ridgeway-energy::CLPRB",
+          "what": "Estimated coal production expressed by its energy content.",
+          "unit": "Billion Btu",
+          "how_to_read": "Compare the same source year and unit with solar production; these two series are not the entire energy mix.",
+          "does_not_mean": "It is not coal tonnage, electricity generation, local consumption or company ownership."
+        }
+      ],
+      "compare_prompt": "For Iowa and Virginia, how would you expect solar and coal production to change over time? What additional energy sources would you need for a complete energy-mix comparison?"
+    },
+    "buying-power": {
+      "title": "Income, price levels and rent burden measure different parts of affordability.",
+      "overview": "These measures describe different parts of affordability. State summaries hide differences between households and local places.",
+      "measures": [
+        {
+          "series_id": "income::median-household-income",
+          "what": "The middle household income: half of households are above and half below.",
+          "unit": "2024 U.S. dollars per household per year",
+          "how_to_read": "Higher means a higher household median in the ACS estimate.",
+          "does_not_mean": "It is not per-person income, mean income or adjusted for state price differences."
+        },
+        {
+          "series_id": "bea::SARPP-1",
+          "what": "Regional price parity: the state’s overall price level relative to the national reference.",
+          "unit": "Index",
+          "how_to_read": "The all-items national reference is 100; above 100 means higher prices relative to that reference in that year.",
+          "does_not_mean": "It is not the annual inflation rate or a family’s complete living budget."
+        },
+        {
+          "series_id": "cost-of-living::median-gross-rent-income-percent",
+          "what": "The median household rent-to-income percentage among relevant renter units.",
+          "unit": "percent of renter household income",
+          "how_to_read": "Higher means a larger share of income goes to gross rent for the middle household ratio.",
+          "does_not_mean": "It is not the share of renters above a burden threshold, or a ratio of unrelated medians."
+        }
+      ],
+      "compare_prompt": "Which state might combine higher income, lower prices and lower renter rent burden? These may give different answers."
+    },
+    "public-money": {
+      "title": "A positive federal balance means more attributed spending than revenue.",
+      "overview": "This question concerns the federal government’s accounts attributed to states. “Per resident” means dividing a state-level balance by its total population; the result is an average, not a personal bill or payment.",
+      "measures": [
+        {
+          "series_id": "fiscal-history::federal-net-per-capita",
+          "what": "Attributed federal spending minus attributed federal revenue, divided by the state population.",
+          "unit": "current U.S. dollars per resident",
+          "how_to_read": "Positive: more federal spending is attributed to the state than federal revenue. Negative: attributed revenue is larger. Values describe the federal fiscal year and are not inflation-adjusted.",
+          "does_not_mean": "It is not an individual tax bill, a payment each resident receives, or the state-government budget surplus.",
+          "formula": "(Federal spending attributed to the state − federal revenue attributed to the state) ÷ resident population",
+          "example": "Hypothetical example, not measured state data: $20,000 of attributed federal spending per resident minus $12,000 of attributed federal revenue per resident gives a balance of +$8,000.",
+          "period_note": "Federal fiscal years run October 1 through September 30. The publisher uses Census population estimates for the associated calendar year. These are current dollars, not inflation-adjusted.",
+          "context_note": "Attributed spending includes benefits, grants, contracts, federal wages and COVID relief. Revenue is attributed to residents, employers and businesses using source allocation rules. Some federal spending cannot be allocated to states. Federal deficit financing means state balances need not sum to zero; this measure does not assign each resident a debt."
+        },
+        {
+          "series_id": "federal-fiscal-balance::federal-receipts-per-capita-2023",
+          "what": "Federal revenue attributed to the state, divided by its resident population. The source allocates contributions from residents, employers and businesses; this is broader than personal income tax.",
+          "unit": "current U.S. dollars per resident",
+          "how_to_read": "This is the revenue side of the federal balance for federal fiscal year 2023. A larger number means more attributed federal contributions per resident.",
+          "does_not_mean": "It is not a state-government tax collection, an individual tax bill or a matched component for a different year.",
+          "period_note": "FFY 2023 (October 1, 2022 through September 30, 2023); preliminary publisher allocation estimates."
+        },
+        {
+          "series_id": "federal-fiscal-balance::federal-spending-per-capita-2023",
+          "what": "Federal spending attributed to the state, divided by its resident population. It includes source-allocated benefits, grants, contracts, federal wages and COVID relief.",
+          "unit": "current U.S. dollars per resident",
+          "how_to_read": "This is the spending side of the federal balance for federal fiscal year 2023. Subtract the matched attributed federal revenue to interpret the net balance.",
+          "does_not_mean": "It is not cash received by every resident, the state-government budget, or a complete estimate of each person’s benefit from government.",
+          "period_note": "FFY 2023 (October 1, 2022 through September 30, 2023); preliminary publisher allocation estimates."
+        },
+        {
+          "series_id": "state-government-tax-receipts::state-tax-total-2025",
+          "what": "A separate sum of applicable state-government tax categories.",
+          "unit": "current U.S. dollars",
+          "how_to_read": "This is a whole-state collection total for state fiscal years ending in 2025.",
+          "does_not_mean": "It is not federal revenue or a matched part of the 2015–2023 federal-balance calculation."
+        }
+      ],
+      "compare_prompt": "For the same federal fiscal year, would you expect Virginia or Iowa to have the larger spending-minus-revenue balance per resident? Why?",
+      "source_methods_url": "https://rockinst.org/wp-content/uploads/2025/07/2025-bop-report-web.pdf#page=43",
+      "matched_table_url": "https://rockinst.org/wp-content/uploads/2025/07/2025-bop-report-web.pdf#page=21"
+    },
+    "retirement": {
+      "title": "A pension investment return is not a retiree’s benefit increase.",
+      "overview": "The selected measure belongs to a named pension plan, not a state average. Match the plan, fiscal-year label, fee basis and estimation status before comparing plans.",
+      "measures": [
+        {
+          "series_id": "ppd::return-10yr",
+          "what": "The pension fund’s reported 10-year investment return expressed as an annualized percentage.",
+          "unit": "percent per year; annualized return",
+          "how_to_read": "It summarizes the annual rate associated with the preceding ten-year return period; it is not the return in just the displayed year. Adjacent ten-year observations overlap.",
+          "does_not_mean": "It does not mean benefits or cost-of-living adjustments rose by that percentage. Investment returns alone do not establish funding adequacy or a retiree’s buying power."
+        }
+      ],
+      "compare_prompt": "Would you expect two named plans to have similar ten-year annualized returns? What benefit, contribution and living-cost information would you need before drawing a retirement-security conclusion?"
+    },
+    "participation-denominators": {
+      "title": "A turnout percentage depends on who is in its denominator.",
+      "overview": "The two turnout measures come from different reporting systems and populations. Education is another state summary, not a characteristic attached to individual voters.",
+      "measures": [
+        {
+          "series_id": "voting-administration::eac-turnout-of-active-registered",
+          "what": "Reported counted-ballot voters divided by reported active registered voters, times 100.",
+          "unit": "percent of active registered voters",
+          "how_to_read": "Higher means a larger counted-ballot ratio among the reported active registrations.",
+          "does_not_mean": "It is not turnout among all adults or all legally eligible people; North Dakota’s registration denominator is not applicable."
+        },
+        {
+          "series_id": "reported-voting::cps-reported-voted-citizens",
+          "what": "The CPS survey’s published share of citizen adults reporting that they voted.",
+          "unit": "percent",
+          "how_to_read": "Its denominator is citizen residents age 18 and older.",
+          "does_not_mean": "It is not a certified administrative ballot count or a complete legal-eligibility measure."
+        },
+        {
+          "series_id": "education::education-bachelors-or-higher",
+          "what": "Estimated share of residents age 25 and older with at least a bachelor’s degree.",
+          "unit": "percent of residents age 25+",
+          "how_to_read": "Higher means greater attainment under this threshold.",
+          "does_not_mean": "It does not show which individuals voted or establish an education effect on turnout."
+        }
+      ],
+      "compare_prompt": "Would you expect the same state ranking under both turnout denominators? State the denominator you mean before making a prediction."
+    },
+    "health-measurement": {
+      "title": "Wellbeing, past diagnosis and prescription fills are different measures.",
+      "overview": "These layers are not one happiness score. Their populations, questions and reporting systems differ, so contrasts suggest questions rather than settle explanations.",
+      "measures": [
+        {
+          "series_id": "wellbeing::life-satisfaction",
+          "what": "The published adult-survey share satisfied or very satisfied with life.",
+          "unit": "percent of surveyed adult population",
+          "how_to_read": "Higher means a larger reported satisfied share in participating states.",
+          "does_not_mean": "It is not proof that every resident is satisfied; missing states are not zero."
+        },
+        {
+          "series_id": "wellbeing::depression-diagnosis",
+          "what": "The crude adult-survey share ever told by a professional that they had depression.",
+          "unit": "percent of surveyed adult population",
+          "how_to_read": "Higher means more reported lifetime professional diagnosis.",
+          "does_not_mean": "It is not current symptoms, current depression severity or an age-adjusted comparison."
+        },
+        {
+          "series_id": "wellbeing::selected-ssri-fills",
+          "what": "Six selected SSRI ingredients’ share of reported standardized Medicare Part D prescription fills, located by prescriber.",
+          "unit": "percent of reported standardized 30-day fills",
+          "how_to_read": "Higher means a larger fill share within this reporting scope.",
+          "does_not_mean": "It is not the percentage of people taking antidepressants, all antidepressant use or a diagnosis rate."
+        }
+      ],
+      "compare_prompt": "Would you expect these three measures to rank states similarly? What could diagnosis access, prescribing geography and different populations change?"
+    },
+    "coal-stages": {
+      "title": "Which stages are connected by actual source records?",
+      "overview": "This is a source-inventory question, not one numerical outcome hosted in this question panel. Plant receipts, state distribution and customs exports document different reporting stages. A link must retain what its source actually connects.",
+      "measures": [],
+      "compare_prompt": "Before following the source references or local flow tools, list the stages you expect to see: extraction, processing, transport and use. Which would require a record linking the same material between named endpoints? Mark a reported quantity and unit separately from an assumed route. Do not treat separate ledgers as one verified mine-to-final-consumer journey."
+    },
+    "control-relationships": {
+      "title": "Operator, owner and accounting parent are different relationships.",
+      "overview": "This is a source-inventory question, not a single ownership percentage or numerical control score hosted here. A reported operator runs an asset; ownership evidence and accounting-consolidation relationships need their own source, entity identity and observation date.",
+      "measures": [],
+      "compare_prompt": "Before inspecting the references or local ownership tools, decide what you mean by control. Are you asking who operates the site, holds a reported ownership interest, or consolidates the entity in accounts? GLEIF accounting-parent data do not establish every beneficial owner or every intermediate link. What missing shares, dates or entities would prevent a stronger conclusion?"
+    },
+    "producer-consumer-footprints": {
+      "title": "Production and final demand allocate emissions differently.",
+      "overview": "This is a source-inventory question in the public question panel; the numerical account comparisons remain in the linked source and local global-account tools. Production-based accounts attach emissions to production; final-demand footprints allocate emissions associated with final demand, including supply-chain contributions.",
+      "measures": [],
+      "compare_prompt": "For one country, predict which account might be larger. Then compare the same source year and unit and inspect domestic and foreign origins. These are national accounts and modeled allocations, not a shipment tracker, local pollution exposure, or proof of which households benefit and bear harm. What would you need to answer those distributional questions?"
+    },
+    "trade-policy": {
+      "title": "A tariff average is a summary, not a shipment’s legal rate.",
+      "overview": "This is a source-inventory question in this public panel, not one fitted tariff-effect estimate. The source references and local tools contain separately defined tariff indicators, nominal trade values and dated policy context. Check the tariff’s product scope and weighting.",
+      "measures": [],
+      "compare_prompt": "Before comparing countries, what relationship do you expect between the specified tariff average and merchandise trade? Keep each indicator’s year and definition visible. A national average does not state the applicable legal rate for a particular product and partner. Trade values also reflect prices, exchange rates and other changes. What comparison or additional evidence would help distinguish policy effects from those alternatives?"
+    },
+    "economic-models": {
+      "title": "An economic scenario reports what follows under stated assumptions.",
+      "overview": "This is a source-inventory and model-definition question in the public panel, not a new regression or forecast result. The local tools keep observed monetary accounts separate from an explicitly calculated input–output demand scenario.",
+      "measures": [],
+      "compare_prompt": "Before calculating anything, state which final-demand change you want to consider and what you expect to follow. The implemented accounting model holds input relationships fixed for that calculation; it does not model price responses, substitution, capacity limits or household welfare. Which assumption matters most to your conclusion? What observed result, competing model or held-out comparison could weaken your preferred explanation?"
+    }
+  },
+  "series": {
+    "nass-food::crops:states:846b0bd3f58ffa00": {
+      "series_id": "nass-food::crops:states:846b0bd3f58ffa00",
+      "what": "Estimated total corn-grain production in a state during the NASS reporting year.",
+      "unit": "BU (bushels)",
+      "how_to_read": "A higher value means more grain production. Compare the same year, or follow the state’s actual source years; recent values may be preliminary or forecasts.",
+      "does_not_mean": "It is not yield per acre, farm profit, the amount residents eat, or an error-free count."
+    },
+    "nass-food::crops:counties:2ee0b4391e7a2c86": {
+      "series_id": "nass-food::crops:counties:2ee0b4391e7a2c86",
+      "what": "Estimated total corn-grain production within the named county.",
+      "unit": "BU (bushels)",
+      "how_to_read": "More bushels means more total grain production; a larger growing area can affect this total.",
+      "does_not_mean": "It does not say how productive each acre was or how much income farmers earned."
+    },
+    "nass-food::crops:counties:3cc956a1d4db2ca1": {
+      "series_id": "nass-food::crops:counties:3cc956a1d4db2ca1",
+      "what": "Estimated corn-grain output per acre in the NASS yield measure.",
+      "unit": "BU / ACRE (bushels per acre)",
+      "how_to_read": "A higher yield means more grain per acre under this source definition.",
+      "does_not_mean": "It is not the county’s total production. Suppressed or absent records are not zero."
+    },
+    "food-history-fbs::2511-5142-1000-t": {
+      "series_id": "food-history-fbs::2511-5142-1000-t",
+      "what": "Wheat-and-products quantity classified as available for people in FAOSTAT food balances.",
+      "unit": "thousand tonnes",
+      "how_to_read": "A higher value means a larger national quantity available for human consumption.",
+      "does_not_mean": "It is not measured intake, equal household access, or a per-person amount."
+    },
+    "food-history-fbs::2511-5511-1000-t": {
+      "series_id": "food-history-fbs::2511-5511-1000-t",
+      "what": "National wheat-and-products production in the food-balance account.",
+      "unit": "thousand tonnes",
+      "how_to_read": "Compare this with food availability within the same food-balance definitions.",
+      "does_not_mean": "It is not automatically the amount retained for people to eat."
+    },
+    "food-history-qcl::15-5510-t": {
+      "series_id": "food-history-qcl::15-5510-t",
+      "what": "National wheat production in the crop/livestock production source.",
+      "unit": "tonnes",
+      "how_to_read": "This is a separate harvested-product series; preserve its native unit and definition.",
+      "does_not_mean": "It should not be added to the overlapping food-balance production measure."
+    },
+    "ridgeway-energy::SOPRB": {
+      "series_id": "ridgeway-energy::SOPRB",
+      "what": "Estimated solar-energy production attributed to the state in the EIA SEDS series.",
+      "unit": "Billion Btu",
+      "how_to_read": "A higher value means more reported energy content from solar production.",
+      "does_not_mean": "It is not the number of solar installations, a household bill or a direct pollution measure."
+    },
+    "ridgeway-energy::CLPRB": {
+      "series_id": "ridgeway-energy::CLPRB",
+      "what": "Estimated coal production expressed by its energy content.",
+      "unit": "Billion Btu",
+      "how_to_read": "Compare the same source year and unit with solar production; these two series are not the entire energy mix.",
+      "does_not_mean": "It is not coal tonnage, electricity generation, local consumption or company ownership."
+    },
+    "income::median-household-income": {
+      "series_id": "income::median-household-income",
+      "what": "The middle household income: half of households are above and half below.",
+      "unit": "2024 U.S. dollars per household per year",
+      "how_to_read": "Higher means a higher household median in the ACS estimate.",
+      "does_not_mean": "It is not per-person income, mean income or adjusted for state price differences."
+    },
+    "bea::SARPP-1": {
+      "series_id": "bea::SARPP-1",
+      "what": "Regional price parity: the state’s overall price level relative to the national reference.",
+      "unit": "Index",
+      "how_to_read": "The all-items national reference is 100; above 100 means higher prices relative to that reference in that year.",
+      "does_not_mean": "It is not the annual inflation rate or a family’s complete living budget."
+    },
+    "cost-of-living::median-gross-rent-income-percent": {
+      "series_id": "cost-of-living::median-gross-rent-income-percent",
+      "what": "The median household rent-to-income percentage among relevant renter units.",
+      "unit": "percent of renter household income",
+      "how_to_read": "Higher means a larger share of income goes to gross rent for the middle household ratio.",
+      "does_not_mean": "It is not the share of renters above a burden threshold, or a ratio of unrelated medians."
+    },
+    "fiscal-history::federal-net-per-capita": {
+      "series_id": "fiscal-history::federal-net-per-capita",
+      "what": "Attributed federal spending minus attributed federal revenue, divided by the state population.",
+      "unit": "current U.S. dollars per resident",
+      "how_to_read": "Positive: more federal spending is attributed to the state than federal revenue. Negative: attributed revenue is larger. Values describe the federal fiscal year and are not inflation-adjusted.",
+      "does_not_mean": "It is not an individual tax bill, a payment each resident receives, or the state-government budget surplus.",
+      "formula": "(Federal spending attributed to the state − federal revenue attributed to the state) ÷ resident population",
+      "example": "Hypothetical example, not measured state data: $20,000 of attributed federal spending per resident minus $12,000 of attributed federal revenue per resident gives a balance of +$8,000.",
+      "period_note": "Federal fiscal years run October 1 through September 30. The publisher uses Census population estimates for the associated calendar year. These are current dollars, not inflation-adjusted.",
+      "context_note": "Attributed spending includes benefits, grants, contracts, federal wages and COVID relief. Revenue is attributed to residents, employers and businesses using source allocation rules. Some federal spending cannot be allocated to states. Federal deficit financing means state balances need not sum to zero; this measure does not assign each resident a debt."
+    },
+    "federal-fiscal-balance::federal-receipts-per-capita-2023": {
+      "series_id": "federal-fiscal-balance::federal-receipts-per-capita-2023",
+      "what": "Federal revenue attributed to the state, divided by its resident population. The source allocates contributions from residents, employers and businesses; this is broader than personal income tax.",
+      "unit": "current U.S. dollars per resident",
+      "how_to_read": "This is the revenue side of the federal balance for federal fiscal year 2023. A larger number means more attributed federal contributions per resident.",
+      "does_not_mean": "It is not a state-government tax collection, an individual tax bill or a matched component for a different year.",
+      "period_note": "FFY 2023 (October 1, 2022 through September 30, 2023); preliminary publisher allocation estimates.",
+      "compare_prompt": "For federal fiscal year 2023, would you expect Iowa or Virginia to have more federal revenue attributed to it per resident?"
+    },
+    "federal-fiscal-balance::federal-spending-per-capita-2023": {
+      "series_id": "federal-fiscal-balance::federal-spending-per-capita-2023",
+      "what": "Federal spending attributed to the state, divided by its resident population. It includes source-allocated benefits, grants, contracts, federal wages and COVID relief.",
+      "unit": "current U.S. dollars per resident",
+      "how_to_read": "This is the spending side of the federal balance for federal fiscal year 2023. Subtract the matched attributed federal revenue to interpret the net balance.",
+      "does_not_mean": "It is not cash received by every resident, the state-government budget, or a complete estimate of each person’s benefit from government.",
+      "period_note": "FFY 2023 (October 1, 2022 through September 30, 2023); preliminary publisher allocation estimates.",
+      "compare_prompt": "For federal fiscal year 2023, would you expect Iowa or Virginia to have more federal spending attributed to it per resident?"
+    },
+    "state-government-tax-receipts::state-tax-total-2025": {
+      "series_id": "state-government-tax-receipts::state-tax-total-2025",
+      "what": "A separate sum of applicable state-government tax categories.",
+      "unit": "current U.S. dollars",
+      "how_to_read": "This is a whole-state collection total for state fiscal years ending in 2025.",
+      "does_not_mean": "It is not federal revenue or a matched part of the 2015–2023 federal-balance calculation.",
+      "compare_prompt": "For the same state fiscal-year definition, would you expect Iowa or Virginia to collect more in total state-government taxes? How might population and the tax base affect that total?"
+    },
+    "ppd::return-10yr": {
+      "series_id": "ppd::return-10yr",
+      "what": "The pension fund’s reported 10-year investment return expressed as an annualized percentage.",
+      "unit": "percent per year; annualized return",
+      "how_to_read": "It summarizes the annual rate associated with the preceding ten-year return period; it is not the return in just the displayed year. Adjacent ten-year observations overlap.",
+      "does_not_mean": "It does not mean benefits or cost-of-living adjustments rose by that percentage. Investment returns alone do not establish funding adequacy or a retiree’s buying power."
+    },
+    "voting-administration::eac-turnout-of-active-registered": {
+      "series_id": "voting-administration::eac-turnout-of-active-registered",
+      "what": "Reported counted-ballot voters divided by reported active registered voters, times 100.",
+      "unit": "percent of active registered voters",
+      "how_to_read": "Higher means a larger counted-ballot ratio among the reported active registrations.",
+      "does_not_mean": "It is not turnout among all adults or all legally eligible people; North Dakota’s registration denominator is not applicable."
+    },
+    "reported-voting::cps-reported-voted-citizens": {
+      "series_id": "reported-voting::cps-reported-voted-citizens",
+      "what": "The CPS survey’s published share of citizen adults reporting that they voted.",
+      "unit": "percent",
+      "how_to_read": "Its denominator is citizen residents age 18 and older.",
+      "does_not_mean": "It is not a certified administrative ballot count or a complete legal-eligibility measure."
+    },
+    "education::education-bachelors-or-higher": {
+      "series_id": "education::education-bachelors-or-higher",
+      "what": "Estimated share of residents age 25 and older with at least a bachelor’s degree.",
+      "unit": "percent of residents age 25+",
+      "how_to_read": "Higher means greater attainment under this threshold.",
+      "does_not_mean": "It does not show which individuals voted or establish an education effect on turnout."
+    },
+    "wellbeing::life-satisfaction": {
+      "series_id": "wellbeing::life-satisfaction",
+      "what": "The published adult-survey share satisfied or very satisfied with life.",
+      "unit": "percent of surveyed adult population",
+      "how_to_read": "Higher means a larger reported satisfied share in participating states.",
+      "does_not_mean": "It is not proof that every resident is satisfied; missing states are not zero."
+    },
+    "wellbeing::depression-diagnosis": {
+      "series_id": "wellbeing::depression-diagnosis",
+      "what": "The crude adult-survey share ever told by a professional that they had depression.",
+      "unit": "percent of surveyed adult population",
+      "how_to_read": "Higher means more reported lifetime professional diagnosis.",
+      "does_not_mean": "It is not current symptoms, current depression severity or an age-adjusted comparison."
+    },
+    "wellbeing::selected-ssri-fills": {
+      "series_id": "wellbeing::selected-ssri-fills",
+      "what": "Six selected SSRI ingredients’ share of reported standardized Medicare Part D prescription fills, located by prescriber.",
+      "unit": "percent of reported standardized 30-day fills",
+      "how_to_read": "Higher means a larger fill share within this reporting scope.",
+      "does_not_mean": "It is not the percentage of people taking antidepressants, all antidepressant use or a diagnosis rate."
+    },
+    "food-history-qcl::236-5510-t": {
+      "series_id": "food-history-qcl::236-5510-t",
+      "what": "FAOSTAT QCL: Production of Soya beans. Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    },
+    "food-history-qcl::254-5510-t": {
+      "series_id": "food-history-qcl::254-5510-t",
+      "what": "FAOSTAT QCL: Production of Oil palm fruit. Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    },
+    "food-history-qcl::27-5510-t": {
+      "series_id": "food-history-qcl::27-5510-t",
+      "what": "FAOSTAT QCL: Production of Rice. Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    },
+    "food-history-qcl::328-5510-t": {
+      "series_id": "food-history-qcl::328-5510-t",
+      "what": "FAOSTAT QCL: Production of Seed cotton, unginned. Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    },
+    "food-history-qcl::56-5510-t": {
+      "series_id": "food-history-qcl::56-5510-t",
+      "what": "FAOSTAT QCL: Production of Maize (corn). Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    },
+    "food-history-qcl::656-5510-t": {
+      "series_id": "food-history-qcl::656-5510-t",
+      "what": "FAOSTAT QCL: Production of Coffee, green. Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    },
+    "food-history-qcl::661-5510-t": {
+      "series_id": "food-history-qcl::661-5510-t",
+      "what": "FAOSTAT QCL: Production of Cocoa beans. Source unit t; no numerical unit conversion. ",
+      "unit": "tonnes",
+      "how_to_read": "Compare the same commodity, actual source year and unit across countries. Source flags distinguish official figures, estimates and values imputed by the receiving agency.",
+      "does_not_mean": "This is a total production quantity, not production per resident, yield per hectare, company profit or the amount available for each person to eat.",
+      "period_note": "Retained collection years are 1961–2024; individual-country coverage varies. Geography, source methods and estimates can change over time."
+    }
+  },
+  "scope": "Plain-language explanations of retained source definitions. Educational metadata; source observations are unchanged."
+}
