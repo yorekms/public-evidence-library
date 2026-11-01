@@ -35,9 +35,9 @@ test('125-year histories retain zero, missing flags and native rows with one sig
 test('returning between early and recent windows reuses a mounted renderer and retains the chosen camera',async()=>{
  const calls=[],builder={build:options=>(calls.push(options.payload.start_year),sceneBuilder.build(options))};
  const f=fixture(builder),data=packet([{geo_id:'AAA',year:1900,value:100},{geo_id:'AAA',year:1980,value:1},{geo_id:'AAA',year:2060,value:30}]),controller=await f.api.mount({host:f.host,data,loadJSON:f.loadJSON,year:1900});
- same(controller.getCamera(),{elevation:80,azimuth:-90,height_scale:1,zoom:1});
+ same(controller.getCamera(),{elevation:80,azimuth:-90,height_scale:1,zoom:1.3});
  f.instances[0].options.onCameraChange({elevation:61,azimuth:-120,height_scale:1.3,zoom:1.4});
- await controller.setFrame(1980,'BBB');await controller.setFrame(1900,'AAA');same(calls,[1900,1980]);assert.equal(f.renders.at(-1).year,1900);assert.equal(f.renders.at(-1).elevation,61);assert.equal(f.renders.at(-1).azimuth,-120);assert.equal(f.renders.at(-1).height_scale,1.3);assert.equal(f.renders.at(-1).zoom,1.4);assert.equal(f.renders.at(-1).focusId,'AAA');assert.equal(f.instances.length,1);assert.equal(f.loads.length,1);controller.resetCamera();same(controller.getCamera(),{elevation:80,azimuth:-90,height_scale:1,zoom:1});controller.destroy();
+ await controller.setFrame(1980,'BBB');await controller.setFrame(1900,'AAA');same(calls,[1900,1980]);assert.equal(f.renders.at(-1).year,1900);assert.equal(f.renders.at(-1).elevation,61);assert.equal(f.renders.at(-1).azimuth,-120);assert.equal(f.renders.at(-1).height_scale,1.3);assert.equal(f.renders.at(-1).zoom,1.4);assert.equal(f.renders.at(-1).focusId,'AAA');assert.equal(f.instances.length,1);assert.equal(f.loads.length,1);controller.resetCamera();same(controller.getCamera(),{elevation:80,azimuth:-90,height_scale:1,zoom:1.3});controller.destroy();
 });
 
 test('a slower obsolete window cannot repaint over the latest scrubbed year or selected country',async()=>{

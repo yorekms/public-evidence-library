@@ -32,7 +32,7 @@ Materials accounting and checksums: [/data/early-materials-manifest.json](/data/
 
 ## Maps and complete histories
 
-The raised map opens north-up with a high viewing angle matching the supplied appearance reference: tilt 80 degrees, rotation -90 degrees, original source-height emphasis and fitted zoom. Existing tilt, rotation, height, zoom, flat-map, timeline and playback controls remain available.
+The raised map opens north-up with a high viewing angle matching the supplied appearance reference: tilt 80 degrees, rotation -90 degrees, original source-height emphasis, and a larger opening zoom on wide maps. Narrow maps retain fitted zoom so their world overview stays usable. Existing tilt, rotation, height, zoom, flat-map, timeline and playback controls remain available.
 
 Histories exceeding 80 calendar years load bounded drawing windows. Their color, height and camera-fit domains remain fixed across the complete retained history. Earlier observations are not trimmed. Missing windows remain unavailable, and all original source records remain accessible through the source table and complete-history CSV.
 

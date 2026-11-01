@@ -3,7 +3,7 @@
 'use strict';
 const global=typeof window==='undefined'?globalThis:window;
 const finite=value=>(typeof value==='number'||typeof value==='string'&&value.trim()!=='')&&Number.isFinite(Number(value));
-const DEFAULT_CAMERA=Object.freeze({elevation:80,azimuth:-90,height_scale:1,zoom:1});
+const DEFAULT_CAMERA=Object.freeze({elevation:80,azimuth:-90,height_scale:1,zoom:1.3});
 function sceneInput(data){
  const series=data.series,groups=new Map();
  for(const original of data.records){if(!finite(original.year)||!Number.isInteger(Number(original.year)))continue;const key=JSON.stringify([String(original.geo_id),Number(original.year)]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(original);}
@@ -33,7 +33,8 @@ async function mount({host,data,loadJSON,isCurrent=()=>true,onSelectPlace,year,p
  if(!global.PublicDataMapScene||!global.PublicWorkbenchScene)throw Error('The original 3D drawing libraries could not load.');
  const input=sceneInput(data),geometry=await loadJSON('/workbench/data/map-geometry/'+input.series.scope+'.json');
  const extended=input.years.at(-1)-input.years[0]>79,lockedScale=extended?fullHistoryScale(input,geometry):null,scenes=new Map(),pending=new Map();let templatePromise=null;
- let renderer=null,closed=false,currentYear=year,currentPlace=place,camera={...DEFAULT_CAMERA},generation=0,windowStatus=null;
+ const openingCamera={...DEFAULT_CAMERA,zoom:host.clientWidth>0&&host.clientWidth<1000?1:DEFAULT_CAMERA.zoom};
+ let renderer=null,closed=false,currentYear=year,currentPlace=place,camera={...openingCamera},generation=0,windowStatus=null;
  async function missingWindow(range){
   const ids=new Set(geometry.features.map(f=>String(f.id)));
   if(!templatePromise){const anchor=input.records.find(r=>ids.has(String(r.geo_id))&&r.eligible&&finite(r.value));templatePromise=global.PublicWorkbenchScene.build({...input,geometry,payload:{series_id:input.series.id,start_year:anchor.year,end_year:anchor.year}});}
@@ -78,7 +79,7 @@ async function mount({host,data,loadJSON,isCurrent=()=>true,onSelectPlace,year,p
   }
   host.append(controls);const note=document.createElement('p');note.className='world-3d-note';note.textContent='Original 3D regions · drag to rotate, scroll to zoom. Height represents the source value, not terrain. Color and height scales stay fixed across the retained source years. '+(input.ambiguous.length?input.ambiguous.length+' country/year groups have multiple native rows and are shown unavailable; inspect their original table rows. ':'')+(extended?'The complete '+input.years[0]+'–'+input.years.at(-1)+' history is available; drawing frames load in bounded windows with one fixed scale. ':'')+(renderer.getRendererInfo?.().mode==='canvas'?'Software 3D rendering uses the same source values and camera.':'');host.append(note);windowStatus=document.createElement('p');windowStatus.className='world-3d-note';windowStatus.setAttribute('role','status');host.append(windowStatus);syncCamera();paint();
  }catch(error){renderer?.destroy();host.replaceChildren();throw error;}
- return{setFrame(nextYear,nextPlace){currentYear=nextYear;currentPlace=nextPlace;return paint();},zoomBy(factor){camera.zoom=Math.min(3,Math.max(.5,camera.zoom*factor));paint();},resetCamera(){camera={...DEFAULT_CAMERA};syncCamera();paint();},getCamera(){return{...camera};},destroy(){if(closed)return;closed=true;generation++;renderer?.destroy();scenes.clear();host.replaceChildren();}};
+ return{setFrame(nextYear,nextPlace){currentYear=nextYear;currentPlace=nextPlace;return paint();},zoomBy(factor){camera.zoom=Math.min(3,Math.max(.5,camera.zoom*factor));paint();},resetCamera(){camera={...openingCamera};syncCamera();paint();},getCamera(){return{...camera};},destroy(){if(closed)return;closed=true;generation++;renderer?.destroy();scenes.clear();host.replaceChildren();}};
 }
 const api={mount,sceneInput,windowForYears,fullHistoryScale,DEFAULT_CAMERA};if(typeof module!=='undefined'&&module.exports)module.exports=api;global.PublicWorldMap3D=api;
 })();
