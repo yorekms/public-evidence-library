@@ -6,6 +6,7 @@ Bootstrap keeps the existing v8 index/app until all source objects are present.
 """
 from pathlib import Path
 import argparse
+import gzip
 import hashlib
 import json
 import shutil
@@ -39,10 +40,21 @@ def build(project, mode, bootstrap_commit):
             raise ValueError('Public source file exceeds the bounded ingestion size: ' + str(path.relative_to(source)))
         sources['/' + path.relative_to(source).as_posix()] = {'bytes': size, 'sha256': digest(path)}
     encoded = json.dumps(sources, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
+    histories = {}
+    history_blobs = {}
+    for path in sorted((source / 'data/evidence').glob('history-*.json')):
+        raw = path.read_bytes()
+        packed = gzip.compress(raw, compresslevel=9, mtime=0)
+        if gzip.decompress(packed) != raw:
+            raise ValueError('Historical transport compression changed source bytes.')
+        logical = '/' + path.relative_to(source).as_posix()
+        histories[logical] = {'asset': logical + '.gz', 'bytes': len(raw), 'gzip_bytes': len(packed), 'sha256': hashlib.sha256(raw).hexdigest(), 'gzip_sha256': hashlib.sha256(packed).hexdigest()}
+        history_blobs[logical] = packed
     worker = (project / 'worker/index.js').read_text()
-    if worker.count('/*PUBLIC_DATA_MANIFEST*/{}') != 1 or worker.count('/*PUBLIC_DATA_READ_ONLY*/false') != 1:
+    if worker.count('/*PUBLIC_DATA_MANIFEST*/{}') != 1 or worker.count('/*PUBLIC_DATA_READ_ONLY*/false') != 1 or worker.count('/*HISTORICAL_ASSET_MANIFEST*/{}') != 1:
         raise ValueError('Worker build markers are missing or ambiguous.')
     worker = worker.replace('/*PUBLIC_DATA_MANIFEST*/{}', encoded).replace('/*PUBLIC_DATA_READ_ONLY*/false', 'true' if mode == 'final' else 'false')
+    worker = worker.replace('/*HISTORICAL_ASSET_MANIFEST*/{}', json.dumps(histories, separators=(',', ':'), sort_keys=True))
     if len(worker.encode()) > 10_000_000:
         raise ValueError('Compiled public-source Worker exceeds 10 MB.')
     original = {}
@@ -66,16 +78,22 @@ def build(project, mode, bootstrap_commit):
             shutil.copy2(entry, target)
     for filename, blob in original.items():
         (client / filename).write_bytes(blob)
+    for logical, packed in history_blobs.items():
+        target = client / logical.lstrip('/')
+        target.with_name(target.name + '.gz').write_bytes(packed)
+        target.unlink()
     server = output / 'server'
     server.mkdir()
     (server / 'index.js').write_text(worker)
     (server / 'full-data-manifest.json').write_text(encoded + '\n')
-    wrangler = {'main': 'index.js', 'compatibility_date': '2026-10-31', 'assets': {'directory': '../client', 'binding': 'ASSETS', 'not_found_handling': 'none', 'run_worker_first': ['/full-data/*', '/__data_ingest/*']}}
+    (server / 'historical-transport-manifest.json').write_text(json.dumps(histories, sort_keys=True, separators=(',', ':')) + '\n')
+    wrangler = {'main': 'index.js', 'compatibility_date': '2026-10-31', 'assets': {'directory': '../client', 'binding': 'ASSETS', 'not_found_handling': 'none', 'run_worker_first': ['/full-data/*', '/__data_ingest/*', '/data/evidence/history-*']}}
     (server / 'wrangler.json').write_text(json.dumps(wrangler, separators=(',', ':')) + '\n')
     built_metadata = output / '.openai'
     built_metadata.mkdir()
     (built_metadata / 'hosting.json').write_text(json.dumps(manifest, indent=2) + '\n')
     result = {'mode': mode, 'source_files': len(sources), 'source_bytes': sum(item['bytes'] for item in sources.values()), 'manifest_bytes': len(encoded.encode()), 'worker_bytes': len(worker.encode()), 'asset_files': sum(1 for p in client.rglob('*') if p.is_file()), 'asset_bytes': sum(p.stat().st_size for p in client.rglob('*') if p.is_file()), 'source_unchanged': True, 'read_only': mode == 'final', 'ingest_header': 'X-Public-Data-Ingest-Token', 'ingest_prefix': '/__data_ingest', 'object_keys': 'sha256/<manifest SHA-256>'}
+    result['historical_transport'] = {'files': len(histories), 'original_bytes': sum(item['bytes'] for item in histories.values()), 'gzip_bytes': sum(item['gzip_bytes'] for item in histories.values()), 'all_roundtrip_bytes_verified': True}
     print(json.dumps(result))
     return result
 

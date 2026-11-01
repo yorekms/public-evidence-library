@@ -22,7 +22,7 @@ The World maps page uses a compact collection, commodity, country and year selec
 
 ## Source and deployment layout
 
-`public-source/` contains the retained public assets and complete source tree. `dist/` is generated Worker output, with static assets in `dist/client/`. Large `/full-data/` files remain served from the managed R2 binding `BUCKET` through their immutable SHA-256 allowlist. The historical supplement uses separate static evidence files; the full explorer's source adapter merges new definitions without replacing the original full-data index or source parts.
+`public-source/` contains the retained public assets and complete source tree. `dist/` is generated Worker output, with static assets in `dist/client/`. Large `/full-data/` files remain served from the managed R2 binding `BUCKET` through their immutable SHA-256 allowlist. The historical supplement uses separate static evidence files, losslessly gzipped only in the generated deployment to fit the hosting package limit. The Worker returns the same logical JSON URLs with gzip transport headers; every one of the 945 decoded files is checked against its complete source bytes. The preserved public-source files remain plain JSON; the full explorer's source adapter merges new definitions without replacing the original full-data index or source parts.
 
 Build with `python3 scripts/build_r2_release.py --mode final`. Final releases compile ingestion off and have no upload secret. `.openai/hosting.json` identifies the existing Sites deployment; preserve its public audience. `dist/` and local `qa/` receipts are ignored by Git. The earlier `build_public_data.py` and `add_original_public_collections.py` are retained historical subset-export helpers, not the current full-library rebuild workflow.
 

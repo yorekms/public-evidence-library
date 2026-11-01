@@ -1,6 +1,7 @@
 /* Full public sources live in immutable R2 objects; existing public assets stay separate. */
 const SOURCES=/*PUBLIC_DATA_MANIFEST*/{};
 const READ_ONLY=/*PUBLIC_DATA_READ_ONLY*/false;
+const HISTORIES=/*HISTORICAL_ASSET_MANIFEST*/{};
 const MAX_BYTES=20000000;
 function answer(message,status=200,headers={}){return new Response(JSON.stringify({message}),{status,headers:{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store',...headers}});}
 function equal(left,right){if(typeof left!=='string'||typeof right!=='string')return false;let difference=left.length^right.length;for(let i=0;i<Math.max(left.length,right.length);i++)difference|=(left.charCodeAt(i)||0)^(right.charCodeAt(i)||0);return difference===0;}
@@ -32,4 +33,17 @@ async function publicSource(request,env,path){
  if(request.headers.get('If-None-Match')===headers.ETag)return new Response(null,{status:304,headers});
  return new Response(request.method==='HEAD'?null:object.body,{headers});
 }
-export default {async fetch(request,env){try{const path=new URL(request.url).pathname;if(path.startsWith('/__data_ingest/'))return await ingest(request,env,path);if(path.startsWith('/full-data/'))return await publicSource(request,env,path);return env.ASSETS?await env.ASSETS.fetch(request):answer('The public asset binding is unavailable.',503);}catch{return answer('Public source storage is temporarily unavailable.',503);}}};
+async function historicalSource(request,env,path){
+ if(!['GET','HEAD'].includes(request.method))return answer('Method not allowed.',405,{Allow:'GET, HEAD'});
+ const info=HISTORIES[path];if(!info)return answer('Historical source not found.',404);
+ const etag='"'+info.sha256+'"';
+ if(request.headers.get('If-None-Match')===etag)return new Response(null,{status:304,headers:{ETag:etag,'Cache-Control':'public, max-age=0, must-revalidate'}});
+ const url=new URL(request.url);url.pathname=info.asset;
+ const asset=await env.ASSETS.fetch(new Request(url,{method:request.method,headers:{'Accept-Encoding':'identity'}}));
+ if(!asset.ok)return answer('Historical source asset could not be loaded.',503);
+ // The stored asset is lossless transport gzip. Browsers decode it before
+ // JSON parsing; the checksum identifies the complete original JSON bytes.
+ const headers={'Content-Type':'application/json; charset=utf-8','Content-Encoding':'gzip','Content-Length':String(info.gzip_bytes),'X-Content-SHA256':info.sha256,'X-Source-Bytes':String(info.bytes),ETag:etag,'Cache-Control':'public, max-age=0, must-revalidate','X-Content-Type-Options':'nosniff'};
+ return new Response(request.method==='HEAD'?null:asset.body,{headers,encodeBody:'manual'});
+}
+export default {async fetch(request,env){try{const path=new URL(request.url).pathname;if(path.startsWith('/__data_ingest/'))return await ingest(request,env,path);if(path.startsWith('/full-data/'))return await publicSource(request,env,path);if(path.startsWith('/data/evidence/history-'))return await historicalSource(request,env,path);return env.ASSETS?await env.ASSETS.fetch(request):answer('The public asset binding is unavailable.',503);}catch{return answer('Public source storage is temporarily unavailable.',503);}}};
