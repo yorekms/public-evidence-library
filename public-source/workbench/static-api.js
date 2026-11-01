@@ -3,7 +3,7 @@
 'use strict';
 const root=typeof window==='object'?window:globalThis;
 const cache=new Map(),pending=new Map(),metadataCache=new Map(),geometryCache=new Map();
-let cataloguePromise=null,indexPromise=null,catalogue=null,seriesLookup=null;
+let cataloguePromise=null,indexPromise=null,supplementPromise=null,catalogue=null,seriesLookup=null;
 const scopeNote='All retained normalized source observations are hosted here. No selected-country or selected-year subset is substituted.';
 const encodingNote='Browser JSON/CSV exports re-encode normalized source values. Their bytes differ from original publisher/source bundles; retained source SHA-256 values identify those original bundles, not this browser encoding.';
 const localNote='This action requires the original local Python workbench at http://127.0.0.1:8772/ (on your computer, when running). The public browser edition does not run Python models, import datasets, or render PDF/MP4/GIF files.';
@@ -23,8 +23,20 @@ async function readJSON(path,integrity){
  try{return JSON.parse(new TextDecoder().decode(bytes));}catch{throw Error('Public source file is not readable JSON: '+u.pathname);}
 }
 async function loadIndex(){if(!indexPromise)indexPromise=readJSON('/full-data/index.json').catch(error=>{indexPromise=null;throw error;});return indexPromise;}
+async function loadSupplement(){
+ if(!supplementPromise)supplementPromise=Promise.all([readJSON('/data/catalogue.json'),readJSON('/data/evidence-index.json')]).then(([metadata,index])=>({metadata,files:index.files||index.series||index})).catch(error=>{supplementPromise=null;throw error;});
+ return supplementPromise;
+}
 async function loadCatalogue(){
- if(!cataloguePromise)cataloguePromise=readJSON('/full-data/catalogue.json.gz').then(value=>{catalogue=value;seriesLookup=new Map(value.series.map(s=>[s.id,s]));return value;}).catch(error=>{cataloguePromise=null;throw error;});
+ if(!cataloguePromise)cataloguePromise=Promise.all([readJSON('/full-data/catalogue.json.gz'),loadSupplement()]).then(([value,supplement])=>{
+  const existingSeries=new Set(value.series.map(s=>s.id)),existingDatasets=new Set(value.datasets.map(d=>d.id));
+  const additions=supplement.metadata.series.filter(s=>!existingSeries.has(s.id)&&supplement.files[s.id]);
+  const addedDatasets=new Set(additions.map(s=>s.dataset_id));
+  const datasets=[...value.datasets,...supplement.metadata.datasets.filter(d=>!existingDatasets.has(d.id)&&addedDatasets.has(d.id))];
+  const series=[...value.series,...additions];
+  catalogue={...value,datasets,series,counts:{...value.counts,datasets:datasets.length,series:series.length,records:value.counts.records+additions.reduce((sum,s)=>sum+(Number(s.rows)||0),0)}};
+  seriesLookup=new Map(series.map(s=>[s.id,s]));return catalogue;
+ }).catch(error=>{cataloguePromise=null;throw error;});
  return cataloguePromise;
 }
 async function metadataFor(id,entry){
@@ -41,7 +53,15 @@ async function loadSeries(id){
  if(cache.has(id))return lru(cache,id,cache.get(id),3);
  if(pending.has(id))return pending.get(id);
  const task=(async()=>{
-  const index=await loadIndex(),entry=index.series[id];if(!entry)throw Error('This series is absent from the complete public source index: '+id);
+  const index=await loadIndex(),entry=index.series[id];
+  if(!entry){
+   const supplement=await loadSupplement();let file=supplement.files[id];if(file&&typeof file==='object')file=file.file||file.path;
+   if(typeof file!=='string'||!/^evidence\/[A-Za-z0-9_.-]+\.json$/.test(file)||!supplement.metadata.series.some(s=>s.id===id))throw Error('This series is absent from the complete public source index: '+id);
+   const data=await readJSON('/data/'+file);
+   if(data.series?.id!==id||!Array.isArray(data.records))throw Error('Supplementary historical source identity/count mismatch: '+id);
+   if(Number.isInteger(data.series.rows)&&data.series.rows!==data.records.length)throw Error('Supplementary historical source row count mismatch: '+id);
+   return lru(cache,id,data,3);
+  }
   const metadata=await metadataFor(id,entry),records=[];
   // One part at a time bounds transient decompression memory for county panels.
   for(const part of entry.parts){const data=await readJSON(part.path,part);if(data.series_id!==id||!Array.isArray(data.records)||data.records.length!==part.records)throw Error('Retained source part identity/count mismatch: '+part.path);for(const row of data.records)records.push(row);}

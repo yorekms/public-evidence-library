@@ -43,3 +43,48 @@
 
 /* Original raised regions and the retained color view share each map's controls. */
 .world-view-switch{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px 15px;border-bottom:1px solid #e1e7d9}.world-view-switch>span{font-size:13px;margin-right:auto}.world-view-switch button{font-size:13px}.world-view-switch button[aria-pressed=true]{background:#245c46;color:#fff;border-color:#245c46}.world-3d-host[hidden],#world-map-svg[data-view-hidden=true]{display:none!important}.world-3d-host .map-scene{border:0;border-radius:0}.world-3d-camera{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:14px 20px}.world-3d-camera label{font-size:13px;min-width:0}.world-3d-camera output{font-variant-numeric:tabular-nums;float:right;color:#255f46}.world-3d-camera input{display:block;width:100%;accent-color:#245c46;margin-top:10px}.world-3d-note{padding:10px 20px;margin:0;font-size:12px;line-height:1.6;color:#526b58}.world-view-switch>.world-3d-note{flex-basis:100%;padding:0}@media(max-width:520px){.world-3d-camera{grid-template-columns:1fr;gap:10px}.world-view-switch{padding:10px}.world-view-switch button{font-size:12px}}
+
+/* Keep data selectors beside the existing maps; explanatory material stays available below. */
+.maps-view{padding-top:22px}
+.maps-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:8px}
+.maps-heading .eyebrow{margin:0 0 4px;font-size:10px}
+.maps-heading h1{font-size:32px;margin:0;line-height:1.15}
+.map-access-links{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px 18px;max-width:620px}
+.map-access-links a{font-size:12px;font-weight:600}
+.maps-intro{font-size:13px;color:#536e5b;max-width:1000px;margin-bottom:12px}
+.world-status{padding:5px 10px;margin-bottom:10px;font-size:12px}
+.world-map-workspace{min-width:0;position:relative}
+.world-selector-dock{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:12px;padding:10px 12px;background:#f7f9f1;border:1px solid #c5d4bd;border-radius:6px;min-width:0;z-index:20}
+.world-selector-dock .world-controls{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.3fr);gap:10px;margin:0;min-width:0}
+.world-selector-dock .world-period-controls{display:grid;grid-template-columns:minmax(100px,1fr) 84px 70px;gap:8px;align-items:end;margin:0;min-width:0}
+.world-selector-dock label{font-size:11px;min-width:0!important}
+.world-selector-dock select{font-size:12px;line-height:1.35;min-height:36px;height:36px;padding:7px 25px 7px 8px;margin-top:3px;min-width:0}
+.world-selector-dock .world-period-controls label{flex:initial}
+.world-selector-dock .world-period-controls label:last-child{grid-column:1;grid-row:1;min-width:0}
+.world-selector-dock .world-period-controls label:has(#world-year){grid-column:2;grid-row:1}
+.world-year-steps{grid-column:3;grid-row:1;display:flex;gap:4px;min-width:0}
+.world-year-steps button{padding:6px 8px;min-height:36px;height:36px;min-width:30px;font-size:14px;flex:1}
+.world-selector-dock .world-period-note{grid-column:2/4;grid-row:1;margin:0;font-size:11px;align-self:center}
+.world-measure-title{font-size:22px;line-height:1.25;margin:12px 2px 9px}
+.world-reading-details{margin:14px 0 18px;border:1px solid #cbd8c4;border-radius:5px;background:#fafcf6;padding:11px 14px}
+.world-reading-details>summary{font-size:12px;font-weight:600;color:#345c43;cursor:pointer}
+.world-reading-details>.world-period-note{margin:12px 0;font-size:12px}
+.world-reading-details .measurement-guide{margin:12px 0 2px;border:0;border-top:1px solid #ced9c6;background:transparent;padding:14px 0 0}
+.world-map-toolbar{display:flex;align-items:stretch;border-bottom:1px solid #e1e7d9;min-width:0}
+.world-map-toolbar .world-view-switch{padding:8px 10px;border-bottom:0;border-right:1px solid #e1e7d9;gap:6px;flex-shrink:0}
+.world-map-toolbar .world-view-switch>span{display:none}
+.world-map-toolbar .world-view-switch button{font-size:12px;padding:7px 10px}
+.world-map-toolbar .world-map-tools{padding:8px 10px;border-bottom:0;flex:1;min-width:0;gap:6px}
+.world-map-toolbar .world-map-tools>span{font-size:11px;line-height:1.4}
+.world-map-toolbar .world-map-tools button{padding:7px 9px}
+.world-timeline{padding:8px 14px 7px;gap:1px 12px}
+.world-timeline-heading{gap:9px}
+.world-timeline-heading label{font-size:12px}
+.world-timeline-heading output{font-size:21px}
+.world-timeline-heading button{padding:5px 10px;min-height:30px;font-size:12px}
+.world-timeline input[type=range]{min-height:20px;height:20px;margin:2px 0;padding:0}
+.world-timeline .world-year-ends{font-size:10px;line-height:1.3}
+@media(min-width:1000px) and (min-height:700px){.world-selector-dock{position:sticky;top:calc(var(--world-header-offset,125px) + 6px);box-shadow:0 3px 9px #234e3a12}}
+@media(max-width:999px){.world-selector-dock{grid-template-columns:1fr;gap:8px}.world-selector-dock .world-controls{grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr)}.world-selector-dock .world-period-controls{grid-template-columns:minmax(0,1fr) 110px 84px}.world-map-toolbar .world-map-tools>span{display:none}.maps-heading{align-items:flex-start}.map-access-links{max-width:400px}}
+@media(max-width:600px){.maps-heading{display:block}.maps-heading h1{font-size:29px}.map-access-links{justify-content:flex-start;gap:7px 15px;margin-top:10px}.map-access-links a{font-size:11px}.maps-intro{font-size:12px;line-height:1.5}.world-selector-dock{padding:8px;gap:7px}.world-selector-dock .world-controls{grid-template-columns:minmax(0,.9fr) minmax(0,1.25fr);gap:7px}.world-selector-dock .world-period-controls{grid-template-columns:minmax(0,1fr) 80px 66px;gap:6px}.world-selector-dock label{font-size:10px}.world-selector-dock select{font-size:11px}.world-measure-title{font-size:20px}.world-map-toolbar{flex-wrap:wrap}.world-map-toolbar .world-view-switch{flex:1;justify-content:flex-start;border-right:0;padding:7px 8px}.world-map-toolbar .world-map-tools{flex:initial;padding:7px 8px}.world-map-toolbar .world-map-tools button{font-size:11px;padding:7px}.world-map-toolbar .world-view-switch button{font-size:11px;padding:7px 8px}.world-map-toolbar .world-map-tools button:last-child{font-size:10px}.world-timeline{padding:7px 10px 6px}.world-timeline-heading output{font-size:20px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
