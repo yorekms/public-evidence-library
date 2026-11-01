@@ -46,7 +46,7 @@ def reference_cases(source_root, destination):
     """Freeze bounded original-Python results for independently exercised JS parity."""
     sys.path.insert(0, str(source_root))
     original = importlib.import_module('workbench.map_scene')
-    public_data = Path(__file__).resolve().parents[1] / 'dist/data'
+    public_data = Path(__file__).resolve().parents[1] / 'public-source/data'
     index = json.loads((public_data / 'evidence-index.json').read_text())
     catalogue = json.loads((public_data / 'catalogue.json').read_text())
     geometries = json.loads((source_root / 'data/atlas.json').read_text())['geometry']

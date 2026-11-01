@@ -1,6 +1,6 @@
 'use strict';
 const test=require('node:test'),assert=require('node:assert/strict');
-const L=require('../dist/app.js');
+const L=require('../public-source/app.js');
 test('unavailable cells and booleans never become numeric zeros',()=>{for(const v of[null,undefined,'','   ',false,true,'(D)','(Z)','(Y)'])assert.equal(L.finite(v),false,String(v));assert.equal(L.finite(0),true);assert.equal(L.finite('0'),true);assert.equal(L.numeric({value:0,eligible:true}),true);assert.equal(L.numeric({value:123,eligible:false}),false);});
 test('lines join consecutive source years but break at suppressed cells and Census gaps',()=>{const rows=[{year:1997,value:5},{year:2002,value:6},{year:2003,value:null,raw_value:'(D)'},{year:2004,value:7},{year:2005,value:0},{year:2006,value:3,eligible:false},{year:2007,value:8}];assert.deepEqual(L.lineSegments(rows),[[{year:1997,value:5}],[{year:2002,value:6}],[{year:2004,value:7},{year:2005,value:0}],[{year:2007,value:8}]]);});
 test('source-year enumeration retains actual native years without inserting annual observations',()=>{assert.deepEqual(L.sourceYears({years:[1997,2002,null,'']},[{year:2007},{year:2002},{year:null}]),[1997,2002,2007]);});

@@ -1,7 +1,7 @@
 const test=require('node:test');
 const assert=require('node:assert/strict');
-const ui=require('../dist/essentials_costs_ui.js');
-const page=require('../dist/essentials-comparisons.js');
+const ui=require('../public-source/essentials_costs_ui.js');
+const page=require('../public-source/essentials-comparisons.js');
 test('audit-only failed metadata requests do not become publisher links, while originals remain retained',()=>{
  const source={schema:'essentials-costs.global-context/v1',countries:[],series:[],records:[],sources:[{id:'valid',url:'https://data.worldbank.org/'},{id:'audit-error',usable_for_metadata:false,url:'https://databank.worldbank.org/ddperror.aspx'}]};
  const before=JSON.stringify(source);

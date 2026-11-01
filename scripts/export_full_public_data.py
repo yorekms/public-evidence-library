@@ -18,7 +18,7 @@ import urllib.request
 TASK=pathlib.Path(__file__).resolve().parents[1]
 ROOT=TASK.parent
 SOURCE=ROOT/'Public_Data_Workbench_2026-10-30_Global_Footprints_Trade_Policy'
-OUTPUT=ROOT/'Public_Learning_Library_2026-10-31'/'dist'/'full-data'
+OUTPUT=ROOT/'Public_Learning_Library_2026-10-31'/'public-source'/'full-data'
 sys.path.insert(0,str(TASK/'.deps'))
 sys.path.insert(0,str(SOURCE))
 import ijson

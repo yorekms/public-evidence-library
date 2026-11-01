@@ -12,7 +12,7 @@ class Element{
 }
 function harness(file,extra={}){
  const frames=[],blobs=[],document={createElement:tag=>new Element(tag),body:new Element('body')},window={...extra,PublicWorldMaps:{render:async options=>{frames.push(options);options.root.title=new Element('h2');options.root.status=new Element('p');return Object.fromEntries(options.params);}}};
- vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../dist',file),'utf8'),{window,document,URLSearchParams,Blob,URL:{createObjectURL:blob=>(blobs.push(blob),'blob:test'),revokeObjectURL(){}},setTimeout:()=>0,Intl,console});
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../public-source',file),'utf8'),{window,document,URLSearchParams,Blob,URL:{createObjectURL:blob=>(blobs.push(blob),'blob:test'),revokeObjectURL(){}},setTimeout:()=>0,Intl,console});
  return{window,frames,blobs,root:new Element('main'),historyRoot:new Element('section'),globalRoot:new Element('section')};
 }
 const common={loadJSON:async()=>null,isCurrent:()=>true};
