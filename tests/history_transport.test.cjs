@@ -2,12 +2,12 @@
 const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),zlib=require('node:zlib'),crypto=require('node:crypto');
 const original=Buffer.from('{"records":[{"value":0,"raw_value":"0"},{"value":null,"status":"Withheld"}],"native_field":"kept"}\n');
 const packed=zlib.gzipSync(original),sha256=crypto.createHash('sha256').update(original).digest('hex'),logical='/data/evidence/history-test.json';
-function fixture({status=200}={}){
+function fixture({status=200,logicalPath=logical}={}){
  let code=fs.readFileSync(path.join(__dirname,'../worker/index.js'),'utf8');
- code=code.replace('/*PUBLIC_DATA_READ_ONLY*/false','true').replace('/*HISTORICAL_ASSET_MANIFEST*/{}',JSON.stringify({[logical]:{asset:logical+'.gz',bytes:original.length,gzip_bytes:packed.length,sha256}})).replace('export default ','globalThis.worker=');
+ code=code.replace('/*PUBLIC_DATA_READ_ONLY*/false','true').replace('/*HISTORICAL_ASSET_MANIFEST*/{}',JSON.stringify({[logicalPath]:{asset:logicalPath+'.gz',bytes:original.length,gzip_bytes:packed.length,sha256}})).replace('export default ','globalThis.worker=');
  const context={Response,Request,URL};vm.createContext(context);vm.runInContext(code,context);
  const requests=[],env={ASSETS:{fetch:async request=>{requests.push(request);return new Response(request.method==='HEAD'?null:packed,{status});}}};
- return{requests,fetch:(method='GET',headers={},url='https://test.invalid'+logical)=>context.worker.fetch(new Request(url,{method,headers}),env)};
+ return{requests,fetch:(method='GET',headers={},url='https://test.invalid'+logicalPath)=>context.worker.fetch(new Request(url,{method,headers}),env)};
 }
 test('historical transport serves complete lossless source bytes with native JSON type',async()=>{
  const f=fixture(),response=await f.fetch(),body=Buffer.from(await response.arrayBuffer());
@@ -19,6 +19,14 @@ test('historical transport serves complete lossless source bytes with native JSO
 test('HEAD returns compressed transfer metadata without a body',async()=>{
  const f=fixture(),response=await f.fetch('HEAD');assert.equal(response.status,200);assert.equal((await response.arrayBuffer()).byteLength,0);
  assert.equal(f.requests[0].method,'HEAD');assert.equal(Number(response.headers.get('content-length')),packed.length);
+});
+test('complete catalogue and existing economic data use the same lossless transport without changing logical URLs',async()=>{
+ for(const logicalPath of ['/data/catalogue.json','/data/economic-valuation.json']){
+  const f=fixture({logicalPath}),response=await f.fetch();assert.equal(response.status,200);
+  assert.equal(response.headers.get('content-encoding'),'gzip');
+  assert.deepEqual(zlib.gunzipSync(Buffer.from(await response.arrayBuffer())),original);
+  assert.equal(f.requests[0].url,'https://test.invalid'+logicalPath+'.gz');
+ }
 });
 test('conditional cache reads use source identity and never forward partial-read headers',async()=>{
  const f=fixture(),cached=await f.fetch('GET',{'If-None-Match':'"'+sha256+'"'});assert.equal(cached.status,304);assert.equal(f.requests.length,0);

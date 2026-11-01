@@ -4,7 +4,7 @@
 const PAGE_SIZE=50, CIVIC='https://civic-voice-yorekms.tasty-siren-3221.chatgpt.site/learn';
 const finite=value=>(typeof value==='number'||(typeof value==='string'&&value.trim()!==''))&&Number.isFinite(Number(value));
 const numeric=row=>finite(row?.value)&&row.eligible!==false;
-const scopeName=value=>({us_states:'U.S. states + DC',us_counties:'U.S. counties / equivalents',virginia:'Virginia counties / cities',world:'Countries / economies',public_retirement_plans:'Named pension plans',retirement_plans:'Named pension plans',user_defined:'Source-defined places'}[value]||String(value||'Source-defined geography').replaceAll('_',' '));
+const scopeName=value=>({us_states:'U.S. states + DC',us_counties:'U.S. counties / equivalents',virginia:'Virginia counties / cities',world:'Countries / economies',world_aggregate:'World totals (publisher aggregates)',source_defined:'Historical entities and source-defined places',public_retirement_plans:'Named pension plans',retirement_plans:'Named pension plans',user_defined:'Source-defined places'}[value]||String(value||'Source-defined geography').replaceAll('_',' '));
 const familyName=value=>({food_agriculture:'Food and agriculture',energy:'Energy',metals:'Metals',chemicals_fertilizers:'Chemicals and fertilizers',environment:'Environment',forests_wood_paper:'Forests, wood and paper',other:'Other public data'}[value]||String(value||'Other public data').replaceAll('_',' ').replace(/^./,c=>c.toUpperCase()));
 const format=(value,digits=6)=>finite(value)?new Intl.NumberFormat('en-US',{maximumFractionDigits:digits}).format(Number(value)):'Unavailable';
 const compact=value=>finite(value)?new Intl.NumberFormat('en-US',{notation:'compact',maximumSignificantDigits:3}).format(Number(value)):'—';

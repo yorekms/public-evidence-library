@@ -2,7 +2,17 @@
 
 A public, source-attached data library linked to Civic Voice. It retains the complete original collection and adds historical food, energy and raw-material records. The existing local analytical workbench and Civic Voice remain separate.
 
-The current catalogue contains **8,756 measures in 25 collections**, with **13,853,146 retained normalized records**. It includes every original **7,811 measure, 22 collection and 13,431,313 record**. Existing maps, source files, source identifiers, missing values and source flags are preserved. Additional country histories use the same public color maps and original 3D renderer.
+The current catalogue contains **9,852 measures in 34 collections**, with **14,322,061 retained normalized records**. It includes every original **7,811 measure, 22 collection and 13,431,313 record**. Existing maps, source files, source identifiers, missing values and source flags are preserved. Additional country histories use the same public color maps and original 3D renderer.
+
+## Earlier history extension — 1 November 2026
+
+Adds 1,096 measures and 468,915 retained source cells while preserving every version-13 measure and evidence file. New energy includes historical country production from 1900, EIA international records from 1973 (coverage varies), U.S. annual energy records from 1949, and U.S. crude oil from 1859. Separate sparse U.S. benchmarks reach 1635; those include publisher-assigned decade averages and are not annual country-map observations. USGS DS140 adds 990 histories from all 92 original commodity workbooks, covering 1900–2023 overall: 895 United States series and 95 distinct world-total series.
+
+Current public country maps offer 4,667 measures. World totals and original historical entities remain available through catalogue/history views without supplying values to modern country polygons. See `public-source/data/EARLY_HISTORIES.md`, the individual source guides, and `early-histories-manifest.json` for exact scope, source editions, licenses, accounting and checksums.
+
+Reproduce the new acquisitions with `scripts/add_early_energy.py` and `scripts/add_early_materials.py`, then append their independently checked fragments using `scripts/integrate_early_histories.py`. Existing series definitions and evidence records cannot be replaced by that merge. Fragment files duplicate catalogue metadata and stay in the source checkout; deployable assets include the complete catalogue, all observations and all declared original-source archives.
+
+The public raised-map adapter opens at tilt80/rotation-90 to match the requested north-up appearance. Long histories retain one complete-history color and height scale while drawing at most80 calendar-year frames per scene. This leaves the original geometry, underlying renderer and scene builder unchanged. The original full workbench still offers its bounded scene-range controls and complete source tables.
 
 ## Historical expansion — 1 November 2026
 
@@ -22,7 +32,7 @@ The World maps page uses a compact collection, commodity, country and year selec
 
 ## Source and deployment layout
 
-`public-source/` contains the retained public assets and complete source tree. `dist/` is generated Worker output, with static assets in `dist/client/`. Large `/full-data/` files remain served from the managed R2 binding `BUCKET` through their immutable SHA-256 allowlist. The historical supplement uses separate static evidence files, losslessly gzipped only in the generated deployment to fit the hosting package limit. The Worker returns the same logical JSON URLs with gzip transport headers; every one of the 945 decoded files is checked against its complete source bytes. The preserved public-source files remain plain JSON; the full explorer's source adapter merges new definitions without replacing the original full-data index or source parts.
+`public-source/` contains the retained public assets and complete source tree. `dist/` is generated Worker output, with static assets in `dist/client/`. Large `/full-data/` files remain served from the managed R2 binding `BUCKET` through their immutable SHA-256 allowlist. The historical supplement uses separate static evidence files, losslessly gzipped only in the generated deployment to fit the hosting package limit. The Worker returns the same logical JSON URLs with gzip transport headers; every decoded history file is checked against its complete source bytes. The preserved public-source files remain plain JSON; the full explorer's source adapter merges new definitions without replacing the original full-data index or source parts.
 
 Build with `python3 scripts/build_r2_release.py --mode final`. Final releases compile ingestion off and have no upload secret. `.openai/hosting.json` identifies the existing Sites deployment; preserve its public audience. `dist/` and local `qa/` receipts are ignored by Git. The earlier `build_public_data.py` and `add_original_public_collections.py` are retained historical subset-export helpers, not the current full-library rebuild workflow.
 

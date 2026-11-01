@@ -42,7 +42,9 @@ def build(project, mode, bootstrap_commit):
     encoded = json.dumps(sources, ensure_ascii=False, separators=(',', ':'), sort_keys=True)
     histories = {}
     history_blobs = {}
-    for path in sorted((source / 'data/evidence').glob('history-*.json')):
+    transported = list((source / 'data/evidence').glob('history-*.json'))
+    transported.extend(source / name for name in ['data/catalogue.json', 'data/economic-valuation.json'])
+    for path in sorted(transported):
         raw = path.read_bytes()
         packed = gzip.compress(raw, compresslevel=9, mtime=0)
         if gzip.decompress(packed) != raw:
@@ -82,12 +84,16 @@ def build(project, mode, bootstrap_commit):
         target = client / logical.lstrip('/')
         target.with_name(target.name + '.gz').write_bytes(packed)
         target.unlink()
+    # Merge inputs duplicate the complete published catalogue metadata. Keep
+    # their originals in source, while serving every source record and archive.
+    for name in ['early-energy-fragment.json', 'early-materials-fragment.json']:
+        (client / 'data' / name).unlink(missing_ok=True)
     server = output / 'server'
     server.mkdir()
     (server / 'index.js').write_text(worker)
     (server / 'full-data-manifest.json').write_text(encoded + '\n')
     (server / 'historical-transport-manifest.json').write_text(json.dumps(histories, sort_keys=True, separators=(',', ':')) + '\n')
-    wrangler = {'main': 'index.js', 'compatibility_date': '2026-10-31', 'assets': {'directory': '../client', 'binding': 'ASSETS', 'not_found_handling': 'none', 'run_worker_first': ['/full-data/*', '/__data_ingest/*', '/data/evidence/history-*']}}
+    wrangler = {'main': 'index.js', 'compatibility_date': '2026-10-31', 'assets': {'directory': '../client', 'binding': 'ASSETS', 'not_found_handling': 'none', 'run_worker_first': ['/full-data/*', '/__data_ingest/*', '/data/evidence/history-*', '/data/catalogue.json', '/data/economic-valuation.json']}}
     (server / 'wrangler.json').write_text(json.dumps(wrangler, separators=(',', ':')) + '\n')
     built_metadata = output / '.openai'
     built_metadata.mkdir()

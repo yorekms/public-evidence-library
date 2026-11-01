@@ -66,3 +66,8 @@ Every ZIP is reversible packaging of unmodified publisher download bytes. The US
 - [wdi-EG.USE.ELEC.KH.PC.zip](/data/historical-sources/wdi-EG.USE.ELEC.KH.PC.zip)
 - [wdi-EG.USE.PCAP.KG.OE.zip](/data/historical-sources/wdi-EG.USE.PCAP.KG.OE.zip)
 - [usgs-world-production-1990-2022-all-vintages.zip](/data/historical-sources/usgs-world-production-1990-2022-all-vintages.zip)
+
+
+## Earlier history extension — 1 November 2026
+
+The preserved collections above now have additional earlier energy and material histories. See [Earlier energy and raw-material histories](/data/EARLY_HISTORIES.md) for country energy production from 1900, U.S. crude oil from 1859, USGS commodity histories from 1900, and separate sparse historical energy benchmarks from 1635. [Combined inventory and source checksums](/data/early-histories-manifest.json).
