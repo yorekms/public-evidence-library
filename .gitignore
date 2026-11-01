@@ -4,3 +4,6 @@ node_modules/
 .wrangler/
 qa/
 *.tar.gz
+
+# Generated Worker assets; full preserved public sources live in public-source/.
+/dist/
