@@ -43,7 +43,7 @@ async function render({root,historyRoot,params,loadJSON,navigate,isCurrent,plot,
   const requestedPlace=params.get('place'),place=selectedMeta.places.some(p=>p.id===requestedPlace)?requestedPlace:'';
   const working=new URLSearchParams({series:selectedMeta.id,...(finite(year)?{year:String(year)}:{}),...(place?{place}:{})});
   let selected={series:selectedMeta.id,year:String(year??''),place};
-  selected=await window.PublicWorldMaps.render({root,catalogue,index,loadEvidence:id=>Promise.resolve(bySeries[id]||null),loadJSON,params:working,navigate,isCurrent,enableTimeline:true,onFrameChange:p=>{Object.assign(selected,{series:p.series,year:String(p.year),place:p.place});syncFrame?.(p);},historyHrefFor:({series,place,year})=>'#prices?'+new URLSearchParams({series,place,...(finite(year)?{year:String(year)}:{}),section:'history'})});
+  selected=await window.PublicWorldMaps.render({root,catalogue,index,loadEvidence:id=>Promise.resolve(bySeries[id]||null),loadJSON,params:working,navigate,isCurrent,enableTimeline:true,enable3D:true,onFrameChange:p=>{Object.assign(selected,{series:p.series,year:String(p.year),place:p.place});syncFrame?.(p);},historyHrefFor:({series,place,year})=>'#prices?'+new URLSearchParams({series,place,...(finite(year)?{year:String(year)}:{}),section:'history'})});
   if(!isCurrent()||!selected)return;
   const series=bySeries[selected.series].series,records=bySeries[selected.series].records;
   const note=el('p','limitation','Published PPP national-account estimates are used directly. Blank native observation statuses do not establish direct measurement; the source methods include official accounts and staff estimates. Missing source cells remain unavailable.');root.append(note);
