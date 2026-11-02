@@ -41,3 +41,7 @@ Serve `public-source/` through HTTP for local preview. Python-only analyses and 
 ## Verification receipts
 
 The 1 November baseline, original-file hashes, source parsing audit, browser review, tests and publication readback are retained in `qa/historical_expansion_2026-11-01/`. Preservation verification distinguishes unchanged numerical/renderer files from deliberately updated catalogue metadata and interface files. The earlier compact-export snapshot manifest is labeled as a historical snapshot; current coverage is in the full-data index plus the historical supplement register.
+
+## Public commodity flows
+
+The directional flow viewer is now public at `/workbench/pipelines.html?collection=trade_coal`, using all eleven retained pipeline source graph bundles. See `public-source/COMMODITY_FLOWS.md` for source coverage, interpretation and local analytical extensions. Main navigation, Home and relevant commodity maps link directly to the viewer. Source bundles and all existing numerical data/maps remain unchanged.

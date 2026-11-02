@@ -1,0 +1,3 @@
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory(require('./vendor/d3.min.js'));else root.PipelineGeometry=factory(root.d3);})(typeof window!=='undefined'?window:null,function(d3){'use strict';
+function orient(geo){return {...geo,features:geo.features.map(f=>{const g=f.geometry;if(!g||!['Polygon','MultiPolygon'].includes(g.type))return f;const polys=g.type==='Polygon'?[g.coordinates]:g.coordinates;const fixed=polys.map(p=>d3.geoArea({type:'Polygon',coordinates:p})>2*Math.PI?p.map(r=>r.slice().reverse()):p);return {...f,geometry:{...g,coordinates:g.type==='Polygon'?fixed[0]:fixed}};})};}
+return {orient};});
