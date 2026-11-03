@@ -28,6 +28,14 @@ The import is reproducible with `python3 scripts/add_historical_resources.py`. I
 
 ## Map layout
 
+### Cartography update — 3 November 2026
+
+The Gemini visual revision adds a canvas map studio with choropleth, centroid spikes, globe, bivariate comparison and the original raised polygons. It adds scale/palette controls, a distribution legend, country histories and ranked place inspection. The commodity-flow viewer now provides flat, globe and hub-spike views with source-aware inspection and export settings.
+
+Integration review removed the revision's embedded rounded PPP snapshot and unrelated rare-earth overlay. Bivariate comparisons now use unique, eligible records from the retained economic-valuation packet for the exact selected country and year; missing matches stay unavailable. The globe shows the selected measure, with reported trade accessible in the dedicated commodity-flow viewer. Nonadditive rates are not presented as shares or summed hub quantities. Original data and numerical source files remain byte-identical to the version-16 source manifest.
+
+The updated studio opens in the Gemini choropleth view. All five map modes remain available. PNG exports preserve the displayed canvas; commodity-flow SVG export is explicitly limited to the editable 2D view. Source tables, retained native values, reporting periods and missingness remain authoritative.
+
 The World maps page uses a compact collection, commodity, country and year selector dock immediately above the existing map. On larger screens it stays under the site header while the map is in view; narrow screens use two compact rows. The year slider, playback, color/3D switch, camera controls, zoom, source observations and downloads remain available. Lengthy definitions and reading guidance are expandable below the map. Changing a commodity retains a compatible country/year and keeps the document tall while its source loads to avoid losing the map viewport.
 
 ## Source and deployment layout

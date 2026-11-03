@@ -27,10 +27,12 @@ function svgMap(o){
  add(geo,'path',{d:d3.geoPath(o.projection)(o.geography),fill:'#dfe8d9',stroke:'#fffef7','stroke-width':.7/o.transform.k});
  const max=o.data.fixed_width_domain[1]||1;
  for(const p of o.selfLoops||[]){const l=p.link,loop=add(map,'circle',{cx:p.a[0],cy:p.a[1],r:10+p.width,fill:'none',stroke:finite(l.value)?l.value<0?'#a16d48':'#217960':'#84968d','stroke-width':p.width,'data-connection-id':l.id,...(!finite(l.value)?{'stroke-dasharray':'5 4'}:{})});add(loop,'title',{},l.from_id+' → '+l.to_id+' · '+(l.value??'Unavailable')+' '+o.data.metric.unit);}
- for(const p of o.paths){const l=p.link,width=finite(l.value)?1+7*Math.sqrt(Math.abs(l.value)/max):1.2,stroke=finite(l.value)?l.value<0?'#a16d48':'#217960':'#84968d';
-  const path=add(map,'path',{d:`M${p.a} Q${p.c} ${p.b}`,fill:'none',stroke,'stroke-width':width,...(!finite(l.value)?{'stroke-dasharray':'5 4'}:{})});add(path,'title',{},l.from_id+' → '+l.to_id+' · '+(l.value??'Unavailable')+' '+o.data.metric.unit);
+ for(const p of o.paths){const l=p.link,width=p.width??(finite(l.value)?1+7*Math.sqrt(Math.abs(l.value)/max):1.2),stroke=p.strokeColor??(finite(l.value)?l.value<0?'#a16d48':'#217960':'#84968d');
+  const samples=Array.from({length:65},(_,i)=>p.q(i/64));let pathData='';
+  for(let i=0;i<samples.length;i++){const point=samples[i];const split=!i||Math.hypot(point[0]-samples[i-1][0],point[1]-samples[i-1][1])>o.width*.32;pathData+=(split?'M':'L')+point.join(',');}
+  const path=add(map,'path',{d:pathData,fill:'none',stroke,'stroke-width':width,...(!finite(l.value)?{'stroke-dasharray':'5 4'}:{})});add(path,'title',{},l.from_id+' → '+l.to_id+' · '+(l.value??'Unavailable')+' '+o.data.metric.unit);
   const head=p.q(.85),before=p.q(.81),angle=Math.atan2(head[1]-before[1],head[0]-before[0])*180/Math.PI;
-  add(map,'path',{d:`M0,0 L${-7-width*.3},${-3-width*.2} L${-7-width*.3},${3+width*.2} Z`,fill:'#286f55',transform:`translate(${head}) rotate(${angle})`});
+  add(map,'path',{d:`M0,0 L${-7-width*.3},${-3-width*.2} L${-7-width*.3},${3+width*.2} Z`,fill:stroke,transform:`translate(${head}) rotate(${angle})`});
  }
  for(const bin of o.positions){add(map,'circle',{cx:bin.x,cy:bin.y,r:bin.r,fill:bin.countryReference?'#1f6f5f':'#fffdf4',stroke:'#277358','stroke-width':1.4});if(bin.nodes.length>1)add(map,'text',{x:bin.x,y:bin.y+4,'text-anchor':'middle',fill:bin.countryReference?'white':'#194c36','font-size':12,'font-family':'Arial'},bin.nodes.length);}
  const ids=[...new Set(o.paths.slice(0,3).flatMap(p=>[p.link.from_id,p.link.to_id]))].slice(0,6);
@@ -39,6 +41,7 @@ function svgMap(o){
  return new XMLSerializer().serializeToString(svg);
 }
 async function exportView(o){
+ if(o.format==='svg'&&o.settings?.flow_studio?.mode&&o.settings.flow_studio.mode!=='2d')throw Error('SVG export uses the 2D schematic view. Choose 2D Geodesic Flow Map, or choose PNG to capture this displayed globe or spike map.');
  const name='commodity-flows-'+o.filters.collection+'-'+o.filters.year;
  if(o.format==='gif'){const a=document.createElement('a');a.href='http://127.0.0.1:8772/pipelines.html?'+new URLSearchParams(o.filters);a.target='_blank';a.rel='noopener noreferrer';a.textContent='Open this selection in the local workbench to render GIF →';o.host.replaceChildren(a);return;}
  // Capture the displayed map before source reads yield to another UI change.
@@ -58,6 +61,6 @@ async function exportView(o){
  save(await jsonBlob(provenance),name+'-sources.json');
  o.host.textContent='Saved '+o.format.toUpperCase()+' and complete selected source evidence. The original source fingerprints remain attached.';
 }
-if(typeof module!=='undefined'&&module.exports)module.exports={csv,jsonBlob};
+if(typeof module!=='undefined'&&module.exports)module.exports={csv,jsonBlob,exportView};
 if(typeof window!=='undefined')window.PublicPipelineExports=Object.freeze({exportView});
 })();

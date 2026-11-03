@@ -1,7 +1,7 @@
 /* Original workbench scene schema over retained public source rows and projected native boundaries. */
 (function(global){
 'use strict';
-const SCHEMA='workbench.map-scene/v1',MAX_FRAMES=80,SUPPORTED=new Set(['world','us_states','virginia']);
+const SCHEMA='workbench.map-scene/v1',MAX_FRAMES=80,SUPPORTED=new Set(['world','us_states','virginia','us_counties']);
 const clone=value=>JSON.parse(JSON.stringify(value));
 function number(value,label){if(typeof value!=='number'||!Number.isFinite(value))throw Error(label+' must be a finite number.');return value;}
 function annual(value,label){if(!Number.isInteger(value)||value<1800||value>2200)throw Error(label+' must be an integer annual year from 1800 through 2200.');return value;}
@@ -11,7 +11,7 @@ async function build({series,dataset,records,geometry,payload={}}){
  if(!series||!Array.isArray(records)||!dataset)throw Error('Choose a loaded public source series.');
  if(payload.series_id!==undefined&&payload.series_id!==series.id)throw Error('The requested series does not match the retained source.');
  const scope=series.scope;if(!SUPPORTED.has(scope)||geometry?.scope!==scope)throw Error('This source has no supported native 3D polygon map. Use the flat map or source table for this geography.');
- const features=geometry.features;if(!Array.isArray(features)||!features.length||features.length>500||new Set(features.map(f=>String(f.id))).size!==features.length)throw Error('The native projected boundary pack is invalid.');
+ const features=geometry.features;if(!Array.isArray(features)||!features.length||features.length>10000||new Set(features.map(f=>String(f.id))).size!==features.length)throw Error('The native projected boundary pack is invalid.');
  const sourceYears=[...new Set(records.filter(r=>r.year!==null&&r.year!==undefined).map(r=>annual(r.year,'Source year')))].sort((a,b)=>a-b);
  if(!sourceYears.length)throw Error('This source uses pooled or unspecified periods. It has no annual map frames; inspect its original source table instead.');
  const start=annual(payload.start_year??sourceYears[0],'First year'),end=annual(payload.end_year??sourceYears.at(-1),'Last year');

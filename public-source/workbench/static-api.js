@@ -69,7 +69,37 @@ async function loadSeries(id){
   return lru(cache,id,{...metadata,records,hosted_scope_note:scopeNote,source_bundle_sha256:entry.source_bundle_sha256||metadata.dataset?.sha256||null},3);
  })().finally(()=>pending.delete(id));pending.set(id,task);return task;
 }
-async function geography(scope,projected=false){const key=(projected?'map-geometry/':'geography/')+scope;if(!['world','us_states','us_counties','virginia'].includes(scope))throw Error('This source has no native display geometry. Use its source table or history.');if(!geometryCache.has(key))geometryCache.set(key,readJSON('/workbench/data/'+key+'.json').catch(error=>{geometryCache.delete(key);throw error;}));return geometryCache.get(key);}
+async function geography(scope,projected=false){
+ const key=(projected?'map-geometry/':'geography/')+scope;
+ if(!['world','us_states','us_counties','virginia'].includes(scope))throw Error('This source has no native display geometry. Use its source table or history.');
+ if(!geometryCache.has(key)){
+  geometryCache.set(key,readJSON('/workbench/data/'+key+'.json').catch(error=>{
+   if(projected){
+    return geography(scope,false).then(geo=>{
+     const d3=root.d3;if(!d3)throw error;
+     let proj;
+     try{
+      if(scope==='us_counties'||scope==='us_states')proj=d3.geoAlbersUsa().fitExtent([[4.35,-18],[95.65,58]],geo)||d3.geoMercator().fitExtent([[4.35,-18],[95.65,58]],geo);
+      else if(scope==='virginia')proj=d3.geoConicConformal().parallels([36+46/60,37+58/60]).rotate([79+30/60,0]).fitExtent([[4.35,-18],[95.65,58]],geo);
+      else proj=(d3.geoEqualEarth?d3.geoEqualEarth():d3.geoNaturalEarth1()).fitExtent([[4.35,-18],[95.65,58]],geo);
+     }catch{proj=d3.geoMercator().fitExtent([[4.35,-18],[95.65,58]],geo);}
+     if(!proj)proj=d3.geoMercator().fitExtent([[4.35,-18],[95.65,58]],geo);
+     const features=geo.features.map(f=>{
+      const id=String(f.id??f.properties?.GEOID??f.properties?.id);
+      const name=f.properties?.name||f.properties?.NAMELSAD||id;
+      let centroid=null;try{const c=d3.geoCentroid(f);centroid=c&&proj(c)?proj(c):null;}catch{}
+      const coords=f.geometry.type==='Polygon'?[f.geometry.coordinates]:f.geometry.type==='MultiPolygon'?f.geometry.coordinates:[];
+      const polygons=coords.map(poly=>poly.map(ring=>ring.map(p=>proj(p)).filter(Boolean)).filter(r=>r.length>=3)).filter(p=>p.length>0);
+      return{id,name,centroid,inset:false,polygons};
+     });
+     return{schema:'workbench.projected-geometry/v1',scope,features,bounds:[[4.35,-18],[95.65,58]],provenance:{projection:'Dynamic browser-projected geometry'}};
+    });
+   }
+   geometryCache.delete(key);throw error;
+  }));
+ }
+ return geometryCache.get(key);
+}
 function sourceRef(series,dataset){return{series_id:series.id,dataset_id:series.dataset_id,sha256:dataset?.normalized_bundle_sha256||dataset?.sha256||null};}
 async function projectExport(body){
  const cat=await loadCatalogue(),ui_state=clone(body?.ui_state||{}),refs={};
