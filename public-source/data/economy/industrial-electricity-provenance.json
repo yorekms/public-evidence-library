@@ -1,0 +1,1653 @@
+{
+  "publisher": "United Nations Statistics Division",
+  "database": "Energy Statistics Database",
+  "retrieved": "2026-11-24",
+  "sourceRelease": "2025-12-15",
+  "releaseNote": "Last update in UNdata as displayed in the archived data view.",
+  "frequency": "Annual",
+  "sourceArchive": "industrial-electricity-sources.zip",
+  "methodology": {
+    "url": "https://unstats.un.org/unsd/energystats/questionnaire/documents/Energy-Questionnaire-Guidelines.pdf",
+    "section": "3.4, Table 3.4.1"
+  },
+  "series": {
+    "industrial-electricity-use": {
+      "name": "Electricity - Consumption by manufacturing, construction and non-fuel industry",
+      "code": "EL.121",
+      "sdmxCommodity": "7000",
+      "sdmxTransaction": "121",
+      "unit": "TWh",
+      "sourceUnit": "Kilowatt-hours, million",
+      "first": 1990,
+      "last": 2024,
+      "economies": 222,
+      "observations": 6889,
+      "estimates": 1280,
+      "flags": {
+        "1": "Estimate"
+      },
+      "landingPage": "https://data.un.org/legacy/Data.aspx?d=EDATA&f=cmID%3AEL%3BtrID%3A121"
+    }
+  },
+  "definition": "Final electricity consumption in manufacturing, construction and non-fuel mining. Energy industries’ own use and transport are separate UN energy transactions.",
+  "comparisonScope": "World Bank industrial value added includes fuel extraction and utilities as well as manufacturing and construction. The two sources differ in industry boundaries.",
+  "transformations": [
+    "Use the single published industry total. Retain source decimal quantities and divide million kWh by 1,000 for TWh.",
+    "Leave missing observations blank. Preserve the UNdata Estimate footnote as 1. A blank flag means the record has no estimate footnote."
+  ],
+  "geography": "Codes link UNdata area identifiers to SDMX area definitions and current UN M49 / ISO alpha-3. Kosovo energy code 412 uses XKX. Historic units, Other Asia and four reporting composites retain distinct UN-prefixed keys. Do not join or backfill them with successor or member states.",
+  "sourceOnlyAreaCodes": [
+    "158",
+    "200",
+    "230",
+    "251",
+    "280",
+    "382",
+    "530",
+    "579",
+    "736",
+    "757",
+    "810",
+    "890",
+    "891"
+  ],
+  "areas": [
+    {
+      "economyCode": "ABW",
+      "sourceAreaCode": "533",
+      "name": "Aruba",
+      "csvLabel": "Aruba",
+      "sdmxLabel": "Aruba"
+    },
+    {
+      "economyCode": "AFG",
+      "sourceAreaCode": "004",
+      "name": "Afghanistan",
+      "csvLabel": "Afghanistan",
+      "sdmxLabel": "Afghanistan"
+    },
+    {
+      "economyCode": "AGO",
+      "sourceAreaCode": "024",
+      "name": "Angola",
+      "csvLabel": "Angola",
+      "sdmxLabel": "Angola"
+    },
+    {
+      "economyCode": "ALB",
+      "sourceAreaCode": "008",
+      "name": "Albania",
+      "csvLabel": "Albania",
+      "sdmxLabel": "Albania"
+    },
+    {
+      "economyCode": "AND",
+      "sourceAreaCode": "020",
+      "name": "Andorra",
+      "csvLabel": "Andorra",
+      "sdmxLabel": "Andorra"
+    },
+    {
+      "economyCode": "ARE",
+      "sourceAreaCode": "784",
+      "name": "United Arab Emirates",
+      "csvLabel": "United Arab Emirates",
+      "sdmxLabel": "United Arab Emirates"
+    },
+    {
+      "economyCode": "ARG",
+      "sourceAreaCode": "032",
+      "name": "Argentina",
+      "csvLabel": "Argentina",
+      "sdmxLabel": "Argentina"
+    },
+    {
+      "economyCode": "ARM",
+      "sourceAreaCode": "051",
+      "name": "Armenia",
+      "csvLabel": "Armenia",
+      "sdmxLabel": "Armenia"
+    },
+    {
+      "economyCode": "ASM",
+      "sourceAreaCode": "016",
+      "name": "American Samoa",
+      "csvLabel": "American Samoa",
+      "sdmxLabel": "American Samoa"
+    },
+    {
+      "economyCode": "ATG",
+      "sourceAreaCode": "028",
+      "name": "Antigua and Barbuda",
+      "csvLabel": "Antigua and Barbuda",
+      "sdmxLabel": "Antigua and Barbuda"
+    },
+    {
+      "economyCode": "AUS",
+      "sourceAreaCode": "036",
+      "name": "Australia",
+      "csvLabel": "Australia",
+      "sdmxLabel": "Australia"
+    },
+    {
+      "economyCode": "AUT",
+      "sourceAreaCode": "040",
+      "name": "Austria",
+      "csvLabel": "Austria",
+      "sdmxLabel": "Austria"
+    },
+    {
+      "economyCode": "AZE",
+      "sourceAreaCode": "031",
+      "name": "Azerbaijan",
+      "csvLabel": "Azerbaijan",
+      "sdmxLabel": "Azerbaijan"
+    },
+    {
+      "economyCode": "BDI",
+      "sourceAreaCode": "108",
+      "name": "Burundi",
+      "csvLabel": "Burundi",
+      "sdmxLabel": "Burundi"
+    },
+    {
+      "economyCode": "BEL",
+      "sourceAreaCode": "056",
+      "name": "Belgium",
+      "csvLabel": "Belgium",
+      "sdmxLabel": "Belgium"
+    },
+    {
+      "economyCode": "BEN",
+      "sourceAreaCode": "204",
+      "name": "Benin",
+      "csvLabel": "Benin",
+      "sdmxLabel": "Benin"
+    },
+    {
+      "economyCode": "BES",
+      "sourceAreaCode": "535",
+      "name": "Bonaire, St Eustatius, Saba",
+      "csvLabel": "Bonaire, St Eustatius, Saba",
+      "sdmxLabel": "Bonaire, Sint Eustatius and Saba"
+    },
+    {
+      "economyCode": "BFA",
+      "sourceAreaCode": "854",
+      "name": "Burkina Faso",
+      "csvLabel": "Burkina Faso",
+      "sdmxLabel": "Burkina Faso"
+    },
+    {
+      "economyCode": "BGD",
+      "sourceAreaCode": "050",
+      "name": "Bangladesh",
+      "csvLabel": "Bangladesh",
+      "sdmxLabel": "Bangladesh"
+    },
+    {
+      "economyCode": "BGR",
+      "sourceAreaCode": "100",
+      "name": "Bulgaria",
+      "csvLabel": "Bulgaria",
+      "sdmxLabel": "Bulgaria"
+    },
+    {
+      "economyCode": "BHR",
+      "sourceAreaCode": "048",
+      "name": "Bahrain",
+      "csvLabel": "Bahrain",
+      "sdmxLabel": "Bahrain"
+    },
+    {
+      "economyCode": "BHS",
+      "sourceAreaCode": "044",
+      "name": "Bahamas",
+      "csvLabel": "Bahamas",
+      "sdmxLabel": "Bahamas"
+    },
+    {
+      "economyCode": "BIH",
+      "sourceAreaCode": "070",
+      "name": "Bosnia and Herzegovina",
+      "csvLabel": "Bosnia and Herzegovina",
+      "sdmxLabel": "Bosnia and Herzegovina"
+    },
+    {
+      "economyCode": "BLM",
+      "sourceAreaCode": "652",
+      "name": "Saint Barthélemy",
+      "csvLabel": "Saint Barthélemy",
+      "sdmxLabel": "Saint Barthélemy"
+    },
+    {
+      "economyCode": "BLR",
+      "sourceAreaCode": "112",
+      "name": "Belarus",
+      "csvLabel": "Belarus",
+      "sdmxLabel": "Belarus"
+    },
+    {
+      "economyCode": "BLZ",
+      "sourceAreaCode": "084",
+      "name": "Belize",
+      "csvLabel": "Belize",
+      "sdmxLabel": "Belize"
+    },
+    {
+      "economyCode": "BOL",
+      "sourceAreaCode": "068",
+      "name": "Bolivia (Plur. State of)",
+      "csvLabel": "Bolivia (Plur. State of)",
+      "sdmxLabel": "Bolivia"
+    },
+    {
+      "economyCode": "BRA",
+      "sourceAreaCode": "076",
+      "name": "Brazil",
+      "csvLabel": "Brazil",
+      "sdmxLabel": "Brazil"
+    },
+    {
+      "economyCode": "BRB",
+      "sourceAreaCode": "052",
+      "name": "Barbados",
+      "csvLabel": "Barbados",
+      "sdmxLabel": "Barbados"
+    },
+    {
+      "economyCode": "BRN",
+      "sourceAreaCode": "096",
+      "name": "Brunei Darussalam",
+      "csvLabel": "Brunei Darussalam",
+      "sdmxLabel": "Brunei Darussalam"
+    },
+    {
+      "economyCode": "BTN",
+      "sourceAreaCode": "064",
+      "name": "Bhutan",
+      "csvLabel": "Bhutan",
+      "sdmxLabel": "Bhutan"
+    },
+    {
+      "economyCode": "BWA",
+      "sourceAreaCode": "072",
+      "name": "Botswana",
+      "csvLabel": "Botswana",
+      "sdmxLabel": "Botswana"
+    },
+    {
+      "economyCode": "CAF",
+      "sourceAreaCode": "140",
+      "name": "Central African Rep.",
+      "csvLabel": "Central African Rep.",
+      "sdmxLabel": "Central African Republic"
+    },
+    {
+      "economyCode": "CAN",
+      "sourceAreaCode": "124",
+      "name": "Canada",
+      "csvLabel": "Canada",
+      "sdmxLabel": "Canada"
+    },
+    {
+      "economyCode": "CHL",
+      "sourceAreaCode": "152",
+      "name": "Chile",
+      "csvLabel": "Chile",
+      "sdmxLabel": "Chile"
+    },
+    {
+      "economyCode": "CHN",
+      "sourceAreaCode": "156",
+      "name": "China",
+      "csvLabel": "China",
+      "sdmxLabel": "China"
+    },
+    {
+      "economyCode": "CIV",
+      "sourceAreaCode": "384",
+      "name": "Côte d'Ivoire",
+      "csvLabel": "Côte d'Ivoire",
+      "sdmxLabel": "Cote d'Ivoire"
+    },
+    {
+      "economyCode": "CMR",
+      "sourceAreaCode": "120",
+      "name": "Cameroon",
+      "csvLabel": "Cameroon",
+      "sdmxLabel": "Cameroon"
+    },
+    {
+      "economyCode": "COD",
+      "sourceAreaCode": "180",
+      "name": "Dem. Rep. of the Congo",
+      "csvLabel": "Dem. Rep. of the Congo",
+      "sdmxLabel": "Democratic Republic of the Congo"
+    },
+    {
+      "economyCode": "COG",
+      "sourceAreaCode": "178",
+      "name": "Congo",
+      "csvLabel": "Congo",
+      "sdmxLabel": "Congo"
+    },
+    {
+      "economyCode": "COL",
+      "sourceAreaCode": "170",
+      "name": "Colombia",
+      "csvLabel": "Colombia",
+      "sdmxLabel": "Colombia"
+    },
+    {
+      "economyCode": "CPV",
+      "sourceAreaCode": "132",
+      "name": "Cabo Verde",
+      "csvLabel": "Cabo Verde",
+      "sdmxLabel": "Cabo Verde"
+    },
+    {
+      "economyCode": "CRI",
+      "sourceAreaCode": "188",
+      "name": "Costa Rica",
+      "csvLabel": "Costa Rica",
+      "sdmxLabel": "Costa Rica"
+    },
+    {
+      "economyCode": "CUB",
+      "sourceAreaCode": "192",
+      "name": "Cuba",
+      "csvLabel": "Cuba",
+      "sdmxLabel": "Cuba"
+    },
+    {
+      "economyCode": "CUW",
+      "sourceAreaCode": "531",
+      "name": "Curaçao",
+      "csvLabel": "Curaçao",
+      "sdmxLabel": "Curaçao"
+    },
+    {
+      "economyCode": "CYM",
+      "sourceAreaCode": "136",
+      "name": "Cayman Islands",
+      "csvLabel": "Cayman Islands",
+      "sdmxLabel": "Cayman Islands"
+    },
+    {
+      "economyCode": "CYP",
+      "sourceAreaCode": "196",
+      "name": "Cyprus",
+      "csvLabel": "Cyprus",
+      "sdmxLabel": "Cyprus"
+    },
+    {
+      "economyCode": "CZE",
+      "sourceAreaCode": "203",
+      "name": "Czechia",
+      "csvLabel": "Czechia",
+      "sdmxLabel": "Czech Republic"
+    },
+    {
+      "economyCode": "DEU",
+      "sourceAreaCode": "276",
+      "name": "Germany",
+      "csvLabel": "Germany",
+      "sdmxLabel": "Germany"
+    },
+    {
+      "economyCode": "DMA",
+      "sourceAreaCode": "212",
+      "name": "Dominica",
+      "csvLabel": "Dominica",
+      "sdmxLabel": "Dominica"
+    },
+    {
+      "economyCode": "DNK",
+      "sourceAreaCode": "208",
+      "name": "Denmark",
+      "csvLabel": "Denmark",
+      "sdmxLabel": "Denmark"
+    },
+    {
+      "economyCode": "DOM",
+      "sourceAreaCode": "214",
+      "name": "Dominican Republic",
+      "csvLabel": "Dominican Republic",
+      "sdmxLabel": "Dominican Republic"
+    },
+    {
+      "economyCode": "DZA",
+      "sourceAreaCode": "012",
+      "name": "Algeria",
+      "csvLabel": "Algeria",
+      "sdmxLabel": "Algeria"
+    },
+    {
+      "economyCode": "ECU",
+      "sourceAreaCode": "218",
+      "name": "Ecuador",
+      "csvLabel": "Ecuador",
+      "sdmxLabel": "Ecuador"
+    },
+    {
+      "economyCode": "EGY",
+      "sourceAreaCode": "818",
+      "name": "Egypt",
+      "csvLabel": "Egypt",
+      "sdmxLabel": "Egypt"
+    },
+    {
+      "economyCode": "ERI",
+      "sourceAreaCode": "232",
+      "name": "Eritrea",
+      "csvLabel": "Eritrea",
+      "sdmxLabel": "Eritrea"
+    },
+    {
+      "economyCode": "ESP",
+      "sourceAreaCode": "724",
+      "name": "Spain",
+      "csvLabel": "Spain",
+      "sdmxLabel": "Spain"
+    },
+    {
+      "economyCode": "EST",
+      "sourceAreaCode": "233",
+      "name": "Estonia",
+      "csvLabel": "Estonia",
+      "sdmxLabel": "Estonia"
+    },
+    {
+      "economyCode": "ETH",
+      "sourceAreaCode": "231",
+      "name": "Ethiopia",
+      "csvLabel": "Ethiopia",
+      "sdmxLabel": "Ethiopia [from 1993]"
+    },
+    {
+      "economyCode": "FIN",
+      "sourceAreaCode": "246",
+      "name": "Finland",
+      "csvLabel": "Finland",
+      "sdmxLabel": "Finland"
+    },
+    {
+      "economyCode": "FJI",
+      "sourceAreaCode": "242",
+      "name": "Fiji",
+      "csvLabel": "Fiji",
+      "sdmxLabel": "Fiji"
+    },
+    {
+      "economyCode": "FLK",
+      "sourceAreaCode": "238",
+      "name": "Falkland Is. (Malvinas)",
+      "csvLabel": "Falkland Is. (Malvinas)",
+      "sdmxLabel": "Falkland Islands (Malvinas)"
+    },
+    {
+      "economyCode": "FRO",
+      "sourceAreaCode": "234",
+      "name": "Faeroe Islands",
+      "csvLabel": "Faeroe Islands",
+      "sdmxLabel": "Faeroe Islands"
+    },
+    {
+      "economyCode": "FSM",
+      "sourceAreaCode": "583",
+      "name": "Micronesia (Fed. States of)",
+      "csvLabel": "Micronesia (Fed. States of)",
+      "sdmxLabel": "Micronesia, Federated States of"
+    },
+    {
+      "economyCode": "GAB",
+      "sourceAreaCode": "266",
+      "name": "Gabon",
+      "csvLabel": "Gabon",
+      "sdmxLabel": "Gabon"
+    },
+    {
+      "economyCode": "GBR",
+      "sourceAreaCode": "826",
+      "name": "United Kingdom",
+      "csvLabel": "United Kingdom",
+      "sdmxLabel": "United Kingdom"
+    },
+    {
+      "economyCode": "GEO",
+      "sourceAreaCode": "268",
+      "name": "Georgia",
+      "csvLabel": "Georgia",
+      "sdmxLabel": "Georgia"
+    },
+    {
+      "economyCode": "GHA",
+      "sourceAreaCode": "288",
+      "name": "Ghana",
+      "csvLabel": "Ghana",
+      "sdmxLabel": "Ghana"
+    },
+    {
+      "economyCode": "GIN",
+      "sourceAreaCode": "324",
+      "name": "Guinea",
+      "csvLabel": "Guinea",
+      "sdmxLabel": "Guinea"
+    },
+    {
+      "economyCode": "GLP",
+      "sourceAreaCode": "312",
+      "name": "Guadeloupe",
+      "csvLabel": "Guadeloupe",
+      "sdmxLabel": "Guadeloupe"
+    },
+    {
+      "economyCode": "GMB",
+      "sourceAreaCode": "270",
+      "name": "Gambia",
+      "csvLabel": "Gambia",
+      "sdmxLabel": "Gambia"
+    },
+    {
+      "economyCode": "GNB",
+      "sourceAreaCode": "624",
+      "name": "Guinea-Bissau",
+      "csvLabel": "Guinea-Bissau",
+      "sdmxLabel": "Guinea-Bissau"
+    },
+    {
+      "economyCode": "GNQ",
+      "sourceAreaCode": "226",
+      "name": "Equatorial Guinea",
+      "csvLabel": "Equatorial Guinea",
+      "sdmxLabel": "Equatorial Guinea"
+    },
+    {
+      "economyCode": "GRC",
+      "sourceAreaCode": "300",
+      "name": "Greece",
+      "csvLabel": "Greece",
+      "sdmxLabel": "Greece"
+    },
+    {
+      "economyCode": "GRD",
+      "sourceAreaCode": "308",
+      "name": "Grenada",
+      "csvLabel": "Grenada",
+      "sdmxLabel": "Grenada"
+    },
+    {
+      "economyCode": "GRL",
+      "sourceAreaCode": "304",
+      "name": "Greenland",
+      "csvLabel": "Greenland",
+      "sdmxLabel": "Greenland"
+    },
+    {
+      "economyCode": "GTM",
+      "sourceAreaCode": "320",
+      "name": "Guatemala",
+      "csvLabel": "Guatemala",
+      "sdmxLabel": "Guatemala"
+    },
+    {
+      "economyCode": "GUF",
+      "sourceAreaCode": "254",
+      "name": "French Guiana",
+      "csvLabel": "French Guiana",
+      "sdmxLabel": "French Guiana"
+    },
+    {
+      "economyCode": "GUY",
+      "sourceAreaCode": "328",
+      "name": "Guyana",
+      "csvLabel": "Guyana",
+      "sdmxLabel": "Guyana"
+    },
+    {
+      "economyCode": "HKG",
+      "sourceAreaCode": "344",
+      "name": "China, Hong Kong SAR",
+      "csvLabel": "China, Hong Kong SAR",
+      "sdmxLabel": "China, Hong Kong Special Administrative Region"
+    },
+    {
+      "economyCode": "HND",
+      "sourceAreaCode": "340",
+      "name": "Honduras",
+      "csvLabel": "Honduras",
+      "sdmxLabel": "Honduras"
+    },
+    {
+      "economyCode": "HRV",
+      "sourceAreaCode": "191",
+      "name": "Croatia",
+      "csvLabel": "Croatia",
+      "sdmxLabel": "Croatia"
+    },
+    {
+      "economyCode": "HTI",
+      "sourceAreaCode": "332",
+      "name": "Haiti",
+      "csvLabel": "Haiti",
+      "sdmxLabel": "Haiti"
+    },
+    {
+      "economyCode": "HUN",
+      "sourceAreaCode": "348",
+      "name": "Hungary",
+      "csvLabel": "Hungary",
+      "sdmxLabel": "Hungary"
+    },
+    {
+      "economyCode": "IDN",
+      "sourceAreaCode": "360",
+      "name": "Indonesia",
+      "csvLabel": "Indonesia",
+      "sdmxLabel": "Indonesia"
+    },
+    {
+      "economyCode": "IMN",
+      "sourceAreaCode": "833",
+      "name": "Isle of Man",
+      "csvLabel": "Isle of Man",
+      "sdmxLabel": "Isle of Man"
+    },
+    {
+      "economyCode": "IND",
+      "sourceAreaCode": "356",
+      "name": "India",
+      "csvLabel": "India",
+      "sdmxLabel": "India"
+    },
+    {
+      "economyCode": "IRL",
+      "sourceAreaCode": "372",
+      "name": "Ireland",
+      "csvLabel": "Ireland",
+      "sdmxLabel": "Ireland"
+    },
+    {
+      "economyCode": "IRN",
+      "sourceAreaCode": "364",
+      "name": "Iran (Islamic Rep. of)",
+      "csvLabel": "Iran (Islamic Rep. of)",
+      "sdmxLabel": "Iran (Islamic Republic of)"
+    },
+    {
+      "economyCode": "IRQ",
+      "sourceAreaCode": "368",
+      "name": "Iraq",
+      "csvLabel": "Iraq",
+      "sdmxLabel": "Iraq"
+    },
+    {
+      "economyCode": "ISL",
+      "sourceAreaCode": "352",
+      "name": "Iceland",
+      "csvLabel": "Iceland",
+      "sdmxLabel": "Iceland"
+    },
+    {
+      "economyCode": "ISR",
+      "sourceAreaCode": "376",
+      "name": "Israel",
+      "csvLabel": "Israel",
+      "sdmxLabel": "Israel"
+    },
+    {
+      "economyCode": "JAM",
+      "sourceAreaCode": "388",
+      "name": "Jamaica",
+      "csvLabel": "Jamaica",
+      "sdmxLabel": "Jamaica"
+    },
+    {
+      "economyCode": "JEY",
+      "sourceAreaCode": "832",
+      "name": "Jersey",
+      "csvLabel": "Jersey",
+      "sdmxLabel": "Jersey"
+    },
+    {
+      "economyCode": "JOR",
+      "sourceAreaCode": "400",
+      "name": "Jordan",
+      "csvLabel": "Jordan",
+      "sdmxLabel": "Jordan"
+    },
+    {
+      "economyCode": "JPN",
+      "sourceAreaCode": "392",
+      "name": "Japan",
+      "csvLabel": "Japan",
+      "sdmxLabel": "Japan"
+    },
+    {
+      "economyCode": "KAZ",
+      "sourceAreaCode": "398",
+      "name": "Kazakhstan",
+      "csvLabel": "Kazakhstan",
+      "sdmxLabel": "Kazakhstan"
+    },
+    {
+      "economyCode": "KEN",
+      "sourceAreaCode": "404",
+      "name": "Kenya",
+      "csvLabel": "Kenya",
+      "sdmxLabel": "Kenya"
+    },
+    {
+      "economyCode": "KGZ",
+      "sourceAreaCode": "417",
+      "name": "Kyrgyzstan",
+      "csvLabel": "Kyrgyzstan",
+      "sdmxLabel": "Kyrgyzstan"
+    },
+    {
+      "economyCode": "KHM",
+      "sourceAreaCode": "116",
+      "name": "Cambodia",
+      "csvLabel": "Cambodia",
+      "sdmxLabel": "Cambodia"
+    },
+    {
+      "economyCode": "KIR",
+      "sourceAreaCode": "296",
+      "name": "Kiribati",
+      "csvLabel": "Kiribati",
+      "sdmxLabel": "Kiribati"
+    },
+    {
+      "economyCode": "KNA",
+      "sourceAreaCode": "659",
+      "name": "St. Kitts-Nevis",
+      "csvLabel": "St. Kitts-Nevis",
+      "sdmxLabel": "Saint Kitts and Nevis"
+    },
+    {
+      "economyCode": "KOR",
+      "sourceAreaCode": "410",
+      "name": "Korea, Republic of",
+      "csvLabel": "Korea, Republic of",
+      "sdmxLabel": "Republic of Korea"
+    },
+    {
+      "economyCode": "KWT",
+      "sourceAreaCode": "414",
+      "name": "Kuwait",
+      "csvLabel": "Kuwait",
+      "sdmxLabel": "Kuwait"
+    },
+    {
+      "economyCode": "LAO",
+      "sourceAreaCode": "418",
+      "name": "Lao People's Dem. Rep.",
+      "csvLabel": "Lao People's Dem. Rep.",
+      "sdmxLabel": "Lao People's Democratic Republic"
+    },
+    {
+      "economyCode": "LBN",
+      "sourceAreaCode": "422",
+      "name": "Lebanon",
+      "csvLabel": "Lebanon",
+      "sdmxLabel": "Lebanon"
+    },
+    {
+      "economyCode": "LBR",
+      "sourceAreaCode": "430",
+      "name": "Liberia",
+      "csvLabel": "Liberia",
+      "sdmxLabel": "Liberia"
+    },
+    {
+      "economyCode": "LBY",
+      "sourceAreaCode": "434",
+      "name": "Libya",
+      "csvLabel": "Libya",
+      "sdmxLabel": "Libya"
+    },
+    {
+      "economyCode": "LCA",
+      "sourceAreaCode": "662",
+      "name": "St. Lucia",
+      "csvLabel": "St. Lucia",
+      "sdmxLabel": "Saint Lucia"
+    },
+    {
+      "economyCode": "LKA",
+      "sourceAreaCode": "144",
+      "name": "Sri Lanka",
+      "csvLabel": "Sri Lanka",
+      "sdmxLabel": "Sri Lanka"
+    },
+    {
+      "economyCode": "LSO",
+      "sourceAreaCode": "426",
+      "name": "Lesotho",
+      "csvLabel": "Lesotho",
+      "sdmxLabel": "Lesotho"
+    },
+    {
+      "economyCode": "LTU",
+      "sourceAreaCode": "440",
+      "name": "Lithuania",
+      "csvLabel": "Lithuania",
+      "sdmxLabel": "Lithuania"
+    },
+    {
+      "economyCode": "LUX",
+      "sourceAreaCode": "442",
+      "name": "Luxembourg",
+      "csvLabel": "Luxembourg",
+      "sdmxLabel": "Luxembourg"
+    },
+    {
+      "economyCode": "LVA",
+      "sourceAreaCode": "428",
+      "name": "Latvia",
+      "csvLabel": "Latvia",
+      "sdmxLabel": "Latvia"
+    },
+    {
+      "economyCode": "MAC",
+      "sourceAreaCode": "446",
+      "name": "China, Macao SAR",
+      "csvLabel": "China, Macao SAR",
+      "sdmxLabel": "China, Macao Special Administrative Region"
+    },
+    {
+      "economyCode": "MAF",
+      "sourceAreaCode": "663",
+      "name": "Saint Martin (French Part)",
+      "csvLabel": "Saint Martin (French Part)",
+      "sdmxLabel": "Saint Martin (French Part)"
+    },
+    {
+      "economyCode": "MAR",
+      "sourceAreaCode": "504",
+      "name": "Morocco",
+      "csvLabel": "Morocco",
+      "sdmxLabel": "Morocco"
+    },
+    {
+      "economyCode": "MDA",
+      "sourceAreaCode": "498",
+      "name": "Republic of Moldova",
+      "csvLabel": "Republic of Moldova",
+      "sdmxLabel": "Republic of Moldova"
+    },
+    {
+      "economyCode": "MDG",
+      "sourceAreaCode": "450",
+      "name": "Madagascar",
+      "csvLabel": "Madagascar",
+      "sdmxLabel": "Madagascar"
+    },
+    {
+      "economyCode": "MDV",
+      "sourceAreaCode": "462",
+      "name": "Maldives",
+      "csvLabel": "Maldives",
+      "sdmxLabel": "Maldives"
+    },
+    {
+      "economyCode": "MEX",
+      "sourceAreaCode": "484",
+      "name": "Mexico",
+      "csvLabel": "Mexico",
+      "sdmxLabel": "Mexico"
+    },
+    {
+      "economyCode": "MHL",
+      "sourceAreaCode": "584",
+      "name": "Marshall Islands",
+      "csvLabel": "Marshall Islands",
+      "sdmxLabel": "Marshall Islands"
+    },
+    {
+      "economyCode": "MKD",
+      "sourceAreaCode": "807",
+      "name": "North Macedonia",
+      "csvLabel": "North Macedonia",
+      "sdmxLabel": "North Macedonia"
+    },
+    {
+      "economyCode": "MLI",
+      "sourceAreaCode": "466",
+      "name": "Mali",
+      "csvLabel": "Mali",
+      "sdmxLabel": "Mali"
+    },
+    {
+      "economyCode": "MLT",
+      "sourceAreaCode": "470",
+      "name": "Malta",
+      "csvLabel": "Malta",
+      "sdmxLabel": "Malta"
+    },
+    {
+      "economyCode": "MMR",
+      "sourceAreaCode": "104",
+      "name": "Myanmar",
+      "csvLabel": "Myanmar",
+      "sdmxLabel": "Myanmar"
+    },
+    {
+      "economyCode": "MNE",
+      "sourceAreaCode": "499",
+      "name": "Montenegro",
+      "csvLabel": "Montenegro",
+      "sdmxLabel": "Montenegro"
+    },
+    {
+      "economyCode": "MNG",
+      "sourceAreaCode": "496",
+      "name": "Mongolia",
+      "csvLabel": "Mongolia",
+      "sdmxLabel": "Mongolia"
+    },
+    {
+      "economyCode": "MOZ",
+      "sourceAreaCode": "508",
+      "name": "Mozambique",
+      "csvLabel": "Mozambique",
+      "sdmxLabel": "Mozambique"
+    },
+    {
+      "economyCode": "MRT",
+      "sourceAreaCode": "478",
+      "name": "Mauritania",
+      "csvLabel": "Mauritania",
+      "sdmxLabel": "Mauritania"
+    },
+    {
+      "economyCode": "MSR",
+      "sourceAreaCode": "500",
+      "name": "Montserrat",
+      "csvLabel": "Montserrat",
+      "sdmxLabel": "Montserrat"
+    },
+    {
+      "economyCode": "MTQ",
+      "sourceAreaCode": "474",
+      "name": "Martinique",
+      "csvLabel": "Martinique",
+      "sdmxLabel": "Martinique"
+    },
+    {
+      "economyCode": "MUS",
+      "sourceAreaCode": "480",
+      "name": "Mauritius",
+      "csvLabel": "Mauritius",
+      "sdmxLabel": "Mauritius"
+    },
+    {
+      "economyCode": "MWI",
+      "sourceAreaCode": "454",
+      "name": "Malawi",
+      "csvLabel": "Malawi",
+      "sdmxLabel": "Malawi"
+    },
+    {
+      "economyCode": "MYS",
+      "sourceAreaCode": "458",
+      "name": "Malaysia",
+      "csvLabel": "Malaysia",
+      "sdmxLabel": "Malaysia"
+    },
+    {
+      "economyCode": "MYT",
+      "sourceAreaCode": "175",
+      "name": "Mayotte",
+      "csvLabel": "Mayotte",
+      "sdmxLabel": "Mayotte"
+    },
+    {
+      "economyCode": "NAM",
+      "sourceAreaCode": "516",
+      "name": "Namibia",
+      "csvLabel": "Namibia",
+      "sdmxLabel": "Namibia"
+    },
+    {
+      "economyCode": "NCL",
+      "sourceAreaCode": "540",
+      "name": "New Caledonia",
+      "csvLabel": "New Caledonia",
+      "sdmxLabel": "New Caledonia"
+    },
+    {
+      "economyCode": "NER",
+      "sourceAreaCode": "562",
+      "name": "Niger",
+      "csvLabel": "Niger",
+      "sdmxLabel": "Niger"
+    },
+    {
+      "economyCode": "NGA",
+      "sourceAreaCode": "566",
+      "name": "Nigeria",
+      "csvLabel": "Nigeria",
+      "sdmxLabel": "Nigeria"
+    },
+    {
+      "economyCode": "NIC",
+      "sourceAreaCode": "558",
+      "name": "Nicaragua",
+      "csvLabel": "Nicaragua",
+      "sdmxLabel": "Nicaragua"
+    },
+    {
+      "economyCode": "NIU",
+      "sourceAreaCode": "570",
+      "name": "Niue",
+      "csvLabel": "Niue",
+      "sdmxLabel": "Niue"
+    },
+    {
+      "economyCode": "NLD",
+      "sourceAreaCode": "528",
+      "name": "Netherlands (Kingd. of the)",
+      "csvLabel": "Netherlands (Kingd. of the)",
+      "sdmxLabel": "Netherlands"
+    },
+    {
+      "economyCode": "NPL",
+      "sourceAreaCode": "524",
+      "name": "Nepal",
+      "csvLabel": "Nepal",
+      "sdmxLabel": "Nepal"
+    },
+    {
+      "economyCode": "NRU",
+      "sourceAreaCode": "520",
+      "name": "Nauru",
+      "csvLabel": "Nauru",
+      "sdmxLabel": "Nauru"
+    },
+    {
+      "economyCode": "NZL",
+      "sourceAreaCode": "554",
+      "name": "New Zealand",
+      "csvLabel": "New Zealand",
+      "sdmxLabel": "New Zealand"
+    },
+    {
+      "economyCode": "OMN",
+      "sourceAreaCode": "512",
+      "name": "Oman",
+      "csvLabel": "Oman",
+      "sdmxLabel": "Oman"
+    },
+    {
+      "economyCode": "PAK",
+      "sourceAreaCode": "586",
+      "name": "Pakistan",
+      "csvLabel": "Pakistan",
+      "sdmxLabel": "Pakistan"
+    },
+    {
+      "economyCode": "PAN",
+      "sourceAreaCode": "591",
+      "name": "Panama",
+      "csvLabel": "Panama",
+      "sdmxLabel": "Panama"
+    },
+    {
+      "economyCode": "PER",
+      "sourceAreaCode": "604",
+      "name": "Peru",
+      "csvLabel": "Peru",
+      "sdmxLabel": "Peru"
+    },
+    {
+      "economyCode": "PHL",
+      "sourceAreaCode": "608",
+      "name": "Philippines",
+      "csvLabel": "Philippines",
+      "sdmxLabel": "Philippines"
+    },
+    {
+      "economyCode": "PLW",
+      "sourceAreaCode": "585",
+      "name": "Palau",
+      "csvLabel": "Palau",
+      "sdmxLabel": "Palau"
+    },
+    {
+      "economyCode": "PNG",
+      "sourceAreaCode": "598",
+      "name": "Papua New Guinea",
+      "csvLabel": "Papua New Guinea",
+      "sdmxLabel": "Papua New Guinea"
+    },
+    {
+      "economyCode": "POL",
+      "sourceAreaCode": "616",
+      "name": "Poland",
+      "csvLabel": "Poland",
+      "sdmxLabel": "Poland"
+    },
+    {
+      "economyCode": "PRI",
+      "sourceAreaCode": "630",
+      "name": "Puerto Rico",
+      "csvLabel": "Puerto Rico",
+      "sdmxLabel": "Puerto Rico"
+    },
+    {
+      "economyCode": "PRK",
+      "sourceAreaCode": "408",
+      "name": "Korea, Dem.Ppl's.Rep.",
+      "csvLabel": "Korea, Dem.Ppl's.Rep.",
+      "sdmxLabel": "Democratic People's Republic of Korea"
+    },
+    {
+      "economyCode": "PRT",
+      "sourceAreaCode": "620",
+      "name": "Portugal",
+      "csvLabel": "Portugal",
+      "sdmxLabel": "Portugal"
+    },
+    {
+      "economyCode": "PRY",
+      "sourceAreaCode": "600",
+      "name": "Paraguay",
+      "csvLabel": "Paraguay",
+      "sdmxLabel": "Paraguay"
+    },
+    {
+      "economyCode": "PSE",
+      "sourceAreaCode": "275",
+      "name": "State of Palestine",
+      "csvLabel": "State of Palestine",
+      "sdmxLabel": "State of Palestine"
+    },
+    {
+      "economyCode": "QAT",
+      "sourceAreaCode": "634",
+      "name": "Qatar",
+      "csvLabel": "Qatar",
+      "sdmxLabel": "Qatar"
+    },
+    {
+      "economyCode": "ROU",
+      "sourceAreaCode": "642",
+      "name": "Romania",
+      "csvLabel": "Romania",
+      "sdmxLabel": "Romania"
+    },
+    {
+      "economyCode": "RUS",
+      "sourceAreaCode": "643",
+      "name": "Russian Federation",
+      "csvLabel": "Russian Federation",
+      "sdmxLabel": "Russian Federation"
+    },
+    {
+      "economyCode": "RWA",
+      "sourceAreaCode": "646",
+      "name": "Rwanda",
+      "csvLabel": "Rwanda",
+      "sdmxLabel": "Rwanda"
+    },
+    {
+      "economyCode": "SAU",
+      "sourceAreaCode": "682",
+      "name": "Saudi Arabia",
+      "csvLabel": "Saudi Arabia",
+      "sdmxLabel": "Saudi Arabia"
+    },
+    {
+      "economyCode": "SDN",
+      "sourceAreaCode": "729",
+      "name": "Sudan",
+      "csvLabel": "Sudan",
+      "sdmxLabel": "Sudan"
+    },
+    {
+      "economyCode": "SEN",
+      "sourceAreaCode": "686",
+      "name": "Senegal",
+      "csvLabel": "Senegal",
+      "sdmxLabel": "Senegal"
+    },
+    {
+      "economyCode": "SGP",
+      "sourceAreaCode": "702",
+      "name": "Singapore",
+      "csvLabel": "Singapore",
+      "sdmxLabel": "Singapore"
+    },
+    {
+      "economyCode": "SLB",
+      "sourceAreaCode": "090",
+      "name": "Solomon Islands",
+      "csvLabel": "Solomon Islands",
+      "sdmxLabel": "Solomon Islands"
+    },
+    {
+      "economyCode": "SLE",
+      "sourceAreaCode": "694",
+      "name": "Sierra Leone",
+      "csvLabel": "Sierra Leone",
+      "sdmxLabel": "Sierra Leone"
+    },
+    {
+      "economyCode": "SLV",
+      "sourceAreaCode": "222",
+      "name": "El Salvador",
+      "csvLabel": "El Salvador",
+      "sdmxLabel": "El Salvador"
+    },
+    {
+      "economyCode": "SOM",
+      "sourceAreaCode": "706",
+      "name": "Somalia",
+      "csvLabel": "Somalia",
+      "sdmxLabel": "Somalia"
+    },
+    {
+      "economyCode": "SPM",
+      "sourceAreaCode": "666",
+      "name": "St. Pierre-Miquelon",
+      "csvLabel": "St. Pierre-Miquelon",
+      "sdmxLabel": "Saint Pierre and Miquelon"
+    },
+    {
+      "economyCode": "SRB",
+      "sourceAreaCode": "688",
+      "name": "Serbia",
+      "csvLabel": "Serbia",
+      "sdmxLabel": "Serbia"
+    },
+    {
+      "economyCode": "SSD",
+      "sourceAreaCode": "728",
+      "name": "South Sudan",
+      "csvLabel": "South Sudan",
+      "sdmxLabel": "South Sudan"
+    },
+    {
+      "economyCode": "STP",
+      "sourceAreaCode": "678",
+      "name": "Sao Tome and Principe",
+      "csvLabel": "Sao Tome and Principe",
+      "sdmxLabel": "Sao Tome and Principe"
+    },
+    {
+      "economyCode": "SUR",
+      "sourceAreaCode": "740",
+      "name": "Suriname",
+      "csvLabel": "Suriname",
+      "sdmxLabel": "Suriname"
+    },
+    {
+      "economyCode": "SVK",
+      "sourceAreaCode": "703",
+      "name": "Slovakia",
+      "csvLabel": "Slovakia",
+      "sdmxLabel": "Slovakia"
+    },
+    {
+      "economyCode": "SVN",
+      "sourceAreaCode": "705",
+      "name": "Slovenia",
+      "csvLabel": "Slovenia",
+      "sdmxLabel": "Slovenia"
+    },
+    {
+      "economyCode": "SWE",
+      "sourceAreaCode": "752",
+      "name": "Sweden",
+      "csvLabel": "Sweden",
+      "sdmxLabel": "Sweden"
+    },
+    {
+      "economyCode": "SWZ",
+      "sourceAreaCode": "748",
+      "name": "Eswatini",
+      "csvLabel": "Eswatini",
+      "sdmxLabel": "Eswatini"
+    },
+    {
+      "economyCode": "SXM",
+      "sourceAreaCode": "534",
+      "name": "Sint Maarten (Dutch part)",
+      "csvLabel": "Sint Maarten (Dutch part)",
+      "sdmxLabel": "Sint Maarten (Dutch part)"
+    },
+    {
+      "economyCode": "SYC",
+      "sourceAreaCode": "690",
+      "name": "Seychelles",
+      "csvLabel": "Seychelles",
+      "sdmxLabel": "Seychelles"
+    },
+    {
+      "economyCode": "SYR",
+      "sourceAreaCode": "760",
+      "name": "Syrian Arab Republic",
+      "csvLabel": "Syrian Arab Republic",
+      "sdmxLabel": "Syrian Arab Republic"
+    },
+    {
+      "economyCode": "TCD",
+      "sourceAreaCode": "148",
+      "name": "Chad",
+      "csvLabel": "Chad",
+      "sdmxLabel": "Chad"
+    },
+    {
+      "economyCode": "TGO",
+      "sourceAreaCode": "768",
+      "name": "Togo",
+      "csvLabel": "Togo",
+      "sdmxLabel": "Togo"
+    },
+    {
+      "economyCode": "THA",
+      "sourceAreaCode": "764",
+      "name": "Thailand",
+      "csvLabel": "Thailand",
+      "sdmxLabel": "Thailand"
+    },
+    {
+      "economyCode": "TJK",
+      "sourceAreaCode": "762",
+      "name": "Tajikistan",
+      "csvLabel": "Tajikistan",
+      "sdmxLabel": "Tajikistan"
+    },
+    {
+      "economyCode": "TKM",
+      "sourceAreaCode": "795",
+      "name": "Turkmenistan",
+      "csvLabel": "Turkmenistan",
+      "sdmxLabel": "Turkmenistan"
+    },
+    {
+      "economyCode": "TTO",
+      "sourceAreaCode": "780",
+      "name": "Trinidad and Tobago",
+      "csvLabel": "Trinidad and Tobago",
+      "sdmxLabel": "Trinidad and Tobago"
+    },
+    {
+      "economyCode": "TUN",
+      "sourceAreaCode": "788",
+      "name": "Tunisia",
+      "csvLabel": "Tunisia",
+      "sdmxLabel": "Tunisia"
+    },
+    {
+      "economyCode": "TUR",
+      "sourceAreaCode": "792",
+      "name": "Türkiye",
+      "csvLabel": "Türkiye",
+      "sdmxLabel": "Turkey"
+    },
+    {
+      "economyCode": "TZA",
+      "sourceAreaCode": "834",
+      "name": "United Rep. of Tanzania",
+      "csvLabel": "United Rep. of Tanzania",
+      "sdmxLabel": "United Republic of Tanzania"
+    },
+    {
+      "economyCode": "UGA",
+      "sourceAreaCode": "800",
+      "name": "Uganda",
+      "csvLabel": "Uganda",
+      "sdmxLabel": "Uganda"
+    },
+    {
+      "economyCode": "UKR",
+      "sourceAreaCode": "804",
+      "name": "Ukraine",
+      "csvLabel": "Ukraine",
+      "sdmxLabel": "Ukraine"
+    },
+    {
+      "economyCode": "UN-158",
+      "sourceAreaCode": "158",
+      "name": "Other Asia",
+      "csvLabel": "Other Asia",
+      "sdmxLabel": "Other Asia"
+    },
+    {
+      "economyCode": "UN-200",
+      "sourceAreaCode": "200",
+      "name": "Czechoslovakia (former)",
+      "csvLabel": "Czechoslovakia (former)",
+      "sdmxLabel": "Czechoslovakia [former]"
+    },
+    {
+      "economyCode": "UN-230",
+      "sourceAreaCode": "230",
+      "name": "Ethiopia, incl. Eritrea",
+      "csvLabel": "Ethiopia, incl. Eritrea",
+      "sdmxLabel": "Ethiopia [up to 1993]"
+    },
+    {
+      "economyCode": "UN-251",
+      "sourceAreaCode": "251",
+      "name": "France incl. Monaco",
+      "csvLabel": "France",
+      "sdmxLabel": "France incl. Monaco"
+    },
+    {
+      "economyCode": "UN-280",
+      "sourceAreaCode": "280",
+      "name": "Germany, Fed. R. (former)",
+      "csvLabel": "Germany, Fed. R. (former)",
+      "sdmxLabel": "Germany, Federal Republic of"
+    },
+    {
+      "economyCode": "UN-382",
+      "sourceAreaCode": "382",
+      "name": "Italy and San Marino",
+      "csvLabel": "Italy",
+      "sdmxLabel": "Italy and San Marino"
+    },
+    {
+      "economyCode": "UN-530",
+      "sourceAreaCode": "530",
+      "name": "Neth. Antilles (former)",
+      "csvLabel": "Neth. Antilles (former)",
+      "sdmxLabel": "Netherlands Antilles"
+    },
+    {
+      "economyCode": "UN-579",
+      "sourceAreaCode": "579",
+      "name": "Norway including Svalbard and Jan Mayen Islands",
+      "csvLabel": "Norway",
+      "sdmxLabel": "Norway including Svalbard and Jan Mayen Islands"
+    },
+    {
+      "economyCode": "UN-736",
+      "sourceAreaCode": "736",
+      "name": "Sudan (former)",
+      "csvLabel": "Sudan (former)",
+      "sdmxLabel": "Sudan [up to 2011]"
+    },
+    {
+      "economyCode": "UN-757",
+      "sourceAreaCode": "757",
+      "name": "Switzerland-Liechtenstein",
+      "csvLabel": "Switzerland",
+      "sdmxLabel": "Switzerland-Liechtenstein"
+    },
+    {
+      "economyCode": "UN-810",
+      "sourceAreaCode": "810",
+      "name": "USSR (former)",
+      "csvLabel": "USSR (former)",
+      "sdmxLabel": "Union of Soviet Socialist Republics [former]"
+    },
+    {
+      "economyCode": "UN-890",
+      "sourceAreaCode": "890",
+      "name": "Yugoslavia, SFR (former)",
+      "csvLabel": "Yugoslavia, SFR (former)",
+      "sdmxLabel": "Yugoslavia [former Socialist Federal Republic]"
+    },
+    {
+      "economyCode": "UN-891",
+      "sourceAreaCode": "891",
+      "name": "Serbia and Montenegro",
+      "csvLabel": "Serbia and Montenegro",
+      "sdmxLabel": "Serbia and Montenegro"
+    },
+    {
+      "economyCode": "URY",
+      "sourceAreaCode": "858",
+      "name": "Uruguay",
+      "csvLabel": "Uruguay",
+      "sdmxLabel": "Uruguay"
+    },
+    {
+      "economyCode": "USA",
+      "sourceAreaCode": "840",
+      "name": "United States",
+      "csvLabel": "United States",
+      "sdmxLabel": "United States"
+    },
+    {
+      "economyCode": "UZB",
+      "sourceAreaCode": "860",
+      "name": "Uzbekistan",
+      "csvLabel": "Uzbekistan",
+      "sdmxLabel": "Uzbekistan"
+    },
+    {
+      "economyCode": "VCT",
+      "sourceAreaCode": "670",
+      "name": "St. Vincent-Grenadines",
+      "csvLabel": "St. Vincent-Grenadines",
+      "sdmxLabel": "Saint Vincent and the Grenadines"
+    },
+    {
+      "economyCode": "VEN",
+      "sourceAreaCode": "862",
+      "name": "Venezuela (Bolivar. Rep.)",
+      "csvLabel": "Venezuela (Bolivar. Rep.)",
+      "sdmxLabel": "Venezuela"
+    },
+    {
+      "economyCode": "VGB",
+      "sourceAreaCode": "092",
+      "name": "British Virgin Islands",
+      "csvLabel": "British Virgin Islands",
+      "sdmxLabel": "British Virgin Islands"
+    },
+    {
+      "economyCode": "VIR",
+      "sourceAreaCode": "850",
+      "name": "United States Virgin Is.",
+      "csvLabel": "United States Virgin Is.",
+      "sdmxLabel": "United States Virgin Islands"
+    },
+    {
+      "economyCode": "VNM",
+      "sourceAreaCode": "704",
+      "name": "Viet Nam",
+      "csvLabel": "Viet Nam",
+      "sdmxLabel": "Viet Nam"
+    },
+    {
+      "economyCode": "VUT",
+      "sourceAreaCode": "548",
+      "name": "Vanuatu",
+      "csvLabel": "Vanuatu",
+      "sdmxLabel": "Vanuatu"
+    },
+    {
+      "economyCode": "WSM",
+      "sourceAreaCode": "882",
+      "name": "Samoa",
+      "csvLabel": "Samoa",
+      "sdmxLabel": "Samoa"
+    },
+    {
+      "economyCode": "XKX",
+      "sourceAreaCode": "412",
+      "name": "Kosovo",
+      "csvLabel": "Kosovo",
+      "sdmxLabel": "Kosovo"
+    },
+    {
+      "economyCode": "YEM",
+      "sourceAreaCode": "887",
+      "name": "Yemen",
+      "csvLabel": "Yemen",
+      "sdmxLabel": "Yemen"
+    },
+    {
+      "economyCode": "ZAF",
+      "sourceAreaCode": "710",
+      "name": "South Africa",
+      "csvLabel": "South Africa",
+      "sdmxLabel": "South Africa"
+    },
+    {
+      "economyCode": "ZMB",
+      "sourceAreaCode": "894",
+      "name": "Zambia",
+      "csvLabel": "Zambia",
+      "sdmxLabel": "Zambia"
+    },
+    {
+      "economyCode": "ZWE",
+      "sourceAreaCode": "716",
+      "name": "Zimbabwe",
+      "csvLabel": "Zimbabwe",
+      "sdmxLabel": "Zimbabwe"
+    }
+  ],
+  "validation": "Every UNdata CSV row matches the XML export exactly. UN SDMX confirms all area-year keys, units, observations and estimate flags. Only the last floating-point digits differ for some SDMX quantities.",
+  "sourceFiles": {
+    "un-energy-121-csv.zip": {
+      "url": "https://data.un.org/legacy/Handlers/DownloadHandler.ashx?DataFilter=cmID%3AEL%3BtrID%3A121&DataMartId=EDATA&Format=csv",
+      "sha256": "cc08df835b1cc5a723a1a814a17a0ab77a7dd6a8d1d04946ba0c5c014c708635",
+      "bytes": 47993
+    },
+    "un-energy-121-xml.zip": {
+      "url": "https://data.un.org/legacy/Handlers/DownloadHandler.ashx?DataFilter=cmID%3AEL%3BtrID%3A121&DataMartId=EDATA&Format=xml",
+      "sha256": "f003136061b6039da1b7b0e1bef6cf17f560413608d21549e087a99669f9f022",
+      "bytes": 53062
+    },
+    "un-energy-121-sdmx.csv": {
+      "url": "https://data.un.org/WS/rest/data/UNSD,DF_UNDATA_ENERGY,/A..7000.121/?format=csv",
+      "sha256": "caa5cbe756b8c806499fe68bd159fa34683a482f846b3a1e25f75be940bd4a8a",
+      "bytes": 502660
+    },
+    "un-energy-structure.xml": {
+      "url": "https://data.un.org/WS/rest/dataflow/UNSD/DF_UNDATA_ENERGY/latest?references=all",
+      "sha256": "d05c701238f148ef232b027ae7d356eb340a2cfed2a7527fb2656fdbb7a02fee",
+      "bytes": 210260
+    },
+    "un-energy-filtered.html": {
+      "url": "https://data.un.org/legacy/Data.aspx?d=EDATA&f=cmID%3AEL%3BtrID%3A121",
+      "sha256": "9f63b50c971978691becb94dde4703e9df1a2610e1e648f84fe9d1a9e45983fe",
+      "bytes": 111257
+    },
+    "un-m49-overview.html": {
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+      "bytes": 1721575
+    },
+    "un-energy-questionnaire-guidelines.pdf": {
+      "url": "https://unstats.un.org/unsd/energystats/questionnaire/documents/Energy-Questionnaire-Guidelines.pdf",
+      "sha256": "cee1915572e50daa3f660f3f3bfd3eb1a61a6c931502e2e5b8c1ca2cff0bf16a",
+      "bytes": 696951
+    },
+    "un-energy-balance-definitions.pdf": {
+      "url": "https://unstats.un.org/unsd/energystats/pubs/balance/2023/03.pdf",
+      "sha256": "56f6377603711038730580bd3609e1621470b25e4ea98bf836d433a66dcd6eb8",
+      "bytes": 425611
+    }
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "title": "Household drinking-water service coverage by country and place of residence",
+  "publisher": "WHO/UNICEF Joint Monitoring Programme for Water Supply, Sanitation and Hygiene",
+  "workbook": "JMP_2025_WLD.xlsx",
+  "edition": "August 2025",
+  "period": [
+    2000,
+    2024
+  ],
+  "retrieved": "2026-11-23",
+  "officialDownload": "https://washdata.org/media/4671/download",
+  "publisherIndex": "https://washdata.org/data/downloads",
+  "publisherCountryFiles": "https://washdata.org/data/household",
+  "serviceLadder": "https://washdata.org/topics/drinking-water",
+  "apiDocumentation": "https://washdata.org/data/api",
+  "sha256": "5b26a1fb97c5a8f91916ddb1a59664072455cb44223e88eec536a841c5bbeed7",
+  "sourceBytes": 25098506,
+  "counts": {
+    "countries": 232,
+    "countryYears": 5661,
+    "countriesWithEstimates": 231,
+    "countriesByService": {
+      "safe": 169,
+      "basic": 231
+    },
+    "residenceEstimates": {
+      "basic": 14568,
+      "safe": 8726
+    },
+    "pairedCountryYears": {
+      "safe": 2100,
+      "basic": 4276
+    },
+    "sourceThresholdLabels": {
+      ">99": 5100,
+      "<1": 56
+    }
+  },
+  "population": "Percentage of the population using the service within each residence group (total, urban, rural). Country and territory names and ISO3 identifiers come directly from JMP.",
+  "units": {
+    "estimates": "percent",
+    "urban_minus_rural": "percentage points"
+  },
+  "serviceDefinitions": {
+    "safe": "An improved drinking-water source on premises, available when needed, and free from faecal and priority chemical contamination.",
+    "basic": "An improved drinking-water source with a round-trip collection time of up to 30 minutes, including queuing. At least basic includes safely managed service."
+  },
+  "sourceColumns": {
+    "safe": {
+      "total": "AK",
+      "urban": "AD",
+      "rural": "W"
+    },
+    "basic": {
+      "total": "O",
+      "urban": "J",
+      "rural": "E"
+    }
+  },
+  "recordKey": [
+    "country ISO3",
+    "year",
+    "service level"
+  ],
+  "methods": [
+    "The workbook’s unformatted wat sheet provides the underlying estimates. The formatted Water sheet supplies presentation qualifiers. Both sheets are checked for matching ISO3, country name, year and service columns.",
+    "At least basic comes directly from the workbook’s cumulative wat_basal fields. Both indicators describe service levels and overlap.",
+    "The displayed gap is urban percentage minus rural percentage for the same country, year and service. National percentages are the published estimates. Each residence has its own population denominator.",
+    "CSV percentages retain the source cell’s decimal precision. Public source labels <1 and >99 are preserved separately, including when the underlying estimate equals zero or 100. The gap uses the underlying estimates before display rounding.",
+    "A dash on the formatted source sheet corresponds to a blank unformatted source cell. Downloaded CSV fields are empty for missing estimates and gaps. Only years found in the release are included."
+  ],
+  "files": {
+    "mapAndHistories": "water.json",
+    "sourceRecords": "water.csv"
+  },
+  "fileHashes": {
+    "water.json": "c1f258884b1fed742473df9f912c6fa8088ad5a1db02c80edf4beb2eeb99182c",
+    "water.csv": "ba813c32bc825ff0eee5406c4637b1c06b7ab61bdb884a693c44fb0685753b83"
+  }
+}

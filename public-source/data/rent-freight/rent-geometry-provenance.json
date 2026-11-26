@@ -1,0 +1,345 @@
+{
+  "publisher": "U.S. Census Bureau",
+  "source": "2024 Cartographic Boundary File, U.S. counties and county equivalents, 1:5,000,000",
+  "sourceArchive": "https://www2.census.gov/geo/tiger/GENZ2024/shp/cb_2024_us_county_5m.zip",
+  "sha256": "a867f8734059b45d1d54a0ba56189dd7e73c42eb451418fa56de44c35232614b",
+  "sourceCoordinateReferenceSystem": "NAD83, geographic",
+  "acsVintage": "January 1, 2024 (summary level 050, 2024 ACS estimate year)",
+  "censusGeographyDocumentation": "https://www.census.gov/programs-surveys/acs/geography-acs/geography-boundaries-by-year/2024.html",
+  "geographicJoin": "Exact five-digit 2024 B25070 county or county equivalent GEOID.",
+  "countyRowsMatched": 3222,
+  "unmatchedCountyRows": 0,
+  "statesDistrictAndPuertoRico": 52,
+  "countyGeometriesInOriginalFile": 3235,
+  "otherIslandAreasOutsideCountyTable": [
+    "60010",
+    "60020",
+    "60030",
+    "60040",
+    "60050",
+    "66010",
+    "69085",
+    "69100",
+    "69110",
+    "69120",
+    "78010",
+    "78020",
+    "78030"
+  ],
+  "projection": "State-centered spherical Lambert azimuthal equal-area. North increases on the y axis. Alaska longitudes are unwrapped across the antimeridian before centering.",
+  "cartography": "All source polygon parts and rings retained. Display coordinates rounded to 0.01 map units with extra precision for small rings. State packets use independent scales.",
+  "files": {
+    "01": {
+      "counties": 67,
+      "file": "counties/01.json",
+      "sha256": "919879b09d49c853adfb5485734f895509ef2605e1511d4bf858851c0f74fcf9",
+      "bytes": 64883
+    },
+    "02": {
+      "counties": 30,
+      "file": "counties/02.json",
+      "sha256": "08817b34b1c03aaba8674d261793c35ef9759abe5daa3145c1ed74d7e5645b73",
+      "bytes": 195951
+    },
+    "04": {
+      "counties": 15,
+      "file": "counties/04.json",
+      "sha256": "c5d0d31ac24f56a7e24e4c62ec5c7ddcf2326efb4f9577a127947dbf92c027b4",
+      "bytes": 34400
+    },
+    "05": {
+      "counties": 75,
+      "file": "counties/05.json",
+      "sha256": "26bf2587a07562a5f9a615e3b054de3e3c12a763f16d32ee2701e443d80d68ad",
+      "bytes": 67452
+    },
+    "06": {
+      "counties": 58,
+      "file": "counties/06.json",
+      "sha256": "2696567b7330e0cfd3a126faa4749ad880096f0049e1d4dff406fb378cf7fc09",
+      "bytes": 122101
+    },
+    "08": {
+      "counties": 64,
+      "file": "counties/08.json",
+      "sha256": "a3993e67840571f27f0726eca117761f57f16ee4decfeae092a61c4f457e0973",
+      "bytes": 58106
+    },
+    "09": {
+      "counties": 9,
+      "file": "counties/09.json",
+      "sha256": "c2ecd339ed24d7493aee86eff4f81c99fa6d8cb8f77e8815f2e72085ecf5b409",
+      "bytes": 14709
+    },
+    "10": {
+      "counties": 3,
+      "file": "counties/10.json",
+      "sha256": "a2b2b957a9b362e4645187d4d7bf7dc78940432968895792109710a6d695c02c",
+      "bytes": 5659
+    },
+    "11": {
+      "counties": 1,
+      "file": "counties/11.json",
+      "sha256": "ec5c83dd740aec1c1c736fe5c1ff78313e681a955c85a69aa2c36fe942805b53",
+      "bytes": 2176
+    },
+    "12": {
+      "counties": 67,
+      "file": "counties/12.json",
+      "sha256": "1064c5bfd726fe1ac639cc333635a1e121b981f95ddbb4a2dfd1d58c906aacdd",
+      "bytes": 80859
+    },
+    "13": {
+      "counties": 159,
+      "file": "counties/13.json",
+      "sha256": "4fd285fe42d7fe51566725bb8ad71d7456a588d9ca00d407ab3e8b1b60fc0033",
+      "bytes": 126070
+    },
+    "15": {
+      "counties": 5,
+      "file": "counties/15.json",
+      "sha256": "29602ac27587a09ea28c63966b97a734c44b1e070b6b57aee17e969cd5671d0b",
+      "bytes": 12420
+    },
+    "16": {
+      "counties": 44,
+      "file": "counties/16.json",
+      "sha256": "e8c66846c5bc37f9d72e1ee0872ed78de617e8be5dc7796099406323c733e60e",
+      "bytes": 62274
+    },
+    "17": {
+      "counties": 102,
+      "file": "counties/17.json",
+      "sha256": "b8f638517dd124408622fea5409f83aed50ac67449eed99b006fe6c27c09bad0",
+      "bytes": 74072
+    },
+    "18": {
+      "counties": 92,
+      "file": "counties/18.json",
+      "sha256": "2739442d2d4ee5c5e3826469da3bfcd1c69bc639f189a7d167fb1ce7ec863d9d",
+      "bytes": 57123
+    },
+    "19": {
+      "counties": 99,
+      "file": "counties/19.json",
+      "sha256": "d55aa4e8975c3f4ad125d2ae89a67e9c96608b95ae236c3093bd91ce09c844c5",
+      "bytes": 51864
+    },
+    "20": {
+      "counties": 105,
+      "file": "counties/20.json",
+      "sha256": "c41dc7fd71561dc77d538a6769fc1664c0cad900a17cd74fc3de9c00792f8c41",
+      "bytes": 40039
+    },
+    "21": {
+      "counties": 120,
+      "file": "counties/21.json",
+      "sha256": "2b35b34705e86a05c6ad7083c941616f11f0cda12975270f2ec859d1df0aa997",
+      "bytes": 107869
+    },
+    "22": {
+      "counties": 64,
+      "file": "counties/22.json",
+      "sha256": "1f207fa6efda580f1f39ca89daa2a6283cb1a365d180aee2cc696cabd4d75800",
+      "bytes": 88294
+    },
+    "23": {
+      "counties": 16,
+      "file": "counties/23.json",
+      "sha256": "d5d2315e5e65549172dccc0def99fa462b0352d1dd1c257c06dd39caae006e20",
+      "bytes": 39556
+    },
+    "24": {
+      "counties": 24,
+      "file": "counties/24.json",
+      "sha256": "5a3ddca9f9b7b66105e176ade8b23ba5d02653fa6d7eed720a9dde83be2e0431",
+      "bytes": 43950
+    },
+    "25": {
+      "counties": 14,
+      "file": "counties/25.json",
+      "sha256": "6b506846c1e1688ffa970ce01d34f14e202513c25a5513e7baad28bdd090974b",
+      "bytes": 27811
+    },
+    "26": {
+      "counties": 83,
+      "file": "counties/26.json",
+      "sha256": "a368f7681277b43937c9724f6e474f6d83b3a9900e4b6e314aced87bce870633",
+      "bytes": 69915
+    },
+    "27": {
+      "counties": 87,
+      "file": "counties/27.json",
+      "sha256": "fb721aecb5fb54292d908632d8ce8d42324aae1ffb0a01c3527609821b4d799c",
+      "bytes": 87641
+    },
+    "28": {
+      "counties": 82,
+      "file": "counties/28.json",
+      "sha256": "39008395002b8df0fa3a8455540f4ac7a7d4138517d2b06acfa490e3492ff2c0",
+      "bytes": 62132
+    },
+    "29": {
+      "counties": 115,
+      "file": "counties/29.json",
+      "sha256": "4b3fa702a526fb84f6b3338a356fd89c96a3ee7041b67d410ba94031afa80af3",
+      "bytes": 81848
+    },
+    "30": {
+      "counties": 56,
+      "file": "counties/30.json",
+      "sha256": "9aaeb1caf16b0edb40973aa40d171d8908266cf7818e7e55325cae35d90c7b76",
+      "bytes": 97968
+    },
+    "31": {
+      "counties": 93,
+      "file": "counties/31.json",
+      "sha256": "eb5858db48d1c7b8486bd8542be4372b108ba4d6362e85c2fdea093cb8258c72",
+      "bytes": 44983
+    },
+    "32": {
+      "counties": 17,
+      "file": "counties/32.json",
+      "sha256": "fc0085fe14fa4f9746bd0e1ad2a34adbc9209974459746590e44c7f4b213ce85",
+      "bytes": 22475
+    },
+    "33": {
+      "counties": 10,
+      "file": "counties/33.json",
+      "sha256": "50eae748c13458ba23d86ee2ad294f2caea3b29d3815bd3edf907e1943f4bf5f",
+      "bytes": 25872
+    },
+    "34": {
+      "counties": 21,
+      "file": "counties/34.json",
+      "sha256": "ef83fd19a36a259ed479b01465a8824d32e81a12f61aaccc09cde68374bafa03",
+      "bytes": 35748
+    },
+    "35": {
+      "counties": 33,
+      "file": "counties/35.json",
+      "sha256": "47ca389727e4c8f10f4ada902e1c78be8364f706a9ec9e6fa6d97485c3d47093",
+      "bytes": 25084
+    },
+    "36": {
+      "counties": 62,
+      "file": "counties/36.json",
+      "sha256": "d04a2a2f17da87d3a362ebcd7936798c5898852386c0fa51ef7eb0d4c5a45a27",
+      "bytes": 74341
+    },
+    "37": {
+      "counties": 100,
+      "file": "counties/37.json",
+      "sha256": "39cd500d5b4dc0f67c9c686dab76138e4a154b2a625e70e574ddef2aec8f0936",
+      "bytes": 103471
+    },
+    "38": {
+      "counties": 53,
+      "file": "counties/38.json",
+      "sha256": "6e56be30280c258d1cde7383a779c1ef1258345c9ae2d84146af7f42f1c0acd2",
+      "bytes": 43908
+    },
+    "39": {
+      "counties": 88,
+      "file": "counties/39.json",
+      "sha256": "28d23d1b25fbc94afcf8aa988722d815cdc09a212470237b8ae12cf67c3e29bb",
+      "bytes": 64318
+    },
+    "40": {
+      "counties": 77,
+      "file": "counties/40.json",
+      "sha256": "9f5dfa4045e7835daa6af0d21761490c9ab1271000ef98d2a086ec505d7c508a",
+      "bytes": 61941
+    },
+    "41": {
+      "counties": 36,
+      "file": "counties/41.json",
+      "sha256": "b135dbf5fc2879e0bb0c44c105a40e7e9c87a337dcd8d260f8f71f01b627f552",
+      "bytes": 73722
+    },
+    "42": {
+      "counties": 67,
+      "file": "counties/42.json",
+      "sha256": "7a21d5c3a9e7b5902bd1c8e9816adaa2b124e3f40c14224ec190b58fbe0cfa68",
+      "bytes": 73130
+    },
+    "44": {
+      "counties": 5,
+      "file": "counties/44.json",
+      "sha256": "414e826da6823095b9df0094453b7f0fc23b8bbe5b516d71291c8b39187cc334",
+      "bytes": 7571
+    },
+    "45": {
+      "counties": 46,
+      "file": "counties/45.json",
+      "sha256": "ba63b5388af6535d8fb9ced552409cac526122f1b1d063d93e03ec9b2360c109",
+      "bytes": 63934
+    },
+    "46": {
+      "counties": 66,
+      "file": "counties/46.json",
+      "sha256": "9e6d888537118b8f8af305554e8d58fe6c174e22aca41011157555710c39fdcf",
+      "bytes": 54613
+    },
+    "47": {
+      "counties": 95,
+      "file": "counties/47.json",
+      "sha256": "46eac6ba26735215b531273dadfcfaa57feb329b98681d8602681f0c17023c9c",
+      "bytes": 88928
+    },
+    "48": {
+      "counties": 254,
+      "file": "counties/48.json",
+      "sha256": "6c96b182a46b7259a23511b706390f8a95ecf06aa4c9e483d0783ea5f6cf1660",
+      "bytes": 180289
+    },
+    "49": {
+      "counties": 29,
+      "file": "counties/49.json",
+      "sha256": "5db8b416aaab4df809efaa46721210ee439a3f2be2b508bd2b4e64698b86894a",
+      "bytes": 52522
+    },
+    "50": {
+      "counties": 14,
+      "file": "counties/50.json",
+      "sha256": "449a9f0bc08f684bfce5799809cdca724036d4680a6e6824be0509860af0d150",
+      "bytes": 24382
+    },
+    "51": {
+      "counties": 133,
+      "file": "counties/51.json",
+      "sha256": "23b6cdf3a970d318cc2008d06a1464277e0c1fbb42f491c7f9cc678547a355f9",
+      "bytes": 125797
+    },
+    "53": {
+      "counties": 39,
+      "file": "counties/53.json",
+      "sha256": "15ae4d823fb55ceb9383c66759c768ce97578f637f946af03f999a3babd49a01",
+      "bytes": 63712
+    },
+    "54": {
+      "counties": 55,
+      "file": "counties/54.json",
+      "sha256": "3d831ace787d82b986edd764b480ff91f562116246175ee6e54446043957345b",
+      "bytes": 70664
+    },
+    "55": {
+      "counties": 72,
+      "file": "counties/55.json",
+      "sha256": "a3cef1220bff9fe229e0b1fbf7f53d0d8dab110fc82adfdddd65d4883bc1ca93",
+      "bytes": 59714
+    },
+    "56": {
+      "counties": 23,
+      "file": "counties/56.json",
+      "sha256": "769adb21fb9327ae7f3cb813b64b28cbbe6e6e76fb2d4688c46fff27720c112f",
+      "bytes": 24307
+    },
+    "72": {
+      "counties": 78,
+      "file": "counties/72.json",
+      "sha256": "cc0bf1faf3caaedd6c6091c1be0447eea0b8700d41bc5e818cbaa6c4769e31a4",
+      "bytes": 43897
+    }
+  }
+}

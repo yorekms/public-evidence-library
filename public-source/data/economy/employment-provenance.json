@@ -1,0 +1,104 @@
+{
+  "publisher": "World Bank",
+  "database": "World Development Indicators",
+  "sourceId": "2",
+  "retrieved": "2026-11-23",
+  "sourceRelease": "2026-11-11",
+  "frequency": "Annual",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "geography": "World Bank countries and economies with a non-aggregate region and at least one published value in the series. Codes follow the World Bank registry, including XKX for Kosovo.",
+  "transformations": "Rows are grouped under their source economy codes. All years within the observed series span appear. Null in JSON and blank in CSV represent an unavailable observation. Numeric values retain the precision returned by the publisher. Explicit zeros and status codes are retained.",
+  "validation": "Each observation from the API for every non-aggregate economy, including unavailable years, was checked for equality with its entry in the separately downloaded official wide CSV release.",
+  "sourceFiles": {
+    "registry.json.gz": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "sourceSha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "employment.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SL.IND.EMPL.ZS?source=2&format=json&per_page=30000",
+      "sourceSha256": "2a1b81fd172b595dda258bfca870d6eb9726b8975ab7afae332a0481cd795d9f"
+    },
+    "employment-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/SL.IND.EMPL.ZS?format=json&source=2",
+      "sourceSha256": "76c939faf692ce2682be0d87f0abd30aca6709ef974b84459730e3af090f7585"
+    },
+    "employment-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SL.IND.EMPL.ZS?downloadformat=csv",
+      "sourceSha256": "713dcb3eb8df5842a76786815611b2bd84559d9c102d23db61679881a0bfdd89"
+    }
+  },
+  "series": {
+    "employment": {
+      "code": "SL.IND.EMPL.ZS",
+      "name": "Employment in industry (% of total employment) (modeled ILO estimate)",
+      "unit": "% of total employment",
+      "definition": "Employment is defined as persons of working age who were engaged in any activity to produce goods or provide services for pay or profit, whether at work during the reference period or not at work due to temporary absence from a job, or to working-time arrangement. The industry sector consists of mining and quarrying, manufacturing, construction, and public utilities (electricity, gas, and water), in accordance with divisions 2-5 (ISIC 2) or categories C-F (ISIC 3) or categories B-F (ISIC 4).",
+      "sourceOrganizations": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+      "landingPage": "https://data.worldbank.org/indicator/SL.IND.EMPL.ZS",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 187,
+      "numericCountryYears": 6531,
+      "unavailableCountryYears": 14,
+      "coverageByYear": {
+        "1991": 187,
+        "1992": 187,
+        "1993": 187,
+        "1994": 187,
+        "1995": 187,
+        "1996": 187,
+        "1997": 187,
+        "1998": 187,
+        "1999": 187,
+        "2000": 187,
+        "2001": 187,
+        "2002": 187,
+        "2003": 187,
+        "2004": 187,
+        "2005": 187,
+        "2006": 187,
+        "2007": 187,
+        "2008": 187,
+        "2009": 187,
+        "2010": 187,
+        "2011": 187,
+        "2012": 187,
+        "2013": 187,
+        "2014": 187,
+        "2015": 187,
+        "2016": 187,
+        "2017": 187,
+        "2018": 187,
+        "2019": 187,
+        "2020": 187,
+        "2021": 187,
+        "2022": 186,
+        "2023": 184,
+        "2024": 182,
+        "2025": 182
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "employment.csv.gz",
+      "fileSha256": {
+        "employment.json": "fc94942ee7dda8d8450f2a841e78bcb77578c5536d9bdd43a4ed35f0aae2fd16",
+        "employment.csv.gz": "780d124e9b9e3b6b6aad3674459c11c5fc9c1fb9729ecb91f2386ef8d6f3db00"
+      }
+    }
+  },
+  "methodology": {
+    "source": "International Labour Organization, ILO Modelled Estimates (ILOEST), distributed by World Bank WDI",
+    "sourceProgram": "https://ilostat.ilo.org/data/bulk/",
+    "glossary": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SL.IND.EMPL.ZS",
+    "classification": "Industry covers mining and quarrying, manufacturing, construction and public utilities. The denominator is all employed people.",
+    "interpretation": "The ILO series combines national observations and modeled estimates. This WDI extract provides no per-observation imputation flag. The publisher advises against comparisons or rankings based on imputed observations."
+  },
+  "sourceArchive": {
+    "filename": "employment-sources.zip",
+    "sha256": "3ea120de2bf1446fd4874e246378e6221d33db9669a7d7575ec689bb5fdee7a2"
+  }
+}

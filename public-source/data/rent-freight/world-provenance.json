@@ -1,0 +1,86 @@
+{
+  "retrieved": "2026-11-23",
+  "counts": {
+    "rail": {
+      "areasWithAnyEstimate": 113,
+      "numericCountryYears": 2165,
+      "unavailableCountryYears": 886,
+      "firstNumericYear": 1995,
+      "lastNumericYear": 2021,
+      "statusCounts": {}
+    },
+    "housing": {
+      "areasWithAnyEstimate": 37,
+      "numericCountryYears": 680,
+      "unavailableCountryYears": 171,
+      "firstNumericYear": 2003,
+      "lastNumericYear": 2025,
+      "statusCounts": {
+        "b": 30,
+        "p": 2
+      }
+    }
+  },
+  "sources": {
+    "wdi-rail-records.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/IS.RRS.GOOD.MT.K6?format=json&per_page=30000",
+      "uncompressedSourceSha256": "3c6bc73eb65f4c632c8787b65d6244b1086b2935e19412e48db36eac5a4bef39"
+    },
+    "wdi-country-registry.json.gz": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "uncompressedSourceSha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "wdi-rail-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/IS.RRS.GOOD.MT.K6?format=json&source=2",
+      "uncompressedSourceSha256": "e42577c277ee8f29c3be8f7884ece003ad88beb95f78e1ae18fbcf5873c1dc9b"
+    },
+    "eurostat-market-rent.json.gz": {
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/ilc_lvho07c?lang=en&tenure=RENT_MKT&unit=PC&freq=A",
+      "uncompressedSourceSha256": "904348cf16d58052e32589483cbf91d7d1e22ba80ec813345833ae68b2f8c318"
+    }
+  },
+  "rail": {
+    "code": "IS.RRS.GOOD.MT.K6",
+    "definition": "Goods transported by railway are the volume of goods transported by railway, measured in metric tons times kilometers traveled.",
+    "sourceOrganizations": "Railisa Database (UIC), International Union of Railways (UIC), uri: https://uic-stats.uic.org/select/;\nOECD Statistics, Organisation for Economic Co-operation and Development (OECD)",
+    "sourceRelease": "2026-11-11",
+    "sourceProgram": "World Development Indicators (database 2)",
+    "geographies": "World Bank country/economy registry entries outside its Aggregates region, with at least one numeric observation.",
+    "landingPage": "https://data.worldbank.org/indicator/IS.RRS.GOOD.MT.K6",
+    "unit": "Million metric tonnes × kilometers of railway transport."
+  },
+  "housing": {
+    "code": "ilc_lvho07c",
+    "filters": {
+      "freq": "A",
+      "unit": "PC",
+      "tenure": "RENT_MKT"
+    },
+    "sourceRelease": "2026-10-29T23:00:00+0100",
+    "definition": "Share of the market-price tenant population living in households where total housing costs exceed 40% of disposable household income, after subtracting housing allowances from both quantities. Housing costs include eligible utilities and charges.",
+    "unit": "Percent of people in market-price tenant households. A difference between two years uses percentage points.",
+    "coverage": "European reporting countries; Eurostat EU and euro-area aggregates are excluded. The World Bank country registry links Eurostat EL to GRC and UK to GBR; Kosovo retains source code XK and map key XKX.",
+    "definitionURL": "https://ec.europa.eu/eurostat/statistics-explained/SEPDF/cache/2138.pdf",
+    "landingPage": "https://ec.europa.eu/eurostat/databrowser/view/ilc_lvho07c/default/table?lang=en",
+    "flags": {
+      "b": "break in time series",
+      "e": "estimated",
+      "p": "provisional"
+    }
+  },
+  "coverage": "Only countries with at least one observation in a series appear. Within each series-wide span, all annual positions are present, with null/blank for missing observations. Break and provisional flags remain attached to their source years.",
+  "validation": {
+    "method": "Each published value, missing year and source status checked against an independent official export (WDI bulk CSV and Eurostat bulk TSV).",
+    "exports": {
+      "wdi-validation.zip": "https://api.worldbank.org/v2/en/indicator/IS.RRS.GOOD.MT.K6?downloadformat=csv",
+      "eurostat-validation.tsv.gz": "https://ec.europa.eu/eurostat/api/dissemination/sdmx/2.1/data/ilc_lvho07c?format=TSV&compressed=true"
+    }
+  },
+  "download": "world.csv",
+  "frozenSourceFiles": "world-sources.zip",
+  "fileHashes": {
+    "world.csv": "7ceb80729c5b8bc052aa2509893dd8115b23c9783acf24f218eae5e25a1c45f0",
+    "world.json": "50b351e781970dd034a30b2abb35078600b38d303055251048b88543406db4e5",
+    "world-sources.zip": "d9e2ddba6e17998e2da0018bf61c7489ed6005fa46c03c59703b6ce991d4f5a4"
+  }
+}

@@ -1,0 +1,423 @@
+{
+  "publisher": "World Bank",
+  "database": "World Development Indicators",
+  "sourceId": "2",
+  "retrieved": "2026-11-24",
+  "sourceRelease": "2026-11-11",
+  "frequency": "Annual",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "geography": "World Bank countries and economies with a non-aggregate region and at least one published value in the series. Codes follow the World Bank registry, including XKX for Kosovo.",
+  "transformations": "Rows are grouped under their source economy codes. All years within the observed series span appear. Null in JSON and blank in CSV represent an unavailable observation. Numeric values retain the precision returned by the publisher. Explicit zeros and status codes are retained.",
+  "validation": "Each observation from the API for every non-aggregate economy, including unavailable years, was checked for equality with its entry in the separately downloaded official wide CSV release.",
+  "sourceFiles": {
+    "registry.json.gz": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "sourceSha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "trade-index-unit-value-exports.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/TX.UVI.MRCH.XD.WD?source=2&format=json&per_page=30000",
+      "sourceSha256": "d8ef12f9269ba937b291688f651b6447990e571712dd6aea8cada676662f37d1"
+    },
+    "trade-index-unit-value-exports-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/TX.UVI.MRCH.XD.WD?format=json&source=2",
+      "sourceSha256": "a3d538f48bdc7d8f63bd05e7ebf5f4393de9a3cb7bf20a3ad204ce176f445c9c"
+    },
+    "trade-index-unit-value-exports-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/TX.UVI.MRCH.XD.WD?downloadformat=csv",
+      "sourceSha256": "797ec35430fa1a2e515326b555334e819ce13d6cae1347bcc4d31c1eea8b6ff2"
+    },
+    "trade-index-unit-value-imports.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/TM.UVI.MRCH.XD.WD?source=2&format=json&per_page=30000",
+      "sourceSha256": "b96a48e14c8d3775f1c9856eb37d8f75112c04695fcd25b0402010ffff318c6b"
+    },
+    "trade-index-unit-value-imports-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/TM.UVI.MRCH.XD.WD?format=json&source=2",
+      "sourceSha256": "65aeb999eded3fb8a3c712f67bae20ccc4daad53309fefbf9633dab4abe2a1fb"
+    },
+    "trade-index-unit-value-imports-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/TM.UVI.MRCH.XD.WD?downloadformat=csv",
+      "sourceSha256": "f07dae07fe5fd27ca43636209fd6fbe48d0b9b1cbbc4f69fcc586ed939ed318f"
+    },
+    "trade-index-value-exports.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/TX.VAL.MRCH.XD.WD?source=2&format=json&per_page=30000",
+      "sourceSha256": "90f719b56066aa2e1e8339de68c5e035158a7a6bcf92a040b614a24ccdb01c58"
+    },
+    "trade-index-value-exports-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/TX.VAL.MRCH.XD.WD?format=json&source=2",
+      "sourceSha256": "ffe1c59ac04ef4d3068654ca18047d28c51ae2b1b8b7f1068341b3e2a260bd41"
+    },
+    "trade-index-value-exports-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/TX.VAL.MRCH.XD.WD?downloadformat=csv",
+      "sourceSha256": "09de19c293eba3beba41fff20a3c2ad6c0a65937d5355f8a9ba0b06d460f15a4"
+    },
+    "trade-index-value-imports.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/TM.VAL.MRCH.XD.WD?source=2&format=json&per_page=30000",
+      "sourceSha256": "caa69ae9075a7f237017f493c274662c847459fe5daa2fb65cc58dfcbd24f3dc"
+    },
+    "trade-index-value-imports-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/TM.VAL.MRCH.XD.WD?format=json&source=2",
+      "sourceSha256": "e82bcafb0414cadc886636aa5e9d45521678882bd5d2c65e28d1b1e3fd172e60"
+    },
+    "trade-index-value-imports-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/TM.VAL.MRCH.XD.WD?downloadformat=csv",
+      "sourceSha256": "4bafb3e628832acda61bc78b59ad566e0bf1f019f9846853a93da381810bb6bc"
+    },
+    "trade-index-volume-exports.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/TX.QTY.MRCH.XD.WD?source=2&format=json&per_page=30000",
+      "sourceSha256": "91ce5d237a514ef7eefd592f2aa6529129a73c84be1275089c9b7a021d055929"
+    },
+    "trade-index-volume-exports-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/TX.QTY.MRCH.XD.WD?format=json&source=2",
+      "sourceSha256": "c68142c2300493b81f068cfe95322e64ab6ec8c3a4f76cfd5f4e75b9e740a3a1"
+    },
+    "trade-index-volume-exports-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/TX.QTY.MRCH.XD.WD?downloadformat=csv",
+      "sourceSha256": "23157aae554daf1df1837618dad40e26ed1e20598704516611d7804b1866a465"
+    },
+    "trade-index-volume-imports.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/TM.QTY.MRCH.XD.WD?source=2&format=json&per_page=30000",
+      "sourceSha256": "2129603cfb8cf4eb8a9267bd616a5a5bf2361d7f44ace47d539082d36b873f58"
+    },
+    "trade-index-volume-imports-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/TM.QTY.MRCH.XD.WD?format=json&source=2",
+      "sourceSha256": "66806b3f4620d3acbc62b364fce301a21162b1338385e8f2ffbef1531bf3e618"
+    },
+    "trade-index-volume-imports-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/TM.QTY.MRCH.XD.WD?downloadformat=csv",
+      "sourceSha256": "2d3564f56da94a57343a57abab2520f7f9fc956b928b030f7c85b717a07426c4"
+    }
+  },
+  "series": {
+    "trade-index-unit-value-exports": {
+      "code": "TX.UVI.MRCH.XD.WD",
+      "name": "Export unit value index (2015 = 100)",
+      "unit": "index (2015 = 100)",
+      "definition": "Export unit value indices come from UNCTAD's trade database. Unit value indices are based on data reported by countries that demonstrate consistency under UNCTAD quality controls, supplemented by UNCTAD’s estimates using the previous year’s trade values at the Standard International Trade Classification three-digit level as weights. To improve data coverage, especially for the latest periods, UNCTAD constructs a set of average prices indexes at the three-digit product classification of the Standard International Trade Classification revision 3 using UNCTAD’s Commodity Price Statistics, interna¬tional and national sources, and UNCTAD secretariat estimates. This indicator is an index series where 2015=100.",
+      "sourceOrganizations": "Handbook of Statistics and data files., UN Conference on Trade and Development (UNCTAD), uri: http://unctadstat.unctad.org",
+      "landingPage": "https://data.worldbank.org/indicator/TX.UVI.MRCH.XD.WD",
+      "license": "CC BY 4.0",
+      "first": 1980,
+      "last": 2025,
+      "economies": 208,
+      "numericCountryYears": 7123,
+      "unavailableCountryYears": 2445,
+      "coverageByYear": {
+        "1980": 89,
+        "1981": 91,
+        "1982": 92,
+        "1983": 92,
+        "1984": 91,
+        "1985": 95,
+        "1986": 95,
+        "1987": 96,
+        "1988": 94,
+        "1989": 89,
+        "1990": 87,
+        "1991": 86,
+        "1992": 90,
+        "1993": 89,
+        "1994": 89,
+        "1995": 89,
+        "1996": 89,
+        "1997": 88,
+        "1998": 88,
+        "1999": 87,
+        "2000": 201,
+        "2001": 200,
+        "2002": 200,
+        "2003": 201,
+        "2004": 201,
+        "2005": 203,
+        "2006": 203,
+        "2007": 203,
+        "2008": 205,
+        "2009": 205,
+        "2010": 205,
+        "2011": 206,
+        "2012": 206,
+        "2013": 208,
+        "2014": 208,
+        "2015": 208,
+        "2016": 208,
+        "2017": 208,
+        "2018": 208,
+        "2019": 207,
+        "2020": 206,
+        "2021": 206,
+        "2022": 203,
+        "2023": 203,
+        "2024": 203,
+        "2025": 202
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "trade-index-unit-value-exports.csv.gz",
+      "fileSha256": {
+        "trade-index-unit-value-exports.json": "060ec8357ef217562085c8539065797b40145b9392b9b64f9c539a04825e0223",
+        "trade-index-unit-value-exports.csv.gz": "bc3b62c4555f06b8815c4a12163d4058f90d526b9d8bff753d117bbccec9c02d"
+      }
+    },
+    "trade-index-unit-value-imports": {
+      "code": "TM.UVI.MRCH.XD.WD",
+      "name": "Import unit value index (2015 = 100)",
+      "unit": "index (2015 = 100)",
+      "definition": "Import unit value indices come from UNCTAD's trade database. Unit value indices are based on data reported by countries that demonstrate consistency under UNCTAD quality controls, supplemented by UNCTAD’s estimates using the previous year’s trade values at the Standard International Trade Classification three-digit level as weights. To improve data coverage, especially for the latest periods, UNCTAD constructs a set of average prices indexes at the three-digit product classification of the Standard International Trade Classification revision 3 using UNCTAD’s Commodity Price Statistics, international and national sources, and UNCTAD secretariat estimates. This indicator is an index series where 2015=100.",
+      "sourceOrganizations": "Handbook of Statistics and data files., UN Conference on Trade and Development (UNCTAD), uri: http://unctadstat.unctad.org",
+      "landingPage": "https://data.worldbank.org/indicator/TM.UVI.MRCH.XD.WD",
+      "license": "CC BY 4.0",
+      "first": 1980,
+      "last": 2025,
+      "economies": 208,
+      "numericCountryYears": 6943,
+      "unavailableCountryYears": 2625,
+      "coverageByYear": {
+        "1980": 74,
+        "1981": 76,
+        "1982": 78,
+        "1983": 78,
+        "1984": 78,
+        "1985": 81,
+        "1986": 83,
+        "1987": 84,
+        "1988": 83,
+        "1989": 81,
+        "1990": 82,
+        "1991": 81,
+        "1992": 83,
+        "1993": 83,
+        "1994": 83,
+        "1995": 83,
+        "1996": 83,
+        "1997": 83,
+        "1998": 82,
+        "1999": 82,
+        "2000": 201,
+        "2001": 200,
+        "2002": 200,
+        "2003": 201,
+        "2004": 201,
+        "2005": 203,
+        "2006": 203,
+        "2007": 203,
+        "2008": 205,
+        "2009": 205,
+        "2010": 205,
+        "2011": 206,
+        "2012": 206,
+        "2013": 208,
+        "2014": 208,
+        "2015": 208,
+        "2016": 208,
+        "2017": 208,
+        "2018": 208,
+        "2019": 207,
+        "2020": 206,
+        "2021": 206,
+        "2022": 204,
+        "2023": 204,
+        "2024": 204,
+        "2025": 204
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "trade-index-unit-value-imports.csv.gz",
+      "fileSha256": {
+        "trade-index-unit-value-imports.json": "5d57a999799170b9029b7a1c521bdaacb18d63dc2ed4325e2ac2e543fcbbd09d",
+        "trade-index-unit-value-imports.csv.gz": "7f390e9eb0b04ae7ff91f41da60858067e594275f6d598fa8c3dcb1bd78867ae"
+      }
+    },
+    "trade-index-value-exports": {
+      "code": "TX.VAL.MRCH.XD.WD",
+      "name": "Export value index (2015 = 100)",
+      "unit": "index (2015 = 100)",
+      "definition": "Export values are the current value of exports (f.o.b.) converted to U.S. dollars and expressed as a percentage of the average for the base period (2015). UNCTAD's export value indexes are reported for most economies.",
+      "sourceOrganizations": "UN Conference on Trade and Development (UNCTAD)",
+      "landingPage": "https://data.worldbank.org/indicator/TX.VAL.MRCH.XD.WD",
+      "license": "CC BY 4.0",
+      "first": 2005,
+      "last": 2024,
+      "economies": 204,
+      "numericCountryYears": 4064,
+      "unavailableCountryYears": 16,
+      "coverageByYear": {
+        "2005": 201,
+        "2006": 201,
+        "2007": 201,
+        "2008": 202,
+        "2009": 202,
+        "2010": 202,
+        "2011": 203,
+        "2012": 204,
+        "2013": 204,
+        "2014": 204,
+        "2015": 204,
+        "2016": 204,
+        "2017": 204,
+        "2018": 204,
+        "2019": 204,
+        "2020": 204,
+        "2021": 204,
+        "2022": 204,
+        "2023": 204,
+        "2024": 204
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "trade-index-value-exports.csv.gz",
+      "fileSha256": {
+        "trade-index-value-exports.json": "03ae8b8d1d9b09a0ca4d8caff2c134104fc706755fe628172f8dd036ad342f96",
+        "trade-index-value-exports.csv.gz": "9fad012a4de652a58685d7ffdd4cc7f3e4ce945ea3eb3c12924bd46ff0bfcc2f"
+      }
+    },
+    "trade-index-value-imports": {
+      "code": "TM.VAL.MRCH.XD.WD",
+      "name": "Import value index (2015 = 100)",
+      "unit": "index (2015 = 100)",
+      "definition": "Import value indexes are the current value of imports (c.i.f.) converted to U.S. dollars and expressed as a percentage of the average for the base period (2015). UNCTAD's import value indexes are reported for most economies.",
+      "sourceOrganizations": "UN Conference on Trade and Development (UNCTAD)",
+      "landingPage": "https://data.worldbank.org/indicator/TM.VAL.MRCH.XD.WD",
+      "license": "CC BY 4.0",
+      "first": 2005,
+      "last": 2024,
+      "economies": 204,
+      "numericCountryYears": 4064,
+      "unavailableCountryYears": 16,
+      "coverageByYear": {
+        "2005": 201,
+        "2006": 201,
+        "2007": 201,
+        "2008": 202,
+        "2009": 202,
+        "2010": 202,
+        "2011": 203,
+        "2012": 204,
+        "2013": 204,
+        "2014": 204,
+        "2015": 204,
+        "2016": 204,
+        "2017": 204,
+        "2018": 204,
+        "2019": 204,
+        "2020": 204,
+        "2021": 204,
+        "2022": 204,
+        "2023": 204,
+        "2024": 204
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "trade-index-value-imports.csv.gz",
+      "fileSha256": {
+        "trade-index-value-imports.json": "fdedb59277c726697f183192cb7695ffe73772bb260e5fdfccb4c47bb4ab4686",
+        "trade-index-value-imports.csv.gz": "1d087b161cf7a1283f48e88b7c9cbc19a46cd41a154917b4ddef633519c236cf"
+      }
+    },
+    "trade-index-volume-exports": {
+      "code": "TX.QTY.MRCH.XD.WD",
+      "name": "Export volume index (2015 = 100)",
+      "unit": "index (2015 = 100)",
+      "definition": "Export volume indexes are derived from UNCTAD's volume index series and are the ratio of the export value indexes to the corresponding unit value indexes. Unit value indexes are based on data reported by countries that demonstrate consistency under UNCTAD quality controls, supplemented by UNCTAD's estimates using the previous year's trade values at the Standard International Trade Classification three-digit level as weights.",
+      "sourceOrganizations": "UN Conference on Trade and Development (UNCTAD)",
+      "landingPage": "https://data.worldbank.org/indicator/TX.QTY.MRCH.XD.WD",
+      "license": "CC BY 4.0",
+      "first": 2005,
+      "last": 2024,
+      "economies": 204,
+      "numericCountryYears": 4058,
+      "unavailableCountryYears": 22,
+      "coverageByYear": {
+        "2005": 201,
+        "2006": 201,
+        "2007": 201,
+        "2008": 202,
+        "2009": 202,
+        "2010": 202,
+        "2011": 203,
+        "2012": 204,
+        "2013": 204,
+        "2014": 204,
+        "2015": 204,
+        "2016": 204,
+        "2017": 204,
+        "2018": 204,
+        "2019": 203,
+        "2020": 203,
+        "2021": 203,
+        "2022": 203,
+        "2023": 203,
+        "2024": 203
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "trade-index-volume-exports.csv.gz",
+      "fileSha256": {
+        "trade-index-volume-exports.json": "f471372a00219cc78f2fada8b7f969e0c618069a78ce26bd0221040d9ed6a128",
+        "trade-index-volume-exports.csv.gz": "8a4dcd82e7cd44c330ca1d831cb506a14611642665eca149b1271a61e1498144"
+      }
+    },
+    "trade-index-volume-imports": {
+      "code": "TM.QTY.MRCH.XD.WD",
+      "name": "Import volume index (2015 = 100)",
+      "unit": "index (2015 = 100)",
+      "definition": "Import volume indexes are derived from UNCTAD's volume index series and are the ratio of the import value indexes to the corresponding unit value indexes. Unit value indexes are based on data reported by countries that demonstrate consistency under UNCTAD quality controls, supplemented by UNCTAD's estimates using the previous year's trade values at the Standard International Trade Classification three-digit level as weights.",
+      "sourceOrganizations": "UN Conference on Trade and Development (UNCTAD)",
+      "landingPage": "https://data.worldbank.org/indicator/TM.QTY.MRCH.XD.WD",
+      "license": "CC BY 4.0",
+      "first": 2005,
+      "last": 2024,
+      "economies": 204,
+      "numericCountryYears": 4058,
+      "unavailableCountryYears": 22,
+      "coverageByYear": {
+        "2005": 201,
+        "2006": 201,
+        "2007": 201,
+        "2008": 202,
+        "2009": 202,
+        "2010": 202,
+        "2011": 203,
+        "2012": 204,
+        "2013": 204,
+        "2014": 204,
+        "2015": 204,
+        "2016": 204,
+        "2017": 204,
+        "2018": 204,
+        "2019": 203,
+        "2020": 203,
+        "2021": 203,
+        "2022": 203,
+        "2023": 203,
+        "2024": 203
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "trade-index-volume-imports.csv.gz",
+      "fileSha256": {
+        "trade-index-volume-imports.json": "0284e191516db722e48653872ec4f6e2ec42efb45fbd8ac636bedda6ef4adc14",
+        "trade-index-volume-imports.csv.gz": "e56a177495a9133bd47cc586ec5624672e876c6bf1e86c8062c49b6f374771e4"
+      }
+    }
+  },
+  "methodology": {
+    "glossaries": {
+      "trade-index-unit-value-exports": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/TX.UVI.MRCH.XD.WD",
+      "trade-index-unit-value-imports": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/TM.UVI.MRCH.XD.WD",
+      "trade-index-value-exports": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/TX.VAL.MRCH.XD.WD",
+      "trade-index-value-imports": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/TM.VAL.MRCH.XD.WD",
+      "trade-index-volume-exports": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/TX.QTY.MRCH.XD.WD",
+      "trade-index-volume-imports": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/TM.QTY.MRCH.XD.WD"
+    },
+    "source": "UN Trade and Development (UNCTAD), distributed in World Development Indicators.",
+    "measure": "Indices of merchandise volume, current US dollar value, and unit value, published with 2015 as the reference year. The unit-value measure can reflect changes in the mix of goods as well as prices. The volume index adjusts for unit-value changes.",
+    "interpretation": "Each series measures change within an economy. Cross-country index levels do not measure relative trade size. The explorer uses all three source indices independently. Their rounded values need not reproduce each other by multiplication.",
+    "coverage": "Volume and value run from 2005 to 2024 in this edition. Unit value runs from 1980 to 2025. Missing components stay unavailable. Tuvalu’s own 2015 unit-value entries differ from 100 and remain as published."
+  },
+  "sourceArchive": {
+    "filename": "trade-indices-sources.zip",
+    "sha256": "6ab66459a0c95536b38b1db514a7748970c495e6fc7d3063ffd293233e5866ff"
+  }
+}

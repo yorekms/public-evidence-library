@@ -1,0 +1,85 @@
+{
+  "title": "2022 U.S. domestic freight flows by state, commodity and mode",
+  "citation": "U.S. Department of Transportation, Bureau of Transportation Statistics (2022). Freight Analysis Framework, FAF6 [datasets].",
+  "version": "FAF6.0, state database",
+  "benchmarkYear": 2022,
+  "firstReleaseDate": "2026-07-31",
+  "retrievedDate": "2026-11-23",
+  "publisher": "U.S. Department of Transportation, Bureau of Transportation Statistics",
+  "source": "https://www.bts.gov/faf",
+  "doi": "https://doi.org/10.21949/fhgm-g335",
+  "originalArchiveUrl": "https://faf.ornl.gov/faf6/data/Download_Files/ZIP/FAF6.0_State.zip",
+  "archiveSha256": "50c6a8bb857b94998a634306234b805af6a114f7ce76ef0b02f34660d01a3e0d",
+  "archiveBytes": 6823123,
+  "sourceMember": "FAF6.0_State.csv",
+  "sourceMemberBytes": 22948261,
+  "sourceMemberSha256": "e6ff7d1a48a3bc0181435230df508da9b5587a5a009f341e925a31d4a6055d55",
+  "codebookMember": "FAF6_Metadata.xlsx",
+  "codebookSha256": "8c555ebfbd03bccb46f9f80e12f555516bd38dbb93ec75feff5797cd7027479a",
+  "usersGuide": "https://faf.ornl.gov/faf6/data/FAF6%20User%20Guide.pdf",
+  "releaseHistory": "https://www.bts.gov/faf/versions",
+  "limitations": "https://www.bts.gov/faf/faqs",
+  "censusStateLookup": "https://www2.census.gov/geo/docs/reference/state.txt",
+  "censusStateLookupSha256": "bea4e03f71a1fa0045ae732aabad11fa541e5932b071c2369bb0d325e8cba5a0",
+  "filter": {
+    "trade_type": "1",
+    "label": "Domestic flows (freight shipments moved from US domestic origins to US domestic destinations)"
+  },
+  "counts": {
+    "sourceRows": 599529,
+    "domesticRows": 155016,
+    "states": 51,
+    "commodities": 42,
+    "modes": 7,
+    "intrastateRows": 5930,
+    "flowsByTradeType": {
+      "1": 155016,
+      "2": 230049,
+      "3": 214464
+    },
+    "domesticRowsByMode": {
+      "1": 61547,
+      "2": 6372,
+      "3": 384,
+      "4": 14130,
+      "5": 56646,
+      "6": 842,
+      "7": 15095
+    },
+    "weightZeros": 0,
+    "valueZeros": 41,
+    "weightMissing": 0,
+    "valueMissing": 0
+  },
+  "dimensions": [
+    "domestic origin state",
+    "domestic destination state",
+    "two-digit SCTG commodity",
+    "domestic mode"
+  ],
+  "units": {
+    "tons_2022": "thousands of U.S. tons",
+    "value_2022": "millions of constant 2022 U.S. dollars"
+  },
+  "interpretation": [
+    "These are estimated commodity flows for the 2022 benchmark. The 50 states and the District of Columbia are separate reporting units.",
+    "The domestic selection excludes trade types 2 and 3, including the U.S. legs of imports and exports. Intrastate flows have identical origin and destination state codes.",
+    "The rows identify state endpoints, commodity group and transportation mode. They provide no observed route or intermediate stops.",
+    "Source-listed zeros remain explicit. A combination without a row is unavailable. Group sums cover the selected source rows. No estimate is created for an absent combination.",
+    "Summing inbound and outbound totals across states counts a shipment twice. Category 02 covers cereal grains including seed. Separate SCTG categories cover animal feed and milled grain products.",
+    "Weight and value have separate units. Multiple modes and mail is a separate published mode. The dataset does not identify each leg of such shipments."
+  ],
+  "index": "freight.json",
+  "rowFiles": "freight/{two-digit-SCTG}.json",
+  "rowArray": [
+    "dms_origst",
+    "dms_destst",
+    "dms_mode",
+    "tons_2022",
+    "value_2022"
+  ],
+  "download": "freight-domestic.zip",
+  "downloadDataMember": "FAF6.0_State_domestic.csv",
+  "downloadSha256": "eab6b1cb8bb55194e48ef9e940d4ff69f87dff15a7de1538eae52023805e0cdc",
+  "downloadBytes": 1845977
+}

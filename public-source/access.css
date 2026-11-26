@@ -1,0 +1,17 @@
+.access-controls {display:grid;grid-template-columns:minmax(13rem,1.5fr) minmax(10rem,1fr) minmax(11rem,1fr) minmax(5.8rem,.6fr)}
+.access-food-controls {grid-template-columns:repeat(3,minmax(0,1fr))}
+.access-controls label {min-width:0}
+.access-series {margin:.75rem 0;max-width:65rem}
+.access-series figcaption {font-weight:600}
+.access-series svg {display:block;width:100%;margin:.4rem 0}
+.access-series text {font:14px Arial,sans-serif;fill:#465b50}
+.access-bars {display:grid;grid-template-columns:minmax(5rem,.2fr) 1fr;gap:.4rem .9rem;padding:.6rem 0;border-top:1px solid var(--line)}
+.access-bars h3{grid-row:span 2;align-self:center;margin:0}
+.access-bar-row {display:grid;align-items:center;grid-template-columns:9.5rem 1fr 7rem;gap:.7rem;font-size:.93rem}
+.access-bar-row strong {font-variant-numeric:tabular-nums;text-align:right}
+.access-bar-rail {height:.65rem;border-radius:2px;background:#e4e9df}
+.access-bar-fill {height:100%;background:#377856;border-radius:2px}
+.access-bar-fill.straight {background:#93652e}
+@media(max-width:850px){.access-controls {grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.access-controls {gap:.7rem}.access-controls label:first-child{grid-column:span 2}.access-controls:has(#water-country) label:has(#water-service){grid-column:span 2}.access-food-controls label:has(#food-extent){grid-column:span 2}
+.access-bars{grid-template-columns:1fr}.access-bars h3{grid-row:auto}.access-bar-row{grid-template-columns:7rem 1fr 5.2rem;gap:.35rem;font-size:.85rem}.access-series text{font-size:20px}}

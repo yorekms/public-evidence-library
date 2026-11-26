@@ -1,0 +1,102 @@
+{
+  "title": "Virginia tract access to SNAP-authorized food retailers",
+  "citation": "U.S. Department of Agriculture, Economic Research Service (2026). Food Access Research Atlas, SNAP-authorized Retailer Access Map (SRAM).",
+  "releaseDate": "2026-07-27",
+  "accessedDate": "2026-11-23",
+  "retailDirectoryDate": "June 2025",
+  "sourcePage": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data",
+  "downloadUrl": "https://www.ers.usda.gov/media/29395/2025-snap-authorized-retailer-access-map-sram-data.zip?v=32168",
+  "sourceArchive": "2025-snap-authorized-retailer-access-map-sram-data.zip",
+  "sourceArchiveBytes": 18935773,
+  "sourceArchiveSha256": "8e8ccda55aa478dd5907050249c28157d445568d242db8b5f85231b82c8afdbf",
+  "documentation": "https://www.ers.usda.gov/data-products/food-access-research-atlas/documentation",
+  "referenceGuide": "https://www.ers.usda.gov/data-products/food-access-research-atlas/documentation/snap-authorized-retailer-access-map-reference-guide",
+  "technicalMethods": "https://www.ers.usda.gov/data-products/food-access-research-atlas/documentation/snap-authorized-retailer-access-map-data-sources-and-technical-methods",
+  "selection": {
+    "state": "Virginia",
+    "sourceKey": "CensusTract20",
+    "geographyVintage": "2020 Census tracts",
+    "coverage": {
+      "tracts": 2186,
+      "counties": 133,
+      "urbanTracts": 1555,
+      "ruralTracts": 631,
+      "zeroPopulationTracts": 11,
+      "tractMethodThresholdRows": 17488
+    },
+    "sourceMembers": [
+      "SRAM General Tract Characteristics Data.csv",
+      "SRAM Driving Distance Data.csv",
+      "SRAM Straight Line Distance Data.csv"
+    ]
+  },
+  "measurement": {
+    "driving": "Road-network distance to a SNAP-authorized retailer.",
+    "straight": "Euclidean straight-line distance to a SNAP-authorized retailer.",
+    "count": "Publisher estimate of the number of residents farther than the selected distance from a SNAP-authorized retailer.",
+    "share": "Published percentage of all residents of the tract who live beyond the selected distance. The denominator is the 2020 Census tract population. The site preserves the published precision. Rounding of source counts and percentages can differ.",
+    "lowAccess": "Publisher flag specific to the selected distance. USDA applies half-mile and 1-mile designations to urban tracts, and 10-mile and 20-mile designations to rural tracts. A qualifying tract has at least 500 people or at least 33 percent of its population living beyond that distance. Counts and shares are available at all four distances for populated urban and rural tracts.",
+    "urban": "Publisher urban/rural classification based on the location of the tract population-weighted center relative to the Census 2020 urban area boundary.",
+    "lowIncome": "Publisher flag based on federal New Markets Tax Credit poverty or median family income criteria. Socioeconomic characteristics use the 2020–2024 American Community Survey.",
+    "retailers": "The June 2025 STARS retailer file covers SNAP-authorized retailers. USDA excluded farmers markets and delivery routes.",
+    "population": "2020 Census counts allocated within tracts using 2020 nighttime LandScan population data. For populated tracts where LandScan showed no population, USDA used area proportions.",
+    "interpretation": "Access here measures geographic proximity. Hours, fares, food prices, inventory and family food security require other evidence.",
+    "missing": "Blank source cells are null in JSON and remain blank in CSV. An explicit published zero is retained. Eleven Virginia tracts have zero Census population and blank percentage fields."
+  },
+  "fields": {
+    "general": {
+      "geoid": "CensusTract20",
+      "county": "County20",
+      "population": "POP2020",
+      "urban": "Urban",
+      "lowIncome": "LowIncomeTracts"
+    },
+    "methods": {
+      "driving": {
+        "prefix": "DD_SRAM_",
+        "source": "SRAM Driving Distance Data.csv"
+      },
+      "straight": {
+        "prefix": "SD_SRAM_",
+        "source": "SRAM Straight Line Distance Data.csv"
+      }
+    },
+    "thresholds": {
+      "0.5": {
+        "count": "lapophalf",
+        "share": "lapophalfshare",
+        "lowAccess": "LATracts_half"
+      },
+      "1": {
+        "count": "lapop1",
+        "share": "lapop1share",
+        "lowAccess": "LATracts1"
+      },
+      "10": {
+        "count": "lapop10",
+        "share": "lapop10share",
+        "lowAccess": "LATracts10"
+      },
+      "20": {
+        "count": "lapop20",
+        "share": "lapop20share",
+        "lowAccess": "LATracts20"
+      }
+    }
+  },
+  "downloads": {
+    "food.json": {
+      "sha256": "a1114fdd2a1eff8e40f2587169773d0de6652b1363bb41ee521f59ee0b042d10",
+      "bytes": 626329
+    },
+    "food.csv": {
+      "sha256": "19abfc590a3cf162334927ac966723f13c9ba19d5f411309887270ee88d6ddda",
+      "bytes": 1214853
+    },
+    "food-source.zip": {
+      "sha256": "aea4d6ab734494a955699b59ab1d1e6152d508982fd1149d98cf85ede521f76a",
+      "bytes": 543635
+    }
+  },
+  "sourceSubset": "food-source.zip includes Virginia source rows with all original columns and cell values from all three national tables, their original field lookup files, and the publisher readme. The data CSVs were reserialized during selection."
+}

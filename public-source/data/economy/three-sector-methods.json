@@ -1,0 +1,132 @@
+{
+  "title": "Change in three-sector value added per worker",
+  "source": "Public Evidence Library calculation from six World Development Indicators series",
+  "sourceRelease": "2026-11-11",
+  "inputLicense": "CC BY 4.0",
+  "sectors": [
+    "agriculture",
+    "industry",
+    "services"
+  ],
+  "unit": "constant 2015 US$ per worker",
+  "coverage": {
+    "firstYear": 1991,
+    "lastYear": 2025,
+    "economiesInPanel": 187,
+    "annualRows": 6545,
+    "economiesWithCompleteYear": 179,
+    "completeEconomyYears": 5469,
+    "completeEconomiesByYear": {
+      "1991": 105,
+      "1992": 106,
+      "1993": 109,
+      "1994": 114,
+      "1995": 136,
+      "1996": 137,
+      "1997": 140,
+      "1998": 141,
+      "1999": 143,
+      "2000": 150,
+      "2001": 151,
+      "2002": 154,
+      "2003": 156,
+      "2004": 157,
+      "2005": 158,
+      "2006": 164,
+      "2007": 164,
+      "2008": 167,
+      "2009": 168,
+      "2010": 173,
+      "2011": 173,
+      "2012": 174,
+      "2013": 175,
+      "2014": 175,
+      "2015": 179,
+      "2016": 174,
+      "2017": 174,
+      "2018": 174,
+      "2019": 173,
+      "2020": 173,
+      "2021": 173,
+      "2022": 172,
+      "2023": 169,
+      "2024": 168,
+      "2025": 150
+    }
+  },
+  "sources": [
+    {
+      "file": "agriculture-employment.json",
+      "sha256": "7f8c38c6d26bbb7bb93af3c80bf5d14c3f5f0197ea855ec21bf888c9da3d3725",
+      "indicator": "SL.AGR.EMPL.ZS",
+      "url": "https://data.worldbank.org/indicator/SL.AGR.EMPL.ZS",
+      "unit": "% of total employment"
+    },
+    {
+      "file": "employment.json",
+      "sha256": "fc94942ee7dda8d8450f2a841e78bcb77578c5536d9bdd43a4ed35f0aae2fd16",
+      "indicator": "SL.IND.EMPL.ZS",
+      "url": "https://data.worldbank.org/indicator/SL.IND.EMPL.ZS",
+      "unit": "% of total employment"
+    },
+    {
+      "file": "services-employment.json",
+      "sha256": "6366ff8902b58894805dbd8c4d364171cdb38ffdf6bcac608ce0e82901a100e3",
+      "indicator": "SL.SRV.EMPL.ZS",
+      "url": "https://data.worldbank.org/indicator/SL.SRV.EMPL.ZS",
+      "unit": "% of total employment"
+    },
+    {
+      "file": "agriculture-per-worker.json",
+      "sha256": "0e4f1acd3963d488bcf1ee5febf28d39fd12c3235a5f40b5444478eb4a3f17f8",
+      "indicator": "NV.AGR.EMPL.KD",
+      "url": "https://data.worldbank.org/indicator/NV.AGR.EMPL.KD",
+      "unit": "constant 2015 US$ per worker"
+    },
+    {
+      "file": "industry-per-worker.json",
+      "sha256": "f4352b0d31a50bf044a22428349aa0a6dc8ea4b9ec8ff2850455571d66d81e8d",
+      "indicator": "NV.IND.EMPL.KD",
+      "url": "https://data.worldbank.org/indicator/NV.IND.EMPL.KD",
+      "unit": "constant 2015 US$ per worker"
+    },
+    {
+      "file": "services-per-worker.json",
+      "sha256": "da3fc3f97065487afcd19d6a7abf5d335647e23474e995fbec68c695d54c8285",
+      "indicator": "NV.SRV.EMPL.KD",
+      "url": "https://data.worldbank.org/indicator/NV.SRV.EMPL.KD",
+      "unit": "constant 2015 US$ per worker"
+    }
+  ],
+  "sourceMetadata": [
+    "employment-provenance.json",
+    "employment-sectors-provenance.json",
+    "sector-productivity-provenance.json"
+  ],
+  "csv": "three-sector-inputs.csv.gz",
+  "mapData": "three-sector-inputs.json",
+  "jsonRowColumns": [
+    "year",
+    "agriculture_employment_pct",
+    "industry_employment_pct",
+    "services_employment_pct",
+    "agriculture_value_added_per_worker_2015_usd",
+    "industry_value_added_per_worker_2015_usd",
+    "services_value_added_per_worker_2015_usd",
+    "three_sector_value_added_per_worker_2015_usd"
+  ],
+  "employmentWeights": "At each endpoint divide each reported sector employment percentage by the sum of all three percentages. The weights refer to employment classified in these sectors. Raw shares are retained.",
+  "level": "Sum of sector value added per worker multiplied by each normalized employment weight. The result is a library estimate of average value added per worker across the three sectors.",
+  "withinSectorChange": "For each sector, multiply its change in value added per worker by the average of its two endpoint weights. Sum across sectors.",
+  "employmentMixChange": "For each sector, multiply the change in its normalized employment weight by the average of its two endpoint productivity levels. Sum across sectors.",
+  "identity": "The two components add to the change in the three-sector average before display rounding. The midpoint calculation allocates the interaction equally between the two terms.",
+  "missingValues": "A level requires all three productivity values and all three shares with a positive sum. A period comparison requires complete inputs at both endpoints. Computation uses the specified years. Intermediate missing years do not prevent the endpoint calculation. Null and blank mean unavailable.",
+  "interpretation": "The calculation describes changes in the employment mix and average output per worker. Aggregate shares cannot identify individual worker transitions or causal effects. Modeled employment, national accounts coverage, hours worked and industry classifications affect comparisons. A separately published whole-economy GDP-per-worker series can differ in coverage, valuation and price basis.",
+  "methodReference": {
+    "title": "Understanding Latin America and the Caribbean’s Income Gap",
+    "publisher": "World Bank",
+    "year": 2015,
+    "equation": "A.2",
+    "url": "https://documents1.worldbank.org/curated/en/763601467997615813/pdf/97885-WP-P144914-Box393171B-PUBLIC-Understanding-LA-Carib-Income-Gap-FINAL.pdf"
+  }
+}

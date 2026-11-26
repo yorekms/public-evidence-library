@@ -8,7 +8,38 @@ function endpointSummary(links,id,additive=true){
 }
 function magnitudeSummary(links,additive=true){const measured=links.filter(l=>finite(l.value));return{value:measured.length&&additive?measured.reduce((n,l)=>n+Math.abs(l.value),0):null,measured:measured.length,missing:links.length-measured.length};}
 function magnitudeShare(link,links,additive=true){const sum=magnitudeSummary(links,additive);return finite(link.value)&&sum.value>0?(Math.abs(link.value)/sum.value*100).toFixed(1)+'% of absolute selected amount':'Share unavailable';}
-if(typeof document==='undefined'){if(typeof module!=='undefined')module.exports={endpointSummary,magnitudeSummary,magnitudeShare};return;}
+function regionalEndpoints(data, scope, features, limit) {
+ const ids = new Set(features.map(feature => String(feature.id)));
+ const regions = new Map();
+ for (const node of data.nodes) {
+  if (node.display_location_basis === 'No location for this source period') continue;
+  if (data.collection === 'pharma_registry' && node.type !== 'establishment_registration') continue;
+  const native = node.scope === scope ? node.geo_id : null;
+  const area = scope === 'us_states' ? node.state : node.country_iso3;
+  const code = native || area;
+  if (scope === 'us_states' && node.country_iso3 && node.country_iso3 !== 'USA') continue;
+  const id = scope === 'world' && code === 'XKX' ? 'KOS' : code;
+  if (ids.has(id)) regions.set(node.id, id);
+ }
+ const grouped = new Map(), arrows = new Map();
+ function include(nodeId) {
+  const id = regions.get(nodeId);
+  if (!id) return;
+  if (!grouped.has(id)) grouped.set(id, new Set());
+  grouped.get(id).add(nodeId);
+ }
+ const candidates = data.links.filter(l => regions.has(l.from_id) || regions.has(l.to_id));
+ const shown = candidates.slice(0, limit);
+ for (const link of shown) {
+  include(link.from_id); include(link.to_id);
+  const from = regions.get(link.from_id), to = regions.get(link.to_id);
+  if (from && to && from !== to) arrows.set(from + '/' + to, {from, to});
+ }
+ // A source inventory can consist solely of regional registrations or sites.
+ if (!data.links.length) for (const node of data.nodes) include(node.id);
+ return {regions, grouped, flows:Array.from(arrows.values()), shown, eligible:candidates.length};
+}
+if(typeof document==='undefined'){if(typeof module!=='undefined')module.exports={endpointSummary,magnitudeSummary,magnitudeShare,regionalEndpoints};return;}
 const $=id=>document.getElementById(id),S={token:'',catalog:null,c:null,data:null,facets:null,year:'',epoch:0,detailEpoch:0,abort:null,selected:null,hoverLink:null,hoverNode:null,view:'flows',playing:false,motion:!matchMedia('(prefers-reduced-motion: reduce)').matches,transform:d3.zoomIdentity,width:0,height:0,dpr:1,geo:{},projections:{},hits:[],paths:[],timer:null,frame:null,econ:null,econPayload:null,econBaseline:null,econScenario:null,econEpoch:0,prices:null,pricePromise:null,econHistoryCache:new Map(),econHistoryEpoch:0,households:null,householdPromise:null,essentials:null,essentialsPromise:null,flowMode:'2d',flowScale:'sqrt',flowPalette:'spruce',darkStage:false,globeRot:[-35,-18,0],globeScale:1,globeDragging:false,globeDragStart:null,spikeHits:[]};
 let sourceChoiceGeneration=0;
 const canvas=$('flow-map'),ctx=canvas.getContext('2d');const fmt=v=>finite(v)?v.toLocaleString(undefined,{maximumFractionDigits:3}):'Unavailable';
@@ -26,7 +57,7 @@ function capturePipelineNavigation(){
  const camera=S.transform&&[S.transform.k,S.transform.x,S.transform.y].every(Number.isFinite)?{k:S.transform.k,x:S.transform.x/(S.width||1),y:S.transform.y/(S.height||1)}:null;
  return{view:S.view,filters:S.c?filters():{},node_id:S.selected||'',display_limit:$('display-limit').value,motion:S.motion,camera,flow_studio:{mode:S.flowMode,scale:S.flowScale,palette:S.flowPalette,dark_stage:S.darkStage,globe_rotation:[...S.globeRot],globe_scale:S.globeScale},economic:Object.fromEntries(['econ-year','econ-country','econ-sector','econ-metric','econ-percent'].map(id=>[id,$(id).value])),context_settings:window.PipelineContextUI?.settings()||null,context_fingerprint:window.PipelineContextUI?.catalogFingerprint()||null,context_search:$('context-env-search')?.value||'',context_node_id:$('context-site-picker')?.value||'',source_fingerprint:S.catalog?.fingerprint||null,economic_fingerprint:S.econ?.fingerprint||null,economic_prices:S.prices?.capture()||null,household_context:S.households?.capture()||null,essentials_context:S.essentials?.capture()||null};
 }
-function pipelineNavigationURL(saved){const p=new URLSearchParams();if(saved.view==='economics')p.set('view','economics');for(const key of['collection','year','metric','focus','direction','commodity','sector','transport','search']){const value=saved.filters?.[key];if(value!==undefined&&value!==null&&String(value)!=='')p.set(key,String(value));}if(saved.node_id)p.set('node_id',saved.node_id);return'/workbench/pipelines.html'+(p.size?'?'+p:'');}
+function pipelineNavigationURL(saved){const p=new URLSearchParams();if(saved.view==='economics')p.set('view','economics');for(const key of['collection','year','metric','focus','direction','commodity','sector','transport','search']){const value=saved.filters?.[key];if(value!==undefined&&value!==null&&String(value)!=='')p.set(key,String(value));}if(saved.node_id)p.set('node_id',saved.node_id);if(saved.flow_studio?.mode)p.set('mapView',sharedFlowMode(saved.flow_studio.mode));return'/workbench/pipelines.html'+(p.size?'?'+p:'');}
 function pipelineNavigationDescription(saved){if(saved.view==='economics')return[saved.economic?.['econ-country'],saved.economic?.['econ-year']].filter(Boolean).join(' · ');const c=S.catalog?.collections.find(c=>c.id===saved.filters?.collection);return[c?.title||saved.filters?.collection,saved.filters?.year].filter(Boolean).join(' · ');}
 function pipelineNavigationOption(id,value,missing){if(value===undefined||value===null||value==='')return;const node=$(id);if([...node.options].some(o=>o.value===String(value)))node.value=String(value);else missing.push(id.replaceAll('-',' '));}
 async function restorePipelineNavigation(saved){
@@ -47,7 +78,7 @@ async function restorePipelineNavigation(saved){
   const camera=saved.camera;if(!economic&&camera&&[camera.k,camera.x,camera.y].every(Number.isFinite)&&camera.k>=.65&&camera.k<=40&&Math.abs(camera.x)<=64&&Math.abs(camera.y)<=64)d3.select(canvas).call(zoom.transform,d3.zoomIdentity.translate(camera.x*S.width,camera.y*S.height).scale(camera.k));
   const studio=saved.flow_studio;
   if(studio){
-   if(['2d','globe','spikes'].includes(studio.mode))S.flowMode=studio.mode;
+   if(['raised3d','2d','globe','spikes'].includes(studio.mode)){S.preferredFlowMode=studio.mode;setFlowMode(studio.mode);}
    if(['sqrt','linear','log','quantile'].includes(studio.scale))S.flowScale=studio.scale;
    if(Object.hasOwn(FLOW_PALETTES,studio.palette))S.flowPalette=studio.palette;
    if(typeof studio.dark_stage==='boolean')S.darkStage=studio.dark_stage;
@@ -71,7 +102,7 @@ optionFill($('metric'),c.metrics||[],m=>m.label+' · '+m.unit,m=>m.id,settings.m
 const places=[{id:'all',label:'All reported places'},...fs.places];let focus=settings.focus??c.default_focus??(id.startsWith('trade_')?'all':id.startsWith('econ_')?'USA':'VA');optionFill($('focus'),places,p=>(p.id==='VA'?'Virginia (VA)':p.label)+(p.kind?' · '+p.kind:''),p=>p.id,focus);if(![...$('focus').options].some(o=>o.value===focus))$('focus').value='all';
 for(const [id,key,label] of [['commodity','commodities','All reported materials'],['sector','sectors','All reported sectors'],['transport','transports','All reported channels']]){const rows=[{id:'all',label},...(fs[key]||[]).map(x=>typeof x==='string'?{id:x,label:x}:x)];optionFill($(id),rows,x=>x.label,x=>x.id,settings[id]||'all');$(id).parentElement.hidden=rows.length<3;}
 $('direction').value=settings.direction||c.default_direction||'either';$('search').value=settings.search||'';for(const b of document.querySelectorAll('[data-start]'))b.classList.toggle('active',b.dataset.start===id);collectionLoading(false);periodControls();pipelineNavigationChanged(true);await query(true);if(settings.node_id)selectNode(settings.node_id,true);}
-async function query(fit=false){if(!S.c||S.loadingCollection||!S.year)return;const epoch=++S.epoch;S.abort?.abort();S.abort=new AbortController();window.PipelineContextUI?.clear();$('map-wrap').setAttribute('aria-busy','true');$('export').disabled=true;status('Reading '+S.c.title+' · '+S.year+'…');try{const data=await api('/api/pipelines/query',filters(),S.abort.signal);if(epoch!==S.epoch)return;S.data=data;render(data);if(fit)fitMap();else draw();$('map-wrap').setAttribute('aria-busy','false');$('export').disabled=false;const localURL='http://127.0.0.1:8772/pipelines.html?'+new URLSearchParams(filters());$('local-flow-context').href=localURL;status(data.counts.source_records.toLocaleString()+' source rows · '+data.counts.connections.toLocaleString()+' endpoint connections · '+data.year+'.');window.PipelineContextUI?.flowChanged();if(S.selected)selectNode(S.selected,false,true);pipelineNavigationChanged(false);}catch(e){if(e.name==='AbortError'||epoch!==S.epoch)return;S.data=null;window.PipelineContextUI?.clear();S.hits=[];S.paths=[];draw();$('counts').replaceChildren();$('flow-diagram').replaceChildren();clearDetail();$('map-empty').hidden=false;$('map-empty').textContent=e.message;$('map-wrap').setAttribute('aria-busy','false');status(e.message,true);}}
+async function query(fit=false){if(!S.c||S.loadingCollection||!S.year)return;const epoch=++S.epoch;S.abort?.abort();S.abort=new AbortController();window.PipelineContextUI?.clear();$('map-wrap').setAttribute('aria-busy','true');$('export').disabled=true;status('Reading '+S.c.title+' · '+S.year+'…');try{const data=await api('/api/pipelines/query',filters(),S.abort.signal);if(epoch!==S.epoch)return;S.data=data;$('flow-mode-note').textContent='';setFlowMode(S.preferredFlowMode);render(data);if(fit)fitMap();else draw();$('map-wrap').setAttribute('aria-busy','false');$('export').disabled=false;const localURL='http://127.0.0.1:8772/pipelines.html?'+new URLSearchParams(filters());$('local-flow-context').href=localURL;status(data.counts.source_records.toLocaleString()+' source rows · '+data.counts.connections.toLocaleString()+' endpoint connections · '+data.year+'.');window.PipelineContextUI?.flowChanged();if(S.selected)selectNode(S.selected,false,true);pipelineNavigationChanged(false);}catch(e){if(e.name==='AbortError'||epoch!==S.epoch)return;S.data=null;releaseRaisedFlow();setFlowMode('2d');window.PipelineContextUI?.clear();S.hits=[];S.paths=[];draw();$('counts').replaceChildren();$('flow-diagram').replaceChildren();clearDetail();$('map-empty').hidden=false;$('map-empty').textContent=e.message;$('map-wrap').setAttribute('aria-busy','false');status(e.message,true);}}
 function render(d){$('map-title').textContent=d.title+' · '+d.year;$('map-subtitle').textContent=d.metric.label+' · '+d.metric.unit+(d.links.some(l=>l.value<0)?' · brown lines retain negative source values':'');$('scope-note').textContent=d.geographic_scope+' · '+d.time_semantics;$('counts').replaceChildren();for(const [value,label] of [[d.total===null?'Reference view':fmt(d.total),d.total===null?'Quantities not summed':d.metric.unit+' · available selected records'],[d.counts.source_records.toLocaleString(),'Original source rows'],[d.counts.connections.toLocaleString(),'Grouped endpoint connections'],[d.counts.measured.toLocaleString(),d.counts.missing.toLocaleString()+' rows without this measure']]){const card=el('div','count');card.append(el('strong','',value),el('span','',label));$('counts').append(card);}
 const picker=$('node-picker');optionFill(picker,[{id:'',label:'Choose a place or reported node'},...d.nodes.slice().sort((a,b)=>a.label.localeCompare(b.label))],n=>n.label,n=>n.id,S.selected||'');
 renderDiagram(d);renderTrend(d.trend,d.metric);renderSources($('sources'),d.sources);$('limitations').replaceChildren(...(d.limitations||[]).map(t=>el('li','',t)));$('table-count').textContent='· '+d.table.length+' of '+d.counts.source_records.toLocaleString()+' rows';const lookup=new Map(d.nodes.map(n=>[n.id,n]));$('records-table').replaceChildren();for(const r of d.table){const tr=el('tr');for(const key of ['from_id','to_id']){const td=el('td'),button=el('button','',lookup.get(r[key])?.label||r[key]);button.addEventListener('click',()=>selectNode(r[key],true));td.append(button);tr.append(td);}tr.append(el('td','',fmt(d.metric.field?r[d.metric.field]:null)+' '+d.metric.unit),el('td','',String(r.evidence_type||'Source reference').replaceAll('_',' ')));$('records-table').append(tr);}$('original-records').replaceChildren();$('browse-records').disabled=!d.records_count;resize(false);}
@@ -324,6 +355,99 @@ function renderDiagram(d){
 
 function geographic(){const nodes=S.data?.nodes||[];return nodes.length&&nodes.every(n=>!n.country_iso3||n.country_iso3==='USA')&&nodes.some(n=>n.state||n.scope==='us_states')?'us_states':'world';}
 function anchor(n){if(n.map_eligible!==false&&n.physical_location!==false&&finite(n.lon)&&finite(n.lat))return[n.lon,n.lat];if(n.region_anchor_allowed&&['world','us_states'].includes(n.scope)&&n.geo_id){const f=S.geo[n.scope]?.features.find(f=>String(f.id??f.properties?.id)===String(n.geo_id));if(f)return d3.geoCentroid(f);}return null;}
+const flowPalette = ['#e3eee7','#b8d3c3','#84b299','#48866d','#175e4b'];
+const boundaryPacks = new Map();
+function projectedBoundaries(scope) {
+ if (!boundaryPacks.has(scope)) {
+  const promise = fetch('/workbench/data/map-geometry/' + scope + '.json').then(response => {
+   if (!response.ok) throw Error('The regional boundaries could not be opened.');
+   return response.json();
+  }).catch(error => {boundaryPacks.delete(scope); throw error;});
+  boundaryPacks.set(scope, promise);
+ }
+ return boundaryPacks.get(scope);
+}
+const sharedFlowMode = mode => mode === '2d' ? 'choropleth' : mode;
+const nativeFlowMode = mode => mode === 'choropleth' ? '2d' : mode;
+const preferredFlow = window.EvidenceMapViews?.initial(['raised3d','choropleth','globe','spikes'], new URLSearchParams(location.search).get('mapView')) || 'raised3d';
+S.flowMode = S.preferredFlowMode = nativeFlowMode(preferredFlow);
+let raisedState = null, raisedSerial = 0;
+function releaseRaisedFlow() {
+ ++raisedSerial;
+ raisedState?.controller?.destroy?.();
+ raisedState = null;
+ $('flow-raised-host').replaceChildren();
+ $('flow-region-detail').replaceChildren();
+}
+function setFlowMode(mode, remember = false) {
+ if (mode !== 'raised3d') releaseRaisedFlow();
+ S.flowMode = mode;
+ if (remember) {
+  S.preferredFlowMode = mode;
+  window.EvidenceMapViews?.remember(sharedFlowMode(mode));
+  $('flow-mode-note').textContent = '';
+ }
+ syncFlowStudioControls();
+}
+function showFlowRegion(id, packet) {
+ const host = $('flow-region-detail'), members = packet.grouped.get(id);
+ host.replaceChildren();
+ if (!members?.size) return;
+ const name = packet.geometry.features.find(f => f.id === id)?.name || id;
+ const nodes = S.data.nodes.filter(n => members.has(n.id)).sort((a,b) => a.label.localeCompare(b.label));
+ const label = el('label', '', name + ' · ' + nodes.length.toLocaleString() + ' displayed source endpoints');
+ const select = document.createElement('select');
+ select.add(new Option('Inspect an endpoint',''));
+ for (const n of nodes) select.add(new Option(n.label, n.id));
+ select.value = members.has(S.selected) ? S.selected : '';
+ select.onchange = () => {if (select.value) selectNode(select.value, false);};
+ label.append(select); host.append(label);
+}
+async function renderRaisedFlow() {
+ const data = S.data, limit = Number($('display-limit').value);
+ if (raisedState?.data === data && raisedState.limit === limit && raisedState.selected === S.selected) return;
+ releaseRaisedFlow();
+ const ticket = raisedSerial, scope = geographic();
+ const host = $('flow-raised-host');
+ raisedState = {data, limit, selected:S.selected};
+ function unavailable(error) {
+  if (ticket !== raisedSerial || data !== S.data || S.flowMode !== 'raised3d') return;
+  setFlowMode('2d');
+  $('flow-mode-note').textContent = error.message + ' The 2D view and source relationship diagram are available below.';
+  if (S.geo.world && S.geo.us_states) {P = projection(); resize(false);}
+ }
+ try {
+  const geometry = await projectedBoundaries(scope);
+  if (ticket !== raisedSerial || data !== S.data || S.flowMode !== 'raised3d') return;
+  const packet = regionalEndpoints(data,scope,geometry.features,limit);
+  if (!packet.grouped.size) throw Error('No selected source endpoints identify a region with a retained boundary.');
+  if (!window.EvidencePolygonMap) throw Error('The raised-map component could not load.');
+  packet.geometry = geometry;
+  const selected = packet.regions.get(S.selected);
+  const counts = Array.from(packet.grouped.values(), group => group.size);
+  const endpointCount = counts.reduce((a,b) => a+b, 0);
+  const heading = data.collection === 'pharma_registry' ? 'Registration endpoints by region' : 'Displayed source endpoints by region';
+  host.replaceChildren();
+  const stage = el('div', 'flow-polygon-stage');
+  host.append(stage);
+  const controller = window.EvidencePolygonMap.mountWhenConnected(stage, {
+   geometry, selected, title:heading, unit:'distinct source endpoints',
+   year:/^\d{4}$/.test(data.year) ? Number(data.year) : null, period:String(data.year),
+   ceiling:Math.max(...counts), floor:0, cuts:[2,5,10,25], labels:['1','2–4','5–9','10–24','25 or more'], palette:flowPalette,
+   lookup:id=>({id:packet.grouped.has(id) ? id : null, value:packet.grouped.get(id)?.size}),
+   cameraKey:'flow-'+scope, flows:packet.flows, onPick:id=>showFlowRegion(id,packet)
+  }, unavailable);
+  if (ticket !== raisedSerial) {controller?.destroy?.(); return;}
+  raisedState.controller = controller;
+  raisedState.packet = packet;
+  S.paths=[]; S.hits=[]; S.exportSelfLoops=[];
+  if (selected) showFlowRegion(selected,packet);
+  $('flow-mode-note').textContent = 'Height counts distinct source endpoints and scales to the largest count in this selection. Each arrow connects a reported origin region to a destination region. Connections within a region contribute to its count. Regions without displayed endpoints are gray.';
+  $('map-coverage').textContent = endpointCount.toLocaleString()+' mapped source endpoints in '+counts.length+' regions. '+packet.shown.length.toLocaleString()+' of '+data.links.length.toLocaleString()+' filtered connections contribute endpoints. '+packet.flows.length+' distinct between-region directions are drawn. The table and downloads retain source quantities and relationship types.';
+  updateFlowInspector(packet.shown);
+ } catch (error) {unavailable(error);}
+}
+
 function projection(){
   const scope=geographic();
   if (S.flowMode === 'globe') {
@@ -378,9 +502,10 @@ window.addEventListener('pointerup', () => {
   S.globeDragging = false;
 });
 
-function resize(fit=true){const r=$('map-wrap').getBoundingClientRect();if(r.width<1)return;const changed=S.width!==r.width||S.height!==r.height;S.width=r.width;S.height=r.height;S.dpr=Math.min(2,devicePixelRatio||1);canvas.width=S.width*S.dpr;canvas.height=S.height*S.dpr;if(S.geo.world&&S.geo.us_states)P=projection();if(changed&&fit&&S.data)fitMap();else draw();}
+function resize(fit=true){if(S.flowMode==='raised3d'&&S.data){renderRaisedFlow();return;}const r=$('map-wrap').getBoundingClientRect();if(r.width<1)return;const changed=S.width!==r.width||S.height!==r.height;S.width=r.width;S.height=r.height;S.dpr=Math.min(2,devicePixelRatio||1);canvas.width=S.width*S.dpr;canvas.height=S.height*S.dpr;if(S.geo.world&&S.geo.us_states)P=projection();if(changed&&fit&&S.data)fitMap();else draw();}
 
 function fitMap(){
+  if(S.flowMode==='raised3d'&&S.data){renderRaisedFlow();return;}
   if(!S.data||!P)return;
   if (S.flowMode === 'globe') {
     S.globeScale = 1;
@@ -456,6 +581,7 @@ function draw3DSpike(ctx, x, y, height, radius, topColor, sideColorLeft, sideCol
 }
 
 function draw(time=performance.now()){
+  if(S.flowMode==='raised3d'&&S.data){renderRaisedFlow();return;}
   ctx.setTransform(S.dpr,0,0,S.dpr,0,0);
   ctx.clearRect(0,0,S.width,S.height);
   const dark = S.darkStage;
@@ -982,6 +1108,7 @@ canvas.addEventListener('click',e=>{
 canvas.addEventListener('keydown',e=>{if(['+','=','-','Home'].includes(e.key)){e.preventDefault();if(e.key==='Home')fitMap();else d3.select(canvas).call(zoom.scaleBy,e.key==='-'?1/1.7:1.7);}});
 
 function syncFlowStudioControls(){
+ const raised=S.flowMode==='raised3d';$('map-card').classList.toggle('raised-flow',raised);$('flow-raised-host').hidden=!raised;$('flow-region-detail').hidden=!raised;
  for(const btn of document.querySelectorAll('[data-flow-mode]')){const active=btn.dataset.flowMode===S.flowMode;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
  $('flow-scale-select').value=S.flowScale;$('flow-palette-select').value=S.flowPalette;
  $('map-card')?.classList.toggle('dark-stage',S.darkStage);$('flow-theme-btn').classList.toggle('active',S.darkStage);$('flow-theme-btn').textContent=S.darkStage?'Light Stage':'Dark Stage';
@@ -989,12 +1116,8 @@ function syncFlowStudioControls(){
 // Wire up High-Density Flow Studio Mode Tabs, Scale, Palette, and Dark Stage controls
 for (const btn of document.querySelectorAll('[data-flow-mode]')) {
   btn.addEventListener('click', () => {
-    S.flowMode = btn.dataset.flowMode;
-    for (const b of document.querySelectorAll('[data-flow-mode]')) {
-      const active = b.dataset.flowMode === S.flowMode;
-      b.classList.toggle('active', active);
-      b.setAttribute('aria-pressed', String(active));
-    }
+    setFlowMode(btn.dataset.flowMode,true);
+    resize(false);
     P = projection();
     fitMap();
     pipelineNavigationChanged(false);
@@ -1016,7 +1139,7 @@ $('flow-theme-btn')?.addEventListener('click', () => {
   draw();pipelineNavigationChanged(false);
 });
 
-async function selectNode(id,focus=true,preserve=false){if(!id||!S.data)return;if(!preserve)stopYears();const epoch=++S.detailEpoch;S.selected=id;$('node-picker').value=id;pipelineNavigationChanged(!preserve);draw();if(focus){const n=S.data.nodes.find(n=>n.id===id),a=n&&anchor(n);if(a&&S.flowMode==='globe'){S.globeRot=[-a[0],-a[1],0];P=projection();draw();}else{const p=a&&P(a);if(p){const k=Math.max(5,S.transform.k);d3.select(canvas).call(zoom.transform,d3.zoomIdentity.translate(S.width/2-k*p[0],S.height/2-k*p[1]).scale(k));}}}$('detail-title').textContent='Reading source evidence…';try{const d=await api('/api/pipelines/node?'+new URLSearchParams({...filters(),node_id:id}));if(epoch!==S.detailEpoch)return;$('detail-title').textContent=d.node.label;$('detail-intro').textContent=[d.node.type,d.node.state,d.node.country_iso3,d.year].filter(Boolean).join(' · ');const root=$('detail-body');root.replaceChildren();for(const [label,value] of [['Selected source relationships',d.edges.length],['Original auxiliary rows',d.record_count]]){const p=el('p','fact');p.append(el('strong','',fmt(value)),el('span','',label));root.append(p);}if(d.node.physical_location===false)root.append(el('p','small','This is a reporting/reference location, not an asserted physical processing location.'));for(const [label,value] of [['Original endpoint fields',d.node],['Selected connection records',d.edges],['Original auxiliary records · first 300',d.records]]){const details=el('details');details.append(el('summary','',label),el('pre','',JSON.stringify(value,null,2)));root.append(details);}renderTrend(d.history,d.metric);$('trend-title').textContent=d.node.label+' · '+d.metric.label+' · '+d.metric.unit;const related=el('div');if(d.node.industry_asset_id)related.append(safeLink('/industry.html?collection=eia_plants&asset_id='+encodeURIComponent(d.node.industry_asset_id)+'&year='+encodeURIComponent(S.year),'Inspect EIA plant reporting ↗'));if(d.node.ownership_asset_id)related.append(safeLink('/ownership.html?collection=msha&asset_id='+encodeURIComponent(d.node.ownership_asset_id),'Inspect source mine/facility record ↗'));if(d.node.eia_plant_id||d.node.eia_plant_code)related.append(safeLink('/industry.html?collection=eia_plants&asset_id='+encodeURIComponent('eia::plant::'+(d.node.eia_plant_id||d.node.eia_plant_code)),'Inspect EIA plant reporting ↗'));if(d.node.msha_id)related.append(safeLink('/ownership.html?collection=msha&asset_id='+encodeURIComponent('msha:'+d.node.msha_id),'Inspect source mine/facility record ↗'));root.append(related);window.PipelineContextUI?.nodeSelected(id);pipelineNavigationChanged(false);}catch(e){if(epoch===S.detailEpoch)$('detail-title').textContent='Evidence unavailable: '+e.message;}}
+async function selectNode(id,focus=true,preserve=false){if(!id||!S.data)return;if(!preserve)stopYears();const epoch=++S.detailEpoch;S.selected=id;$('node-picker').value=id;pipelineNavigationChanged(!preserve);draw();if(focus&&S.flowMode!=='raised3d'){const n=S.data.nodes.find(n=>n.id===id),a=n&&anchor(n);if(a&&S.flowMode==='globe'){S.globeRot=[-a[0],-a[1],0];P=projection();draw();}else{const p=a&&P(a);if(p){const k=Math.max(5,S.transform.k);d3.select(canvas).call(zoom.transform,d3.zoomIdentity.translate(S.width/2-k*p[0],S.height/2-k*p[1]).scale(k));}}}$('detail-title').textContent='Reading source evidence…';try{const d=await api('/api/pipelines/node?'+new URLSearchParams({...filters(),node_id:id}));if(epoch!==S.detailEpoch)return;$('detail-title').textContent=d.node.label;$('detail-intro').textContent=[d.node.type,d.node.state,d.node.country_iso3,d.year].filter(Boolean).join(' · ');const root=$('detail-body');root.replaceChildren();for(const [label,value] of [['Selected source relationships',d.edges.length],['Original auxiliary rows',d.record_count]]){const p=el('p','fact');p.append(el('strong','',fmt(value)),el('span','',label));root.append(p);}if(d.node.physical_location===false)root.append(el('p','small','This is a reporting/reference location, not an asserted physical processing location.'));for(const [label,value] of [['Original endpoint fields',d.node],['Selected connection records',d.edges],['Original auxiliary records · first 300',d.records]]){const details=el('details');details.append(el('summary','',label),el('pre','',JSON.stringify(value,null,2)));root.append(details);}renderTrend(d.history,d.metric);$('trend-title').textContent=d.node.label+' · '+d.metric.label+' · '+d.metric.unit;const related=el('div');if(d.node.industry_asset_id)related.append(safeLink('/industry.html?collection=eia_plants&asset_id='+encodeURIComponent(d.node.industry_asset_id)+'&year='+encodeURIComponent(S.year),'Inspect EIA plant reporting ↗'));if(d.node.ownership_asset_id)related.append(safeLink('/ownership.html?collection=msha&asset_id='+encodeURIComponent(d.node.ownership_asset_id),'Inspect source mine/facility record ↗'));if(d.node.eia_plant_id||d.node.eia_plant_code)related.append(safeLink('/industry.html?collection=eia_plants&asset_id='+encodeURIComponent('eia::plant::'+(d.node.eia_plant_id||d.node.eia_plant_code)),'Inspect EIA plant reporting ↗'));if(d.node.msha_id)related.append(safeLink('/ownership.html?collection=msha&asset_id='+encodeURIComponent('msha:'+d.node.msha_id),'Inspect source mine/facility record ↗'));root.append(related);window.PipelineContextUI?.nodeSelected(id);pipelineNavigationChanged(false);}catch(e){if(epoch===S.detailEpoch)$('detail-title').textContent='Evidence unavailable: '+e.message;}}
 async function step(delta){const ys=S.c.years,i=ys.indexOf(S.year),j=Math.max(0,Math.min(ys.length-1,i+delta));S.year=ys[j];periodControls();pipelineNavigationChanged(!S.playing);await query(false);}
 async function play(){if(S.playing){stopYears();return;}S.playing=true;$('play-years').textContent='Pause periods';$('play-years').setAttribute('aria-pressed','true');if(S.year===S.c.years.at(-1)){S.year=S.c.years[0];periodControls();await query(false);}const tick=async()=>{if(!S.playing)return;if(S.year===S.c.years.at(-1)){stopYears();return;}await step(1);if(S.playing)S.timer=setTimeout(tick,1300);};S.timer=setTimeout(tick,1300);}
 async function setView(economic,options={}){stopYears();S.view=economic?'economics':'flows';$('flow-view').hidden=economic;$('flow-filters').hidden=economic;$('economics-view').hidden=!economic;$('show-flows').classList.toggle('active',!economic);$('show-economics').classList.toggle('active',economic);if(economic)await openEconomics(options);else resize(true);pipelineNavigationChanged(true);}
@@ -1060,10 +1183,14 @@ function renderEconomicScenario(original){const report=economicReport(original),
 async function runScenario(){const epoch=S.scenarioEpoch=(S.scenarioEpoch||0)+1,baselineEpoch=S.econEpoch,p=econPayload();S.econPayload=p;$('econ-result').replaceChildren(el('p','small','Calculating the original-unit global accounting response. The first solve for a source year may take longer.'));$('econ-run').disabled=true;$('econ-export').disabled=true;try{const d=await api('/api/economics/scenario',p);if(epoch!==S.scenarioEpoch||baselineEpoch!==S.econEpoch)return;S.econScenario=d;renderEconomicScenario(d);}catch(e){if(epoch===S.scenarioEpoch&&baselineEpoch===S.econEpoch){S.econScenario=null;$('econ-result').replaceChildren(el('p','error',e.message));}}finally{if(epoch===S.scenarioEpoch&&baselineEpoch===S.econEpoch){$('econ-run').disabled=false;$('econ-export').disabled=false;}}}
 function exportLinks(root,result){root.replaceChildren();for(const f of result.files||[])root.append(safeLink(f.url,f.name));if(result.note)root.append(el('p','small',result.note));}
 for(const id of ['focus','direction','metric','commodity','sector','transport'])$(id).addEventListener('change',()=>{stopYears();clearDetail();pipelineNavigationChanged(true);query(true);});$('collection').addEventListener('change',()=>choose($('collection').value).catch(e=>status(e.message,true)));let searchTimer;$('search').addEventListener('input',()=>{clearTimeout(searchTimer);stopYears();searchTimer=setTimeout(()=>{clearDetail();pipelineNavigationChanged(false);query(true);},350);});$('virginia').onclick=()=>{if([...$('focus').options].some(o=>o.value==='VA')){$('focus').value='VA';pipelineNavigationChanged(true);query(true);}else choose('coal_domestic',{focus:'VA',direction:'outbound'});};$('all-places').onclick=()=>{$('focus').value='all';pipelineNavigationChanged(true);query(true);};$('node-picker').onchange=()=>selectNode($('node-picker').value,true);$('display-limit').onchange=()=>draw();$('animate-flow').onclick=()=>{S.motion=!S.motion;$('animate-flow').textContent=S.motion?'Pause motion':'Animate direction';$('animate-flow').setAttribute('aria-pressed',String(S.motion));draw();pipelineNavigationChanged(false);};$('animate-flow').textContent=S.motion?'Pause motion':'Animate direction';$('animate-flow').setAttribute('aria-pressed',String(S.motion));$('zoom-in').onclick=()=>d3.select(canvas).call(zoom.scaleBy,1.7);$('zoom-out').onclick=()=>d3.select(canvas).call(zoom.scaleBy,1/1.7);$('fit').onclick=fitMap;$('previous').onclick=()=>{stopYears();step(-1);};$('next').onclick=()=>{stopYears();step(1);};$('play-years').onclick=play;$('period').oninput=()=>{stopYears();S.year=S.c.years[+$('period').value];periodControls();pipelineNavigationChanged(false);query(false);};for(const b of document.querySelectorAll('[data-start]'))b.onclick=()=>choose(b.dataset.start,{focus:b.dataset.start==='coal_domestic'?'VA':undefined,direction:b.dataset.start==='coal_domestic'?'outbound':undefined}).catch(e=>status(e.message,true));
-$('export').onclick=async()=>{stopYears();$('export').disabled=true;$('export-result').textContent='Preparing the selected source view…';try{await window.PublicPipelineExports.exportView({format:$('export-format').value,filters:filters(),data:S.data,canvas,paths:S.paths,selfLoops:S.exportSelfLoops||[],positions:S.hits,geography:S.geo[geographic()],projection:P,transform:S.flowMode==='globe'?d3.zoomIdentity:S.transform,width:S.width,height:S.height,settings:capturePipelineNavigation(),host:$('export-result')});}catch(e){$('export-result').textContent=e.message;}finally{$('export').disabled=false;}};
-$('save-view').onclick=()=>{const p={schema:'ridgeway.pipeline-view/v1',fingerprint:S.catalog.fingerprint,filters:filters(),node_id:S.selected,display_limit:$('display-limit').value,context_settings:window.PipelineContextUI?.settings(),context_fingerprint:window.PipelineContextUI?.catalogFingerprint()};const url=URL.createObjectURL(new Blob([JSON.stringify(p,null,2)],{type:'application/json'})),a=el('a');a.href=url;a.download='Pipeline_View_'+S.c.id+'_'+S.year+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('open-view').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>1024*1024)throw Error('This saved view is too large.');const p=JSON.parse(await file.text());if(p.schema!=='ridgeway.pipeline-view/v1'||p.fingerprint!==S.catalog.fingerprint)throw Error('This view needs its matching pipeline source edition.');await choose(p.filters.collection,{...p.filters,node_id:p.node_id});if(['40','80','200','1000'].includes(p.display_limit))$('display-limit').value=p.display_limit;draw();if(p.context_settings){window.PipelineContextUI?.restore(p.context_settings,p.context_fingerprint);window.PipelineContextUI?.flowChanged();}status('Saved pipeline view restored with verified source fingerprints.');pipelineNavigationChanged(false);}catch(e){status(e.message,true);}finally{e.target.value='';}};
+$('export').onclick=async()=>{stopYears();$('export').disabled=true;$('export-result').textContent='Preparing the selected source view…';try{const raised=S.flowMode==='raised3d', activeCanvas=raised?$('flow-raised-host').querySelector('canvas'):canvas;
+if(raised&&$('export-format').value==='png'&&!activeCanvas)throw Error('Wait for the raised map to finish drawing before exporting.');
+const bounds=activeCanvas?.getBoundingClientRect();
+await window.PublicPipelineExports.exportView({format:$('export-format').value,filters:filters(),data:S.data,canvas:activeCanvas,paths:raised?(raisedState?.packet?.flows||[]):S.paths,selfLoops:S.exportSelfLoops||[],positions:S.hits,geography:S.geo[geographic()],projection:P,transform:S.flowMode==='globe'?d3.zoomIdentity:S.transform,width:raised?bounds?.width:S.width,height:raised?bounds?.height:S.height,settings:capturePipelineNavigation(),host:$('export-result')});}catch(e){$('export-result').textContent=e.message;}finally{$('export').disabled=false;}};
+$('save-view').onclick=()=>{const p={schema:'ridgeway.pipeline-view/v1',map_mode:S.flowMode,fingerprint:S.catalog.fingerprint,filters:filters(),node_id:S.selected,display_limit:$('display-limit').value,context_settings:window.PipelineContextUI?.settings(),context_fingerprint:window.PipelineContextUI?.catalogFingerprint()};const url=URL.createObjectURL(new Blob([JSON.stringify(p,null,2)],{type:'application/json'})),a=el('a');a.href=url;a.download='Pipeline_View_'+S.c.id+'_'+S.year+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};$('open-view').onchange=async e=>{try{const file=e.target.files[0];if(!file)return;if(file.size>1024*1024)throw Error('This saved view is too large.');const p=JSON.parse(await file.text());if(p.schema!=='ridgeway.pipeline-view/v1'||p.fingerprint!==S.catalog.fingerprint)throw Error('This view needs its matching pipeline source edition.');if(['raised3d','2d','globe','spikes'].includes(p.map_mode))S.preferredFlowMode=p.map_mode;await choose(p.filters.collection,{...p.filters,node_id:p.node_id});if(['40','80','200','1000'].includes(p.display_limit))$('display-limit').value=p.display_limit;draw();if(p.context_settings){window.PipelineContextUI?.restore(p.context_settings,p.context_fingerprint);window.PipelineContextUI?.flowChanged();}status('Saved pipeline view restored with verified source fingerprints.');pipelineNavigationChanged(false);}catch(e){status(e.message,true);}finally{e.target.value='';}};
 $('browse-records').onclick=async()=>{try{const d=await api('/api/pipelines/records?'+new URLSearchParams({collection:S.c.id,limit:100,search:$('search').value}));$('original-records').replaceChildren(el('p','small','First '+d.records.length+' of '+d.total.toLocaleString()+' matching auxiliary source rows.'),el('pre','',JSON.stringify(d.records,null,2)));}catch(e){$('original-records').textContent=e.message;}};
 $('show-flows').onclick=()=>setView(false);$('show-economics').onclick=()=>{window.open('http://127.0.0.1:8772/pipelines.html?view=economics','_blank','noopener,noreferrer');};$('econ-refresh').onclick=economicBaseline;for(const id of ['econ-year','econ-country','econ-sector','econ-metric'])$(id).onchange=economicBaseline;$('econ-percent').oninput=()=>{S.scenarioEpoch=(S.scenarioEpoch||0)+1;S.econScenario=null;$('econ-run').disabled=S.econBaseline?.selected?.scenario_eligible===false;$('econ-export').disabled=false;$('econ-result').replaceChildren(el('p','small','Demand change edited. Calculate again for a source-attached result.'));};$('econ-run').onclick=runScenario;$('econ-export').onclick=async()=>{try{const p=S.econScenario?{...S.econPayload,mode:'scenario',assessment_context:window.PipelineContextUI?.assessment(),global_assessment_context:window.GlobalAssessmentBridge?.assessment()}:{...econPayload(),mode:'baseline',assessment_context:window.PipelineContextUI?.assessment(),global_assessment_context:window.GlobalAssessmentBridge?.assessment()};exportLinks($('econ-export-result'),await api('/api/economics/export',p));}catch(e){$('econ-status').textContent=e.message;}};
+syncFlowStudioControls();
 new ResizeObserver(()=>resize(true)).observe($('map-wrap'));
-(async()=>{try{const [config,catalog,world,states,va]=await Promise.all([api('/api/config'),api('/api/pipelines/catalog'),api('/api/geography?scope=world'),api('/api/geography?scope=us_states'),api('/api/geography?scope=virginia').catch(()=>null)]);S.token=config.token;S.catalog=catalog;S.contextReady=window.PipelineContextUI?.attach({state:S,api,filters,projection:()=>P,geographic,setView,focusPoint:point=>{const p=P&&P(point);if(p){const k=Math.max(5,S.transform.k);d3.select(canvas).call(zoom.transform,d3.zoomIdentity.translate(S.width/2-k*p[0],S.height/2-k*p[1]).scale(k));}}});S.geo={world:PipelineGeometry.orient(world),us_states:PipelineGeometry.orient(states),virginia:va?PipelineGeometry.orient(va):null};if(!catalog.collections.length)throw Error('No pipeline sources are installed.');optionFill($('collection'),catalog.collections,c=>c.title,c=>c.id,'coal_receipts');$('collection').disabled=false;for(const b of document.querySelectorAll('[data-start]'))b.disabled=!catalog.collections.some(c=>c.id===b.dataset.start);const p=new URLSearchParams(location.search);const initMode=p.get('flow_mode'),initDark=p.get('dark_stage')==='1';if(initMode&&['2d','globe','spikes'].includes(initMode)){S.flowMode=initMode;for(const b of document.querySelectorAll('[data-flow-mode]')){const act=b.dataset.flowMode===initMode;b.classList.toggle('active',act);b.setAttribute('aria-pressed',String(act));}}if(initDark){S.darkStage=true;$('map-card')?.classList.add('dark-stage');if($('flow-theme-btn')){$('flow-theme-btn').classList.add('active');$('flow-theme-btn').textContent='Light Stage';}}p.delete('flow_mode');p.delete('dark_stage');const id=catalog.collections.some(c=>c.id===p.get('collection'))?p.get('collection'):'trade_coal';const initialSourceChoice=sourceChoiceGeneration+1;await choose(id,{...(!p.has('collection')?{focus:'all',direction:'either'}:{}),...Object.fromEntries(p.entries())});await S.contextReady;if(sourceChoiceGeneration!==initialSourceChoice){const current=new URL(location.href);current.searchParams.delete('view');history.replaceState(null,'',current.pathname+current.search);}await registerPipelineNavigation();}catch(e){status('The pipeline workspace could not open: '+e.message,true);$('map-empty').hidden=false;$('map-empty').textContent='The retained public source could not load. Check your connection and reload this page.';}})();
+(async()=>{try{const [config,catalog,world,states,va]=await Promise.all([api('/api/config'),api('/api/pipelines/catalog'),api('/api/geography?scope=world'),api('/api/geography?scope=us_states'),api('/api/geography?scope=virginia').catch(()=>null)]);S.token=config.token;S.catalog=catalog;S.contextReady=window.PipelineContextUI?.attach({state:S,api,filters,projection:()=>P,geographic,setView,focusPoint:point=>{const p=P&&P(point);if(p){const k=Math.max(5,S.transform.k);d3.select(canvas).call(zoom.transform,d3.zoomIdentity.translate(S.width/2-k*p[0],S.height/2-k*p[1]).scale(k));}}});S.geo={world:PipelineGeometry.orient(world),us_states:PipelineGeometry.orient(states),virginia:va?PipelineGeometry.orient(va):null};if(!catalog.collections.length)throw Error('No pipeline sources are installed.');optionFill($('collection'),catalog.collections,c=>c.title,c=>c.id,'coal_receipts');$('collection').disabled=false;for(const b of document.querySelectorAll('[data-start]'))b.disabled=!catalog.collections.some(c=>c.id===b.dataset.start);const p=new URLSearchParams(location.search);const initMode=p.get('flow_mode'),initDark=p.get('dark_stage')==='1';if(initMode&&['raised3d','2d','globe','spikes'].includes(initMode)){S.preferredFlowMode=initMode;setFlowMode(initMode);for(const b of document.querySelectorAll('[data-flow-mode]')){const act=b.dataset.flowMode===initMode;b.classList.toggle('active',act);b.setAttribute('aria-pressed',String(act));}}if(initDark){S.darkStage=true;$('map-card')?.classList.add('dark-stage');if($('flow-theme-btn')){$('flow-theme-btn').classList.add('active');$('flow-theme-btn').textContent='Light Stage';}}p.delete('flow_mode');p.delete('dark_stage');const id=catalog.collections.some(c=>c.id===p.get('collection'))?p.get('collection'):'trade_coal';const initialSourceChoice=sourceChoiceGeneration+1;await choose(id,{...(!p.has('collection')?{focus:'all',direction:'either'}:{}),...Object.fromEntries(p.entries())});await S.contextReady;if(sourceChoiceGeneration!==initialSourceChoice){const current=new URL(location.href);current.searchParams.delete('view');history.replaceState(null,'',current.pathname+current.search);}await registerPipelineNavigation();}catch(e){status('The pipeline workspace could not open: '+e.message,true);$('map-empty').hidden=false;$('map-empty').textContent='The retained public source could not load. Check your connection and reload this page.';}})();
 })();

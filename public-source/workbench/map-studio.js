@@ -8,7 +8,7 @@ const cleanURL=v=>{try{const u=new URL(v,location.href);return ['http:','https:'
 const fileURL=v=>{const u=new URL(v,location.href);if(u.origin!==location.origin||!u.pathname.startsWith('/exports/'))throw Error('Unexpected export file location.');return u.href;};
 function mount({request,onYearChange,notify}){
  let renderer=null,scene=null,metadata=null,pendingKey='',revision=0,timer=null,year=null,focusId='VA',job=null,pollTimer=null;
- let preferred=null,availableFormats=['gif'],camera={elevation:45,azimuth:-60,height_scale:1,zoom:1};
+ let preferred=null,availableFormats=['gif'],camera={elevation:58,azimuth:-90,height_scale:1,zoom:1};
  const busy=()=>job&&['queued','running'].includes(job.status);
  const status=text=>{$('map3d-status').textContent=text;};
  function pause(){if(timer)clearInterval(timer);timer=null;$('map3d-play').textContent='Play years';$('map3d-play').setAttribute('aria-pressed','false');}
@@ -161,7 +161,7 @@ function mount({request,onYearChange,notify}){
  });
  $('map3d-place').addEventListener('change',event=>{focusId=event.target.value;paint();});
  for(const [id,key]of [['map3d-elevation','elevation'],['map3d-azimuth','azimuth'],['map3d-height','height_scale']])$(id).addEventListener('input',event=>{camera[key]=Number(event.target.value);syncCameraControls();paint();});
- $('map3d-reset-camera').addEventListener('click',()=>{camera={elevation:45,azimuth:-60,height_scale:1,zoom:1};syncCameraControls();paint();});
+ $('map3d-reset-camera').addEventListener('click',()=>{camera={elevation:58,azimuth:-90,height_scale:1,zoom:1};syncCameraControls();paint();});
  $('map3d-fps').addEventListener('change',pause);
  $('map3d-export-still').addEventListener('click',still);$('map3d-export-animation').addEventListener('click',animate);
  $('map3d-cancel-export').addEventListener('click',async()=>{if(!busy())return;try{await request('/api/export-jobs/'+job.job_id+'/cancel',{});$('map3d-export-status').textContent='Cancellation requested; finishing the current frame safely…';}catch(error){notify?.(error.message,true);}});
@@ -172,7 +172,7 @@ function mount({request,onYearChange,notify}){
   sourceError:message=>{revision++;pendingKey='';clearScene();status(message);},
   getState:()=>({series_id:metadata?.id,start_year:scene?.years[0],end_year:scene?.years.at(-1),year,focus_id:focusId,camera:{...camera},fps:Number($('map3d-fps').value),title:$('map3d-export-title').value,animation_format:$('map3d-animation-format').value,still_format:$('map3d-still-format').value}),
   restore:value=>{pause();preferred=value&&typeof value==='object'&&!Array.isArray(value)?{...value}:null;
-   if(preferred){const c=preferred.camera||{},bounded=(key,lo,hi,fallback)=>typeof c[key]==='number'&&Number.isFinite(c[key])&&c[key]>=lo&&c[key]<=hi?c[key]:fallback;preferred.camera={elevation:bounded('elevation',15,80,45),azimuth:bounded('azimuth',-36000,36000,-60),height_scale:bounded('height_scale',.2,2,1),zoom:bounded('zoom',.5,3,1)};
+   if(preferred){const c=preferred.camera||{},bounded=(key,lo,hi,fallback)=>typeof c[key]==='number'&&Number.isFinite(c[key])&&c[key]>=lo&&c[key]<=hi?c[key]:fallback;preferred.camera={elevation:bounded('elevation',15,80,58),azimuth:bounded('azimuth',-36000,36000,-90),height_scale:bounded('height_scale',.2,2,1),zoom:bounded('zoom',.5,3,1)};
     $('map3d-export-title').value=typeof preferred.title==='string'?preferred.title.slice(0,180):'';
     for(const [id,key]of [['map3d-fps','fps'],['map3d-animation-format','animation_format'],['map3d-still-format','still_format']])if([...$(id).options].some(o=>!o.disabled&&o.value===String(preferred[key])))$(id).value=String(preferred[key]);}
    clearScene();pendingKey='';revision++;},

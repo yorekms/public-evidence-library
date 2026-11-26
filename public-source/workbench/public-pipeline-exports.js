@@ -40,8 +40,18 @@ function svgMap(o){
  add(svg,'text',{x:20,y:o.height+offset+25,fill:'#5d7466','font-size':11,'font-family':'Arial'},'Schematic paths show reported direction; source evidence and display settings accompany this figure.');
  return new XMLSerializer().serializeToString(svg);
 }
+async function addRegionalDirections(ctx, svg, width, height, offset) {
+ if (!svg?.querySelector('g path')) return;
+ const layer = svg.cloneNode(true);
+ layer.setAttribute('width',String(width));
+ layer.setAttribute('height',String(height));
+ const image = new Image();
+ image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(layer));
+ await image.decode();
+ ctx.drawImage(image,0,offset,width,height);
+}
 async function exportView(o){
- if(o.format==='svg'&&o.settings?.flow_studio?.mode&&o.settings.flow_studio.mode!=='2d')throw Error('SVG export uses the 2D schematic view. Choose 2D Geodesic Flow Map, or choose PNG to capture this displayed globe or spike map.');
+ if(o.format==='svg'&&o.settings?.flow_studio?.mode&&o.settings.flow_studio.mode!=='2d')throw Error('SVG export uses the 2D schematic view. Choose 2D Geodesic Flow Map, or choose PNG to capture this displayed map.');
  const name='commodity-flows-'+o.filters.collection+'-'+o.filters.year;
  if(o.format==='gif'){const a=document.createElement('a');a.href='http://127.0.0.1:8772/pipelines.html?'+new URLSearchParams(o.filters);a.target='_blank';a.rel='noopener noreferrer';a.textContent='Open this selection in the local workbench to render GIF →';o.host.replaceChildren(a);return;}
  // Capture the displayed map before source reads yield to another UI change.
@@ -49,11 +59,14 @@ async function exportView(o){
  let png=null,vector=null;
  if(o.format==='png'){
   const snapshot=document.createElement('canvas'),ratio=o.canvas.width/o.width,offset=76;
-  snapshot.width=o.canvas.width;snapshot.height=Math.ceil((o.height+offset+44)*ratio);const ctx=snapshot.getContext('2d');ctx.scale(ratio,ratio);ctx.fillStyle='#f5f6f0';ctx.fillRect(0,0,o.width,o.height+offset+44);ctx.fillStyle='#193e34';ctx.font='19px Arial';ctx.fillText(o.data.title+' · '+o.data.year,20,28);ctx.font='12px Arial';ctx.fillText(o.data.metric.label+' · '+o.data.metric.unit,20,52);ctx.drawImage(o.canvas,0,offset,o.width,o.height);ctx.fillStyle='#5d7466';ctx.font='11px Arial';ctx.fillText('Schematic paths show reported direction. Complete selected source evidence accompanies this figure.',20,o.height+offset+25);
+  snapshot.width=o.canvas.width;snapshot.height=Math.ceil((o.height+offset+44)*ratio);const ctx=snapshot.getContext('2d');ctx.scale(ratio,ratio);ctx.fillStyle='#f5f6f0';ctx.fillRect(0,0,o.width,o.height+offset+44);ctx.fillStyle='#193e34';ctx.font='19px Arial';ctx.fillText(o.data.title+' · '+o.data.year,20,28);ctx.font='12px Arial';ctx.fillText(o.settings?.flow_studio?.mode==='raised3d'?'Height counts distinct displayed source endpoints by region':o.data.metric.label+' · '+o.data.metric.unit,20,52);ctx.drawImage(o.canvas,0,offset,o.width,o.height);ctx.fillStyle='#5d7466';ctx.font='11px Arial';ctx.fillText('Schematic paths show reported direction. Complete selected source evidence accompanies this figure.',20,o.height+offset+25);
+  if(o.settings?.flow_studio?.mode==='raised3d') {
+   await addRegionalDirections(ctx,o.canvas.closest('.map-scene')?.querySelector('.map-scene-flows'),o.width,o.height,offset);
+  }
   png=new Promise(resolve=>snapshot.toBlob(resolve,'image/png'));
  }else if(o.format==='svg')vector=svgMap(o);
  const evidence=await window.PublicPipelineAPI.request('/api/pipelines/evidence',o.filters);
- const provenance={...evidence,display_settings:o.settings,displayed_connection_count:o.paths.length+(o.selfLoops||[]).length,export_note:'CSV/JSON contain the complete selected source graph. Map display limits affect the figure only. Browser exports re-encode normalized records; bundle SHA-256 identifies the retained original source bundle.'};
+ const provenance={...evidence,display_settings:o.settings,displayed_connection_count:o.settings?.flow_studio?.mode==='raised3d'?undefined:o.paths.length+(o.selfLoops||[]).length,displayed_regional_directions:o.settings?.flow_studio?.mode==='raised3d'?o.paths.length:undefined,export_note:'CSV/JSON contain the complete selected source graph. Map display limits affect the figure only. Browser exports re-encode normalized records; bundle SHA-256 identifies the retained original source bundle.'};
  if(o.format==='csv')save(new Blob([csv(evidence.edges)],{type:'text/csv;charset=utf-8'}),name+'.csv');
  else if(o.format==='svg')save(new Blob([vector],{type:'image/svg+xml'}),name+'.svg');
  else if(o.format==='png'){const blob=await png;if(!blob)throw Error('The displayed map could not be saved as PNG.');save(blob,name+'.png');}

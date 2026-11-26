@@ -1,0 +1,249 @@
+{
+  "publisher": "World Bank",
+  "database": "World Development Indicators",
+  "sourceId": "2",
+  "retrieved": "2026-11-23",
+  "sourceRelease": "2026-11-11",
+  "frequency": "Annual",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "geography": "World Bank countries and economies with a non-aggregate region and at least one published value in the series. Codes follow the World Bank registry, including XKX for Kosovo.",
+  "transformations": "Rows are grouped under their source economy codes. All years within the observed series span appear. Null in JSON and blank in CSV represent an unavailable observation. Numeric values retain the precision returned by the publisher. Explicit zeros and status codes are retained.",
+  "validation": "Each observation from the API for every non-aggregate economy, including unavailable years, was checked for equality with its entry in the separately downloaded official wide CSV release.",
+  "sourceFiles": {
+    "registry.json.gz": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "sourceSha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "employment-rate-total.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SL.EMP.TOTL.SP.ZS?source=2&format=json&per_page=30000",
+      "sourceSha256": "e56d93d3f36e558ce96e9fa3826af634d47f47b6879f4c35cdd95a3ad0d06636"
+    },
+    "employment-rate-total-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/SL.EMP.TOTL.SP.ZS?format=json&source=2",
+      "sourceSha256": "58f353c396c59d469e58a67486a5e91d5fd3821c8b7d68e0757b43a5faf7bef8"
+    },
+    "employment-rate-total-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SL.EMP.TOTL.SP.ZS?downloadformat=csv",
+      "sourceSha256": "b8205067155538b4ab751e2be93922ba9edf52e23fb453b32fb64dfcb565e9f6"
+    },
+    "employment-rate-women.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SL.EMP.TOTL.SP.FE.ZS?source=2&format=json&per_page=30000",
+      "sourceSha256": "25333f757728a8531921d491917b19350f8761f411d1f7072e06610e2cfc87ee"
+    },
+    "employment-rate-women-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/SL.EMP.TOTL.SP.FE.ZS?format=json&source=2",
+      "sourceSha256": "d052edd0bcb2eeb7e2aadf8f2178bda4fc0802fd2e83f7e622338882fc0af5b4"
+    },
+    "employment-rate-women-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SL.EMP.TOTL.SP.FE.ZS?downloadformat=csv",
+      "sourceSha256": "4ec3115757df72f3ba5dcdd31b903b8b3c9461b150ce87a94ddab03270ec5da7"
+    },
+    "employment-rate-men.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SL.EMP.TOTL.SP.MA.ZS?source=2&format=json&per_page=30000",
+      "sourceSha256": "591ba7b359c166a7218ff070e556f5fa844199768bb66b2bc5f3833b9987be1f"
+    },
+    "employment-rate-men-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/SL.EMP.TOTL.SP.MA.ZS?format=json&source=2",
+      "sourceSha256": "95ae33c24350e788bfb1799640492d4ac096d5ed2907da45178dd6971959b2cc"
+    },
+    "employment-rate-men-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SL.EMP.TOTL.SP.MA.ZS?downloadformat=csv",
+      "sourceSha256": "e69152e388c3618037e79bb9a843846c2ce458cf9b9f23789429ef34494f295b"
+    }
+  },
+  "series": {
+    "employment-rate-total": {
+      "code": "SL.EMP.TOTL.SP.ZS",
+      "name": "Employment to population ratio, 15+, total (%) (modeled ILO estimate)",
+      "unit": "% of population ages 15+",
+      "definition": "Employment to population ratio is the proportion of a country's population that is employed.",
+      "sourceOrganizations": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+      "landingPage": "https://data.worldbank.org/indicator/SL.EMP.TOTL.SP.ZS",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 187,
+      "numericCountryYears": 6531,
+      "unavailableCountryYears": 14,
+      "coverageByYear": {
+        "1991": 187,
+        "1992": 187,
+        "1993": 187,
+        "1994": 187,
+        "1995": 187,
+        "1996": 187,
+        "1997": 187,
+        "1998": 187,
+        "1999": 187,
+        "2000": 187,
+        "2001": 187,
+        "2002": 187,
+        "2003": 187,
+        "2004": 187,
+        "2005": 187,
+        "2006": 187,
+        "2007": 187,
+        "2008": 187,
+        "2009": 187,
+        "2010": 187,
+        "2011": 187,
+        "2012": 187,
+        "2013": 187,
+        "2014": 187,
+        "2015": 187,
+        "2016": 187,
+        "2017": 187,
+        "2018": 187,
+        "2019": 187,
+        "2020": 187,
+        "2021": 187,
+        "2022": 186,
+        "2023": 184,
+        "2024": 182,
+        "2025": 182
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "employment-rate-total.csv.gz",
+      "fileSha256": {
+        "employment-rate-total.json": "3f21fd808f69466dae82d63ae661aab43825d53d03d78e9b9ab9a7d996442b5a",
+        "employment-rate-total.csv.gz": "d5dac8176a525b8b6f8fe1e41f476738c0c5d010c19728e1e6c467ab0929c022"
+      }
+    },
+    "employment-rate-women": {
+      "code": "SL.EMP.TOTL.SP.FE.ZS",
+      "name": "Employment to population ratio, 15+, female (%) (modeled ILO estimate)",
+      "unit": "% of female population ages 15+",
+      "definition": "Employment to population ratio is the proportion of a country's population that is employed.",
+      "sourceOrganizations": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+      "landingPage": "https://data.worldbank.org/indicator/SL.EMP.TOTL.SP.FE.ZS",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 187,
+      "numericCountryYears": 6531,
+      "unavailableCountryYears": 14,
+      "coverageByYear": {
+        "1991": 187,
+        "1992": 187,
+        "1993": 187,
+        "1994": 187,
+        "1995": 187,
+        "1996": 187,
+        "1997": 187,
+        "1998": 187,
+        "1999": 187,
+        "2000": 187,
+        "2001": 187,
+        "2002": 187,
+        "2003": 187,
+        "2004": 187,
+        "2005": 187,
+        "2006": 187,
+        "2007": 187,
+        "2008": 187,
+        "2009": 187,
+        "2010": 187,
+        "2011": 187,
+        "2012": 187,
+        "2013": 187,
+        "2014": 187,
+        "2015": 187,
+        "2016": 187,
+        "2017": 187,
+        "2018": 187,
+        "2019": 187,
+        "2020": 187,
+        "2021": 187,
+        "2022": 186,
+        "2023": 184,
+        "2024": 182,
+        "2025": 182
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "employment-rate-women.csv.gz",
+      "fileSha256": {
+        "employment-rate-women.json": "b4d846d5a1c14a6e7ea1f998a3f93ecc0a831e8c6d50908e7ef6a1eca1c86bc9",
+        "employment-rate-women.csv.gz": "43fb06f62a61e059b1c6500590f8bb4766cbc084dc7bcd059790ee437ffa152a"
+      }
+    },
+    "employment-rate-men": {
+      "code": "SL.EMP.TOTL.SP.MA.ZS",
+      "name": "Employment to population ratio, 15+, male (%) (modeled ILO estimate)",
+      "unit": "% of male population ages 15+",
+      "definition": "Employment to population ratio is the proportion of a country's population that is employed.",
+      "sourceOrganizations": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+      "landingPage": "https://data.worldbank.org/indicator/SL.EMP.TOTL.SP.MA.ZS",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 187,
+      "numericCountryYears": 6531,
+      "unavailableCountryYears": 14,
+      "coverageByYear": {
+        "1991": 187,
+        "1992": 187,
+        "1993": 187,
+        "1994": 187,
+        "1995": 187,
+        "1996": 187,
+        "1997": 187,
+        "1998": 187,
+        "1999": 187,
+        "2000": 187,
+        "2001": 187,
+        "2002": 187,
+        "2003": 187,
+        "2004": 187,
+        "2005": 187,
+        "2006": 187,
+        "2007": 187,
+        "2008": 187,
+        "2009": 187,
+        "2010": 187,
+        "2011": 187,
+        "2012": 187,
+        "2013": 187,
+        "2014": 187,
+        "2015": 187,
+        "2016": 187,
+        "2017": 187,
+        "2018": 187,
+        "2019": 187,
+        "2020": 187,
+        "2021": 187,
+        "2022": 186,
+        "2023": 184,
+        "2024": 182,
+        "2025": 182
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "employment-rate-men.csv.gz",
+      "fileSha256": {
+        "employment-rate-men.json": "acd7026140719210276e61cd27863c27d902323ad9c288443b9f3ee15d43370a",
+        "employment-rate-men.csv.gz": "4f02d1a938822350fe46b09c6298644ef38e5321d4adea67b067c572a95f3b6c"
+      }
+    }
+  },
+  "methodology": {
+    "source": "International Labour Organization, ILO Modelled Estimates (ILOEST), distributed by the World Bank in World Development Indicators.",
+    "sourceProgram": "https://ilostat.ilo.org/data/bulk/",
+    "glossaries": {
+      "employment-rate-total": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SL.EMP.TOTL.SP.ZS",
+      "employment-rate-women": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SL.EMP.TOTL.SP.FE.ZS",
+      "employment-rate-men": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SL.EMP.TOTL.SP.MA.ZS"
+    },
+    "measure": "Each rate is 100 times the number employed in the indicated population divided by the size of that population. The denominator includes everyone in that population aged 15 or older. Employment covers work for pay or profit, including workers temporarily absent from their jobs.",
+    "groups": "The female rate uses the female population aged 15 or older and the male rate uses the male population aged 15 or older. The total uses the full population aged 15 or older and comes directly from its own published series.",
+    "interpretation": "Differences between rates are measured in percentage points. These annual estimates include national observations and modeled values. The release supplies no observation-level imputation flags. Population coverage, country definitions and methods can affect comparisons. The publisher cautions against ranking countries on imputed estimates."
+  },
+  "sourceArchive": {
+    "filename": "employment-rates-sources.zip",
+    "sha256": "7e220e18436fbd61c09b97ef274bba8791eb6742d71310c8f4ebe3adc82da592"
+  }
+}

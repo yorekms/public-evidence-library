@@ -1,0 +1,249 @@
+{
+  "publisher": "World Bank",
+  "database": "World Development Indicators",
+  "sourceId": "2",
+  "retrieved": "2026-11-23",
+  "sourceRelease": "2026-11-11",
+  "frequency": "Annual",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "geography": "World Bank countries and economies with a non-aggregate region and at least one published value in the series. Codes follow the World Bank registry, including XKX for Kosovo.",
+  "transformations": "Rows are grouped under their source economy codes. All years within the observed series span appear. Null in JSON and blank in CSV represent an unavailable observation. Numeric values retain the precision returned by the publisher. Explicit zeros and status codes are retained.",
+  "validation": "Each observation from the API for every non-aggregate economy, including unavailable years, was checked for equality with its entry in the separately downloaded official wide CSV release.",
+  "sourceFiles": {
+    "registry.json.gz": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "sourceSha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "agriculture-per-worker.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.AGR.EMPL.KD?source=2&format=json&per_page=30000",
+      "sourceSha256": "31e09b7422ac362faa296cdb08c60fc7bd9154f6375fb65dcc15d8d1c8f54a15"
+    },
+    "agriculture-per-worker-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/NV.AGR.EMPL.KD?format=json&source=2",
+      "sourceSha256": "2cbc5a355c72e6523e300cca7fb4afc08f65a82b7da372ce8bff46742cd4ce40"
+    },
+    "agriculture-per-worker-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.AGR.EMPL.KD?downloadformat=csv",
+      "sourceSha256": "903b20e1e165656240505e6e0e508cbdb3aa3099234f74f1e64e549350187888"
+    },
+    "industry-per-worker.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.IND.EMPL.KD?source=2&format=json&per_page=30000",
+      "sourceSha256": "77fd5a7b9005f46faf0a510d1fb14deb40bbbbd7377c8ca825055ebb47241b58"
+    },
+    "industry-per-worker-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/NV.IND.EMPL.KD?format=json&source=2",
+      "sourceSha256": "a2103369bb35e02ad159f9f76be156a9cbb70c0b9230324c092b0ef133f4ffe7"
+    },
+    "industry-per-worker-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.IND.EMPL.KD?downloadformat=csv",
+      "sourceSha256": "a0f0adaf528f535130b1fe7668b4cc924393b0614ff2fb8458e1ad668541bbe9"
+    },
+    "services-per-worker.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.SRV.EMPL.KD?source=2&format=json&per_page=30000",
+      "sourceSha256": "5f79f628d61c3291181c59a5996b9b3ad64746cc58c4729c1601d2e4cc14845b"
+    },
+    "services-per-worker-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/NV.SRV.EMPL.KD?format=json&source=2",
+      "sourceSha256": "9d387d9911fff31f735ada9b0e5cf52eadbb54e8b0ffca09c1ea559537c27a00"
+    },
+    "services-per-worker-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.SRV.EMPL.KD?downloadformat=csv",
+      "sourceSha256": "24ce77e830ef70fb13e9cd7d9848b265d78a93fd64cdd852969f652bd6e0fbd5"
+    }
+  },
+  "series": {
+    "agriculture-per-worker": {
+      "code": "NV.AGR.EMPL.KD",
+      "name": "Agriculture, forestry, and fishing, value added per worker (constant 2015 US$)",
+      "unit": "constant 2015 US$ per worker",
+      "definition": "Agriculture, forestry, and fishing corresponds to ISIC (Rev. 4) divisions 01-03 and includes the exploitation of vegetal and animal natural resources, comprising the activities of growing of crops, raising and breeding of animals, harvesting of timber and other plants, animals or animal products from a farm or their natural habitats.Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed in constant prices, meaning the series has been adjusted to account for price changes over time. The reference year for this adjustment is 2015. This indicator is expressed in United States dollars.",
+      "sourceOrganizations": "World Development Indicators database, World Bank (WB);\nILOSTAT database, International Labour Organization (ILO)",
+      "landingPage": "https://data.worldbank.org/indicator/NV.AGR.EMPL.KD",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 179,
+      "numericCountryYears": 5610,
+      "unavailableCountryYears": 655,
+      "coverageByYear": {
+        "1991": 118,
+        "1992": 119,
+        "1993": 121,
+        "1994": 124,
+        "1995": 145,
+        "1996": 145,
+        "1997": 147,
+        "1998": 148,
+        "1999": 149,
+        "2000": 158,
+        "2001": 158,
+        "2002": 160,
+        "2003": 162,
+        "2004": 162,
+        "2005": 163,
+        "2006": 168,
+        "2007": 168,
+        "2008": 171,
+        "2009": 172,
+        "2010": 174,
+        "2011": 174,
+        "2012": 174,
+        "2013": 175,
+        "2014": 175,
+        "2015": 179,
+        "2016": 174,
+        "2017": 174,
+        "2018": 174,
+        "2019": 173,
+        "2020": 173,
+        "2021": 173,
+        "2022": 172,
+        "2023": 169,
+        "2024": 168,
+        "2025": 151
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "agriculture-per-worker.csv.gz",
+      "fileSha256": {
+        "agriculture-per-worker.json": "0e4f1acd3963d488bcf1ee5febf28d39fd12c3235a5f40b5444478eb4a3f17f8",
+        "agriculture-per-worker.csv.gz": "fd5a5aa45d339bdea87fe1d8f22261e3b0399256436d03c7d19bdb9cca4e5804"
+      }
+    },
+    "industry-per-worker": {
+      "code": "NV.IND.EMPL.KD",
+      "name": "Industry (including construction), value added per worker (constant 2015 US$)",
+      "unit": "constant 2015 US$ per worker",
+      "definition": "Industry (including construction) corresponds to ISIC (Rev.4) divisions 05-43. It is comprised of mining, manufacturing, construction, electricity, water, and gas industries. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. The core indicator has been divided by the number of workers in this sector to derive a measure of labor productivity. This indicator is expressed in constant prices, meaning the series has been adjusted to account for price changes over time. The reference year for this adjustment is 2015. This indicator is expressed in United States dollars.",
+      "sourceOrganizations": "World Development Indicators database, World Bank (WB);\nILOSTAT database, International Labour Organization (ILO)",
+      "landingPage": "https://data.worldbank.org/indicator/NV.IND.EMPL.KD",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 180,
+      "numericCountryYears": 5587,
+      "unavailableCountryYears": 713,
+      "coverageByYear": {
+        "1991": 114,
+        "1992": 115,
+        "1993": 117,
+        "1994": 121,
+        "1995": 143,
+        "1996": 143,
+        "1997": 145,
+        "1998": 146,
+        "1999": 147,
+        "2000": 156,
+        "2001": 156,
+        "2002": 158,
+        "2003": 160,
+        "2004": 161,
+        "2005": 162,
+        "2006": 167,
+        "2007": 167,
+        "2008": 171,
+        "2009": 172,
+        "2010": 175,
+        "2011": 175,
+        "2012": 175,
+        "2013": 176,
+        "2014": 176,
+        "2015": 180,
+        "2016": 175,
+        "2017": 175,
+        "2018": 175,
+        "2019": 174,
+        "2020": 174,
+        "2021": 174,
+        "2022": 173,
+        "2023": 170,
+        "2024": 169,
+        "2025": 150
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "industry-per-worker.csv.gz",
+      "fileSha256": {
+        "industry-per-worker.json": "f4352b0d31a50bf044a22428349aa0a6dc8ea4b9ec8ff2850455571d66d81e8d",
+        "industry-per-worker.csv.gz": "a50c664e6a48f590692ffe5ccbb553461ed056d624eee9960663fc18b8694c89"
+      }
+    },
+    "services-per-worker": {
+      "code": "NV.SRV.EMPL.KD",
+      "name": "Services, value added per worker (constant 2015 US$)",
+      "unit": "constant 2015 US$ per worker",
+      "definition": "Services industries correspond to ISIC (Rev. 4) divisions 45-99 and includes wholesale and retail trade, repair of motor vehicles, hotels and restaurants, transport, storage and communication, financial intermediation, real estate, renting and business activities, public administration and defence, compulsory social security, education, health and social work, other community, social and personal service activities, private households with employed persons, and extra-territorial organizations and bodies. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. The core indicator has been divided by the number of workers in the economy to derive a measure of labor productivity. This indicator is expressed in constant prices, meaning the series has been adjusted to account for price changes over time. The reference year for this adjustment is 2015. This indicator is expressed in United States dollars.",
+      "sourceOrganizations": "World Development Indicators database, World Bank (WB);\nILOSTAT database, International Labour Organization (ILO)",
+      "landingPage": "https://data.worldbank.org/indicator/NV.SRV.EMPL.KD",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 180,
+      "numericCountryYears": 5510,
+      "unavailableCountryYears": 790,
+      "coverageByYear": {
+        "1991": 106,
+        "1992": 107,
+        "1993": 111,
+        "1994": 115,
+        "1995": 137,
+        "1996": 138,
+        "1997": 141,
+        "1998": 142,
+        "1999": 144,
+        "2000": 152,
+        "2001": 153,
+        "2002": 156,
+        "2003": 158,
+        "2004": 158,
+        "2005": 159,
+        "2006": 165,
+        "2007": 165,
+        "2008": 169,
+        "2009": 170,
+        "2010": 174,
+        "2011": 174,
+        "2012": 175,
+        "2013": 176,
+        "2014": 176,
+        "2015": 180,
+        "2016": 175,
+        "2017": 175,
+        "2018": 175,
+        "2019": 174,
+        "2020": 174,
+        "2021": 174,
+        "2022": 173,
+        "2023": 170,
+        "2024": 169,
+        "2025": 150
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "services-per-worker.csv.gz",
+      "fileSha256": {
+        "services-per-worker.json": "da3fc3f97065487afcd19d6a7abf5d335647e23474e995fbec68c695d54c8285",
+        "services-per-worker.csv.gz": "be40978bc4d8edd29eab4e362675b21bf83e6a62f45760f24186996343251183"
+      }
+    }
+  },
+  "methodology": {
+    "source": "World Bank World Development Indicators and International Labour Organization ILOSTAT.",
+    "glossaries": {
+      "agriculture-per-worker": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.AGR.EMPL.KD",
+      "industry-per-worker": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.IND.EMPL.KD",
+      "services-per-worker": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.SRV.EMPL.KD"
+    },
+    "measure": "Annual sector value added at constant 2015 prices, in US dollars, divided by the number of people employed in that sector. WDI publishes this indicator directly.",
+    "classification": "ISIC Revision 4 divisions 01–03 cover agriculture, forestry and fishing. Divisions 05–43 cover industry including construction. Divisions 45–99 cover services.",
+    "interpretation": "This is an average of value added per employed person. Differences in hours worked and in national accounts coverage and methods can affect comparisons. Dollar levels use the published constant US dollar series, without a purchasing power parity adjustment.",
+    "metadataNote": "The services long definition uses a general reference to workers in the economy. The statistical methodology explicitly identifies the denominator for sector labor productivity as workers employed in the sector."
+  },
+  "sourceArchive": {
+    "filename": "sector-productivity-sources.zip",
+    "sha256": "3f5b630c44a81ed732edb19c8ff47ff6803a3e078036b08ea2dee10041754fa6"
+  }
+}

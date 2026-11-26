@@ -1,0 +1,129 @@
+{
+  "title": "Gross Rent as a Percentage of Household Income in the Past 12 Months",
+  "publisher": "U.S. Census Bureau",
+  "table": "B25070",
+  "product": "American Community Survey 2020–2024 5-year detailed estimates; Puerto Rico Community Survey for Puerto Rico",
+  "period": "2020–2024",
+  "retrieved": "2026-11-23",
+  "universe": "Renter-occupied housing units",
+  "geography": "All ACS summary level 050 counties and county equivalents in the 50 states, DC and Puerto Rico, using Census geography for this edition.",
+  "sources": [
+    {
+      "filename": "acsdt5y2024-b25070.dat",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/data/5YRData/acsdt5y2024-b25070.dat",
+      "bytes": 46466758,
+      "sha256": "862ccc17d913305d11e6f802ce4518d76b30585ea0b05b251cd8cf21f8661386"
+    },
+    {
+      "filename": "Geos20245YR.txt",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/documentation/Geos20245YR.txt",
+      "bytes": 90707242,
+      "sha256": "b87a1d1a4db9f826d0d133d20cbf7d011932f9ec2cfa74eacf8c9cf387aea344"
+    },
+    {
+      "filename": "ACS20245YR_Table_Shells.txt",
+      "url": "https://www2.census.gov/programs-surveys/acs/summary_file/2024/table-based-SF/documentation/ACS20245YR_Table_Shells.txt",
+      "bytes": 5622840,
+      "sha256": "5b46f4af873744a415c4974204010db976e2a61ff916674732f81c496a6b517d"
+    },
+    {
+      "filename": "ACS2024_5YR_county_replicates_B25070.csv.zip",
+      "url": "https://www2.census.gov/programs-surveys/acs/replicate_estimates/2024/data/5-year/050/B25070.csv.zip",
+      "bytes": 5121239,
+      "sha256": "8233eac67869b801310bed218068f33a866ddbf651232d31d197ec8ffa69e721"
+    },
+    {
+      "filename": "VRE_AVERAGE_WEIGHT_2024.csv",
+      "url": "https://www2.census.gov/programs-surveys/acs/replicate_estimates/2024/documentation/5-year/VRE_AVERAGE_WEIGHT_2024.csv",
+      "bytes": 866,
+      "sha256": "8f5b0409ee5d61ad5426d54711a07a495881ce2997362f04452c197ef1f0e5d0"
+    }
+  ],
+  "variableDefinitions": "https://api.census.gov/data/2024/acs/acs5/groups/B25070.html",
+  "uncertaintyGuide": "https://www2.census.gov/programs-surveys/acs/replicate_estimates/2024/documentation/5-year/2020-2024_Variance_Replicate_Table_Documentation.pdf",
+  "lines": [
+    {
+      "id": "001",
+      "label": "Total"
+    },
+    {
+      "id": "002",
+      "label": "Less than 10.0 percent"
+    },
+    {
+      "id": "003",
+      "label": "10.0 to 14.9 percent"
+    },
+    {
+      "id": "004",
+      "label": "15.0 to 19.9 percent"
+    },
+    {
+      "id": "005",
+      "label": "20.0 to 24.9 percent"
+    },
+    {
+      "id": "006",
+      "label": "25.0 to 29.9 percent"
+    },
+    {
+      "id": "007",
+      "label": "30.0 to 34.9 percent"
+    },
+    {
+      "id": "008",
+      "label": "35.0 to 39.9 percent"
+    },
+    {
+      "id": "009",
+      "label": "40.0 to 49.9 percent"
+    },
+    {
+      "id": "010",
+      "label": "50.0 percent or more"
+    },
+    {
+      "id": "011",
+      "label": "Not computed"
+    }
+  ],
+  "counts": {
+    "counties": 3222,
+    "usCounties": 3144,
+    "puertoRicoMunicipios": 78,
+    "stateEquivalentAreas": 52,
+    "countiesWithComputedShare": 3222
+  },
+  "derivations": {
+    "computed": "E001 minus E011, equivalent to the sum of E002–E010 for every full-sample county estimate.",
+    "burden30": "Sum E007, E008, E009 and E010. These categories represent gross rent of at least 30 percent of household income.",
+    "burden50": "E010: gross rent of at least 50 percent of household income.",
+    "share30/share50": "100 times the matching count divided by computed. Zero denominators are unavailable.",
+    "sourceMoes": "Published 90% margins of error for the original 11 count estimates, in housing units. CSV retains the source integer values.",
+    "share30Moe/share50Moe": "Derived 90% margins in percentage points, using Census successive difference replication. Recompute each percentage for all 80 replicates, then multiply the square root of (4/80) times the sum of squared deviations from the full-sample percentage by 1.645. Keep signed replicate counts. A replicate denominator of zero contributes a replicate percentage of zero, following Census guidance.",
+    "boundaryModel": "For a full-sample share of zero or 100, or an uncontrolled zero replicate variance, use Census VRE guide equations 4 and 5 with the state average weight: p*=min(0.5,2.3*weight/computed); MOE=100*1.645*sqrt(p*(1-p)*weight/computed), with p=p*. Both share MOE method fields identify the method used."
+  },
+  "geographicKey": "Five-digit state and county FIPS, stored as text. Municipalities and county-equivalent areas retain Census names.",
+  "reference": "Estimates describe a pooled five-year period. Count totals, all nine rent-ratio categories, the published not-computed category and all eleven original margins were reconciled against the county variance replicate release.",
+  "csvFields": "geoid, name, state, state_name, period; B25070_E### and B25070_M### are source count estimates and margins. Computed counts, percentages and MOEs follow as named derived fields.",
+  "uncertaintyMethodCounts": {
+    "30": {
+      "80 Census replicates": 3210,
+      "Census boundary model": 12
+    },
+    "50": {
+      "80 Census replicates": 3190,
+      "Census boundary model": 32
+    }
+  },
+  "publishedFiles": {
+    "rent.csv": {
+      "bytes": 831593,
+      "sha256": "eb51751030c180b10e5bbd22147573fdcd33548ec3a78fa1a5ca1d933647cb48"
+    },
+    "rent.json": {
+      "bytes": 1325192,
+      "sha256": "11ab52fe32afa715521eef1f1db161b792ea4554e01b38ef0c436678986c0936"
+    }
+  }
+}

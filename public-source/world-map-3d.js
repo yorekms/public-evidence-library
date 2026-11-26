@@ -3,7 +3,7 @@
 'use strict';
 const global=typeof window==='undefined'?globalThis:window;
 const finite=value=>(typeof value==='number'||typeof value==='string'&&value.trim()!=='')&&Number.isFinite(Number(value));
-const DEFAULT_CAMERA=Object.freeze({elevation:80,azimuth:-90,height_scale:1,zoom:1.3});
+const DEFAULT_CAMERA=Object.freeze({elevation:58,azimuth:-90,height_scale:1,zoom:1});
 function sceneInput(data){
  const series=data.series,groups=new Map();
  for(const original of data.records){if(!finite(original.year)||!Number.isInteger(Number(original.year)))continue;const key=JSON.stringify([String(original.geo_id),Number(original.year)]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(original);}
@@ -33,7 +33,7 @@ async function mount({host,data,loadJSON,isCurrent=()=>true,onSelectPlace,year,p
  if(!global.PublicDataMapScene||!global.PublicWorkbenchScene)throw Error('The original 3D drawing libraries could not load.');
  const input=sceneInput(data),geometry=await loadJSON('/workbench/data/map-geometry/'+input.series.scope+'.json');
  const extended=input.years.at(-1)-input.years[0]>79,lockedScale=extended?fullHistoryScale(input,geometry):null,scenes=new Map(),pending=new Map();let templatePromise=null;
- const openingCamera={...DEFAULT_CAMERA,zoom:host.clientWidth>0&&host.clientWidth<1000?1:DEFAULT_CAMERA.zoom};
+ const openingCamera={...DEFAULT_CAMERA};
  let renderer=null,closed=false,currentYear=year,currentPlace=place,camera={...openingCamera},generation=0,windowStatus=null;
  async function missingWindow(range){
   const ids=new Set(geometry.features.map(f=>String(f.id)));
@@ -73,7 +73,7 @@ async function mount({host,data,loadJSON,isCurrent=()=>true,onSelectPlace,year,p
   return sceneFor(currentYear).then(next=>{if(closed||!isCurrent()||ticket!==generation)return;activeScene=next;if(windowStatus)windowStatus.textContent='';draw();}).catch(error=>{if(!closed&&isCurrent()&&ticket===generation&&windowStatus)windowStatus.textContent='The 3D source-year view could not load: '+error.message+' The color map and complete source rows remain available.';});
  }
  try{
-  renderer=global.PublicDataMapScene.mount(sceneHost,{onSelectPlace:id=>{if(!closed&&isCurrent())onSelectPlace?.(id);},onCameraChange:next=>{camera={...camera,...next};syncCamera();}});
+  renderer=global.PublicDataMapScene.mount(sceneHost,{homeCamera:openingCamera,onSelectPlace:id=>{if(!closed&&isCurrent())onSelectPlace?.(id);},onCameraChange:next=>{camera={...camera,...next};syncCamera();}});
   for(const[label,key,min,max,step]of[['Tilt','elevation',15,80,1],['Rotate','azimuth',-180,180,1],['Height emphasis','height_scale',.2,2,.05]]){
    const wrap=document.createElement('label');wrap.append(document.createTextNode(label+' '));const output=document.createElement('output'),input=document.createElement('input');input.type='range';input.min=String(min);input.max=String(max);input.step=String(step);input.setAttribute('aria-label',label+' of 3D map');wrap.append(output,input);outputs.push({key,input,output});input.addEventListener('input',()=>{camera[key]=Number(input.value);syncCamera();paint();});controls.append(wrap);
   }

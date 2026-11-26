@@ -73,7 +73,9 @@ async function geography(scope,projected=false){
  const key=(projected?'map-geometry/':'geography/')+scope;
  if(!['world','us_states','us_counties','virginia'].includes(scope))throw Error('This source has no native display geometry. Use its source table or history.');
  if(!geometryCache.has(key)){
-  geometryCache.set(key,readJSON('/workbench/data/'+key+'.json').catch(error=>{
+  // County outlines are retained as geographic coordinates and projected on demand.
+  const packed=projected && scope==='us_counties'?Promise.reject(new Error('Project county outlines')):readJSON('/workbench/data/'+key+'.json');
+  geometryCache.set(key,packed.catch(error=>{
    if(projected){
     return geography(scope,false).then(geo=>{
      const d3=root.d3;if(!d3)throw error;
@@ -84,14 +86,15 @@ async function geography(scope,projected=false){
       else proj=(d3.geoEqualEarth?d3.geoEqualEarth():d3.geoNaturalEarth1()).fitExtent([[4.35,-18],[95.65,58]],geo);
      }catch{proj=d3.geoMercator().fitExtent([[4.35,-18],[95.65,58]],geo);}
      if(!proj)proj=d3.geoMercator().fitExtent([[4.35,-18],[95.65,58]],geo);
+     const projectPoint=pt=>{const xy=proj(pt);return xy && xy.every(Number.isFinite)?[xy[0],40-xy[1]]:null;};
      const features=geo.features.map(f=>{
       const id=String(f.id??f.properties?.GEOID??f.properties?.id);
       const name=f.properties?.name||f.properties?.NAMELSAD||id;
-      let centroid=null;try{const c=d3.geoCentroid(f);centroid=c&&proj(c)?proj(c):null;}catch{}
+      let centroid=null;try{const c=d3.geoCentroid(f);centroid=c?projectPoint(c):null;}catch{}
       const coords=f.geometry.type==='Polygon'?[f.geometry.coordinates]:f.geometry.type==='MultiPolygon'?f.geometry.coordinates:[];
-      const polygons=coords.map(poly=>poly.map(ring=>ring.map(p=>proj(p)).filter(Boolean)).filter(r=>r.length>=3)).filter(p=>p.length>0);
+      const polygons=coords.map(poly=>poly.map(ring=>ring.map(projectPoint).filter(Boolean)).filter(r=>r.length>=3)).filter(p=>p.length>0);
       return{id,name,centroid,inset:false,polygons};
-     });
+     }).filter(f=>f.polygons.length);
      return{schema:'workbench.projected-geometry/v1',scope,features,bounds:[[4.35,-18],[95.65,58]],provenance:{projection:'Dynamic browser-projected geometry'}};
     });
    }

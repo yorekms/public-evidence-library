@@ -1,0 +1,183 @@
+{
+  "publisher": "World Bank",
+  "database": "World Development Indicators",
+  "sourceId": "2",
+  "retrieved": "2026-11-23",
+  "sourceRelease": "2026-11-11",
+  "frequency": "Annual",
+  "license": {
+    "name": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "geography": "World Bank countries and economies with a non-aggregate region and at least one published value in the series. Codes follow the World Bank registry, including XKX for Kosovo.",
+  "transformations": "Rows are grouped under their source economy codes. All years within the observed series span appear. Null in JSON and blank in CSV represent an unavailable observation. Numeric values retain the precision returned by the publisher. Explicit zeros and status codes are retained.",
+  "validation": "Each observation from the API for every non-aggregate economy, including unavailable years, was checked for equality with its entry in the separately downloaded official wide CSV release.",
+  "sourceFiles": {
+    "registry.json.gz": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "sourceSha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "agriculture-employment.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SL.AGR.EMPL.ZS?source=2&format=json&per_page=30000",
+      "sourceSha256": "d3ddfb058d844879868a0e42e5c211b57a1897b68b70467f5e8ad6c829c316d7"
+    },
+    "agriculture-employment-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/SL.AGR.EMPL.ZS?format=json&source=2",
+      "sourceSha256": "c57a5d67bf62cb9f83bf1a34ef6f0acc9c20edc0ca810e3da24c5cdc9b69c6d1"
+    },
+    "agriculture-employment-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SL.AGR.EMPL.ZS?downloadformat=csv",
+      "sourceSha256": "3b5e81a8215cf08fa12638da062cc9458048fa0ba9293f51d4e5021f29c99b79"
+    },
+    "services-employment.json.gz": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SL.SRV.EMPL.ZS?source=2&format=json&per_page=30000",
+      "sourceSha256": "dc1ffb9634e22759d568c57f70ffa47edbe171166b1317e860e0215740c897d9"
+    },
+    "services-employment-metadata.json.gz": {
+      "url": "https://api.worldbank.org/v2/indicator/SL.SRV.EMPL.ZS?format=json&source=2",
+      "sourceSha256": "ab6a368a1a423e212210adbe97e341513942e3c3bf1c589fee59cb988dc4c86a"
+    },
+    "services-employment-validation.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SL.SRV.EMPL.ZS?downloadformat=csv",
+      "sourceSha256": "a7bd2afc4d76a9c8058aa1debc91605b6ded3149b6cba04466d7c273aa8a3998"
+    }
+  },
+  "series": {
+    "agriculture-employment": {
+      "code": "SL.AGR.EMPL.ZS",
+      "name": "Employment in agriculture (% of total employment) (modeled ILO estimate)",
+      "unit": "% of total employment",
+      "definition": "Employment is defined as persons of working age who were engaged in any activity to produce goods or provide services for pay or profit, whether at work during the reference period or not at work due to temporary absence from a job, or to working-time arrangement. The agriculture sector consists of activities in agriculture, hunting, forestry and fishing, in accordance with division 1 (ISIC 2) or categories A-B (ISIC 3) or category A (ISIC 4).",
+      "sourceOrganizations": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+      "landingPage": "https://data.worldbank.org/indicator/SL.AGR.EMPL.ZS",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 187,
+      "numericCountryYears": 6531,
+      "unavailableCountryYears": 14,
+      "coverageByYear": {
+        "1991": 187,
+        "1992": 187,
+        "1993": 187,
+        "1994": 187,
+        "1995": 187,
+        "1996": 187,
+        "1997": 187,
+        "1998": 187,
+        "1999": 187,
+        "2000": 187,
+        "2001": 187,
+        "2002": 187,
+        "2003": 187,
+        "2004": 187,
+        "2005": 187,
+        "2006": 187,
+        "2007": 187,
+        "2008": 187,
+        "2009": 187,
+        "2010": 187,
+        "2011": 187,
+        "2012": 187,
+        "2013": 187,
+        "2014": 187,
+        "2015": 187,
+        "2016": 187,
+        "2017": 187,
+        "2018": 187,
+        "2019": 187,
+        "2020": 187,
+        "2021": 187,
+        "2022": 186,
+        "2023": 184,
+        "2024": 182,
+        "2025": 182
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "agriculture-employment.csv.gz",
+      "fileSha256": {
+        "agriculture-employment.json": "7f8c38c6d26bbb7bb93af3c80bf5d14c3f5f0197ea855ec21bf888c9da3d3725",
+        "agriculture-employment.csv.gz": "727893a271c75bbe4db959cfffd24282f8bb5201fb5f1f71f9c9d467bb650d28"
+      }
+    },
+    "services-employment": {
+      "code": "SL.SRV.EMPL.ZS",
+      "name": "Employment in services (% of total employment) (modeled ILO estimate)",
+      "unit": "% of total employment",
+      "definition": "Employment is defined as persons of working age who were engaged in any activity to produce goods or provide services for pay or profit, whether at work during the reference period or not at work due to temporary absence from a job, or to working-time arrangement. The services sector consists of wholesale and retail trade and restaurants and hotels; transport, storage, and communications; financing, insurance, real estate, and business services; and community, social, and personal services, in accordance with divisions 6-9 (ISIC 2) or categories G-Q (ISIC 3) or categories G-U (ISIC 4).",
+      "sourceOrganizations": "ILO Modelled Estimates database (ILOEST), International Labour Organization (ILO), uri: https://ilostat.ilo.org/data/bulk/, publisher: ILOSTAT, type: external database, date accessed: January 17, 2026",
+      "landingPage": "https://data.worldbank.org/indicator/SL.SRV.EMPL.ZS",
+      "license": "CC BY 4.0",
+      "first": 1991,
+      "last": 2025,
+      "economies": 187,
+      "numericCountryYears": 6531,
+      "unavailableCountryYears": 14,
+      "coverageByYear": {
+        "1991": 187,
+        "1992": 187,
+        "1993": 187,
+        "1994": 187,
+        "1995": 187,
+        "1996": 187,
+        "1997": 187,
+        "1998": 187,
+        "1999": 187,
+        "2000": 187,
+        "2001": 187,
+        "2002": 187,
+        "2003": 187,
+        "2004": 187,
+        "2005": 187,
+        "2006": 187,
+        "2007": 187,
+        "2008": 187,
+        "2009": 187,
+        "2010": 187,
+        "2011": 187,
+        "2012": 187,
+        "2013": 187,
+        "2014": 187,
+        "2015": 187,
+        "2016": 187,
+        "2017": 187,
+        "2018": 187,
+        "2019": 187,
+        "2020": 187,
+        "2021": 187,
+        "2022": 186,
+        "2023": 184,
+        "2024": 182,
+        "2025": 182
+      },
+      "publishedZeroYearsByEconomy": {},
+      "statusCounts": {},
+      "download": "services-employment.csv.gz",
+      "fileSha256": {
+        "services-employment.json": "6366ff8902b58894805dbd8c4d364171cdb38ffdf6bcac608ce0e82901a100e3",
+        "services-employment.csv.gz": "c753f05f6359a7996aa0920f178758b189814d4763fcc8863293537d21503794"
+      }
+    }
+  },
+  "methodology": {
+    "source": "International Labour Organization, ILO Modelled Estimates (ILOEST), distributed by World Bank WDI",
+    "sourceProgram": "https://ilostat.ilo.org/data/bulk/",
+    "glossaries": {
+      "agriculture-employment": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SL.AGR.EMPL.ZS",
+      "services-employment": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/SL.SRV.EMPL.ZS"
+    },
+    "classification": "Agriculture includes forestry, hunting and fishing. Services include trade, hospitality, transport, communications, finance, business, public and personal services. Each sector uses total employment as its denominator.",
+    "interpretation": "The ILO series combines national observations and modeled estimates. This WDI extract provides no per-observation imputation flag. The publisher cautions against country comparisons or rankings based on imputed observations. Changes in percentage points describe the employment mix within an economy.",
+    "relatedSeries": {
+      "industry": {
+        "code": "SL.IND.EMPL.ZS",
+        "provenance": "employment-provenance.json"
+      }
+    }
+  },
+  "sourceArchive": {
+    "filename": "employment-sectors-sources.zip",
+    "sha256": "734efc3bbc0750718a3c535dea78bc8d97f3405f5d15c308ce331dbf067a3fc2"
+  }
+}

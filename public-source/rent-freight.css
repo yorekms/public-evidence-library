@@ -1,0 +1,61 @@
+.rf-controls {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr))}
+.rf-controls label {min-width:0}
+.rf-bars {display:grid;gap:.5rem;margin:.8rem 0}
+.rf-bar {display:grid;grid-template-columns:minmax(9rem,1fr) minmax(4rem,2fr) auto;align-items:center;gap:.8rem;font-size:.92rem}
+.rf-rail {height:.65rem;background:#e3eae1;border-radius:2px}
+.rf-fill {height:100%;background:#49806a;border-radius:2px}
+.rf-bar[data-burden="true"] .rf-fill {background:#9b6534}
+.rf-link {display:inline-block;margin-top:.5rem}
+.rf-map-flow {pointer-events:none}
+.rf-plot {margin:1rem 0;max-width:60rem}
+.rf-plot svg {width:100%;height:auto;display:block}
+.rf-plot text {font:14px Arial,sans-serif;fill:#40544b}
+.rf-series-label {display:inline-flex;align-items:center;gap:.35rem;margin-right:1.25rem;font-weight:600}
+.rf-sector-history {scroll-margin-top:1rem}
+.rf-sector-history summary {cursor:pointer;font-weight:600;padding:.6rem 0;color:#245b48}
+.rf-sector-history .hr-table-scroll {width:100%;max-width:60rem}
+.rf-sector-history th[scope="row"] {position:static;background:transparent}
+.rf-sector-history .hr-records {border:0;padding:0}
+.rf-sector-history .hr-records h2 {font-size:1.3rem}
+.rf-sector-history .hr-note:last-child {max-width:84ch}
+.rf-history-legend {display:flex;flex-wrap:wrap;row-gap:.35rem}
+@media(max-width:620px){.rf-controls {grid-template-columns:repeat(2,minmax(0,1fr))}.rf-controls label:first-child {grid-column:span 2}.rf-bar{grid-template-columns:minmax(6.4rem,1fr) minmax(3rem,1fr) auto;font-size:.85rem;gap:.45rem}.rf-plot text{font-size:15px}}
+
+@media (min-width: 60rem) {
+  .country-controls {grid-template-columns: minmax(13rem, 1.4fr) repeat(2, minmax(9rem, 1.1fr)) repeat(2, minmax(7rem, .8fr));}
+}
+
+.rf-sector-history > .hr-table-scroll :is(td,th):not(:first-child) {text-align:right}
+.rf-sector-history > .hr-table-scroll thead th {white-space:normal}
+@media (max-width:620px) {
+  .rf-sector-history > .hr-table-scroll :is(td,th) {padding:.45rem .25rem;font-size:.84rem}
+}
+
+.rf-trend-control {display:block;width:fit-content;margin:.75rem 0;padding:0;background:none;border:0}
+.rf-trend-control label {min-width:12rem}
+.rf-sector-history caption {text-align:left;color:#40544b;font-weight:600;padding:.4rem 0}
+.rf-growth,.rf-dollar-change {display:block}
+.rf-dollar-change {font-size:.88em}
+.rf-change-downloads {margin:1rem 0}.rf-change-downloads summary {cursor:pointer;font-weight:600;color:#245b48}
+
+.rf-status-snapshot { margin: .9rem 0 1.1rem; }
+.rf-status-bar { display: flex; height: .95rem; margin: .35rem 0; border-radius: .25rem; overflow: hidden; }
+.rf-status-values { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; font-variant-numeric: tabular-nums; font-size: .92rem; }
+
+.rf-power-charts {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+.rf-power-scatter {max-width:34rem;margin:1rem auto}
+.rf-power-scatter svg {display:block;width:100%;height:auto}
+.rf-power-scatter text {font:12px system-ui,sans-serif;fill:#344d40}
+.rf-power-scatter circle {cursor:pointer}
+@media(max-width:850px){.rf-power-charts{grid-template-columns:minmax(0,1fr)}}
+
+@media (min-width:60rem) {
+  .country-controls:has(#mix-sector) {grid-template-columns:repeat(4,minmax(0,1fr))}
+  .country-controls:has(#mix-sector) label:first-child,
+  .country-controls label:has(#mix-sector) {grid-column:span 2}
+}
+@media (max-width:620px) {
+  .country-controls label:has(#mix-sector),
+  .country-controls label:has(#mix-measure),
+  .country-controls label:has(#industry-metric) {grid-column:span 2}
+}

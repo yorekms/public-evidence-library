@@ -1,0 +1,100 @@
+{
+  "name": "Real manufacturing value added per resident",
+  "publisher": "World Bank, World Development Indicators",
+  "first": 1960,
+  "last": 2025,
+  "release": "2026-11-11",
+  "retrieved": "2026-11-24",
+  "sources": [
+    {
+      "code": "NV.IND.MANF.KD",
+      "title": "Manufacturing, value added (constant 2015 US$)",
+      "definition": "Manufacturing includes industries classified in ISIC (Rev. 3) major division C and is defined as the physical or chemical transformation of materials or components into new products. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed in constant prices, meaning the series has been adjusted to account for price changes over time. The reference year for this adjustment is 2015. This indicator is expressed in United States dollars.",
+      "publisherSources": "Country official statistics, National Statistical Offices (NSOs);\nNational Accounts data files, Central Banks;\nStaff estimates, World Bank (WB)",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/NV.IND.MANF.KD",
+      "numericObservations": 7491,
+      "verifiedCellsIncludingMissing": 14322
+    },
+    {
+      "code": "SP.POP.TOTL",
+      "title": "Population, total",
+      "definition": "Total population is based on the de facto definition of population, which counts all residents regardless of legal status or citizenship. The values shown are midyear estimates.",
+      "publisherSources": "World Population Prospects, United Nations (UN), uri: https://population.un.org/wpp/, publisher: UN Population Division;\nStatistical databases and publications from national statistical offices, National Statistical Offices (NSOs), uri: https://unstats.un.org/home/nso_sites/, publisher: National Statistical Offices;\nEurostat: Demographic Statistics, Eurostat (ESTAT), uri: https://ec.europa.eu/eurostat/data/database?node_code=earn_ses_monthly, publisher: Eurostat;\nPopulation and Vital Statistics Report (various years), United Nations (UN), uri: https://unstats.un.org, publisher: UN Statistics Division",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/SP.POP.TOTL",
+      "numericObservations": 14292,
+      "verifiedCellsIncludingMissing": 14322
+    }
+  ],
+  "classification": {
+    "publisher": "United Nations Statistics Division, M49",
+    "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+    "regionCode": "002",
+    "rule": "Use ISO alpha-3 membership in UN M49 region 002 across all years. Include Northern Africa and Sub-Saharan Africa."
+  },
+  "fields": [
+    "economy_code",
+    "economy",
+    "africa",
+    "year",
+    "manufacturing_value_added_constant_2015_USD",
+    "population",
+    "manufacturing_value_added_per_person_constant_2015_USD",
+    "manufacturing_obs_status",
+    "population_obs_status"
+  ],
+  "jsonRowFields": [
+    "year",
+    "manufacturing_value_added_constant_2015_USD",
+    "population",
+    "manufacturing_value_added_per_person_constant_2015_USD",
+    "manufacturing_obs_status",
+    "population_obs_status"
+  ],
+  "calculation": "Divide manufacturing value added in constant 2015 US dollars by the midyear resident population of the same economy and published year. Require both observations and a strictly positive population; retain each independently published input. Positive starting values are required for growth rates. No interpolation.",
+  "coverage": "Include non-aggregate World Bank economies with at least one published value in either source. Distinct UN areas with no corresponding World Bank series remain in the African geography list. The denominator is resident population, including people of all ages and employment statuses.",
+  "validation": "Both original API responses were checked cell by cell, including missing values, against the separate bulk CSVs using exact decimal arithmetic. The CSV preserves original source decimals and World Bank observation-status values. Per-resident values are published at double precision.",
+  "economiesWithEither": 217,
+  "economiesWithBoth": 194,
+  "matchedCountryYears": 7491,
+  "africanAreas": 60,
+  "africanEconomiesWithEither": 54,
+  "africanEconomiesWithBoth": 49,
+  "africanMatchedCountryYears": 1885,
+  "originalArchive": "manufacturing-per-person-sources.zip",
+  "sourceFiles": {
+    "country-registry.json": {
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000",
+      "sha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448"
+    },
+    "manufacturing-bulk.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.IND.MANF.KD?downloadformat=csv",
+      "sha256": "4192db952d764cad4e6a57d2364c0fc25305cfaf1e112f93d7ac03580c28aeb8"
+    },
+    "manufacturing-metadata.json": {
+      "url": "https://api.worldbank.org/v2/indicator/NV.IND.MANF.KD?format=json&source=2",
+      "sha256": "c15aad801333fa63ddc1a085f130f37054e406f267022cd6f5703a501d932236"
+    },
+    "manufacturing.json": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.IND.MANF.KD?source=2&format=json&per_page=30000",
+      "sha256": "cd2da459948efda16e3dc712c51b9367d7e8693e617e0648b499d1b5ee2c4221"
+    },
+    "population-bulk.zip": {
+      "url": "https://api.worldbank.org/v2/en/indicator/SP.POP.TOTL?downloadformat=csv",
+      "sha256": "f9340a4c8ffad67dfd6b50b6753e234c15f4024611687f3ff22a55cd6d275fde"
+    },
+    "population-metadata.json": {
+      "url": "https://api.worldbank.org/v2/indicator/SP.POP.TOTL?format=json&source=2",
+      "sha256": "2f8491efc00bf2c0995112ff8e87aba69e5e9d22d0880b22f7e3a4ec757ba05c"
+    },
+    "population.json": {
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?source=2&format=json&per_page=30000",
+      "sha256": "e8092a42864767e3cc66d9e2901851c5c694089bfcabeed2aef2ad8157a7fe36"
+    },
+    "un-m49-overview.html": {
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/",
+      "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb"
+    }
+  }
+}

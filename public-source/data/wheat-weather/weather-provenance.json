@@ -1,0 +1,106 @@
+{
+  "title": "Virginia county summer precipitation and corn grain yield",
+  "prepared": "2026-11-23",
+  "period": [
+    2000,
+    2024
+  ],
+  "counts": {
+    "counties": 133,
+    "countyYears": 3325,
+    "pairedYears": 1485,
+    "countiesWithRain": 132,
+    "countiesWithYield": 91,
+    "rainOnly": 1815,
+    "yieldOnly": 0,
+    "neither": 25
+  },
+  "climate": {
+    "publisher": "NOAA National Centers for Environmental Information",
+    "dataset": "Monthly U.S. Climate Divisional Database (nClimDiv), county precipitation",
+    "datasetUrl": "https://doi.org/10.7289/V5M32STR",
+    "sourceUrl": "https://www.ncei.noaa.gov/pub/data/cirs/climdiv/climdiv-pcpncy-v1.0.0-20261105",
+    "edition": "2026-11-05",
+    "sourceSha256": "1f21b2435a29cc40369a4666a69b4f6d851643bad2811f7b8f1bab6521217b27",
+    "measurement": "Area-weighted county precipitation estimated from gridded station data, inches.",
+    "fileDocumentation": "https://www.ncei.noaa.gov/pub/data/cirs/climdiv/county-readme.txt",
+    "localDocumentation": "weather-sources/county-readme.txt",
+    "retainedSource": "weather-sources/virginia-noaa-2000-2024.txt.gz",
+    "extractSha256BeforeGzip": "4ddab81b83cc23edefdb8f8bc61e05aaad5e5baf40cd23e3d6ad8c0d24218425",
+    "selection": "Original full-year text records for NOAA state 44 and calendar years 2000 through 2024, inclusive.",
+    "calculation": "June, July and August each contribute the published monthly accumulation. The summer total requires all three months. NOAA precipitation sentinel -9.99 is missing."
+  },
+  "crop": {
+    "publisher": "USDA National Agricultural Statistics Service",
+    "dataset": "Quick Stats annual county survey estimates",
+    "seriesId": "nass-food::crops:counties:3cc956a1d4db2ca1",
+    "selection": {
+      "SOURCE_DESC": "SURVEY",
+      "SECTOR_DESC": "CROPS",
+      "GROUP_DESC": "FIELD CROPS",
+      "COMMODITY_DESC": "CORN",
+      "CLASS_DESC": "ALL CLASSES",
+      "PRODN_PRACTICE_DESC": "ALL PRODUCTION PRACTICES",
+      "UTIL_PRACTICE_DESC": "GRAIN",
+      "STATISTICCAT_DESC": "YIELD",
+      "UNIT_DESC": "BU / ACRE",
+      "SHORT_DESC": "CORN, GRAIN - YIELD, MEASURED IN BU / ACRE",
+      "DOMAIN_DESC": "TOTAL",
+      "DOMAINCAT_DESC": "NOT SPECIFIED",
+      "AGG_LEVEL_DESC": "COUNTY",
+      "FREQ_DESC": "ANNUAL",
+      "REFERENCE_PERIOD_DESC": "YEAR",
+      "BEGIN_CODE": "00",
+      "END_CODE": "00",
+      "WEEK_ENDING": ""
+    },
+    "source": {
+      "id": "nass-quickstats-crops-20261030",
+      "title": "USDA NASS Quick Stats crops public bulk snapshot,30October2026",
+      "publisher": "USDA NASS",
+      "url": "https://www.nass.usda.gov/datasets/",
+      "raw_download_url": "https://www.nass.usda.gov/datasets/qs.crops_20261030.txt.gz",
+      "raw_sha256": "8e37e04c141242f1746cf4be941076761deae034d6ff47c50a704ab6574b31b2",
+      "retrieved_utc": "2026-10-31T00:14:39.615428+00:00"
+    },
+    "fullDataIndex": "/full-data/index.json",
+    "sourceParts": [
+      {
+        "path": "/full-data/series/41596e3d8e6b22729e31-0001.json.gz",
+        "sha256": "c98e1e09e617d2ed47509543d188261da350af2ecefeb03743619ee4935972e9"
+      },
+      {
+        "path": "/full-data/series/41596e3d8e6b22729e31-0002.json.gz",
+        "sha256": "21d45c3b357a6ca9ded841443eff696a7eab1f4b6486522d9067892fbdaefcdb"
+      },
+      {
+        "path": "/full-data/series/41596e3d8e6b22729e31-0003.json.gz",
+        "sha256": "7d36573e3ebb96d193b0a5e55f3ae410dac2543cea10144c7dd963e403f331d8"
+      },
+      {
+        "path": "/full-data/series/41596e3d8e6b22729e31-0004.json.gz",
+        "sha256": "db15ac77d04570ce8fdfb6793c22e2f2cbc824b444dbbe522488ebde5365e566"
+      },
+      {
+        "path": "/full-data/series/41596e3d8e6b22729e31-0005.json.gz",
+        "sha256": "47ccd67c22f4e3ccc211ab1da059a4845fa9913e6abc85365cc2dbc3508a3cda"
+      },
+      {
+        "path": "/full-data/series/41596e3d8e6b22729e31-0006.json.gz",
+        "sha256": "c7ab0d5dfc737a4c01f5eee95c5b231dca6cf7e26578c0b2b1ae9c224dafaae4"
+      }
+    ],
+    "preservation": "The CSV carries original values, row numbers, survey status, load times and coefficients of variation. A literal backslash and zero in the CV field represents an original NUL (unavailable). Empty CV is retained as empty. Published zero yield is a numeric value."
+  },
+  "geography": {
+    "publisher": "U.S. Census Bureau",
+    "vintage": "2020",
+    "source": "https://www2.census.gov/geo/docs/reference/codes2020/cou/st51_va_cou2020.txt",
+    "retainedSource": "weather-sources/st51_va_cou2020.txt",
+    "sourceSha256": "c4f44a0414a9d9b37b737387011fac92b55ae287853cef5f0baa05507e28baf0",
+    "join": "Census state 51 and the three-digit county code match the USDA ANSI fields. NOAA state 44 is Virginia and NOAA specifies that its three-digit county field is county FIPS. Independent cities retain their own Census codes.",
+    "limits": "The 2020 list fixes the selectable geographic units. Source-year boundaries may vary. No adjustment for historical boundary changes or reassignment of discontinued localities is made."
+  },
+  "missingness": "Annual rows cover every listed place. Missing USDA rows describe the retained survey series only. No estimates are interpolated. County-level seasonal associations are descriptive.",
+  "download": "weather.csv"
+}

@@ -464,3 +464,11 @@ main>header .intro{max-width:1050px;font-size:14px;line-height:1.6;margin:8px 0}
     max-height: 380px;
   }
 }
+
+#map-card.raised-flow #map-wrap, #map-card.raised-flow .flow-hist-bar,
+#map-card.raised-flow .flow-studio-toolbar, #map-card.raised-flow .legend {display:none}
+#flow-raised-host, .flow-polygon-stage {min-width:0}
+#flow-region-detail:not(:empty) {padding:.6rem 1rem}
+#flow-region-detail label {display:grid;gap:.3rem}
+#flow-region-detail select {max-width:100%}
+#flow-mode-note:empty {display:none}

@@ -253,3 +253,5 @@
  .map-lab-timeline-inline{width:100%;justify-content:space-between}
  .map-lab-slider{flex:1}
 }
+
+.catalogue-supplements{display:flex;flex-wrap:wrap;gap:.65rem 1.25rem;margin:1rem 0}.catalogue-supplements a{font-weight:600}.catalogue-supplements[hidden],.catalogue-supplements a[hidden]{display:none}

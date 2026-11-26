@@ -1,0 +1,226 @@
+{
+  "name": "Manufacturing composition in Africa and around the world",
+  "producer": "United Nations Industrial Development Organization (UNIDO), International Yearbook of Industrial Statistics",
+  "distributor": "World Bank, World Development Indicators",
+  "sources": [
+    {
+      "key": "food",
+      "code": "NV.MNF.FBTO.ZS.UN",
+      "title": "Food, beverages and tobacco (% of value added in manufacturing)",
+      "unit": "% of value added in manufacturing",
+      "definition": "Manufacturing of food, beverages, and tobacco includes industries classified in ISIC (Rev. 3) divisions 15 and 16. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed as a percentage of value added in manufacturing which is the contribution to the economy by the manufacturing sector (ISIC Rev. 3 major division D).",
+      "originalSource": "International Yearbook of Industrial Statistics, UN Industrial Development Organization (UNIDO)",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/NV.MNF.FBTO.ZS.UN",
+      "metadataGlossary": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.MNF.FBTO.ZS.UN",
+      "numericObservations": 5779,
+      "apiCsvCellsCrossChecked": 14322,
+      "minimum": -62.5735240723259,
+      "maximum": 98.490924877,
+      "belowZero": 3,
+      "aboveOneHundred": 0,
+      "trueZeros": 0,
+      "nonemptyStatusCodes": []
+    },
+    {
+      "key": "textiles",
+      "code": "NV.MNF.TXTL.ZS.UN",
+      "title": "Textiles and clothing (% of value added in manufacturing)",
+      "unit": "% of value added in manufacturing",
+      "definition": "Textiles and clothing refers to industries in ISIC (rev. 3) divisions 17-19 and includes manufacturing of textiles, apparel, dyeing of fur, and tanning of leather. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed as a percentage of value added in manufacturing which is the contribution to the economy by the manufacturing sector (ISIC Rev. 3 major division D).",
+      "originalSource": "International Yearbook of Industrial Statistics, UN Industrial Development Organization (UNIDO)",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/NV.MNF.TXTL.ZS.UN",
+      "metadataGlossary": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.MNF.TXTL.ZS.UN",
+      "numericObservations": 5751,
+      "apiCsvCellsCrossChecked": 14322,
+      "minimum": -53.5718588121913,
+      "maximum": 108.162079732772,
+      "belowZero": 8,
+      "aboveOneHundred": 1,
+      "trueZeros": 22,
+      "nonemptyStatusCodes": []
+    },
+    {
+      "key": "machinery",
+      "code": "NV.MNF.MTRN.ZS.UN",
+      "title": "Machinery and transport equipment (% of value added in manufacturing)",
+      "unit": "% of value added in manufacturing",
+      "definition": "Machinery and transport equipment manufacturing includes industries classified in ISIC (Rev. 3) divisions 29-35. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed as a percentage of value added in manufacturing which is the contribution to the economy by the manufacturing sector (ISIC Rev. 3 major division D).",
+      "originalSource": "International Yearbook of Industrial Statistics, UN Industrial Development Organization (UNIDO)",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/NV.MNF.MTRN.ZS.UN",
+      "metadataGlossary": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.MNF.MTRN.ZS.UN",
+      "numericObservations": 5410,
+      "apiCsvCellsCrossChecked": 14322,
+      "minimum": -1.94742298714082,
+      "maximum": 140.821163207789,
+      "belowZero": 6,
+      "aboveOneHundred": 16,
+      "trueZeros": 94,
+      "nonemptyStatusCodes": []
+    },
+    {
+      "key": "chemicals",
+      "code": "NV.MNF.CHEM.ZS.UN",
+      "title": "Chemicals (% of value added in manufacturing)",
+      "unit": "% of value added in manufacturing",
+      "definition": "Manufacturing of chemicals and chemical products includes industries classified in ISIC (Rev. 3) division 24. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed as a percentage of value added in manufacturing which is the contribution to the economy by the manufacturing sector (ISIC Rev. 3 major division D).",
+      "originalSource": "International Yearbook of Industrial Statistics, UN Industrial Development Organization (UNIDO)",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/NV.MNF.CHEM.ZS.UN",
+      "metadataGlossary": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.MNF.CHEM.ZS.UN",
+      "numericObservations": 5462,
+      "apiCsvCellsCrossChecked": 14322,
+      "minimum": -66.7722772277228,
+      "maximum": 91.6213014701127,
+      "belowZero": 20,
+      "aboveOneHundred": 0,
+      "trueZeros": 7,
+      "nonemptyStatusCodes": []
+    },
+    {
+      "key": "other",
+      "code": "NV.MNF.OTHR.ZS.UN",
+      "title": "Other manufacturing (% of value added in manufacturing)",
+      "unit": "% of value added in manufacturing",
+      "definition": "Other manufacturing, a residual, covers wood and related products (ISIC Rev. 3 division 20), paper and related products (ISIC Rev. 3 divisions 21 and 22), petroleum and related products (ISIC Rev. 3 division 23), basic metals and mineral products (ISIC Rev. 3 division27), fabricated metal products and professional goods (ISIC Rev. 3 division 28), and other industries (ISIC Rev. 3 divisions 25, 26, 31, 33, 36, and 37). Includes unallocated data. When data for textiles, machinery, or chemicals are shown as not available, they are included in other manufacturing. Value added is the contribution to the economy by a producer or an industry or an institutional sector, which is estimated by the total value of output produced and deducting the total value of intermediate consumption of goods and services used to produce that output. This indicator is expressed as a percentage of value added in manufacturing which is the contribution to the economy by the manufacturing sector (ISIC Rev. 3 major division D).",
+      "originalSource": "International Yearbook of Industrial Statistics, UN Industrial Development Organization (UNIDO)",
+      "release": "2026-11-11",
+      "landingPage": "https://data.worldbank.org/indicator/NV.MNF.OTHR.ZS.UN",
+      "metadataGlossary": "https://databank.worldbank.org/metadataglossary/world-development-indicators/series/NV.MNF.OTHR.ZS.UN",
+      "numericObservations": 5843,
+      "apiCsvCellsCrossChecked": 14322,
+      "minimum": -89.4183961055598,
+      "maximum": 99.8164545570993,
+      "belowZero": 27,
+      "aboveOneHundred": 0,
+      "trueZeros": 0,
+      "nonemptyStatusCodes": []
+    }
+  ],
+  "first": 1963,
+  "last": 2024,
+  "release": "2026-11-11",
+  "retrieved": "2026-11-24",
+  "unit": "Percent of value added in manufacturing",
+  "coverage": {
+    "economies": 164,
+    "africanEconomies": 44,
+    "observations": 28245,
+    "countryYearsWithAny": 5843,
+    "countryYearsWithAllFive": 5164,
+    "africanCountryYearsWithAny": 1277,
+    "africanCountryYearsWithAllFive": 903,
+    "economiesWithAllFiveInAnyYear": 156,
+    "africanEconomiesWithAllFiveInAnyYear": 38,
+    "publishedObservationsOutsideZeroToOneHundred": 81,
+    "minFiveShareTotal": 99.99999999999952,
+    "maxFiveShareTotal": 100.00000000000043,
+    "fiveShareTotalsMoreThanOnePointFromOneHundred": 0,
+    "countryYearRowsInDownload": 10168,
+    "allFiveApiCsvCellsCrossChecked": 71610
+  },
+  "licence": "CC BY 4.0, as listed by the World Bank on the linked indicator pages",
+  "sourceArchive": "/data/economy/manufacturing-composition-sources.zip",
+  "sourceFiles": {
+    "chemicals-bulk.zip": {
+      "sha256": "1caf3b1ccd740789d3ba6cfaa120e2b251d8b61e5fea70fc9c3b53324c23fb90",
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.MNF.CHEM.ZS.UN?downloadformat=csv"
+    },
+    "chemicals-metadata.json": {
+      "sha256": "d2effa8246c4d231edeb36531323c5b6e3bf7c4808c3bd963a1926720dcaa4a1",
+      "url": "https://api.worldbank.org/v2/indicator/NV.MNF.CHEM.ZS.UN?format=json&source=2"
+    },
+    "chemicals.json": {
+      "sha256": "7bea46aee4f4e1ef01ece656241ec7207524c7d5b1524eee441097b38ff7e998",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.MNF.CHEM.ZS.UN?source=2&format=json&per_page=30000"
+    },
+    "country-registry.json": {
+      "sha256": "99c199efc2fc2880c169eb611f5a32ba69adc0e225b83f54fe384a5d66ba2448",
+      "url": "https://api.worldbank.org/v2/country?format=json&per_page=1000"
+    },
+    "food-bulk.zip": {
+      "sha256": "1bc36a3046d60bb4c37dedebe57844d8f9af8f3a7d88ed6bd7e18ae479d21fc6",
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.MNF.FBTO.ZS.UN?downloadformat=csv"
+    },
+    "food-metadata.json": {
+      "sha256": "e8b497b8b3f2f1f0ecfffae0f56ac7f21dd0b63fdb10ec6c70a3ead3f033f3d2",
+      "url": "https://api.worldbank.org/v2/indicator/NV.MNF.FBTO.ZS.UN?format=json&source=2"
+    },
+    "food.json": {
+      "sha256": "5eacf058c895477f169d8d95ee475fce14916629d3589022e5c841535def5a88",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.MNF.FBTO.ZS.UN?source=2&format=json&per_page=30000"
+    },
+    "machinery-bulk.zip": {
+      "sha256": "9b089c47990e06239b73f4055eaf16fdfdd5bb0c0dd3d50a7b33a96538feaad2",
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.MNF.MTRN.ZS.UN?downloadformat=csv"
+    },
+    "machinery-metadata.json": {
+      "sha256": "e4fa7cc52e37fed0040c4ce44bb8cc723ca965c59719513f434a286598bf318a",
+      "url": "https://api.worldbank.org/v2/indicator/NV.MNF.MTRN.ZS.UN?format=json&source=2"
+    },
+    "machinery.json": {
+      "sha256": "6d9eef85796335beeb6d9a6f2d0f692c49e311b7f71a94a0a7e66fd48b791d8c",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.MNF.MTRN.ZS.UN?source=2&format=json&per_page=30000"
+    },
+    "other-bulk.zip": {
+      "sha256": "d03b5061f5548c684155ff600bd605b486457843c70d8846cb2cb3bea705cf7f",
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.MNF.OTHR.ZS.UN?downloadformat=csv"
+    },
+    "other-metadata.json": {
+      "sha256": "d1d244de6aa8f609b39458bf52e51eddad4d0e8b4ee9bd6d405a407270d33a8e",
+      "url": "https://api.worldbank.org/v2/indicator/NV.MNF.OTHR.ZS.UN?format=json&source=2"
+    },
+    "other.json": {
+      "sha256": "85cf96df444042aa41bbe7a0bde41f957e6cfe60bbaa79c30c9b79ec696e33f2",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.MNF.OTHR.ZS.UN?source=2&format=json&per_page=30000"
+    },
+    "textiles-bulk.zip": {
+      "sha256": "e7cf18bc04034da7e42a3e9ec5c1998d85101f39c7a4fdc704f8977afdd79135",
+      "url": "https://api.worldbank.org/v2/en/indicator/NV.MNF.TXTL.ZS.UN?downloadformat=csv"
+    },
+    "textiles-metadata.json": {
+      "sha256": "660ac73a864ccd99a181e5becb725166964f9bf8ef726188bb2bd49ef32bd5ca",
+      "url": "https://api.worldbank.org/v2/indicator/NV.MNF.TXTL.ZS.UN?format=json&source=2"
+    },
+    "textiles.json": {
+      "sha256": "46d4032ac0b51bfe1905331e76c299354b6eebd6a746911ff141dad35fa67c4d",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/NV.MNF.TXTL.ZS.UN?source=2&format=json&per_page=30000"
+    },
+    "un-m49-overview.html": {
+      "sha256": "b9048114f6e7f2abda83bf03d4263c9d7cd1bd7230e3d0461025ee7839a7a1fb",
+      "url": "https://unstats.un.org/unsd/methodology/m49/overview/"
+    }
+  },
+  "csvColumns": [
+    "economy_code",
+    "economy",
+    "africa",
+    "year",
+    "food_percent_of_manufacturing_value_added",
+    "textiles_percent_of_manufacturing_value_added",
+    "machinery_percent_of_manufacturing_value_added",
+    "chemicals_percent_of_manufacturing_value_added",
+    "other_percent_of_manufacturing_value_added",
+    "food_obs_status",
+    "textiles_obs_status",
+    "machinery_obs_status",
+    "chemicals_obs_status",
+    "other_obs_status"
+  ],
+  "jsonRowColumns": [
+    "year",
+    "food",
+    "textiles",
+    "machinery",
+    "chemicals",
+    "other"
+  ],
+  "geography": "Use WDI reporting economies with an available share at least once. The WDI registry marks regional and income aggregates with region id NA. Africa follows UN Statistics Division M49 region 002. The archived registry and M49 source are the same snapshots used by the existing manufacturing output panel.",
+  "timeAndMissingness": "Individual shares and country-years may be unavailable. Preserve numeric observations at their published precision, including signed values, values above 100 and zero. CSV blanks and JSON nulls represent missing cells. Years with all five unavailable are retained for each included economy. All five API status columns are empty in this edition.",
+  "denominator": "The denominator is manufacturing value added in the same economy and year. Value added is gross output less intermediate consumption. A share can rise while the total value of manufacturing falls. Endpoint changes are end share minus start share in percentage points and use the specified years.",
+  "residual": "Other manufacturing is the publisher’s residual, including unallocated categories. Missing textiles, machinery or chemicals can be included in that residual. Keep the published other value, retain missing categories as gaps, and do not normalize the five indicators to 100.",
+  "comparability": "Classification is based on ISIC Revision 3. Reporting availability and the breakdown of establishments vary by economy and year. The shares do not quantify employment, export sales or the absolute level of real output.",
+  "verification": "The five annual World Bank API series were compared to the five separately downloaded WDI CSV releases for the same date. All nonaggregate observations, including blank cells, matched by exact decimal value. API observation status is retained in the downloadable CSV."
+}

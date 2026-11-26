@@ -1,0 +1,10 @@
+.ep-map-viewport {min-width:0}
+.ep-map-viewport .map-scene {box-sizing:border-box;height:clamp(28rem,40vw,40rem)}
+.ep-camera {display:flex;flex-wrap:wrap;align-items:center;gap:.56rem .8rem;padding:.7rem 0}
+.ep-camera label {flex:1 1 6rem;color:#395749;font-size:.86rem;font-weight:600}
+.ep-camera input {display:block;width:100%;accent-color:#286750;margin:.24rem 0}
+.ep-camera button {font:inherit;color:#234c3d;background:#fcfcf6;border:1px solid #bfcdbd;border-radius:.25rem;padding:.35rem .6rem;cursor:pointer}
+.ep-camera :focus-visible {outline:2px solid #226b57;outline-offset:2px}
+.map-scene-flows {position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.map-scene-period {font-size:clamp(1rem,2.4vw,1.75rem);letter-spacing:0;max-width:60%;text-align:end}
+@media (max-width:650px) {.ep-map-viewport .map-scene {height:29rem}.ep-camera label{flex:1 1 26%}}

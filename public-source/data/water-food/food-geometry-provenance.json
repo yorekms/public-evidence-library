@@ -1,0 +1,32 @@
+{
+  "publisher": "U.S. Census Bureau",
+  "source": "2020 Cartographic Boundary File, Census Tract, Virginia, 1:500,000",
+  "archive": "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_51_tract_500k.zip",
+  "archiveSha256": "54bf1d899d28132620a31d234d9640ae0bd95cb73a802380811e0b58a5e23f1d",
+  "coordinateReferenceSystem": "Geographic NAD83. Display coordinates use a local equirectangular projection.",
+  "display": {
+    "referenceLatitude": 38.003375,
+    "originLongitude": -83.675395,
+    "originLatitude": 36.540738,
+    "width": 100,
+    "north": "increasing y",
+    "coordinateDecimals": 3,
+    "note": "All publisher polygon parts and rings are retained. Coordinates are rounded for display."
+  },
+  "joinedSource": "USDA ERS 2025 SNAP-authorized Retailer Access Map",
+  "usdaDocumentation": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data",
+  "usdaArchiveSha256": "8e8ccda55aa478dd5907050249c28157d445568d242db8b5f85231b82c8afdbf",
+  "join": "Exact 11-digit Census GEOID = USDA CensusTract20. Five-digit county ID comes from its state and county components.",
+  "uniqueTracts": 2186,
+  "countiesAndIndependentCities": 133,
+  "sourceVerticesRetained": 159607,
+  "matchedVirginiaRowsByTable": {
+    "SRAM Driving Distance Data.csv": 2186,
+    "SRAM General Tract Characteristics Data.csv": 2186,
+    "SRAM Straight Line Distance Data.csv": 2186
+  },
+  "unmatchedVirginiaTracts": 0,
+  "file": "food-geometry.json",
+  "sha256": "a5b7b09c460b4033322a5a000a0b25743634753a9a96d7177171a843aefb2a56",
+  "bytes": 2800691
+}

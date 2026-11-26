@@ -101,7 +101,9 @@ function configureContext(preferred={}){
  $('selection-warning').textContent=warning;$('selection-warning').hidden=!warning;$('run-analysis').disabled=!!warning;
  const scope=x?.scope;const mapAvailable=['us_states','us_counties','world','virginia'].includes(scope);const mapOption=$('chart-type').querySelector('option[value=map]');mapOption.disabled=!mapAvailable;
  if(!mapAvailable&&$('chart-type').value==='map')$('chart-type').value=time?'time':'bar';
- const county=scope==='us_counties';$('chart-type').querySelector('option[value=map3d]').disabled=county;if(county&&$('chart-type').value==='map3d')$('chart-type').value='map';
+ const canRaise=mapAvailable && yearsOf(x).length>0;
+ $('chart-type').querySelector('option[value=map3d]').disabled=!canRaise;
+ if(!canRaise && $('chart-type').value==='map3d')$('chart-type').value=mapAvailable?'map':time?'time':'bar';
 }
 function updateStudioLayout(){const studio=state.tab==='explore'&&$('chart-type').value==='map3d';$('y-series').closest('.variable-field').hidden=studio;$('mode').closest('.selection-context').hidden=studio;document.querySelector('.selection-panel').classList.toggle('studio-selection',studio);$('x-label-text').textContent=studio?'Map measure':'Explanatory measure';$('selection-warning').hidden=studio||!$('selection-warning').textContent;}
 function invalidateAnalysis(){state.selectionRevision++;state.analysis=null;state.analysisRequest=null;state.restoredAnalysis=false;$('analysis-results').hidden=true;$('model-export-result').hidden=true;$('results-placeholder').hidden=false;$('analysis-status').textContent='';}
@@ -351,7 +353,7 @@ function wire(){
  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
  $('resource-family').addEventListener('change',()=>{renderResourceFilters();renderLibrary();});$('resource-stage').addEventListener('change',renderLibrary);$('series-search').addEventListener('input',renderLibrary);$('dataset-filter').addEventListener('change',renderLibrary);$('show-sources').addEventListener('click',()=>switchTab('sources'));
  for(const id of ['x-series','y-series'])$(id).addEventListener('change',()=>changeSelection());$('mode').addEventListener('change',()=>changeSelection());
- for(const id of ['year','place'])$(id).addEventListener('change',async()=>{invalidateAnalysis();await renderExplore();navigationChanged(true);});$('chart-type').addEventListener('change',async()=>{state.tableLimit=100;await renderExplore();navigationChanged(true);});
+ for(const id of ['year','place'])$(id).addEventListener('change',async()=>{invalidateAnalysis();await renderExplore();navigationChanged(true);});$('chart-type').addEventListener('change',async()=>{const view=$('chart-type').value;if(view==='map3d'||view==='map')window.EvidenceMapViews.remember(view==='map3d'?'raised3d':'choropleth');state.tableLimit=100;await renderExplore();navigationChanged(true);});
  $('table-query').addEventListener('input',()=>{state.tableLimit=100;renderTable();});$('more-table').addEventListener('click',()=>{state.tableLimit+=200;renderTable();});
  $('analysis-form').addEventListener('submit',runAnalysis);$('research-question').addEventListener('input',()=>{$('research-question').setCustomValidity('');invalidateAnalysis();});
  for(const id of ['model','transform','lag','prior-mean','prior-scale','prior-a','prior-b'])$(id).addEventListener('change',()=>{invalidateAnalysis();updateMethodNote();});
@@ -366,7 +368,7 @@ function wire(){
  $('retry-load').addEventListener('click',load);
 }
 async function load(){
- try{$('loading').hidden=false;$('retry-load').hidden=true;const config=await request('/api/config');state.token=config.token||'';state.studio?.configure(config.animation_formats);$('runtime-note').textContent=config.version?'Version '+config.version:'Python service on this computer';const linkParams=new URLSearchParams(location.search);const linkedSeries=linkParams.get('series');await refreshCatalog(linkedSeries?{x_series:linkedSeries}:{});if(linkedSeries&&state.catalog.series.some(s=>s.id===linkedSeries)){const sy=Number(linkParams.get('year'));state.studio?.restore({series_id:linkedSeries,year:Number.isInteger(sy)&&sy>=1800?sy:undefined,focus_id:linkParams.get('place')||'VA'});}updateMethodNote();$('application').hidden=false;$('loading').hidden=true;await renderExplore();notify('');await applyLibrarySectionLink(linkParams);await registerLibraryNavigation();}
+ try{if(!location.search && window.EvidenceMapViews.initial(['raised3d','choropleth'])==='choropleth')$('chart-type').value='map';$('loading').hidden=false;$('retry-load').hidden=true;const config=await request('/api/config');state.token=config.token||'';state.studio?.configure(config.animation_formats);$('runtime-note').textContent=config.version?'Version '+config.version:'Python service on this computer';const linkParams=new URLSearchParams(location.search);const linkedSeries=linkParams.get('series');await refreshCatalog(linkedSeries?{x_series:linkedSeries}:{});if(linkedSeries&&state.catalog.series.some(s=>s.id===linkedSeries)){const sy=Number(linkParams.get('year'));state.studio?.restore({series_id:linkedSeries,year:Number.isInteger(sy)&&sy>=1800?sy:undefined,focus_id:linkParams.get('place')||'VA'});}updateMethodNote();$('application').hidden=false;$('loading').hidden=true;await renderExplore();notify('');await applyLibrarySectionLink(linkParams);await registerLibraryNavigation();}
  catch(error){$('loading').querySelector('h1').textContent='The public workbench could not be opened.';$('loading').querySelector('p').textContent=error.message;$('retry-load').hidden=false;notify(error.message,true);}
 }
 wire();load();

@@ -321,23 +321,23 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
   const modeSubtitle=el('p','map-lab-subtitle','Explore the selected measure with color maps, signed spikes, a rotating globe, exact-year PPP comparisons, and the original raised map.');
   labHeaderLeft.append(badgeRow,selectedTitle,modeSubtitle);
 
-  const modeNav=el('nav','map-lab-tabs');
+  const modeNav=el('nav','map-lab-tabs evidence-mode-tabs');
   modeNav.setAttribute('role','tablist');modeNav.setAttribute('aria-label','Visualization modes');
-  const btnChoropleth=el('button','map-lab-mode-btn','1. Perceptual Choropleth');
+  const btnChoropleth=el('button','map-lab-mode-btn','Choropleth');
   btnChoropleth.id='world-view-flat';btnChoropleth.type='button';btnChoropleth.dataset.mode='choropleth';btnChoropleth.setAttribute('role','tab');btnChoropleth.setAttribute('aria-selected','true');btnChoropleth.setAttribute('aria-pressed','true');
-  const btnSpikes=el('button','map-lab-mode-btn','2. Equal-Area + 3D Spikes');
+  const btnSpikes=el('button','map-lab-mode-btn','3D Spikes');
   btnSpikes.type='button';btnSpikes.dataset.mode='spikes';btnSpikes.setAttribute('role','tab');btnSpikes.setAttribute('aria-selected','false');
-  const btnGlobe=el('button','map-lab-mode-btn','3. 3D Globe');
+  const btnGlobe=el('button','map-lab-mode-btn','3D Globe');
   btnGlobe.type='button';btnGlobe.dataset.mode='globe';btnGlobe.setAttribute('role','tab');btnGlobe.setAttribute('aria-selected','false');
-  const btnBivariate=el('button','map-lab-mode-btn','4. Bivariate 3×3');
+  const btnBivariate=el('button','map-lab-mode-btn','Bivariate 3×3');
   btnBivariate.type='button';btnBivariate.dataset.mode='bivariate';btnBivariate.setAttribute('role','tab');btnBivariate.setAttribute('aria-selected','false');
   modeNav.append(btnChoropleth,btnSpikes,btnGlobe,btnBivariate);
 
   let btnRaised3D=null;
   if(enable3D){
-   btnRaised3D=el('button','map-lab-mode-btn','5. 3D Extruded Polygons');
+   btnRaised3D=el('button','map-lab-mode-btn','3D Extruded Polygons');
    btnRaised3D.id='world-view-3d';btnRaised3D.type='button';btnRaised3D.dataset.mode='raised3d';btnRaised3D.setAttribute('role','tab');btnRaised3D.setAttribute('aria-selected','false');btnRaised3D.setAttribute('aria-pressed','false');
-   modeNav.append(btnRaised3D);
+   modeNav.prepend(btnRaised3D);
   }
   labHeader.append(labHeaderLeft,modeNav);
   labContainer.append(labHeader);
@@ -369,11 +369,9 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
    flowMetric:'none',
    animTime:0
   };
-  try{
-   const urlMode=new URLSearchParams(window.location.hash.split('?')[1]||'').get('mode');
-   if(['choropleth','spikes','globe','bivariate'].includes(urlMode))state.mode=urlMode;
-   else if(new URLSearchParams(window.location.hash.split('?')[1]||'').get('spikes')==='1')state.mode='spikes';
-  }catch{}
+  const routeModes=new URLSearchParams(window.location.hash.split('?')[1]||'');
+  const allowedModes=Array.from(modeNav.children, b=>b.dataset.mode);
+  state.mode=window.EvidenceMapViews.initial(allowedModes,routeModes.get('mode')||(routeModes.get('spikes')==='1'?'spikes':null));
 
   const scaleDefs=[
    ['site_linear','Current Site (Linear)'],
@@ -872,7 +870,7 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
    spikes:{title:'Signed spikes at map centroids',body:'Equal-width spikes show transformed magnitude without multiplying it by land area. Negative values extend below the map surface. Colors retain sign; zero remains a measured zero. Height is a display transform, not physical volume.'},
    globe:{title:'Selected measure on a rotating globe',body:'The globe uses the selected source measure and year. Open Commodity flows for separately sourced directional trade pathways.'},
    bivariate:{title:'Exact-year national PPP comparison',body:'Classifies the selected measure against World Bank GDP per person in constant 2021 international dollars for the same country and reporting year. This describes national output per person, not household income or a causal relationship. Missing, ineligible and duplicate country-year cells stay unpaired.'},
-   raised3d:{title:'Original raised polygons',body:'Height and color show retained source values. Use the original map controls for rotation and its own export control. Polygon volume also depends on land area.'}
+   raised3d:{title:'Original raised polygons',body:'Height and color show retained source values. Drag to rotate or export the current camera view as a PNG. Polygon volume also depends on land area.'}
   };
 
   function updateSidePanels(fStats){
@@ -1339,7 +1337,9 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
    const sha=data.dataset?.sha256?` · Dataset SHA-256: ${data.dataset.sha256}`:'';
    const fStats=getFrameStats(state.mode==='bivariate'?bivYear:year);
    const pppCitation=state.mode==='bivariate'?' · PPP: World Bank NY.GDP.PCAP.PP.KD; same reporting year; constant 2021 international $':'';
-   const mapDataUrl=canvas.toDataURL('image/png');
+   const imageCanvas=state.mode==='raised3d'?host3D.querySelector('canvas'):canvas;
+   if(!imageCanvas)return;
+   const mapDataUrl=imageCanvas.toDataURL('image/png');
 
    if(format==='png'){
     const outCan=document.createElement('canvas');outCan.width=2400;outCan.height=1600;
@@ -1351,13 +1351,13 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
     oCtx.fillText(`${series.label} (${activeYr})`,60,72);
     oCtx.fillStyle=state.darkStage?'#94a3b8':'#4f6959';
     oCtx.font='24px system-ui, sans-serif';
-    oCtx.fillText(`Mode: ${state.mode.toUpperCase()} · Scale: ${state.scale.toUpperCase()} · Unit: ${series.unit||'native'} · ${fStats.numericList.length} observed places${pppCitation}`,60,114);
+    oCtx.fillText(`Mode: ${state.mode.toUpperCase()} · Scale: ${state.mode==='raised3d'?'SOURCE VALUE':state.scale.toUpperCase()} · Unit: ${series.unit||'native'} · ${fStats.numericList.length} observed places${pppCitation}`,60,114);
     const img=new Image();
     img.onload=()=>{
      const fit=Math.min(2280/img.width,1260/img.height),iw=img.width*fit,ih=img.height*fit;oCtx.drawImage(img,60+(2280-iw)/2,145+(1260-ih)/2,iw,ih);
      oCtx.fillStyle=state.darkStage?'#64748b':'#718779';
      oCtx.font='21px system-ui, sans-serif';
-     oCtx.fillText(`Public Evidence Library · Source: ${series.source_url||'Official open source'}${sha} · Missing cells hatched, never imputed as zero.`,60,1545);
+     oCtx.fillText(`Public Evidence Library · Source: ${series.source_url||'Official open source'}${sha} · ${state.mode==='raised3d'?'Gray = unavailable.':'Hatching = unavailable.'}`,60,1545);
      outCan.toBlob(blob=>{
       const url=URL.createObjectURL(blob),a=el('a');a.href=url;a.download=baseFilename+'.png';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
      },'image/png');
@@ -1401,25 +1401,46 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
   expPngBtn.addEventListener('click',()=>exportFigure('png'));
 
   // Mode Switching & Control Wiring
+  let mountingRaised=false;
+  function mountSingleFrame() {
+   // These same projected shapes back the flat view for pooled periods and additional regional scopes.
+   const shapes=geoFeatures.filter(f=>f.eePolys.length && f.eeBBox.every(Number.isFinite));
+   if(!shapes.length)throw Error('This source has no drawable polygon boundaries.');
+   const point=([x,y])=>[x*20,-y*20];
+   const geometry={features:shapes.map(f=>({id:f.id,name:f.n,centroid:point(f.eeCenter),polygons:f.eePolys.map(p=>p.map(r=>r.map(point)))})),
+    bounds:[[d3.min(shapes,f=>f.eeBBox[0])*20,-d3.max(shapes,f=>f.eeBBox[3])*20],[d3.max(shapes,f=>f.eeBBox[2])*20,-d3.min(shapes,f=>f.eeBBox[1])*20]]};
+   const selectedFrame=()=>({geometry,title:series.label,year,period:year===null?(periodsText[0]||'Source period'):String(year),unit:series.unit,
+    floor:globalMinVal,ceiling:globalMaxAbs,selected:state.selectedIso,cameraKey:'studio-'+activeScope,
+    lookup:id=>({id:framed.groups.has(id)?id:null,value:framed.values.get(id)}),
+    onPick:id=>route(selectParams({place:id}))});
+   const scene=window.EvidencePolygonMap.mount(host3D,selectedFrame());
+   return {...scene,setFrame:()=>scene.update(selectedFrame())};
+  }
   async function mountOriginal3DIfNeeded(){
-   if(threeD||!enable3D)return;
-   host3D.replaceChildren(el('p','world-3d-note','Opening the original interactive 3D regions…'));
+   if(threeD||mountingRaised||!enable3D)return;
+   mountingRaised=true;
+   host3D.replaceChildren(el('p','world-3d-note','Opening the 3D polygons…'));
    try{
-    if(year===null)throw Error('This source uses a pooled or source-defined period, so an annual raised map is unavailable.');
-    if(!window.PublicWorldMap3D?.mount)throw Error('The original 3D map component could not load.');
-    threeD=await window.PublicWorldMap3D.mount({
-     host:host3D,
-     data:{series,records,dataset:data.dataset||catalogue.datasets.find(d=>d.id===meta.dataset_id)},
-     loadJSON,isCurrent:live,year,place:state.selectedIso,
-     onSelectPlace:id=>{if(places.some(p=>p.id===id))route(selectParams({place:id}));}
-    });
+    if(year===null || !['world','us_states','virginia'].includes(activeScope))threeD=mountSingleFrame();
+    else {
+     try {
+      threeD=await window.PublicWorldMap3D.mount({
+       host:host3D,data:{series,records,dataset:data.dataset||catalogue.datasets.find(d=>d.id===meta.dataset_id)},
+       loadJSON,isCurrent:live,year,place:state.selectedIso,onSelectPlace:id=>{if(places.some(p=>p.id===id))route(selectParams({place:id}));}
+      });
+     } catch(error) {
+      if(!live())return;
+      threeD=mountSingleFrame();
+     }
+    }
     if(!live()){threeD?.destroy();return;}
     threeD?.setFrame(year,state.selectedIso);
+    if(state.mode==='raised3d')expPngBtn.disabled=!threeD;
    }catch(error){
     if(!live())return;
-    threeD?.destroy();threeD=null;
-    host3D.replaceChildren(el('p','world-3d-note','Original 3D unavailable for this source: '+error.message));
-   }
+    threeD?.destroy();threeD=null;state.mode='choropleth';refreshStudio();
+    navHint.textContent='3D could not open for this source. The choropleth shows its mapped values.';
+   }finally{mountingRaised=false;}
   }
 
   function refreshStudio(){
@@ -1427,8 +1448,9 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
    if(state.mode==='bivariate')ensurePPP();
    bivData=computeBivariate(bivYear);
    bivDesc.textContent=`X = ${series.label} × Y = World Bank GDP/person (constant 2021 international $) · Same source year: ${bivYear??'unavailable'}`;
-   expSvgBtn.disabled=expPngBtn.disabled=state.mode==='raised3d'||state.mode==='bivariate';
-   if(state.mode==='raised3d')expSvgBtn.title=expPngBtn.title='Use the original raised map’s own PNG export control.';
+   expSvgBtn.disabled=state.mode==='raised3d'||state.mode==='bivariate';
+   expPngBtn.disabled=state.mode==='bivariate'||(state.mode==='raised3d'&&!threeD);
+   if(state.mode==='raised3d'){expSvgBtn.title='Use PNG for the rendered polygons.';expPngBtn.title='Download the current 3D camera view as PNG.';}
    else if(state.mode==='bivariate')expSvgBtn.title=expPngBtn.title='Bivariate figure export is unavailable; inspect the exact-year paired values and native source downloads.';
    else{expSvgBtn.title='Download SVG containing a raster map image and vector legend.';expPngBtn.title='Download the current map image at 2400×1600 pixels.';}
    const activeYr=state.mode==='bivariate'?bivYear:year;
@@ -1438,7 +1460,7 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
    for(const btn of modeNav.querySelectorAll('.map-lab-mode-btn')){
     const isAct=btn.dataset.mode===state.mode;
     btn.setAttribute('aria-selected',String(isAct));
-    if(btn.id==='world-view-flat'||btn.id==='world-view-3d')btn.setAttribute('aria-pressed',String(isAct));
+    btn.setAttribute('aria-pressed',String(isAct));
    }
 
    scaleControls.hidden=state.mode==='bivariate'||state.mode==='raised3d';
@@ -1481,6 +1503,10 @@ async function render({root,catalogue,index,loadEvidence,loadJSON,explainMeasure
   for(const btn of modeNav.querySelectorAll('.map-lab-mode-btn')){
    btn.addEventListener('click',()=>{
     state.mode=btn.dataset.mode;
+    window.EvidenceMapViews.remember(state.mode);
+    const url=new URL(location.href), [section,query]=url.hash.slice(1).split('?');
+    const settings=new URLSearchParams(query);settings.set('mode',state.mode);
+    url.hash=(section||'maps')+'?'+settings;history.replaceState(null,'',url);
     hoverCard.hidden=true;
     refreshStudio();
    });
