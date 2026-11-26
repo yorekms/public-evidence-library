@@ -1,0 +1,31 @@
+{
+  "schema": "public-evidence.pink-sheet-provenance/v1",
+  "prepared_utc": "2026-11-26T01:28:25.193453+00:00",
+  "sources": [
+    {
+      "id": "world_bank_pink_sheet_annual",
+      "title": "World Bank Commodity Markets (The Pink Sheet) — Historical Annual Data",
+      "url": "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Annual.xlsx",
+      "vintage": "Updated on September 02, 2026",
+      "bytes": 3176359,
+      "sha256": "320b6871339f9042644840df0249e1216f31b873cb731c0a01781232e8a8975d"
+    },
+    {
+      "id": "world_bank_pink_sheet_monthly",
+      "title": "World Bank Commodity Markets (The Pink Sheet) — Historical Monthly Data",
+      "url": "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx",
+      "vintage": "Updated on November 03, 2026",
+      "bytes": 587760,
+      "sha256": "3c8d9d8dbb48342fdbf24777c39a8ce8964cc2fd0958f72f6779e6e4ad99cde2"
+    }
+  ],
+  "counts": {
+    "commodities": 69,
+    "paired_with_country_production": 62,
+    "linked_to_bilateral_flows": 29,
+    "composite_indices": 16,
+    "annual_years": 66,
+    "monthly_periods": 802
+  },
+  "faostat_production_series": 27
+}

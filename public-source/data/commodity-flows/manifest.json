@@ -1,0 +1,442 @@
+{
+  "schema": "public-evidence.supplemental-pipelines/v1",
+  "prepared_utc": "2026-11-26T01:51:07.184257+00:00",
+  "raw_sources_archive": {
+    "url": "/data/commodity-flows/comtrade-raw-sources.zip",
+    "bytes": 1471859,
+    "sha256": "5e56915a8e07255a162fd424558ccda5f4570cfcd63112a186b8a3621ccca172",
+    "files": 115
+  },
+  "collections": [
+    {
+      "id": "trade_crude_oil",
+      "title": "Crude petroleum · international customs exports",
+      "description": "Multi-year bilateral customs export panel (HS 2709) across leading reporting exporters and global partner areas, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported customs net weight",
+          "unit": "kg",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value, FOB",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual UN Comtrade HS customs export panels (2020–2024). Unreported weights stay null; World totals stay out of bilateral sums.",
+      "geographic_scope": "Reporting customs areas to bilateral statistical partner areas worldwide",
+      "file": "trade_crude_oil.json.gz",
+      "url": "/data/commodity-flows/trade_crude_oil.json.gz",
+      "bytes": 111032,
+      "sha256": "4654bc8fededb304fd24f04153535d2a7762600ac4c9609d203f3b8d0541a9aa",
+      "decoded_bytes": 1846826,
+      "decoded_sha256": "4eac452f83bb7e54411ac55b2e6f345140f8d64f3e611aa15dc707648462a0e8",
+      "nodes": 141,
+      "edges": 1424,
+      "records": 1501,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_lng",
+      "title": "Liquefied natural gas (LNG) · international customs exports",
+      "description": "Multi-year bilateral customs export panel (HS 271111) across LNG-exporting reporters and partner areas, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported customs net weight",
+          "unit": "kg",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value, FOB",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual UN Comtrade HS customs export panels (2020–2024). Unreported weights stay null; World totals stay out of bilateral sums.",
+      "geographic_scope": "Reporting customs areas to bilateral statistical partner areas worldwide",
+      "file": "trade_lng.json.gz",
+      "url": "/data/commodity-flows/trade_lng.json.gz",
+      "bytes": 73406,
+      "sha256": "0a36052db336050c46579497564b3cb70c9493f0271aa9b86f91cfde924b17cc",
+      "decoded_bytes": 1083269,
+      "decoded_sha256": "a106069dec4fba540f3d466cedd1f59492b829601fdbf3d68bc76d13e67ae3d5",
+      "nodes": 92,
+      "edges": 893,
+      "records": 962,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_copper",
+      "title": "Copper (ores & refined cathodes) · international customs exports",
+      "description": "Multi-year bilateral customs export panel distinguishing copper ores/concentrates (HS 2603) and refined unwrought copper (HS 7403), 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported customs net weight",
+          "unit": "kg",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value, FOB",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual UN Comtrade HS customs export panels (2020–2024). Unreported weights stay null; World totals stay out of bilateral sums.",
+      "geographic_scope": "Reporting customs areas to bilateral statistical partner areas worldwide",
+      "file": "trade_copper.json.gz",
+      "url": "/data/commodity-flows/trade_copper.json.gz",
+      "bytes": 169294,
+      "sha256": "c835e84f38089852515205817cce01aa70c77cb187ef139ba14d8c75677b5099",
+      "decoded_bytes": 2873543,
+      "decoded_sha256": "a4146df5770edd19b2cc4224c83ce0f6feebd387b07b845cddf58861cf4b5309",
+      "nodes": 160,
+      "edges": 2463,
+      "records": 2598,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_battery_metals",
+      "title": "Critical battery metals (lithium, cobalt & nickel) · international customs exports",
+      "description": "Multi-year bilateral customs export panel across lithium carbonate/hydroxide, cobalt ores/mattes/metal, and nickel mattes/unwrought metal, 2020–2024. Separate product stages are retained.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported customs net weight",
+          "unit": "kg",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value, FOB",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual UN Comtrade HS customs export panels (2020–2024). Unreported weights stay null; World totals stay out of bilateral sums.",
+      "geographic_scope": "Reporting customs areas to bilateral statistical partner areas worldwide",
+      "file": "trade_battery_metals.json.gz",
+      "url": "/data/commodity-flows/trade_battery_metals.json.gz",
+      "bytes": 335111,
+      "sha256": "f12201524096e547347b8c95fcee6bde6fa5664465b7ee9a27e61663c10f0623",
+      "decoded_bytes": 6318197,
+      "decoded_sha256": "edf1bfa982af5f68c31762198bba99271f3a277432263aa7f16aa873d12be996",
+      "nodes": 156,
+      "edges": 5232,
+      "records": 5497,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_wheat",
+      "title": "Wheat and meslin · international customs exports",
+      "description": "Multi-year bilateral customs export panel (HS 1001) across major wheat-exporting reporters and partner areas, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported customs net weight",
+          "unit": "kg",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value, FOB",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual UN Comtrade HS customs export panels (2020–2024). Unreported weights stay null; World totals stay out of bilateral sums.",
+      "geographic_scope": "Reporting customs areas to bilateral statistical partner areas worldwide",
+      "file": "trade_wheat.json.gz",
+      "url": "/data/commodity-flows/trade_wheat.json.gz",
+      "bytes": 261810,
+      "sha256": "5effe1d3cdf2e2d0f79e336f474df79836f2399e071ef9712b609328d479cb22",
+      "decoded_bytes": 4061149,
+      "decoded_sha256": "3447f2c5eb3c6b689ef17735b1eeb1dceb4a31c38ea62a82bb2eb91937678975",
+      "nodes": 198,
+      "edges": 3783,
+      "records": 3863,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_maize",
+      "title": "Maize (corn) · bilateral agricultural exports",
+      "description": "Multi-year bilateral export flows (FAOSTAT Detailed Trade Matrix, Item 56) across major maize-exporting countries and partner areas, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported export quantity",
+          "unit": "tonnes",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual FAOSTAT Detailed Trade Matrix export records (2020–2024). Missing cells ('M') remain null.",
+      "geographic_scope": "Reporting exporting countries to bilateral partner countries/areas worldwide",
+      "file": "trade_maize.json.gz",
+      "url": "/data/commodity-flows/trade_maize.json.gz",
+      "bytes": 266205,
+      "sha256": "cc90f449cf6e5c27f019b0170d91eca1858bbc94d4438d609eeb4310d3663ae1",
+      "decoded_bytes": 4947329,
+      "decoded_sha256": "e2f87fd8d96f6cfea0626283df818a866be5b3871ffa5a1172d2544ae42bb8d7",
+      "nodes": 185,
+      "edges": 4986,
+      "records": 4986,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_rice",
+      "title": "Rice · bilateral agricultural exports",
+      "description": "Multi-year bilateral export flows (FAOSTAT Detailed Trade Matrix) distinguishing milled rice, husked rice, broken rice and paddy rice across major exporters, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported export quantity",
+          "unit": "tonnes",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual FAOSTAT Detailed Trade Matrix export records (2020–2024). Missing cells ('M') remain null.",
+      "geographic_scope": "Reporting exporting countries to bilateral partner countries/areas worldwide",
+      "file": "trade_rice.json.gz",
+      "url": "/data/commodity-flows/trade_rice.json.gz",
+      "bytes": 605270,
+      "sha256": "c81e3cffaded79915fa2aac4994e16fd35c68e8bcf72df0d57be62846f953164",
+      "decoded_bytes": 12141159,
+      "decoded_sha256": "cbb947828626929c3b07bb3a132a813d35f49e9de09b1c48543756f3526527b5",
+      "nodes": 197,
+      "edges": 12353,
+      "records": 12353,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_soybeans",
+      "title": "Soybeans, meal & oil · bilateral agricultural exports",
+      "description": "Multi-year bilateral export flows (FAOSTAT Detailed Trade Matrix) across whole soya beans, soya bean cake/meal and soya bean oil, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported export quantity",
+          "unit": "tonnes",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual FAOSTAT Detailed Trade Matrix export records (2020–2024). Missing cells ('M') remain null.",
+      "geographic_scope": "Reporting exporting countries to bilateral partner countries/areas worldwide",
+      "file": "trade_soybeans.json.gz",
+      "url": "/data/commodity-flows/trade_soybeans.json.gz",
+      "bytes": 422526,
+      "sha256": "ab85036c75910f4bcb0238ad6fbd883e9bf0881a8703885498d09672423aed55",
+      "decoded_bytes": 8423871,
+      "decoded_sha256": "406f6b24648ed4d5fb512bd1af29663f2fe9012d6cd435c406ab10ea6f3f98f9",
+      "nodes": 194,
+      "edges": 8236,
+      "records": 8236,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_coffee",
+      "title": "Coffee · bilateral agricultural exports",
+      "description": "Multi-year bilateral export flows (FAOSTAT Detailed Trade Matrix) distinguishing green coffee beans and roasted/decaffeinated coffee, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reported export quantity",
+          "unit": "tonnes",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reported export value",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual FAOSTAT Detailed Trade Matrix export records (2020–2024). Missing cells ('M') remain null.",
+      "geographic_scope": "Reporting exporting countries to bilateral partner countries/areas worldwide",
+      "file": "trade_coffee.json.gz",
+      "url": "/data/commodity-flows/trade_coffee.json.gz",
+      "bytes": 571604,
+      "sha256": "9bcf1395cf25a9e850273b0bebb7607a29e81b981aa2819941dde6f2e4d0f144",
+      "decoded_bytes": 11657366,
+      "decoded_sha256": "6749eee5cecd75a71cfd04e87b637dd2cb11aa116c1199e8f06f46565a4cb0ae",
+      "nodes": 190,
+      "edges": 11395,
+      "records": 11395,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_fertilizers",
+      "title": "Mineral & chemical fertilizers (N, P, K & NPK) · bilateral trade flows",
+      "description": "Multi-year bilateral trade flows (CEPII BACI / UN Comtrade HS 3102–3105) across nitrogenous, phosphatic, potassic and mixed NPK/DAP/MAP fertilizers, 2020–2024.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "Reconciled bilateral quantity",
+          "unit": "tonnes",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "value_usd",
+          "label": "Reconciled bilateral value, FOB",
+          "unit": "current USD",
+          "field": "value_usd",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual CEPII BACI (UN Comtrade HS17) reconciled bilateral flows (2020–2024). Unreported weights stay null.",
+      "geographic_scope": "Exporting economies to bilateral importing partner economies worldwide",
+      "file": "trade_fertilizers.json.gz",
+      "url": "/data/commodity-flows/trade_fertilizers.json.gz",
+      "bytes": 1194930,
+      "sha256": "40583f0c30f5da88879a91562e1c80972f48a2ff9cbf442a71208a9ba2127cc3",
+      "decoded_bytes": 23626718,
+      "decoded_sha256": "979531e8ed4c15b6df652cd6f1e9254c26a367ab6592bb5c0c1fb4ee83a4039b",
+      "nodes": 211,
+      "edges": 21725,
+      "records": 21725,
+      "default_focus": "all",
+      "default_direction": "either"
+    }
+  ]
+}

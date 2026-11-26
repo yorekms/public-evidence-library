@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore 1960–2026 World Bank Pink Sheet monthly and annual nominal and real commodity prices paired with FAOSTAT, USGS and EIA country production histories.">
+<title>World commodity prices &amp; production · Public Evidence Library</title>
+<link rel="stylesheet" href="/styles.css"><link rel="stylesheet" href="/harvest.css"><link rel="stylesheet" href="/commodities.css">
+<script src="/vendor/d3.min.js" defer></script>
+<link rel="stylesheet" href="/workbench/map-scene.css">
+<script src="/workbench/vendor/workbench-three.min.js" defer></script>
+<script src="/workbench/map-scene.js" defer></script>
+<link rel="stylesheet" href="/evidence-map-views.css"><link rel="stylesheet" href="/evidence-polygon-map.css">
+<script src="/evidence-map-views.js" defer></script>
+<script src="/evidence-polygon-map.js" defer></script>
+<script src="/harvest.js" data-components-only defer></script>
+<script src="/commodities.js" defer></script>
+</head><body class="harvest-page commodities-page">
+<a class="skip" href="#main">Skip to the evidence</a>
+<header class="harvest-header">
+  <a class="brand" href="/#home"><span class="brand-mark" aria-hidden="true">◈</span> <span>Public Evidence <strong>Library</strong></span></a>
+  <nav aria-label="Library">
+    <a href="/#maps">World maps</a>
+    <a href="/workbench/pipelines.html">Commodity flows</a>
+    <a href="/harvest.html?view=wheat">Food &amp; agriculture</a>
+    <a href="/commodities.html" aria-current="page">World prices &amp; output</a>
+    <a href="/#catalogue">Full catalogue</a>
+  </nav>
+</header>
+<main id="main" class="harvest-main">
+  <section class="harvest-intro">
+    <p class="eyebrow">World Bank Pink Sheet (1960–2026) · FAOSTAT · USGS · EIA</p>
+    <h1 id="heading">World commodity prices &amp; production</h1>
+    <p id="intro">Inspect long-run monthly and annual world benchmark commodity prices in nominal and real 2010 US dollars (1960–2026), paired beside country-by-country physical production histories and bilateral export flows.</p>
+  </section>
+  <div id="starter-pills" class="cm-starters" role="navigation" aria-label="Featured world commodities"></div>
+  <p id="status" role="status">Opening the 1960–2026 world commodity price and production collection…</p>
+  <div id="content"></div>
+  <noscript>Enable JavaScript to explore interactive charts and maps. Download the <a href="/data/commodities/pink-sheet-annual.csv.gz">annual prices (CSV.GZ)</a>, <a href="/data/commodities/pink-sheet-monthly.csv.gz">monthly prices (CSV.GZ)</a>, <a href="/data/commodities/pink-sheet-sources.zip">original World Bank Pink Sheet workbooks (ZIP)</a>, and <a href="/data/commodities/faostat-production.csv.gz">FAOSTAT country production records (CSV.GZ)</a>.</noscript>
+</main>
+<footer class="harvest-footer">
+  <a href="/#home">Public Evidence Library</a>
+  <a href="/workbench/pipelines.html">Explore bilateral commodity flows</a>
+  <a href="/#catalogue">Browse the data catalogue</a>
+</footer>
+</body></html>
