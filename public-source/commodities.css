@@ -6,6 +6,33 @@
   color: #2d6148;
   margin: 0 0 .35rem;
 }
+.cm-lens-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .55rem;
+  margin: 0 0 1rem;
+  padding-bottom: .75rem;
+  border-bottom: 1px solid #d5e0d0;
+}
+.cm-lens-tab {
+  border: 1px solid #9eb59c;
+  background: #f5f8f2;
+  color: #1f4635;
+  border-radius: 6px;
+  padding: .52rem 1rem;
+  font: 700 .9rem/1.25 Arial, sans-serif;
+  cursor: pointer;
+  transition: background .12s ease, border-color .12s ease;
+}
+.cm-lens-tab:hover {
+  background: #e6efe2;
+  border-color: #204b3b;
+}
+.cm-lens-tab[aria-selected="true"] {
+  background: #204b3b;
+  border-color: #204b3b;
+  color: #fffef8;
+}
 .cm-starters {
   display: flex;
   flex-wrap: wrap;
@@ -37,11 +64,17 @@
   gap: 1rem;
   margin: 1rem 0;
 }
+.cm-audit-duo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
 .cm-chart-svg {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 290px;
+  max-height: 310px;
   background: #fbfcf8;
   border: 1px solid #dfe6da;
   border-radius: 4px;
@@ -66,6 +99,13 @@
   height: 3px;
   border-radius: 2px;
 }
+.cm-swatch-box {
+  display: inline-block;
+  width: .95rem;
+  height: .75rem;
+  border-radius: 2px;
+  border: 1px solid rgba(32, 75, 59, .35);
+}
 .cm-flow-banner {
   display: flex;
   flex-wrap: wrap;
@@ -78,21 +118,36 @@
   border: 1px solid #c3d2bd;
   border-radius: 5px;
 }
-.cm-flow-banner a.cm-flow-btn {
+.cm-flow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.cm-flow-banner a.cm-flow-btn,
+.cm-flow-banner button.cm-flow-btn {
   display: inline-flex;
   align-items: center;
   gap: .35rem;
   background: #204b3b;
   color: #fffef8;
+  border: 1px solid #204b3b;
   text-decoration: none;
   font-weight: 600;
-  font-size: .9rem;
-  padding: .48rem .9rem;
+  font-size: .88rem;
+  padding: .46rem .85rem;
   border-radius: 4px;
   white-space: nowrap;
+  cursor: pointer;
 }
-.cm-flow-banner a.cm-flow-btn:hover {
+.cm-flow-banner a.cm-flow-btn.secondary,
+.cm-flow-banner button.cm-flow-btn.secondary {
+  background: #fffef9;
+  color: #204b3b;
+}
+.cm-flow-banner a.cm-flow-btn:hover,
+.cm-flow-banner button.cm-flow-btn:hover {
   background: #17382c;
+  color: #fffef8;
 }
 .cm-hover-readout {
   font-size: .86rem;
@@ -102,8 +157,17 @@
   margin-top: .35rem;
   font-weight: 600;
 }
-@media (max-width: 820px) {
-  .cm-price-layout {
+.cm-callout-note {
+  background: #f6f4ea;
+  border-left: 4px solid #b7791f;
+  padding: .65rem .9rem;
+  margin: .75rem 0;
+  font-size: .9rem;
+  color: #3b3626;
+}
+@media (max-width: 860px) {
+  .cm-price-layout,
+  .cm-audit-duo {
     grid-template-columns: 1fr;
   }
 }

@@ -19,6 +19,7 @@ publisher provenance, native physical units, and non-imputation rules explicit:
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import gzip
 import hashlib
@@ -38,7 +39,8 @@ PROJECT = Path(__file__).resolve().parents[1]
 PUBLIC = PROJECT / "public-source"
 OUT_DIR = PUBLIC / "data" / "commodity-flows"
 CACHE_DIR = PROJECT / "qa" / "comtrade_acquisition_cache"
-RAW_TMP = Path("/tmp/pink_sheet_raw")
+SOURCE_CACHE = PROJECT.parent / "source_cache"
+FAO_TM_URL = "https://bulks-faostat.fao.org/production/Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip"
 
 API_BASE = "https://comtradeapi.un.org/public/v1/preview/C/A/HS"
 YEARS = ["2020", "2021", "2022", "2023", "2024"]
@@ -219,20 +221,13 @@ def load_lookups() -> tuple[dict[int, dict], dict[str, dict], dict[int, str], se
 
     comtrade_areas: dict[int, dict] = {}
     m49_to_iso: dict[int, str] = {}
-    for ref_path in [RAW_TMP / "comtrade_partners.json", RAW_TMP / "comtrade_reporters.json"]:
-        if ref_path.exists():
-            items = json.loads(ref_path.read_text()).get("results", [])
-            for item in items:
-                try:
-                    cid = int(item["id"])
-                except (KeyError, ValueError, TypeError):
-                    continue
-                iso = (item.get("partnerCodeIsoAlpha3") or item.get("reporterCodeIsoAlpha3") or "").strip().upper()
-                text = (item.get("text") or "").strip()
-                if cid not in comtrade_areas or (iso and not comtrade_areas[cid].get("iso3")):
-                    comtrade_areas[cid] = {"name": text, "iso3": iso or None}
-                if len(iso) == 3 and iso not in {"W00", "NES", "S19"}:
-                    m49_to_iso[cid] = iso
+    ref_path = OUT_DIR / "comtrade-reference-areas.json"
+    if ref_path.exists():
+        ref_doc = json.loads(ref_path.read_text())
+        for cid_s, info in ref_doc.get("areas", {}).items():
+            comtrade_areas[int(cid_s)] = info
+        for m49_s, iso in ref_doc.get("m49_to_iso3", {}).items():
+            m49_to_iso[int(m49_s)] = iso
     comtrade_areas[842] = {"name": "USA", "iso3": "USA"}
     m49_to_iso[840] = "USA"
 
@@ -291,7 +286,7 @@ def write_bundle_and_entry(cid: str, spec_title: str, spec_desc: str, present_ye
     }
 
 
-def build_comtrade_collections(comtrade_areas: dict[int, dict], valid_geo_ids: set[str], raw_zip_entries: dict[str, bytes]) -> list[dict]:
+def build_comtrade_collections(comtrade_areas: dict[int, dict], valid_geo_ids: set[str], raw_zip_entries: dict[str, bytes], archived_zip: zipfile.ZipFile | None = None, refresh: bool = False) -> list[dict]:
     observed_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     entries = []
 
@@ -301,67 +296,92 @@ def build_comtrade_collections(comtrade_areas: dict[int, dict], valid_geo_ids: s
         cmd_codes = [c for c, _ in spec["cmds"]]
         print(f"=== [UN Comtrade] {cid} ===", flush=True)
 
-        reporter_totals: dict[int, float] = {}
-        for disc_year in ["2023", "2024"]:
-            _, _, p_world = fetch_comtrade({
-                "period": disc_year,
-                "cmdCode": ",".join(cmd_codes),
-                "flowCode": "X",
-                "partnerCode": "0",
-                "partner2Code": "0",
-                "customsCode": "C00",
-                "motCode": "0",
-                "includeDesc": "true",
-            })
-            w_rows = p_world.get("data") or []
-            if len(w_rows) >= 480:
-                w_rows = []
-                for cc in cmd_codes:
-                    _, _, p_cc = fetch_comtrade({
-                        "period": disc_year,
-                        "cmdCode": cc,
-                        "flowCode": "X",
-                        "partnerCode": "0",
-                        "partner2Code": "0",
-                        "customsCode": "C00",
-                        "motCode": "0",
-                        "includeDesc": "true",
-                    })
-                    w_rows.extend(p_cc.get("data") or [])
-            for r in w_rows:
-                rc = int(r["reporterCode"])
-                iso = (r.get("reporterISO") or comtrade_areas.get(rc, {}).get("iso3") or "").strip().upper()
-                if rc == 0 or not iso or iso in {"W00", "EUR", "EU2", "NES", "X1", "XX", "S19"} or len(iso) != 3:
-                    continue
-                v = r.get("fobvalue") if r.get("fobvalue") is not None else r.get("primaryValue")
-                reporter_totals[rc] = reporter_totals.get(rc, 0.0) + (float(v) if v is not None else 0.0)
-
-        ranked_reporters = [rc for rc, _ in sorted(reporter_totals.items(), key=lambda kv: (-kv[1], kv[0]))[: spec["top_reporters"]]]
-        batch_size = 5 if len(cmd_codes) == 1 else 3
-        rep_batches = [ranked_reporters[i: i + batch_size] for i in range(0, len(ranked_reporters), batch_size)]
+        arc_batches = sorted(
+            [n for n in (archived_zip.namelist() if archived_zip is not None else []) if n.startswith(f"comtrade_{cid}_") and n.endswith(".json")]
+        ) if not refresh else []
 
         sources = []
         all_rows = []
-        call_seq = 0
-        for yr in YEARS:
-            for rb in rep_batches:
-                for url, raw, rows in fetch_untruncated_batch(rb, yr, cmd_codes):
-                    call_seq += 1
-                    sid = f"comtrade_{cid}_{yr}_b{call_seq:03d}"
-                    raw_zip_entries[f"{sid}.json"] = raw
-                    sources.append({
-                        "id": sid,
-                        "title": f"UN Comtrade {cid} customs exports · {yr} (batch {call_seq})",
-                        "url": url,
-                        "upstream_url": url,
-                        "sha256": sha256_bytes(raw),
-                        "observed_as_of": observed_date,
-                        "license": "UN Comtrade public data; retain reporter/classification/estimation flags and UN attribution",
-                        "period_basis": "Annual customs exports, current USD FOB; net weight kilograms; reporting/revision vintage retained",
-                        "truncated": False,
-                    })
-                    for r in rows:
-                        all_rows.append((sid, r))
+        if arc_batches and archived_zip is not None:
+            for idx_b, arc_name in enumerate(arc_batches, 1):
+                raw = archived_zip.read(arc_name)
+                sid = Path(arc_name).stem
+                yr = sid.split("_")[-2]
+                url = f"{API_BASE}?archivedBatch={sid}"
+                raw_zip_entries[arc_name] = raw
+                sources.append({
+                    "id": sid,
+                    "title": f"UN Comtrade {cid} customs exports · {yr} (batch {idx_b})",
+                    "url": url,
+                    "upstream_url": API_BASE,
+                    "sha256": sha256_bytes(raw),
+                    "observed_as_of": observed_date,
+                    "license": "UN Comtrade public data; retain reporter/classification/estimation flags and UN attribution",
+                    "period_basis": "Annual customs exports, current USD FOB; net weight kilograms; reporting/revision vintage retained",
+                    "truncated": False,
+                })
+                for r in json.loads(raw).get("data") or []:
+                    all_rows.append((sid, r))
+        else:
+            reporter_totals: dict[int, float] = {}
+            for disc_year in ["2023", "2024"]:
+                _, _, p_world = fetch_comtrade({
+                    "period": disc_year,
+                    "cmdCode": ",".join(cmd_codes),
+                    "flowCode": "X",
+                    "partnerCode": "0",
+                    "partner2Code": "0",
+                    "customsCode": "C00",
+                    "motCode": "0",
+                    "includeDesc": "true",
+                })
+                w_rows = p_world.get("data") or []
+                if len(w_rows) >= 480:
+                    w_rows = []
+                    for cc in cmd_codes:
+                        _, _, p_cc = fetch_comtrade({
+                            "period": disc_year,
+                            "cmdCode": cc,
+                            "flowCode": "X",
+                            "partnerCode": "0",
+                            "partner2Code": "0",
+                            "customsCode": "C00",
+                            "motCode": "0",
+                            "includeDesc": "true",
+                        })
+                        w_rows.extend(p_cc.get("data") or [])
+                for r in w_rows:
+                    rc = int(r["reporterCode"])
+                    iso = (r.get("reporterISO") or comtrade_areas.get(rc, {}).get("iso3") or "").strip().upper()
+                    if rc == 0 or not iso or iso in {"W00", "EUR", "EU2", "NES", "X1", "XX", "S19"} or len(iso) != 3:
+                        continue
+                    v = r.get("fobvalue") if r.get("fobvalue") is not None else r.get("primaryValue")
+                    reporter_totals[rc] = reporter_totals.get(rc, 0.0) + (float(v) if v is not None else 0.0)
+
+            ranked_reporters = [rc for rc, _ in sorted(reporter_totals.items(), key=lambda kv: (-kv[1], kv[0]))[: spec["top_reporters"]]]
+            batch_size = 5 if len(cmd_codes) == 1 else 3
+            rep_batches = [ranked_reporters[i: i + batch_size] for i in range(0, len(ranked_reporters), batch_size)]
+
+            call_seq = 0
+            for yr in YEARS:
+                for rb in rep_batches:
+                    for url, raw, rows in fetch_untruncated_batch(rb, yr, cmd_codes):
+                        call_seq += 1
+                        sid = f"comtrade_{cid}_{yr}_b{call_seq:03d}"
+                        raw_zip_entries[f"{sid}.json"] = raw
+                        sources.append({
+                            "id": sid,
+                            "title": f"UN Comtrade {cid} customs exports · {yr} (batch {call_seq})",
+                            "url": url,
+                            "upstream_url": url,
+                            "sha256": sha256_bytes(raw),
+                            "observed_as_of": observed_date,
+                            "license": "UN Comtrade public data; retain reporter/classification/estimation flags and UN attribution",
+                            "period_basis": "Annual customs exports, current USD FOB; net weight kilograms; reporting/revision vintage retained",
+                            "truncated": False,
+                        })
+                        for r in rows:
+                            all_rows.append((sid, r))
 
         nodes_map: dict[str, dict] = {}
         edges = []
@@ -487,9 +507,8 @@ def build_comtrade_collections(comtrade_areas: dict[int, dict], valid_geo_ids: s
     return entries
 
 
-def build_faostat_tm_collections(fao_areas: dict[str, dict], m49_to_iso: dict[int, str], valid_geo_ids: set[str], raw_zip_entries: dict[str, bytes]) -> list[dict]:
-    print("=== [FAOSTAT Detailed Trade Matrix] Streaming 2020–2024 crop export flows ===", flush=True)
-    tm_zip_path = RAW_TMP / "Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip"
+def build_faostat_tm_collections(fao_areas: dict[str, dict], m49_to_iso: dict[int, str], valid_geo_ids: set[str], raw_zip_entries: dict[str, bytes], archived_zip: zipfile.ZipFile | None = None, refresh: bool = False) -> list[dict]:
+    print("=== [FAOSTAT Detailed Trade Matrix] Building 2020–2024 crop export flows ===", flush=True)
     observed_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
     wanted_items = {}
@@ -497,69 +516,95 @@ def build_faostat_tm_collections(fao_areas: dict[str, dict], m49_to_iso: dict[in
         for ic in spec["items"]:
             wanted_items[ic] = spec["id"]
 
-    # Map (cid) -> (yr, rc, pc, ic) -> {"qty": val, "qty_flag": f, "val_usd": val, "val_flag": f, "r_name": ..., "p_name": ..., "r_m49": ..., "p_m49": ...}
     paired_cells: dict[str, dict[tuple[str, str, str, str], dict]] = {s["id"]: {} for s in FAO_TM_SPECS}
+    can_use_archived = archived_zip is not None and not refresh and all(f"faostat_tm_{s['id']}_2020_2024.csv" in archived_zip.namelist() for s in FAO_TM_SPECS)
 
-    with zipfile.ZipFile(tm_zip_path) as zf:
-        csv_name = [n for n in zf.namelist() if n.endswith("All_Data_(Normalized).csv")][0]
-        with zf.open(csv_name) as fh:
-            reader = csv.DictReader(io.TextIOWrapper(fh, encoding="latin-1"))
-            for row in reader:
-                ic = row["Item Code"].strip()
-                if ic not in wanted_items:
-                    continue
-                yr = row["Year"].strip()
-                if yr not in YEARS:
-                    continue
-                ec = row["Element Code"].strip()
-                # 5910 = Export quantity (t), 5922 = Export value (1000 USD)
-                if ec not in {"5910", "5922"}:
-                    continue
-                rc = row["Reporter Country Code"].strip()
-                pc = row["Partner Country Code"].strip()
-                if rc == pc:
-                    continue
-                # Exclude FAO aggregate reporter/partner codes >= 5000 or 351 (China aggregate; 41 = China mainland)
-                try:
-                    rc_i, pc_i = int(rc), int(pc)
-                except ValueError:
-                    continue
-                if rc_i >= 5000 or pc_i >= 5000 or rc_i == 351 or pc_i == 351:
-                    continue
-
-                cid = wanted_items[ic]
-                key = (yr, rc, pc, ic)
-                cell = paired_cells[cid].get(key)
-                if cell is None:
-                    cell = {
-                        "r_name": row["Reporter Countries"].strip(),
-                        "p_name": row["Partner Countries"].strip(),
-                        "r_m49": row.get("Reporter Country Code (M49)", "").strip().lstrip("'"),
-                        "p_m49": row.get("Partner Country Code (M49)", "").strip().lstrip("'"),
-                        "qty": None,
-                        "qty_flag": "",
-                        "val_usd": None,
-                        "val_flag": "",
+    if can_use_archived:
+        for spec in FAO_TM_SPECS:
+            cid = spec["id"]
+            arc_name = f"faostat_tm_{cid}_2020_2024.csv"
+            with archived_zip.open(arc_name) as fh:
+                for row in csv.DictReader(io.TextIOWrapper(fh, encoding="utf-8")):
+                    yr, rc, pc, ic = row["year"], row["reporter_code"], row["partner_code"], row["item_code"]
+                    paired_cells[cid][(yr, rc, pc, ic)] = {
+                        "r_name": row["reporter_name"],
+                        "p_name": row["partner_name"],
+                        "r_m49": "",
+                        "p_m49": "",
+                        "qty": float(row["export_tonnes"]) if row["export_tonnes"] != "" else None,
+                        "qty_flag": row["qty_flag"],
+                        "val_usd": float(row["export_usd"]) if row["export_usd"] != "" else None,
+                        "val_flag": row["val_flag"],
                     }
-                    paired_cells[cid][key] = cell
+    else:
+        SOURCE_CACHE.mkdir(parents=True, exist_ok=True)
+        tm_zip_path = SOURCE_CACHE / "Trade_DetailedTradeMatrix_E_All_Data_(Normalized).zip"
+        if not tm_zip_path.exists() or refresh:
+            print(f"  Downloading {FAO_TM_URL} -> {tm_zip_path} ...", flush=True)
+            req = urllib.request.Request(FAO_TM_URL, headers={"User-Agent": "Mozilla/5.0 PEL-FAO-Builder/1.0"})
+            with urllib.request.urlopen(req, timeout=300) as resp:
+                tm_zip_path.write_bytes(resp.read())
 
-                raw_v = row.get("Value", "").strip()
-                flag = row.get("Flag", "").strip()
-                val = None
-                if raw_v and flag != "M":
+        with zipfile.ZipFile(tm_zip_path) as zf:
+            csv_name = [n for n in zf.namelist() if n.endswith("All_Data_(Normalized).csv")][0]
+            with zf.open(csv_name) as fh:
+                reader = csv.reader(io.TextIOWrapper(fh, encoding="latin-1"))
+                hdr = [h.strip() for h in next(reader)]
+                idx = {h: i for i, h in enumerate(hdr)}
+                i_ic, i_yr, i_ec = idx["Item Code"], idx["Year"], idx["Element Code"]
+                i_rc, i_pc = idx["Reporter Country Code"], idx["Partner Country Code"]
+                i_rn, i_pn = idx["Reporter Countries"], idx["Partner Countries"]
+                i_rm, i_pm = idx.get("Reporter Country Code (M49)"), idx.get("Partner Country Code (M49)")
+                i_val, i_flag = idx["Value"], idx["Flag"]
+                for row in reader:
+                    ic = row[i_ic].strip()
+                    if ic not in wanted_items:
+                        continue
+                    yr = row[i_yr].strip()
+                    if yr not in YEARS:
+                        continue
+                    ec = row[i_ec].strip()
+                    if ec not in {"5910", "5922"}:
+                        continue
+                    rc, pc = row[i_rc].strip(), row[i_pc].strip()
+                    if rc == pc:
+                        continue
                     try:
-                        vf = float(raw_v)
-                        if math.isfinite(vf):
-                            val = vf
+                        rc_i, pc_i = int(rc), int(pc)
                     except ValueError:
-                        val = None
-                if ec == "5910":
-                    cell["qty"] = val
-                    cell["qty_flag"] = flag
-                else:
-                    # 5922 unit is 1000 USD -> exact current USD
-                    cell["val_usd"] = None if val is None else round(val * 1000.0, 2)
-                    cell["val_flag"] = flag
+                        continue
+                    if rc_i >= 5000 or pc_i >= 5000 or rc_i == 351 or pc_i == 351:
+                        continue
+
+                    cid = wanted_items[ic]
+                    key = (yr, rc, pc, ic)
+                    cell = paired_cells[cid].get(key)
+                    if cell is None:
+                        cell = {
+                            "r_name": row[i_rn].strip(),
+                            "p_name": row[i_pn].strip(),
+                            "r_m49": row[i_rm].strip().lstrip("'") if i_rm is not None else "",
+                            "p_m49": row[i_pm].strip().lstrip("'") if i_pm is not None else "",
+                            "qty": None, "qty_flag": "", "val_usd": None, "val_flag": "",
+                        }
+                        paired_cells[cid][key] = cell
+
+                    raw_v = row[i_val].strip()
+                    flag = row[i_flag].strip()
+                    val = None
+                    if raw_v and flag != "M":
+                        try:
+                            vf = float(raw_v)
+                            if math.isfinite(vf):
+                                val = vf
+                        except ValueError:
+                            val = None
+                    if ec == "5910":
+                        cell["qty"] = val
+                        cell["qty_flag"] = flag
+                    else:
+                        cell["val_usd"] = None if val is None else round(val * 1000.0, 2)
+                        cell["val_flag"] = flag
 
     def resolve_fao_iso(code_str: str, m49_str: str) -> str | None:
         if code_str == "41":
@@ -704,10 +749,11 @@ def build_faostat_tm_collections(fao_areas: dict[str, dict], m49_to_iso: dict[in
     return entries
 
 
-def build_baci_fertilizers(valid_geo_ids: set[str], raw_zip_entries: dict[str, bytes]) -> dict:
+def build_baci_fertilizers(valid_geo_ids: set[str], raw_zip_entries: dict[str, bytes], archived_zip: zipfile.ZipFile | None = None, refresh: bool = False) -> dict:
     cid = "trade_fertilizers"
     print(f"=== [CEPII BACI / UN Comtrade Reconciled] {cid} ===", flush=True)
     observed_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    sid = "baci_hs17_fertilizers_2020_2024"
 
     hs_labels = {
         "63102": ("3102", "Mineral or chemical fertilizers, nitrogenous (HS 3102)"),
@@ -720,22 +766,22 @@ def build_baci_fertilizers(valid_geo_ids: set[str], raw_zip_entries: dict[str, b
         "cube=trade_i_baci_a_17&drilldowns=Year,Exporter+Country,Importer+Country,HS4"
         "&measures=Trade+Value,Quantity&Year=2020,2021,2022,2023,2024&HS4=63102,63103,63104,63105"
     )
-    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 PEL-Fertilizer-Builder/1.0"})
-    raw = urllib.request.urlopen(req, timeout=60).read()
-    payload = json.loads(raw)
-    all_data = payload.get("data") or []
-    print(f"  Fetched {len(all_data):,} BACI bilateral fertilizer rows (2020–2024)", flush=True)
-
-    # Rank top 18 fertilizer exporting countries across 2020-2024
-    exp_totals: dict[str, float] = defaultdict(float)
-    for r in all_data:
-        exp_id = str(r["Exporter Country ID"])
-        exp_totals[exp_id] += float(r.get("Trade Value") or 0.0)
-    top_exporters = {eid for eid, _ in sorted(exp_totals.items(), key=lambda kv: (-kv[1], kv[0]))[:18]}
-
-    filtered = [r for r in all_data if str(r["Exporter Country ID"]) in top_exporters]
-    sid = "baci_hs17_fertilizers_2020_2024"
-    filtered_bytes = json.dumps(filtered, separators=(",", ":")).encode("utf-8")
+    if archived_zip is not None and not refresh and f"{sid}.json" in archived_zip.namelist():
+        filtered_bytes = archived_zip.read(f"{sid}.json")
+        filtered = json.loads(filtered_bytes)
+    else:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 PEL-Fertilizer-Builder/1.0"})
+        raw = urllib.request.urlopen(req, timeout=60).read()
+        payload = json.loads(raw)
+        all_data = payload.get("data") or []
+        print(f"  Fetched {len(all_data):,} BACI bilateral fertilizer rows (2020–2024)", flush=True)
+        exp_totals: dict[str, float] = defaultdict(float)
+        for r in all_data:
+            exp_id = str(r["Exporter Country ID"])
+            exp_totals[exp_id] += float(r.get("Trade Value") or 0.0)
+        top_exporters = {eid for eid, _ in sorted(exp_totals.items(), key=lambda kv: (-kv[1], kv[0]))[:18]}
+        filtered = [r for r in all_data if str(r["Exporter Country ID"]) in top_exporters]
+        filtered_bytes = json.dumps(filtered, separators=(",", ":")).encode("utf-8")
     raw_zip_entries[f"{sid}.json"] = filtered_bytes
 
     sources = [{
@@ -859,16 +905,30 @@ def build_baci_fertilizers(valid_geo_ids: set[str], raw_zip_entries: dict[str, b
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--refresh-upstream", action="store_true", help="Re-download upstream FAOSTAT & BACI sources into source_cache/")
+    args = parser.parse_args()
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     comtrade_areas, fao_areas, m49_to_iso, valid_geo_ids = load_lookups()
     raw_zip_entries: dict[str, bytes] = {}
-
-    manifest_collections = []
-    manifest_collections.extend(build_comtrade_collections(comtrade_areas, valid_geo_ids, raw_zip_entries))
-    manifest_collections.extend(build_faostat_tm_collections(fao_areas, m49_to_iso, valid_geo_ids, raw_zip_entries))
-    manifest_collections.append(build_baci_fertilizers(valid_geo_ids, raw_zip_entries))
-
     raw_zip_path = OUT_DIR / "comtrade-raw-sources.zip"
+    existing_manifest_path = OUT_DIR / "manifest.json"
+    prior_collections = json.loads(existing_manifest_path.read_text()).get("collections", []) if existing_manifest_path.exists() else []
+
+    arc_zf = zipfile.ZipFile(raw_zip_path) if raw_zip_path.exists() else None
+    try:
+        manifest_collections = []
+        manifest_collections.extend(build_comtrade_collections(comtrade_areas, valid_geo_ids, raw_zip_entries, archived_zip=arc_zf, refresh=args.refresh_upstream))
+        manifest_collections.extend(build_faostat_tm_collections(fao_areas, m49_to_iso, valid_geo_ids, raw_zip_entries, archived_zip=arc_zf, refresh=args.refresh_upstream))
+        manifest_collections.append(build_baci_fertilizers(valid_geo_ids, raw_zip_entries, archived_zip=arc_zf, refresh=args.refresh_upstream))
+    finally:
+        if arc_zf is not None:
+            arc_zf.close()
+
+    rebuilt_ids = {c["id"] for c in manifest_collections}
+    extra_collections = [c for c in prior_collections if c["id"] not in rebuilt_ids]
+
     with zipfile.ZipFile(raw_zip_path, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         for fn, blob in sorted(raw_zip_entries.items()):
             zi = zipfile.ZipInfo(fn, (2026, 11, 25, 0, 0, 0))
@@ -884,10 +944,10 @@ def main() -> None:
             "sha256": sha256_bytes(raw_zip_path.read_bytes()),
             "files": len(raw_zip_entries),
         },
-        "collections": manifest_collections,
+        "collections": manifest_collections + extra_collections,
     }
-    (OUT_DIR / "manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
-    print(f"COMPLETE: {len(manifest_collections)} bilateral commodity flow collections written to {OUT_DIR}", flush=True)
+    existing_manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    print(f"COMPLETE: {len(manifest['collections'])} bilateral commodity flow collections written to {OUT_DIR}", flush=True)
 
 
 if __name__ == "__main__":

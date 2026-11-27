@@ -1,4 +1,5 @@
-/* World Bank Pink Sheet (1960–2026) price histories paired with FAOSTAT, USGS & EIA country production. */
+/* World Bank Pink Sheet (1960–2026) price histories paired with FAOSTAT, USGS & EIA country production,
+ * plus the 2020–2025 Critical Metals & Border-Reporting Source Register (BGS, COCHILCO, INDEC, CTCPM & UN Comtrade). */
 (() => {
   'use strict';
   const finite = v => typeof v === 'number' && Number.isFinite(v);
@@ -31,7 +32,6 @@
         flags: raw.flags || {},
       };
     }
-    // Retained evidence packet (schema: public-evidence.supplementary-history/v1 or standard series packet)
     if (Array.isArray(raw.records)) {
       const cellGroups = new Map();
       const countriesMap = new Map();
@@ -121,9 +121,131 @@
     });
   }
 
+  function summarizeBorderPerspective(register, viewKey, year) {
+    if (!register || register.schema !== 'public-evidence.critical-metals-register/v1') {
+      throw new Error('Unsupported critical-metals register schema.');
+    }
+    const yr = Number(year);
+    if (viewKey === 'arg-indec') {
+      const ann = register.argentina_indec_customs_2020_2025.annual.find(r => r.year === yr) || null;
+      const rows = register.argentina_indec_customs_2020_2025.destinations.filter(r => r.year === yr);
+      const mapByIso = new Map();
+      for (const r of rows) {
+        if (r.iso3 && finite(r.net_weight_t)) {
+          mapByIso.set(r.iso3, { iso3: r.iso3, geo_id: r.iso3, name: r.destination_indec, value: r.net_weight_t, status: r.weight_status, fob_band: r.fob_band });
+        }
+      }
+      return {
+        origin: 'ARG',
+        year: yr,
+        title: `Argentina lithium carbonate · INDEC national customs (NCM 28369100) · ${yr}`,
+        unit: 'tonnes',
+        publisher: 'INDEC COMEX (published named destinations on map; code 999 unallocated)',
+        mapByIso,
+        mappedCount: mapByIso.size,
+        withheldCount: rows.filter(r => r.weight_status === 'Withheld (s)').length,
+        unallocatedTonnes: ann?.indec_confidential_999_net_t ?? null,
+        totalReportedTonnes: ann?.indec_total_net_t ?? null,
+        namedPublishedTonnes: ann?.indec_named_net_t ?? null,
+        rows,
+      };
+    }
+    if (viewKey === 'chl-cochilco') {
+      const ann = register.chile_lithium_2020_2025.annual.find(r => r.year === yr) || null;
+      const rows = register.chile_lithium_2020_2025.destinations.filter(r => r.year === yr);
+      const mapByIso = new Map();
+      for (const r of rows) {
+        if (r.partner_iso3 && finite(r.cochilco_exports_t)) {
+          mapByIso.set(r.partner_iso3, {
+            iso3: r.partner_iso3,
+            geo_id: r.partner_iso3,
+            name: r.partner_iso3 === 'TWN' ? 'Taiwan' : (r.comtrade_destination || r.cochilco_destination),
+            value: r.cochilco_exports_t,
+            status: r.cochilco_exports_t === 0 ? 'Published zero' : 'Published',
+          });
+        }
+      }
+      const otros = rows.find(r => !r.partner_iso3);
+      return {
+        origin: 'CHL',
+        year: yr,
+        title: `Chile lithium carbonate · COCHILCO physical export volumes · ${yr}`,
+        unit: 'tonnes',
+        publisher: 'COCHILCO (33 named destinations on map; Otros retained in total)',
+        mapByIso,
+        mappedCount: [...mapByIso.values()].filter(r => r.value > 0).length,
+        withheldCount: 0,
+        unallocatedTonnes: otros?.cochilco_exports_t ?? 0,
+        totalReportedTonnes: ann?.exports_cochilco_t ?? null,
+        namedPublishedTonnes: [...mapByIso.values()].reduce((acc, r) => acc + r.value, 0),
+        rows,
+      };
+    }
+    const [origPrefix, side] = viewKey.split('-');
+    const origin = origPrefix === 'chl' ? 'CHL' : 'ARG';
+    const isImporter = side === 'importer';
+    const ann = register.arg_chl_border_comparison_2020_2025.annual.find(r => r.year === yr && r.origin_iso3 === origin) || null;
+    const rows = register.arg_chl_border_comparison_2020_2025.routes.filter(r => r.year === yr && r.origin_iso3 === origin);
+    const mapByIso = new Map();
+    for (const r of rows) {
+      const v = isImporter ? r.importer_net_t : r.exporter_net_t;
+      if (r.destination_iso3 && finite(v)) {
+        mapByIso.set(r.destination_iso3, {
+          iso3: r.destination_iso3,
+          geo_id: r.destination_iso3,
+          name: r.destination_iso3 === 'TWN' ? 'Taiwan' : r.destination_name,
+          value: v,
+          status: r.record_coverage,
+        });
+      }
+    }
+    return {
+      origin,
+      year: yr,
+      title: `${origin === 'ARG' ? 'Argentina' : 'Chile'} lithium carbonate · ${isImporter ? "Importing economies' records" : 'Exporter-reported records'} (UN Comtrade HS 283691) · ${yr}`,
+      unit: 'tonnes',
+      publisher: isImporter ? 'UN Comtrade (foreign reporting importers, excluding reimports)' : 'UN Comtrade (exporter-reported customs table)',
+      mapByIso,
+      mappedCount: mapByIso.size,
+      withheldCount: rows.length - mapByIso.size,
+      unallocatedTonnes: null,
+      totalReportedTonnes: isImporter ? (ann?.foreign_importer_sum_net_t ?? null) : (ann?.exporter_world_net_t ?? null),
+      namedPublishedTonnes: mapByIso.size ? [...mapByIso.values()].reduce((acc, r) => acc + r.value, 0) : null,
+      rows,
+    };
+  }
+
+  function verifyMetalsRegisterIntegrity(register) {
+    for (const r of register.argentina_indec_customs_2020_2025.annual) {
+      if (Math.abs((r.indec_named_net_t + r.indec_confidential_999_net_t) - r.indec_total_net_t) > 1e-5) {
+        throw new Error(`INDEC annual reconciliation failed for ${r.year}`);
+      }
+    }
+    for (const c of register.drc_monthly_checks) {
+      if (!finite(c.difference_t) || Math.abs(c.difference_t) > 0.025) {
+        throw new Error(`DRC monthly-vs-annual check out of bounds: ${c.year} ${c.metal}`);
+      }
+    }
+    const arg2023 = register.arg_chl_border_comparison_2020_2025.annual.find(r => r.origin_iso3 === 'ARG' && r.year === 2023);
+    if (!arg2023 || arg2023.national_production_t !== null) {
+      throw new Error('Argentina 2023 partial-year (7/12 months) national production must stay null.');
+    }
+    const suppressedMonths = register.arg_chl_border_comparison_2020_2025.argentina_monthly_production.filter(m => m.carbonate_t === null);
+    if (suppressedMonths.length !== 41) {
+      throw new Error(`Expected 41 confidential INDEC monthly positions, got ${suppressedMonths.length}`);
+    }
+    return true;
+  }
+
   if (typeof document === 'undefined') {
     if (typeof module !== 'undefined' && module.exports) {
-      module.exports = { normalizeProductionPacket, summarizePriceHistory, pairAnnualPriceAndProduction };
+      module.exports = {
+        normalizeProductionPacket,
+        summarizePriceHistory,
+        pairAnnualPriceAndProduction,
+        summarizeBorderPerspective,
+        verifyMetalsRegisterIntegrity,
+      };
     }
     return;
   }
@@ -175,6 +297,7 @@
   const fmt = v => (finite(v) ? numFmt.format(v) : 'Unavailable');
   let revision = 0;
   const prodCache = new Map();
+  let metalsCache = null;
 
   function setParams(changes) {
     const url = new URL(location.href);
@@ -200,9 +323,19 @@
     return prodCache.get(pairing.url);
   }
 
+  async function loadMetalsRegister(C) {
+    if (!metalsCache) {
+      metalsCache = C.json('/data/commodities/critical-metals-register.json').catch(err => {
+        metalsCache = null;
+        throw err;
+      });
+    }
+    return metalsCache;
+  }
+
   function computeNiceCuts(values) {
     const pos = values.filter(v => finite(v) && v > 0).sort((a, b) => a - b);
-    if (pos.length < 4) return { cuts: [1, 10, 100, 1000], labels: ['0 or ≤1', '1–10', '10–100', '100–1K', '>1K'] };
+    if (pos.length < 4) return { cuts: [10, 100, 1000, 10000], labels: ['>0 to <10', '10 to <100', '100 to <1K', '1K to <10K', '10K or more'] };
     const q = p => d3.quantileSorted(pos, p) || 1;
     const raw = [q(0.2), q(0.45), q(0.7), q(0.9)];
     const roundNice = v => {
@@ -226,6 +359,23 @@
       compactFmt.format(cuts[3]) + ' or more',
     ];
     return { cuts, labels };
+  }
+
+  function renderLensTabs(C, activeLens) {
+    const host = byId('lens-tabs');
+    if (!host) return;
+    host.replaceChildren();
+    const defs = [
+      ['prices', 'World Pink Sheet & Country Output (1960–2026)'],
+      ['metals-audit', 'Critical Metals & Border-Reporting Audit (2020–2025)'],
+    ];
+    for (const [id, label] of defs) {
+      const btn = C.button(label, () => setParams({ lens: id === 'prices' ? null : id }));
+      btn.className = 'cm-lens-tab';
+      btn.setAttribute('role', 'tab');
+      btn.setAttribute('aria-selected', String(activeLens === id));
+      host.append(btn);
+    }
   }
 
   function renderPriceChart(C, item, pink, basis, selectedYear) {
@@ -266,7 +416,6 @@
       if (finite(selectedYear)) {
         svg.append('line').attr('x1', x(selectedYear + 0.5)).attr('x2', x(selectedYear + 0.5)).attr('y1', top).attr('y2', height - bottom).attr('stroke', '#6a7c6d').attr('stroke-dasharray', '3,3');
       }
-      // Break line cleanly whenever consecutive months have null values
       svg.append('path')
         .datum(pts)
         .attr('d', d3.line().defined(p => finite(p.value)).x(p => x(p.yearFrac)).y(p => y(p.value)))
@@ -301,7 +450,6 @@
       return wrap;
     }
 
-    // Annual chart (Real + Nominal, Nominal only, or Real only)
     const showNom = basis === 'both' || basis === 'nominal';
     const showReal = (basis === 'both' || basis === 'real') && item.annual_real_2010.some(finite);
     const rows = pink.years.map((yr, i) => ({
@@ -413,16 +561,453 @@
     return fig;
   }
 
+  function renderIndecCustomsChart(C, annualRows, selectedYear) {
+    const wrap = C.element('div');
+    const width = 620, height = 248, left = 54, right = 138, top = 20, bottom = 28;
+    const svg = d3.create('svg')
+      .attr('class', 'cm-chart-svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('role', 'img')
+      .attr('aria-label', 'Argentina INDEC lithium carbonate exports 2020–2025: published named weights vs. confidential code 999');
+
+    const defs = svg.append('defs');
+    const pat = defs.append('pattern')
+      .attr('id', 'indec-999-hatch')
+      .attr('patternUnits', 'userSpaceOnUse')
+      .attr('width', 8).attr('height', 8)
+      .attr('patternTransform', 'rotate(45)');
+    pat.append('rect').attr('width', 8).attr('height', 8).attr('fill', '#e2b76b');
+    pat.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 8).attr('stroke', '#8a5519').attr('stroke-width', 2.2);
+
+    const maxTot = d3.max(annualRows, r => r.indec_total_net_t) || 110000;
+    const x = d3.scaleLinear().domain([0, maxTot * 1.05]).range([left, width - right]);
+    const y = d3.scaleBand().domain(annualRows.map(r => String(r.year))).range([top, height - bottom]).padding(0.32);
+
+    for (const tick of [0, 20000, 40000, 60000, 80000, 100000]) {
+      if (tick <= maxTot * 1.05) {
+        svg.append('line').attr('x1', x(tick)).attr('x2', x(tick)).attr('y1', top - 4).attr('y2', height - bottom).attr('stroke', '#e1e8dc');
+        svg.append('text').attr('x', x(tick)).attr('y', height - 8).attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', '#485b4c')
+          .text(tick === 0 ? '0' : `${tick / 1000}k`);
+      }
+    }
+    svg.append('text').attr('x', width - 82).attr('y', 14).attr('text-anchor', 'end').attr('font-size', 11).attr('font-weight', 700).attr('fill', '#354c3e').text('Total t');
+    svg.append('text').attr('x', width - 8).attr('y', 14).attr('text-anchor', 'end').attr('font-size', 11).attr('font-weight', 700).attr('fill', '#354c3e').text('Code 999');
+
+    const readout = C.element('div', 'cm-hover-readout', 'Click any year bar to synchronize the border map above.');
+
+    for (const r of annualRows) {
+      const py = y(String(r.year));
+      const bh = y.bandwidth();
+      const g = svg.append('g').style('cursor', 'pointer')
+        .on('mouseenter', () => {
+          readout.textContent = `${r.year} INDEC NCM 28369100 · Total: ${fmt(r.indec_total_net_t)} t (${fmt(r.indec_named_net_t)} t across ${r.named_destinations_with_weight} named + ${fmt(r.indec_confidential_999_net_t)} t under code 999; ${r.named_destinations_weight_withheld} named destinations withheld 's')`;
+        })
+        .on('click', () => setParams({ auditYear: r.year }));
+
+      if (r.year === selectedYear) {
+        g.append('rect').attr('x', 4).attr('y', py - 3).attr('width', width - 8).attr('height', bh + 6)
+          .attr('fill', '#edf4eb').attr('rx', 3);
+      }
+      g.append('text').attr('x', left - 8).attr('y', py + bh / 2 + 4).attr('text-anchor', 'end')
+        .attr('font-size', 12.5).attr('font-weight', r.year === selectedYear ? 700 : 600).attr('fill', '#1f3b2e').text(r.year);
+
+      const wNamed = x(r.indec_named_net_t) - left;
+      const w999 = x(r.indec_named_net_t + r.indec_confidential_999_net_t) - x(r.indec_named_net_t);
+      if (wNamed > 0) {
+        g.append('rect').attr('x', left).attr('y', py).attr('width', wNamed).attr('height', bh).attr('fill', '#155e4d');
+      }
+      if (w999 > 0) {
+        g.append('rect').attr('x', left + wNamed).attr('y', py).attr('width', w999).attr('height', bh)
+          .attr('fill', 'url(#indec-999-hatch)').attr('stroke', '#8a5519').attr('stroke-width', 0.6);
+      }
+      g.append('text').attr('x', width - 82).attr('y', py + bh / 2 + 4).attr('text-anchor', 'end')
+        .attr('font-size', 12).attr('font-weight', 700).attr('fill', '#1f3b2e').text(numFmt.format(Math.round(r.indec_total_net_t)));
+      g.append('text').attr('x', width - 8).attr('y', py + bh / 2 + 4).attr('text-anchor', 'end')
+        .attr('font-size', 12).attr('fill', '#5a4622').text((r.confidential_share * 100).toFixed(1) + '%');
+    }
+
+    const key = C.element('div', 'cm-series-key');
+    const s1 = C.element('span');
+    const sw1 = C.element('i', 'cm-swatch-box'); sw1.style.background = '#155e4d';
+    s1.append(sw1, document.createTextNode('Published weight for named destinations'));
+    const s2 = C.element('span');
+    const sw2 = C.element('i', 'cm-swatch-box'); sw2.style.background = '#e2b76b';
+    s2.append(sw2, document.createTextNode('Destination withheld (INDEC code 999)'));
+    key.append(s1, s2);
+
+    wrap.append(svg.node(), key, readout);
+    return wrap;
+  }
+
+  function renderMonthlySeriesWithGaps(C, pts, unit, label, suppressedNote) {
+    const wrap = C.element('div');
+    const width = 620, height = 248, left = 56, right = 18, top = 18, bottom = 30;
+    const svg = d3.create('svg')
+      .attr('class', 'cm-chart-svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('role', 'img')
+      .attr('aria-label', label);
+
+    const valid = pts.filter(p => finite(p.value));
+    const x = d3.scaleLinear().domain([0, pts.length - 1]).range([left, width - right]);
+    const y = d3.scaleLinear().domain([0, (d3.max(valid, p => p.value) || 1) * 1.08]).nice().range([height - bottom, top]);
+
+    // Shade contiguous missing/confidential blocks so missing != 0 is visually unmistakable
+    let blockStart = null;
+    for (let i = 0; i <= pts.length; i++) {
+      const missing = i < pts.length && !finite(pts[i].value);
+      if (missing && blockStart === null) blockStart = i;
+      if (!missing && blockStart !== null) {
+        const x0 = x(Math.max(0, blockStart - 0.4));
+        const x1 = x(Math.min(pts.length - 1, i - 0.6));
+        svg.append('rect').attr('x', x0).attr('y', top).attr('width', Math.max(3, x1 - x0)).attr('height', height - top - bottom)
+          .attr('fill', '#f3ede0');
+        blockStart = null;
+      }
+    }
+
+    for (const tick of y.ticks(5)) {
+      svg.append('line').attr('x1', left).attr('x2', width - right).attr('y1', y(tick)).attr('y2', y(tick)).attr('stroke', '#e1e8dc');
+      svg.append('text').attr('x', left - 6).attr('y', y(tick) + 4).attr('text-anchor', 'end').attr('font-size', 11.5).attr('fill', '#485b4c').text(compactFmt.format(tick));
+    }
+    pts.forEach((p, idx) => {
+      if (p.period.endsWith('01')) {
+        svg.append('text').attr('x', x(idx)).attr('y', height - 8).attr('text-anchor', 'start').attr('font-size', 11.5).attr('fill', '#485b4c').text(p.period.slice(0, 4));
+      }
+    });
+
+    svg.append('path')
+      .datum(pts.map((p, idx) => ({ ...p, idx })))
+      .attr('d', d3.line().defined(p => finite(p.value)).x(p => x(p.idx)).y(p => y(p.value)))
+      .attr('fill', 'none').attr('stroke', '#1f6f5f').attr('stroke-width', 2.2);
+
+    for (const p of pts.map((d, idx) => ({ ...d, idx })).filter(d => finite(d.value))) {
+      svg.append('circle').attr('cx', x(p.idx)).attr('cy', y(p.value)).attr('r', 2.8).attr('fill', '#1f6f5f');
+    }
+
+    const readout = C.element('div', 'cm-hover-readout', suppressedNote);
+    const cursor = svg.append('line').attr('y1', top).attr('y2', height - bottom).attr('stroke', '#b45309').attr('stroke-width', 1.2).attr('visibility', 'hidden');
+    svg.append('rect').attr('x', left).attr('y', top).attr('width', width - left - right).attr('height', height - top - bottom)
+      .attr('fill', 'transparent')
+      .on('mousemove', event => {
+        const [mx] = d3.pointer(event);
+        const idx = Math.max(0, Math.min(pts.length - 1, Math.round(x.invert(mx))));
+        const p = pts[idx];
+        cursor.attr('x1', x(idx)).attr('x2', x(idx)).attr('visibility', 'visible');
+        readout.textContent = finite(p.value)
+          ? `${p.period} · ${fmt(p.value)} ${unit} (${p.status})`
+          : `${p.period} · Unavailable / suppressed (${p.status}) — never plotted as zero`;
+      })
+      .on('mouseleave', () => cursor.attr('visibility', 'hidden'));
+
+    const key = C.element('div', 'cm-series-key');
+    const s1 = C.element('span');
+    const sw1 = C.element('i', 'cm-swatch'); sw1.style.background = '#1f6f5f';
+    s1.append(sw1, document.createTextNode(`Published monthly ${unit}`));
+    const s2 = C.element('span');
+    const sw2 = C.element('i', 'cm-swatch-box'); sw2.style.background = '#f3ede0';
+    s2.append(sw2, document.createTextNode('Suppressed / publisher dash interval (kept null)'));
+    key.append(s1, s2);
+
+    wrap.append(svg.node(), key, readout);
+    return wrap;
+  }
+
+  async function renderMetalsAudit(C, params, worldGeo, reqId) {
+    const reg = await loadMetalsRegister(C);
+    if (reqId !== revision) return null;
+    verifyMetalsRegisterIntegrity(reg);
+
+    byId('starter-pills').replaceChildren();
+    const auditViews = [
+      ['arg-importer', "Argentina · Foreign importing economies' records (UN Comtrade)"],
+      ['arg-exporter', 'Argentina · Exporter-reported records (UN Comtrade)'],
+      ['arg-indec', 'Argentina · National customs published routes (INDEC NCM 28369100)'],
+      ['chl-cochilco', 'Chile · COCHILCO physical export volumes (33 destinations)'],
+      ['chl-exporter', 'Chile · Exporter-reported records (UN Comtrade)'],
+      ['chl-importer', "Chile · Foreign importing economies' records (UN Comtrade)"],
+    ];
+    const chosenView = auditViews.some(([k]) => k === params.get('auditView')) ? params.get('auditView') : 'arg-importer';
+    const years = [2020, 2021, 2022, 2023, 2024, 2025];
+    const chosenYear = years.includes(Number(params.get('auditYear'))) ? Number(params.get('auditYear')) : 2024;
+    const drcMetals = ['Cobalt', 'Copper', 'Zinc'];
+    const chosenDrcMetal = drcMetals.includes(params.get('drcMetal')) ? params.get('drcMetal') : 'Cobalt';
+
+    // Quick preset pills for the 26 November research highlights
+    const presets = [
+      ['Argentina 2024 · Importer-reported (24 partners)', { auditView: 'arg-importer', auditYear: 2024 }],
+      ['Argentina 2024 · Exporter-reported (1 partner)', { auditView: 'arg-exporter', auditYear: 2024 }],
+      ['Argentina 2022 · INDEC 100% code 999', { auditView: 'arg-indec', auditYear: 2022 }],
+      ['Argentina 2025 · INDEC 102,842 t surge', { auditView: 'arg-indec', auditYear: 2025 }],
+      ['Chile 2025 · COCHILCO vs. Comtrade shift', { auditView: 'chl-cochilco', auditYear: 2025 }],
+    ];
+    const startersEl = byId('starter-pills');
+    for (const [label, patch] of presets) {
+      const b = C.button(label, () => setParams(patch));
+      b.className = 'cm-pill';
+      b.setAttribute('aria-pressed', String(chosenView === patch.auditView && chosenYear === patch.auditYear));
+      startersEl.append(b);
+    }
+
+    const controls = C.element('div', 'hr-controls');
+    C.selectControl(controls, 'Lithium carbonate border ledger', 'cm-audit-view', auditViews, chosenView,
+      v => setParams({ auditView: v, auditDest: null }));
+    C.selectControl(controls, 'Reporting year', 'cm-audit-year', [...years].reverse().map(y => [y, y]), chosenYear,
+      y => setParams({ auditYear: y }));
+
+    const perspective = summarizeBorderPerspective(reg, chosenView, chosenYear);
+    const rankedDests = [...perspective.mapByIso.values()]
+      .filter(r => finite(r.value) && r.value > 0)
+      .sort((a, b) => b.value - a.value || a.name.localeCompare(b.name));
+    const chosenDest = perspective.mapByIso.has(params.get('auditDest'))
+      ? params.get('auditDest')
+      : (rankedDests[0]?.iso3 || perspective.origin);
+
+    const posVals = rankedDests.map(r => r.value);
+    const { cuts, labels } = computeNiceCuts(posVals);
+
+    const mapBox = C.mapPanel({
+      title: perspective.title,
+      hint: `${perspective.publisher}. Switch the border ledger above to see how statistical disclosure rules and partner attribution change mapped destinations without ever summing exporter and importer ledgers.`,
+      geometry: worldGeo,
+      year: chosenYear,
+      cameraKey: 'metals-audit-' + perspective.origin,
+      ceiling: Math.max(d3.max(posVals) || 1000, 50000),
+      selected: chosenDest,
+      lookup: geoId => {
+        const rec = perspective.mapByIso.get(geoId);
+        return rec ? { id: rec.iso3, value: rec.value } : undefined;
+      },
+      cuts,
+      labels,
+      palette: PALETTES['Metals & Minerals'],
+      unit: 'tonnes',
+      onPick: iso3 => setParams({ auditDest: iso3 }),
+    });
+
+    // Side panel: Cross-ledger comparison for the active origin & year
+    const side = C.panel(`${perspective.origin === 'ARG' ? 'Argentina' : 'Chile'} border & production reconciliation · ${chosenYear}`);
+    if (perspective.origin === 'ARG') {
+      const acAnn = reg.arg_chl_border_comparison_2020_2025.annual.find(r => r.origin_iso3 === 'ARG' && r.year === chosenYear);
+      const custAnn = reg.argentina_indec_customs_2020_2025.annual.find(r => r.year === chosenYear);
+      side.append(C.metrics([
+        ['INDEC national customs total', custAnn ? `${fmt(custAnn.indec_total_net_t)} t` : 'Unavailable'],
+        ['INDEC named vs. code 999', custAnn ? `${fmt(custAnn.indec_named_net_t)} t named · ${fmt(custAnn.indec_confidential_999_net_t)} t (${(custAnn.confidential_share * 100).toFixed(1)}%) code 999` : 'Unavailable'],
+        ['INDEC withheld destinations', custAnn ? `${custAnn.named_destinations_weight_withheld} named countries ('s')` : '0'],
+        ['UN Comtrade exporter world', acAnn?.exporter_world_net_t !== null ? `${fmt(acAnn.exporter_world_net_t)} t (${acAnn.export_destinations_with_weight} named)` : 'No exporter rows published'],
+        ['UN Comtrade foreign importers', acAnn ? `${fmt(acAnn.foreign_importer_sum_net_t)} t (${acAnn.foreign_importers_with_weight} reporters)` : 'Unavailable'],
+        ['INDEC national production', acAnn?.national_production_t !== null ? `${fmt(acAnn.national_production_t)} t (${acAnn.national_status})` : `Unavailable (${acAnn?.national_status || ''})`],
+        ['BGS carbonate production', acAnn?.bgs_production_t !== null ? `${fmt(acAnn.bgs_production_t)} t (${acAnn.bgs_status})` : 'Not yet published for 2025'],
+      ]));
+    } else {
+      const chlAnn = reg.chile_lithium_2020_2025.annual.find(r => r.year === chosenYear);
+      const acAnn = reg.arg_chl_border_comparison_2020_2025.annual.find(r => r.origin_iso3 === 'CHL' && r.year === chosenYear);
+      side.append(C.metrics([
+        ['COCHILCO carbonate output', chlAnn ? `${fmt(chlAnn.production_cochilco_t)} t` : 'Unavailable'],
+        ['BGS carbonate output', chlAnn?.production_bgs_t !== null ? `${fmt(chlAnn.production_bgs_t)} t` : '2020–2024 edition'],
+        ['COCHILCO physical exports', chlAnn ? `${fmt(chlAnn.exports_cochilco_t)} t` : 'Unavailable'],
+        ['UN Comtrade exporter net', chlAnn ? `${fmt(chlAnn.exports_comtrade_net_t)} t` : 'Unavailable'],
+        ['COCHILCO minus Comtrade', chlAnn ? `+${fmt(chlAnn.export_gap_t)} t (+${(chlAnn.gap_fraction_of_comtrade * 100).toFixed(2)}%)` : 'Unavailable'],
+        ['UN foreign importers sum', acAnn ? `${fmt(acAnn.foreign_importer_sum_net_t)} t (${acAnn.foreign_importers_with_weight} reporters)` : 'Unavailable'],
+        ['China share (COCHILCO / UN)', chlAnn ? `${(chlAnn.china_share_cochilco * 100).toFixed(1)}% / ${(chlAnn.china_share_comtrade * 100).toFixed(1)}%` : 'Unavailable'],
+      ]));
+    }
+
+    if (rankedDests.length) {
+      side.append(C.element('h3', '', `Largest mapped destinations (${chosenYear})`));
+      const topList = C.element('ol', 'hr-top');
+      for (const r of rankedDests.slice(0, 6)) {
+        const li = C.element('li');
+        const b = C.button('', () => setParams({ auditDest: r.iso3 }));
+        b.append(C.element('span', '', r.name), C.element('span', '', `${fmt(r.value)} t`));
+        li.append(b);
+        topList.append(li);
+      }
+      side.append(topList);
+    } else {
+      const msg = C.element('div', 'cm-callout-note',
+        `Zero destination weights were disclosed in this ledger for ${chosenYear}. Switch to "Foreign importing economies' records" above to inspect the partner shipments reported on the importing side.`);
+      side.append(msg);
+    }
+
+    const mapGrid = C.element('div', 'hr-grid');
+    mapGrid.append(mapBox, side);
+
+    // Banner linking directly to the 3 new 3D Flow Globe collections in pipelines.html
+    const flowBanner = C.element('div', 'cm-flow-banner');
+    flowBanner.append(
+      C.element('span', '', 'Open these 2020–2025 lithium carbonate ledgers in the 3D Orthographic Flow Globe Studio (each keeps reporting sides strictly separate):')
+    );
+    const flowBtns = C.element('div', 'cm-flow-actions');
+    for (const [cid, lbl, primary] of [
+      ['trade_lithium_arg_chl_perspectives', 'ARG & CHL Exporter vs. Importer Globe →', true],
+      ['trade_lithium_argentina_indec', 'Argentina INDEC Code 999 Ledger →', false],
+      ['trade_lithium_chile_cochilco', 'Chile COCHILCO vs. Comtrade →', false],
+    ]) {
+      const a = C.element('a', primary ? 'cm-flow-btn' : 'cm-flow-btn secondary', lbl);
+      a.href = `/workbench/pipelines.html?collection=${cid}&year=${chosenYear}&mapView=globe`;
+      flowBtns.append(a);
+    }
+    flowBanner.append(flowBtns);
+
+    // Section 2: Argentina INDEC Customs Disclosure (2020-2025) + Monthly Mining Output (72 months)
+    const argCustomsPanel = C.panel('Argentina lithium carbonate exports · INDEC published routes vs. confidential code 999 (2020–2025)');
+    argCustomsPanel.append(
+      C.note('INDEC COMEX NCM 28369100 reconciled to 0.001 kg and USD 0.01. In 2021 and 2022, INDEC named 17 and 12 destinations respectively while withholding 100% of individual weights under statistical secrecy ("s") and allocating the entire product weight to confidential destination code 999.'),
+      renderIndecCustomsChart(C, reg.argentina_indec_customs_2020_2025.annual, chosenYear)
+    );
+
+    const argMonthlyPanel = C.panel('Argentina monthly lithium carbonate production · INDEC Cuadro 7 (2020M01–2025M12)');
+    argMonthlyPanel.append(
+      C.note('41 monthly positions (2020M01–2023M05) carry INDEC confidentiality symbol "s" and remain null. Because 2023 has only 7/12 disclosed months, no national annual sum is fabricated for 2023; complete provisional 12-month sums begin in 2024 (64,806.9 t) and 2025 (105,431.8 t, +62.7%).'),
+      renderMonthlySeriesWithGaps(
+        C,
+        reg.arg_chl_border_comparison_2020_2025.argentina_monthly_production.map(m => ({
+          period: m.period,
+          value: m.carbonate_t,
+          status: m.publication_status + (m.year_provisional ? ' · provisional*' : ''),
+        })),
+        'tonnes',
+        'Argentina monthly lithium carbonate output (tonnes, 2020M01–2025M12)',
+        'Hover over any month (2020M01–2025M12) to inspect INDEC disclosed tonnage or confidentiality status.'
+      )
+    );
+    const argDuo = C.element('div', 'cm-audit-duo');
+    argDuo.append(argCustomsPanel, argMonthlyPanel);
+
+    // Section 3: DR Congo CTCPM Monthly/Annual Metal Exports (2020-2024) + BGS 2020-24 Basis Comparison
+    const drcPanel = C.panel(`DR Congo monthly export tonnages · CTCPM Table 35 (${chosenDrcMetal}, 2020–2024)`);
+    const drcCtrls = C.element('div', 'cm-starters');
+    for (const mName of drcMetals) {
+      const b = C.button(`DR Congo · ${mName}`, () => setParams({ drcMetal: mName }));
+      b.className = 'cm-pill';
+      b.setAttribute('aria-pressed', String(chosenDrcMetal === mName));
+      drcCtrls.append(b);
+    }
+    const drcMonthlyRows = reg.national_metal_series
+      .filter(r => r.iso3 === 'COD' && r.frequency === 'Monthly' && r.metal === chosenDrcMetal)
+      .sort((a, b) => a.period.localeCompare(b.period));
+    drcPanel.append(
+      drcCtrls,
+      C.note('All 15 annual CTCPM Table 35 totals (2020–2024 across Copper, Cobalt and Zinc) agree within 0.02 tonnes with the sum of numeric months. Five 2024 Zinc months carry publisher dashes and remain null. For 2024 cobalt, CTCPM Table 35 reports 198,777.21 t, the Ministry landing page shows 139,840 t, and BGS reports 200,253 t of mined cobalt — all three are preserved without forced reconciliation.'),
+      renderMonthlySeriesWithGaps(
+        C,
+        drcMonthlyRows.map(r => ({ period: r.period, value: r.tonnes, status: `${r.status} · ${r.source_id}` })),
+        'tonnes',
+        `DR Congo monthly ${chosenDrcMetal} exports (tonnes, 2020-01 to 2024-12)`,
+        'Hover over any month (2020-01 to 2024-12) to inspect CTCPM Table 35 tonnage or publisher dash status.'
+      )
+    );
+
+    const bgsPanel = C.panel('BGS World Mineral Production 2020–24 · Product weight vs. contained metal basis');
+    bgsPanel.append(
+      C.note('British Geological Survey (2026 edition). Chile’s lithium carbonate product weight (250,605 t in 2024) and elemental lithium content in that carbonate (47,114 t Li) describe the same physical output on two weight bases and must never be added together.')
+    );
+    const bgsTableWrap = C.element('div', 'table-wrap');
+    const bgsTbl = C.element('table', 'hr-table');
+    const bgsThead = C.element('thead');
+    const bgsTrH = C.element('tr');
+    for (const h of ['Series & country', 'Weight basis', '2020', '2021', '2022', '2023', '2024']) {
+      bgsTrH.append(C.element('th', '', h));
+    }
+    bgsThead.append(bgsTrH);
+    const bgsTbody = C.element('tbody');
+    for (const s of reg.bgs_selected_2020_2024.series) {
+      const tr = C.element('tr');
+      tr.append(
+        C.element('td', '', `${s.country} · ${s.commodity}`),
+        C.element('td', '', `${s.basis} (${s.unit})`)
+      );
+      s.values.forEach((v, idx) => {
+        const fl = s.flags[idx] || '';
+        tr.append(C.element('td', '', `${fl}${numFmt.format(v)}`));
+      });
+      bgsTbody.append(tr);
+    }
+    bgsTbl.append(bgsThead, bgsTbody);
+    bgsTableWrap.append(bgsTbl);
+    bgsPanel.append(bgsTableWrap, C.note('An asterisk (*) marks a BGS estimate. Source: BGS World Mineral Production 2020–24, pp. 15 & 44.'));
+
+    const drcBgsDuo = C.element('div', 'cm-audit-duo');
+    drcBgsDuo.append(drcPanel, bgsPanel);
+
+    // Section 4: Chile Copper Stage & Vintage Table + Exportable Source Tables
+    const chlCopperRows = reg.national_metal_series.filter(r => r.iso3 === 'CHL' && r.metal === 'Copper');
+    const acYearRoutes = reg.arg_chl_border_comparison_2020_2025.routes.filter(r => r.year === chosenYear);
+    const indecYearRows = reg.argentina_indec_customs_2020_2025.destinations.filter(r => r.year === chosenYear);
+
+    const sections = [
+      controls,
+      mapGrid,
+      flowBanner,
+      argDuo,
+      drcBgsDuo,
+      C.records(
+        `Argentina & Chile bilateral border comparison in ${chosenYear} · Exporter vs. Foreign Importer net weight (HS 283691)`,
+        ['Year', 'Origin', 'Destination ISO3', 'Partner economy', 'Exporter-reported (t)', 'Foreign importer-reported (t)', 'Reporting coverage'],
+        acYearRoutes.map(r => [r.year, r.origin_iso3, r.destination_iso3, r.destination_name, r.exporter_net_t, r.importer_net_t, r.record_coverage]),
+        `lithium-border-comparison-${chosenYear}.csv`
+      ),
+      C.records(
+        `Argentina INDEC customs destinations in ${chosenYear} · NCM 28369100 (including withheld 's' & FOB bands)`,
+        ['Year', 'INDEC code', 'Destination (INDEC)', 'ISO3', 'Net weight (t)', 'FOB value (USD)', 'Disclosure status', 'FOB band if withheld'],
+        indecYearRows.map(r => [r.year, r.indec_code, r.destination_indec, r.iso3 || '—', r.net_weight_t, r.fob_usd, r.weight_status, r.fob_band || '']),
+        `argentina-indec-lithium-${chosenYear}.csv`
+      ),
+      C.records(
+        'Chile copper production by stage & publication vintage (COCHILCO bulletins, Yearbook & BGS, 2020–2025)',
+        ['Period', 'Stage / measure', 'Source value', 'Source unit', 'Metric tonnes Cu', 'Status', 'Source ID', 'Table / locator'],
+        chlCopperRows.map(r => [r.period, r.measure, r.source_value, r.source_unit, r.tonnes, r.status, r.source_id, r.locator]),
+        'chile-copper-stages-vintages-2020-2025.csv'
+      ),
+      C.records(
+        'DR Congo monthly-vs-annual export checks · CTCPM Table 35 (2020–2024)',
+        ['Year', 'Metal', 'Numeric months', 'Sum of numeric months (t)', 'Printed annual (t)', 'Difference (t)', 'Source ID'],
+        reg.drc_monthly_checks.map(c => [c.year, c.metal, c.numeric_months, c.sum_numeric_months_t, c.printed_annual_t, c.difference_t, c.source_id]),
+        'drc-ctcpm-monthly-annual-checks-2020-2024.csv'
+      ),
+      C.sourcePanel(
+        'Compiled 26 November 2026 across national statistical and geological offices: Chile COCHILCO (producción y exportaciones físicas de carbonato de litio 1996–2025, Boletín Mensual Dec 2024 & Sept 2026 Table 16, Anuario 2005–2024 & 2000–2025), Argentina INDEC (Índice de producción industrial minero Cuadro 7 & COMEX NCM 28369100 annual databases and portal queries), DR Congo CTCPM (Statistiques Minières Exercice 2024 Tables 32–35 & Ministry of Mines), British Geological Survey (World Mineral Production 2020–24, 2026), and UN Comtrade (HS 283691 annual exporter and mirror-importer queries). Every publisher dash, confidentiality symbol ("s"), and unallocated code 999 pool is retained literally without imputation.',
+        [
+          ['Chile lithium carbonate source packet (ZIP)', '/data/commodities/metals-2020-2025/Chile_lithium_carbonate_2020-2025.zip', true],
+          ['Argentina & Chile two-border source packet (ZIP)', '/data/commodities/metals-2020-2025/Argentina_Chile_lithium_carbonate_2020-2025.zip', true],
+          ['Argentina INDEC NCM 28369100 customs packet (ZIP)', '/data/commodities/metals-2020-2025/Argentina_lithium_carbonate_customs_2020-2025.zip', true],
+          ['11-tab Metal Statistics Workbook 2020–2025 (XLSX)', '/data/commodities/metals-2020-2025/metals_statistics_2020-2025.xlsx', true],
+          ['2024 Argentina export-vs-import border map (PDF)', '/data/commodities/metals-2020-2025/Argentina_lithium_trade_map_2024.pdf', true],
+          ['Argentina 2020–2025 INDEC disclosure chart (PDF)', '/data/commodities/metals-2020-2025/Argentina_lithium_carbonate_customs_2020-2025.pdf', true],
+          ['National metal series flat extract (CSV.GZ)', '/data/commodities/critical-metals-register.csv.gz', true],
+          ['Complete JSON register & SHA-256 manifest', '/data/commodities/critical-metals-register.json'],
+        ]
+      ),
+    ];
+    return sections;
+  }
+
   async function render() {
     const C = window.PublicEvidenceComponents;
     if (!C) return;
     const id = ++revision;
     const params = new URLSearchParams(location.search);
+    const activeLens = params.get('lens') === 'metals-audit' ? 'metals-audit' : 'prices';
+    renderLensTabs(C, activeLens);
+
     byId('status').hidden = false;
-    byId('status').textContent = 'Opening the 1960–2026 world commodity price and production collection…';
+    byId('status').textContent = activeLens === 'metals-audit'
+      ? 'Opening the 2020–2025 national critical-metals and border-reporting register…'
+      : 'Opening the 1960–2026 world commodity price and production collection…';
     byId('content').setAttribute('aria-busy', 'true');
 
     try {
+      if (activeLens === 'metals-audit') {
+        const worldGeo = await C.json('/workbench/data/map-geometry/world.json');
+        if (id !== revision) return;
+        const sections = await renderMetalsAudit(C, params, worldGeo, id);
+        if (!sections || id !== revision) return;
+        byId('content').replaceChildren(...sections);
+        byId('status').hidden = true;
+        return;
+      }
+
       const [pink, worldGeo] = await Promise.all([
         C.json('/data/commodities/pink-sheet.json'),
         C.json('/workbench/data/map-geometry/world.json'),
@@ -438,7 +1023,6 @@
         || filteredItems.find(x => x.id === 'crude-oil-brent')
         || filteredItems[0];
 
-      // Render starter pills
       const startersEl = byId('starter-pills');
       startersEl.replaceChildren();
       for (const [sid, slabel] of STARTERS) {
@@ -457,9 +1041,8 @@
 
       const mapYears = prod?.years?.length ? prod.years : pink.years;
       const reqYear = Number(params.get('year'));
-      const chosenYear = mapYears.includes(reqYear) ? reqYear : (prod ? (prod.years.includes(2022) && item.production_pairing.kind === 'retained-evidence' && !prod.years.includes(2024) ? prod.years.at(-1) : prod.years.at(-1)) : pink.years.at(-1));
+      const chosenYear = mapYears.includes(reqYear) ? reqYear : (prod ? prod.years.at(-1) : pink.years.at(-1));
 
-      //Controls
       const controls = C.element('div', 'hr-controls');
       C.selectControl(controls, 'Commodity group', 'cm-group', groups.map(g => [g, g]), chosenGroup,
         nextGroup => {
@@ -482,14 +1065,24 @@
       if (item.description) pricePanel.append(C.note(`Benchmark specification: ${item.description}`));
       pricePanel.append(renderPriceChart(C, item, pink, basis, chosenYear));
 
-      if (item.related_flow_collection) {
+      if (item.related_flow_collection || item.group === 'Metals & Minerals') {
         const flowBanner = C.element('div', 'cm-flow-banner');
-        flowBanner.append(
-          C.element('span', '', `Bilateral trade pathway available: ${FLOW_LABELS[item.related_flow_collection] || item.related_flow_collection}. Separate customs ledger; physical trade weights and spot benchmarks have distinct coverage.`)
-        );
-        const flowLink = C.element('a', 'cm-flow-btn', 'Explore bilateral commodity flows →');
-        flowLink.href = `/workbench/pipelines.html?collection=${encodeURIComponent(item.related_flow_collection)}`;
-        flowBanner.append(flowLink);
+        const labelTxt = item.related_flow_collection
+          ? `Bilateral trade pathway available: ${FLOW_LABELS[item.related_flow_collection] || item.related_flow_collection}. Separate customs ledger; physical trade weights and spot benchmarks have distinct coverage.`
+          : 'National critical-metal statistics & border-reporting audit available (Chile COCHILCO, Argentina INDEC, DR Congo CTCPM & BGS, 2020–2025).';
+        flowBanner.append(C.element('span', '', labelTxt));
+        const actions = C.element('div', 'cm-flow-actions');
+        if (item.related_flow_collection) {
+          const flowLink = C.element('a', 'cm-flow-btn', 'Explore bilateral commodity flows →');
+          flowLink.href = `/workbench/pipelines.html?collection=${encodeURIComponent(item.related_flow_collection)}`;
+          actions.append(flowLink);
+        }
+        if (item.group === 'Metals & Minerals') {
+          const auditBtn = C.button('2020–2025 Critical Metals & Border Audit →', () => setParams({ lens: 'metals-audit' }));
+          auditBtn.className = item.related_flow_collection ? 'cm-flow-btn secondary' : 'cm-flow-btn';
+          actions.append(auditBtn);
+        }
+        flowBanner.append(actions);
         pricePanel.append(flowBanner);
       }
 
@@ -588,7 +1181,6 @@
         prodGrid.append(mapBox, prodSide);
         sections.push(prodGrid);
 
-        // Paired Synchronized History Charts (Price vs Selected Country Production)
         const pairedRows = pairAnnualPriceAndProduction(pink.years, item.annual_nominal, item.annual_real_2010, prod.byCountry, chosenCountry);
         const minOverlapYear = Math.max(pink.years[0], prod.years[0] || pink.years[0]);
         const maxOverlapYear = Math.min(pink.years.at(-1), prod.years.at(-1) || pink.years.at(-1));
@@ -621,7 +1213,6 @@
         );
         sections.push(pairedPanel);
 
-        // Exportable Tables
         sections.push(
           C.records(
             `Producing countries in ${chosenYear} · ${prod.title}`,
@@ -669,6 +1260,7 @@
             ['Original World Bank Excel workbooks (ZIP)', '/data/commodities/pink-sheet-sources.zip', true],
             ['FAOSTAT country production CSV (GZIP)', '/data/commodities/faostat-production.csv.gz', true],
             ['FAOSTAT source extract & flags (ZIP)', '/data/commodities/faostat-production-sources.zip', true],
+            ['2020–2025 Critical Metals & Border Audit →', '/commodities.html?lens=metals-audit'],
             ['Provenance & SHA-256 checksums', '/data/commodities/pink-sheet-provenance.json'],
             ['World Bank Commodity Markets', 'https://www.worldbank.org/en/research/commodity-markets'],
           ]

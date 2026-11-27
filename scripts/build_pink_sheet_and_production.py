@@ -8,6 +8,7 @@ interpolates observations.
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import gzip
 import hashlib
@@ -15,6 +16,7 @@ import io
 import json
 import math
 import re
+import urllib.request
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -25,10 +27,24 @@ PROJECT = Path(__file__).resolve().parents[1]
 PUBLIC = PROJECT / "public-source"
 OUT_DIR = PUBLIC / "data" / "commodities"
 PROD_DIR = OUT_DIR / "production"
-RAW_TMP = Path("/tmp/pink_sheet_raw")
+SOURCE_CACHE = PROJECT.parent / "source_cache"
 
 WB_ANNUAL_URL = "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Annual.xlsx"
 WB_MONTHLY_URL = "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx"
+FAO_QCL_URL = "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip"
+FAO_RFN_URL = "https://bulks-faostat.fao.org/production/Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip"
+
+
+def ensure_cached_file(filename: str, url: str, refresh: bool = False) -> Path:
+    SOURCE_CACHE.mkdir(parents=True, exist_ok=True)
+    dest = SOURCE_CACHE / filename
+    if dest.exists() and not refresh:
+        return dest
+    print(f"Downloading {url} -> {dest} ...", flush=True)
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 PEL-Commodities-Builder/1.0"})
+    with urllib.request.urlopen(req, timeout=180) as resp:
+        dest.write_bytes(resp.read())
+    return dest
 
 # FAOSTAT items to extract for country-by-country physical production (1961-2024)
 FAO_QCL_ITEMS = {
@@ -237,23 +253,18 @@ def build_faostat_area_iso_lookup() -> tuple[dict[str, dict], set[str]]:
         iso = info.get("iso3")
         fao_areas[str(code)] = {"name": info.get("name", str(code)), "iso3": iso}
 
-    # 2. M49 integer -> ISO3 fallback from comtrade_partners.json
+    # 2. M49 integer -> ISO3 fallback from committed comtrade-reference-areas.json
     m49_to_iso: dict[int, str] = {}
-    p_file = RAW_TMP / "comtrade_partners.json"
-    if p_file.exists():
-        for item in json.loads(p_file.read_text()).get("results", []):
-            try:
-                m49 = int(item["id"])
-            except (KeyError, ValueError, TypeError):
-                continue
-            iso = (item.get("partnerCodeIsoAlpha3") or "").strip().upper()
-            if len(iso) == 3 and iso not in {"W00", "NES", "S19"}:
-                m49_to_iso[m49] = iso
+    ref_file = PUBLIC / "data/commodity-flows/comtrade-reference-areas.json"
+    if ref_file.exists():
+        for m49_str, iso in json.loads(ref_file.read_text()).get("m49_to_iso3", {}).items():
+            if str(m49_str).isdigit() and len(iso) == 3:
+                m49_to_iso[int(m49_str)] = iso
     m49_to_iso[840] = "USA"
     return {"fao": fao_areas, "m49": m49_to_iso}, valid_geo_ids
 
 
-def extract_faostat_production(lookups: dict, valid_geo_ids: set[str]) -> dict[str, dict]:
+def extract_faostat_production(lookups: dict, valid_geo_ids: set[str], refresh: bool = False) -> dict[str, dict]:
     PROD_DIR.mkdir(parents=True, exist_ok=True)
     fao_map = lookups["fao"]
     m49_map = lookups["m49"]
@@ -261,80 +272,106 @@ def extract_faostat_production(lookups: dict, valid_geo_ids: set[str]) -> dict[s
     by_slug: dict[str, list[dict]] = {slug: [] for slug, _ in list(FAO_QCL_ITEMS.values()) + list(FAO_RFN_ITEMS.values())}
     flags_dict: dict[str, str] = {}
     raw_slice_rows = []
+    archived_zip = OUT_DIR / "faostat-production-sources.zip"
 
-    def process_zip(zip_name: str, items_map: dict[str, tuple[str, str]], domain_label: str):
-        zpath = RAW_TMP / zip_name
-        with zipfile.ZipFile(zpath) as zf:
-            flag_files = [n for n in zf.namelist() if n.endswith("Flags.csv")]
-            if flag_files:
-                with zf.open(flag_files[0]) as ff:
-                    for r in csv.DictReader(io.TextIOWrapper(ff, encoding="latin-1")):
-                        fc = (r.get("Flag") or "").strip()
-                        fd = (r.get("Description") or r.get("Flags") or "").strip()
-                        if fc:
-                            flags_dict[fc] = fd
-
-            csv_name = [n for n in zf.namelist() if n.endswith("All_Data_(Normalized).csv")][0]
-            with zf.open(csv_name) as fh:
-                reader = csv.DictReader(io.TextIOWrapper(fh, encoding="latin-1"))
+    if archived_zip.exists() and not refresh:
+        with zipfile.ZipFile(archived_zip) as zf:
+            flags_dict.update(json.loads(zf.read("faostat_flags.json").decode("utf-8")))
+            with zf.open("faostat_selected_commodities_production_1961_2024.csv") as fh:
+                reader = csv.DictReader(io.TextIOWrapper(fh, encoding="utf-8"))
+                slug_lookup = {ic: slug for ic, (slug, _) in list(FAO_QCL_ITEMS.items()) + list(FAO_RFN_ITEMS.items())}
                 for row in reader:
-                    ic = row["Item Code"].strip()
-                    if ic not in items_map:
+                    ic = row["item_code"].strip()
+                    slug = slug_lookup.get(ic)
+                    if not slug:
                         continue
-                    ec = row["Element Code"].strip()
-                    # Element 5510 = Production (tonnes)
-                    if ec != "5510":
-                        continue
-                    ac = row["Area Code"].strip()
-                    # FAO Area Codes >= 5000 are regional/global aggregates (World=5000, Africa=5100, etc.)
-                    try:
-                        ac_int = int(ac)
-                    except ValueError:
-                        continue
-                    if ac_int >= 5000 or ac_int in {351}:  # 351 = China (aggregate including HK/Macao/Taiwan; 41 = China, mainland)
-                        continue
-
-                    m49_raw = row.get("Area Code (M49)", "").strip().lstrip("'")
-                    iso = fao_map.get(ac, {}).get("iso3")
-                    if not iso and m49_raw.isdigit():
-                        iso = m49_map.get(int(m49_raw))
-                    if ac == "41":
-                        iso = "CHN"
-                    if not iso or len(iso) != 3:
-                        continue
-
-                    yr_s = row["Year"].strip()
-                    if not yr_s.isdigit():
-                        continue
-                    yr = int(yr_s)
-                    if yr < 1960:
-                        continue
-
-                    val = clean_num(row.get("Value"))
-                    flag = (row.get("Flag") or "").strip()
-                    # Flag 'M' = Missing value (data cannot exist, not applicable) -> keep value None
+                    iso = row["iso3"].strip()
+                    yr = int(row["year"])
+                    val = clean_num(row["production_tonnes"])
+                    flag = (row.get("flag") or "").strip()
                     if flag == "M" and val == 0.0:
                         val = None
-
-                    slug, item_title = items_map[ic]
-                    area_name = fao_map.get(ac, {}).get("name") or row["Area"].strip()
                     geo_id = "KOS" if iso == "XKX" else (iso if iso in valid_geo_ids else None)
                     by_slug[slug].append({
                         "iso3": iso,
                         "geo_id": geo_id,
-                        "name": area_name,
+                        "name": row["area_name"].strip(),
                         "year": yr,
                         "value": val,
-                        "unit": row.get("Unit", "t").strip(),
+                        "unit": row.get("unit", "t").strip(),
                         "flag": flag,
                     })
                     raw_slice_rows.append([
-                        domain_label, ac, m49_raw, iso, area_name, ic, item_title, yr,
-                        "" if val is None else val, row.get("Unit", "t").strip(), flag, (row.get("Note") or "").strip()
+                        row["domain"], row["fao_area_code"], row["m49"], iso, row["area_name"],
+                        ic, row["item"], yr, "" if val is None else val, row.get("unit", "t"), flag, row.get("note", "")
                     ])
+    else:
+        def process_zip(zip_name: str, url: str, items_map: dict[str, tuple[str, str]], domain_label: str):
+            zpath = ensure_cached_file(zip_name, url, refresh=refresh)
+            with zipfile.ZipFile(zpath) as zf:
+                flag_files = [n for n in zf.namelist() if n.endswith("Flags.csv")]
+                if flag_files:
+                    with zf.open(flag_files[0]) as ff:
+                        for r in csv.DictReader(io.TextIOWrapper(ff, encoding="latin-1")):
+                            fc = (r.get("Flag") or "").strip()
+                            fd = (r.get("Description") or r.get("Flags") or "").strip()
+                            if fc:
+                                flags_dict[fc] = fd
 
-    process_zip("Production_Crops_Livestock_E_All_Data_(Normalized).zip", FAO_QCL_ITEMS, "QCL")
-    process_zip("Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip", FAO_RFN_ITEMS, "RFN")
+                csv_name = [n for n in zf.namelist() if n.endswith("All_Data_(Normalized).csv")][0]
+                with zf.open(csv_name) as fh:
+                    reader = csv.reader(io.TextIOWrapper(fh, encoding="latin-1"))
+                    hdr = [h.strip() for h in next(reader)]
+                    idx = {h: i for i, h in enumerate(hdr)}
+                    i_ic, i_ec, i_ac = idx["Item Code"], idx["Element Code"], idx["Area Code"]
+                    i_m49 = idx.get("Area Code (M49)")
+                    i_area, i_yr, i_val = idx["Area"], idx["Year"], idx["Value"]
+                    i_unit, i_flag, i_note = idx["Unit"], idx["Flag"], idx.get("Note")
+                    for row in reader:
+                        ic = row[i_ic].strip()
+                        if ic not in items_map or row[i_ec].strip() != "5510":
+                            continue
+                        ac = row[i_ac].strip()
+                        try:
+                            ac_int = int(ac)
+                        except ValueError:
+                            continue
+                        if ac_int >= 5000 or ac_int in {351}:
+                            continue
+                        m49_raw = row[i_m49].strip().lstrip("'") if i_m49 is not None else ""
+                        iso = fao_map.get(ac, {}).get("iso3")
+                        if not iso and m49_raw.isdigit():
+                            iso = m49_map.get(int(m49_raw))
+                        if ac == "41":
+                            iso = "CHN"
+                        if not iso or len(iso) != 3:
+                            continue
+                        yr_s = row[i_yr].strip()
+                        if not yr_s.isdigit():
+                            continue
+                        yr = int(yr_s)
+                        if yr < 1960:
+                            continue
+                        val = clean_num(row[i_val])
+                        flag = row[i_flag].strip()
+                        if flag == "M" and val == 0.0:
+                            val = None
+                        slug, item_title = items_map[ic]
+                        area_name = fao_map.get(ac, {}).get("name") or row[i_area].strip()
+                        geo_id = "KOS" if iso == "XKX" else (iso if iso in valid_geo_ids else None)
+                        unit_s = row[i_unit].strip() or "t"
+                        note_s = row[i_note].strip() if i_note is not None and i_note < len(row) else ""
+                        by_slug[slug].append({
+                            "iso3": iso, "geo_id": geo_id, "name": area_name,
+                            "year": yr, "value": val, "unit": unit_s, "flag": flag,
+                        })
+                        raw_slice_rows.append([
+                            domain_label, ac, m49_raw, iso, area_name, ic, item_title, yr,
+                            "" if val is None else val, unit_s, flag, note_s
+                        ])
+
+        process_zip("Production_Crops_Livestock_E_All_Data_(Normalized).zip", FAO_QCL_URL, FAO_QCL_ITEMS, "QCL")
+        process_zip("Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip", FAO_RFN_URL, FAO_RFN_ITEMS, "RFN")
 
     summaries = {}
     all_items = {slug: (ic, title, "QCL") for ic, (slug, title) in FAO_QCL_ITEMS.items()}
@@ -415,9 +452,15 @@ def extract_faostat_production(lookups: dict, valid_geo_ids: set[str]) -> dict[s
     return summaries
 
 
-def parse_pink_sheet(evidence_index: dict[str, str], cat_by_id: dict[str, dict]) -> dict:
-    ann_bytes = (RAW_TMP / "CMO-Historical-Data-Annual.xlsx").read_bytes()
-    mon_bytes = (RAW_TMP / "CMO-Historical-Data-Monthly.xlsx").read_bytes()
+def parse_pink_sheet(evidence_index: dict[str, str], cat_by_id: dict[str, dict], refresh: bool = False) -> dict:
+    archived_wb_zip = OUT_DIR / "pink-sheet-sources.zip"
+    if archived_wb_zip.exists() and not refresh:
+        with zipfile.ZipFile(archived_wb_zip) as zf:
+            ann_bytes = zf.read("CMO-Historical-Data-Annual.xlsx")
+            mon_bytes = zf.read("CMO-Historical-Data-Monthly.xlsx")
+    else:
+        ann_bytes = ensure_cached_file("CMO-Historical-Data-Annual.xlsx", WB_ANNUAL_URL, refresh=refresh).read_bytes()
+        mon_bytes = ensure_cached_file("CMO-Historical-Data-Monthly.xlsx", WB_MONTHLY_URL, refresh=refresh).read_bytes()
 
     wb_a = openpyxl.load_workbook(io.BytesIO(ann_bytes), read_only=True, data_only=True)
     wb_m = openpyxl.load_workbook(io.BytesIO(mon_bytes), read_only=True, data_only=True)
@@ -637,14 +680,18 @@ def parse_pink_sheet(evidence_index: dict[str, str], cat_by_id: dict[str, dict])
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--refresh-upstream", action="store_true", help="Re-download fresh upstream World Bank & FAOSTAT archives into durable source_cache/")
+    args = parser.parse_args()
+
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     evidence_index = json.loads((PUBLIC / "data/evidence-index.json").read_text())
     cat = json.loads((PUBLIC / "data/catalogue.json").read_text())
     cat_by_id = {s["id"]: s for s in cat["series"]}
 
     lookups, valid_geo_ids = build_faostat_area_iso_lookup()
-    fao_summary = extract_faostat_production(lookups, valid_geo_ids)
-    prov = parse_pink_sheet(evidence_index, cat_by_id)
+    fao_summary = extract_faostat_production(lookups, valid_geo_ids, refresh=args.refresh_upstream)
+    prov = parse_pink_sheet(evidence_index, cat_by_id, refresh=args.refresh_upstream)
     prov["faostat_production_series"] = len(fao_summary)
     (OUT_DIR / "pink-sheet-provenance.json").write_text(json.dumps(prov, indent=2, ensure_ascii=False) + "\n")
     print("DONE building Pink Sheet + paired FAOSTAT/USGS/EIA production!", flush=True)
