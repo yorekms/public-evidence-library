@@ -127,9 +127,23 @@ test('2020-2025 Critical Metals & Border-Reporting Register preserves secrecy fl
   // Verify Chile fire-refined copper publisher dashes stay null in national_metal_series
   const fireRefined = reg.national_metal_series.filter(r => r.iso3 === 'CHL' && r.measure === 'Fire-refined');
   assert.ok(fireRefined.length >= 6 && fireRefined.some(r => r.tonnes === null));
+
+  // Verify 27 Nov China import origins (2020-2025) & 2024 Argentina-China 11-month = 47,609,122 kg forensic check
+  assert.equal(reg.china_imports_2020_2025.origins.length, 6);
+  const chn2025 = reg.china_imports_2020_2025.origins.find(r => r.year === 2025);
+  assert.ok(Math.abs(chn2025.world_imports_t - 242969.0) < 0.1);
+  assert.ok(Math.abs(chn2025.from_argentina_t - 73239.7) < 0.1);
+  assert.ok(Math.abs(chn2025.from_chile_t - 152551.0) < 0.1);
+  const m24 = reg.china_imports_2020_2025.argentina_china_monthly_2024;
+  assert.equal(m24.length, 12);
+  assert.equal(m24[0].net_kg, null); // Jan 2024 withheld
+  const febDecKg = m24.slice(1).reduce((s, r) => s + r.net_kg, 0);
+  const febDecUsd = m24.slice(1).reduce((s, r) => s + r.fob_usd, 0);
+  assert.equal(febDecKg, 47609122);
+  assert.ok(Math.abs(febDecUsd - 406031369.05) < 0.01);
 });
 
-test('Supplemental international commodity flow collections (13 bundles / 24 total) validate SHA-256 and query cleanly via PublicPipelineAPI', async () => {
+test('Supplemental international commodity flow collections (14 bundles / 25 total) validate SHA-256 and query cleanly via PublicPipelineAPI', async () => {
   const manifestPath = path.join(PUBLIC, 'data/commodity-flows/manifest.json');
   assert.ok(fs.existsSync(manifestPath), 'Commodity flows manifest must exist');
   const suppManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
@@ -137,10 +151,11 @@ test('Supplemental international commodity flow collections (13 bundles / 24 tot
     'trade_crude_oil', 'trade_lng', 'trade_copper', 'trade_battery_metals',
     'trade_wheat', 'trade_maize', 'trade_rice', 'trade_soybeans', 'trade_coffee', 'trade_fertilizers',
   ];
-  const nov26LithiumIds = [
-    'trade_lithium_arg_chl_perspectives', 'trade_lithium_chile_cochilco', 'trade_lithium_argentina_indec',
+  const nov26And27LithiumIds = [
+    'trade_lithium_arg_chl_perspectives', 'trade_lithium_chile_cochilco',
+    'trade_lithium_argentina_indec', 'trade_lithium_china_imports',
   ];
-  assert.deepEqual(suppManifest.collections.map(c => c.id), [...baseTenIds, ...nov26LithiumIds]);
+  assert.deepEqual(suppManifest.collections.map(c => c.id), [...baseTenIds, ...nov26And27LithiumIds]);
 
   const api = P.createAPI({
     includeSupplemental: true,
@@ -157,7 +172,7 @@ test('Supplemental international commodity flow collections (13 bundles / 24 tot
   });
 
   const catalog = await api.request('/api/pipelines/catalog');
-  assert.equal(catalog.collections.length, 24, '11 original + 10 global commodity flows + 3 Nov-26 lithium audit flows');
+  assert.equal(catalog.collections.length, 25, '11 original + 10 global commodity flows + 4 lithium border/origin audit flows');
 
   for (const cid of baseTenIds) {
     const qQty = await api.request('/api/pipelines/query', { collection: cid, metric: 'quantity' });
@@ -200,4 +215,16 @@ test('Supplemental international commodity flow collections (13 bundles / 24 tot
   });
   assert.ok(Math.abs(qChlCoch.total - 225748.07) < 0.01);
   assert.ok(Math.abs(qChlCom.total - 219514.83) < 0.01);
+
+  // Verify trade_lithium_china_imports keeps China imports separate from INDEC/COCHILCO exports and preserves 2022 ARG null
+  const qChnImp25 = await api.request('/api/pipelines/query', {
+    collection: 'trade_lithium_china_imports', year: '2025', metric: 'quantity',
+  });
+  assert.equal(qChnImp25.counts.measured, 3);
+  assert.ok(Math.abs(qChnImp25.total - 242969.301) < 0.5);
+  const qChnNat22 = await api.request('/api/pipelines/query', {
+    collection: 'trade_lithium_china_imports', year: '2022', metric: 'national_exports_t',
+  });
+  assert.equal(qChnNat22.counts.measured, 1); // Only Chile COCHILCO disclosed in 2022; Argentina INDEC withheld & Other is residual
+  assert.equal(qChnNat22.counts.missing, 2);
 });

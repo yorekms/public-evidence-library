@@ -234,6 +234,16 @@
     if (suppressedMonths.length !== 41) {
       throw new Error(`Expected 41 confidential INDEC monthly positions, got ${suppressedMonths.length}`);
     }
+    if (register.china_imports_2020_2025) {
+      const m24 = register.china_imports_2020_2025.argentina_china_monthly_2024;
+      if (m24[0]?.net_kg !== null) {
+        throw new Error('January 2024 Argentina-China INDEC monthly weight must stay null (Withheld).');
+      }
+      const sum11 = m24.slice(1).reduce((acc, m) => acc + (m.net_kg || 0), 0);
+      if (Math.abs(sum11 - 47609122) > 0.01) {
+        throw new Error('Eleven disclosed 2024 INDEC Argentina-China months must equal 47,609,122 kg.');
+      }
+    }
     return true;
   }
 
@@ -713,6 +723,71 @@
     return wrap;
   }
 
+  function renderChinaOriginsChart(C, originsRows, selectedYear) {
+    const wrap = C.element('div');
+    const width = 620, height = 252, left = 54, right = 148, top = 20, bottom = 28;
+    const svg = d3.create('svg')
+      .attr('class', 'cm-chart-svg')
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('role', 'img')
+      .attr('aria-label', "China's lithium carbonate imports by origin, 2020–2025 (metric tonnes, HS 283691)");
+
+    const maxTot = d3.max(originsRows, r => r.world_imports_t) || 250000;
+    const x = d3.scaleLinear().domain([0, maxTot * 1.04]).range([left, width - right]);
+    const y = d3.scaleBand().domain(originsRows.map(r => String(r.year))).range([top, height - bottom]).padding(0.32);
+
+    for (const tick of [0, 50000, 100000, 150000, 200000, 250000]) {
+      if (tick <= maxTot * 1.04) {
+        svg.append('line').attr('x1', x(tick)).attr('x2', x(tick)).attr('y1', top - 4).attr('y2', height - bottom).attr('stroke', '#e1e8dc');
+        svg.append('text').attr('x', x(tick)).attr('y', height - 8).attr('text-anchor', 'middle').attr('font-size', 11).attr('fill', '#485b4c')
+          .text(tick === 0 ? '0' : `${tick / 1000}k`);
+      }
+    }
+    svg.append('text').attr('x', width - 86).attr('y', 14).attr('text-anchor', 'end').attr('font-size', 11).attr('font-weight', 700).attr('fill', '#354c3e').text('World t');
+    svg.append('text').attr('x', width - 6).attr('y', 14).attr('text-anchor', 'end').attr('font-size', 11).attr('font-weight', 700).attr('fill', '#354c3e').text('ARG share');
+
+    const readout = C.element('div', 'cm-hover-readout', 'From 2024 to 2025, arrivals into China from Argentina rose 57.5% while arrivals from Chile fell 16.9%.');
+
+    for (const r of originsRows) {
+      const py = y(String(r.year));
+      const bh = y.bandwidth();
+      const g = svg.append('g').style('cursor', 'pointer')
+        .on('mouseenter', () => {
+          readout.textContent = `${r.year} China imports · World: ${fmt(r.world_imports_t)} t — Chile: ${fmt(r.from_chile_t)} t (${(r.chile_share * 100).toFixed(1)}%), Argentina: ${fmt(r.from_argentina_t)} t (${(r.argentina_share * 100).toFixed(1)}%), Other: ${fmt(r.other_origins_t)} t`;
+        })
+        .on('click', () => setParams({ auditYear: r.year }));
+
+      if (r.year === selectedYear) {
+        g.append('rect').attr('x', 4).attr('y', py - 3).attr('width', width - 8).attr('height', bh + 6).attr('fill', '#edf4eb').attr('rx', 3);
+      }
+      g.append('text').attr('x', left - 8).attr('y', py + bh / 2 + 4).attr('text-anchor', 'end')
+        .attr('font-size', 12.5).attr('font-weight', r.year === selectedYear ? 700 : 600).attr('fill', '#1f3b2e').text(r.year);
+
+      let curX = left;
+      for (const [val, col] of [[r.from_chile_t, '#12645e'], [r.from_argentina_t, '#c68a3b'], [r.other_origins_t, '#b8c6cb']]) {
+        const w = Math.max(0, x(val) - left);
+        if (w > 0) {
+          g.append('rect').attr('x', curX).attr('y', py).attr('width', w).attr('height', bh).attr('fill', col);
+          curX += w;
+        }
+      }
+      g.append('text').attr('x', width - 86).attr('y', py + bh / 2 + 4).attr('text-anchor', 'end')
+        .attr('font-size', 12).attr('font-weight', 700).attr('fill', '#1f3b2e').text(numFmt.format(Math.round(r.world_imports_t)));
+      g.append('text').attr('x', width - 6).attr('y', py + bh / 2 + 4).attr('text-anchor', 'end')
+        .attr('font-size', 12).attr('fill', '#7c5116').text((r.argentina_share * 100).toFixed(1) + '%');
+    }
+
+    const key = C.element('div', 'cm-series-key');
+    for (const [lbl, col] of [['Chile', '#12645e'], ['Argentina', '#c68a3b'], ['Other origins (world minus CHL & ARG)', '#b8c6cb']]) {
+      const s = C.element('span');
+      const sw = C.element('i', 'cm-swatch-box'); sw.style.background = col;
+      s.append(sw, document.createTextNode(lbl));
+      key.append(s);
+    }
+    wrap.append(svg.node(), key, readout);
+    return wrap;
+  }
+
   async function renderMetalsAudit(C, params, worldGeo, reqId) {
     const reg = await loadMetalsRegister(C);
     if (reqId !== revision) return null;
@@ -841,14 +916,65 @@
     const flowBtns = C.element('div', 'cm-flow-actions');
     for (const [cid, lbl, primary] of [
       ['trade_lithium_arg_chl_perspectives', 'ARG & CHL Exporter vs. Importer Globe →', true],
+      ['trade_lithium_china_imports', 'China Import Origins (2020–2025) →', false],
       ['trade_lithium_argentina_indec', 'Argentina INDEC Code 999 Ledger →', false],
       ['trade_lithium_chile_cochilco', 'Chile COCHILCO vs. Comtrade →', false],
     ]) {
       const a = C.element('a', primary ? 'cm-flow-btn' : 'cm-flow-btn secondary', lbl);
-      a.href = `/workbench/pipelines.html?collection=${cid}&year=${chosenYear}&mapView=globe`;
+      const mode = cid === 'trade_lithium_china_imports' ? '2d' : 'globe';
+      a.href = `/workbench/pipelines.html?collection=${cid}&year=${chosenYear}&mapView=${mode}`;
       flowBtns.append(a);
     }
     flowBanner.append(flowBtns);
+
+    // Section 2A (27 Nov addition): China Lithium Carbonate Imports by Origin (2020-2025) + 2024 Argentina-China Monthly Check
+    let chinaDuo = null;
+    if (reg.china_imports_2020_2025) {
+      const chnOrigPanel = C.panel("China's lithium carbonate imports by origin · HS 283691 (2020–2025)");
+      chnOrigPanel.append(
+        C.note("China's import records show Argentina's share rising from 19.8% in 2024 (46,508.8 t) to 30.1% in 2025 (73,239.7 t, +57.5%) while Chile's share fell from 78.2% (183,634.0 t) to 62.8% (152,551.0 t, −16.9%). Chile SUBREI separately identifies USD 1,205.0M of 2025 exports to China under SACH 28369130 (one tariff grade within HS 283691)."),
+        renderChinaOriginsChart(C, reg.china_imports_2020_2025.origins, chosenYear)
+      );
+
+      const chnCheckPanel = C.panel('Argentina → China 2024 monthly disclosure check · Narrowing the 2,380-tonne gap');
+      chnCheckPanel.append(
+        C.note('In INDEC’s monthly 2024 NCM 28369100 query for destination 310 (China), January 2024 is flagged confidential ("Withheld", kept null). The eleven disclosed months (Feb–Dec 2024) sum to 47,609,122 kg and USD 406,031,369.05 FOB — within 2 kg and USD 0.00 of Argentina’s annual UN Comtrade record (47,609,120 kg), whereas INDEC’s annual destination release published 49,989,122 kg (USD 434,853,587.85).'),
+        renderMonthlySeriesWithGaps(
+          C,
+          reg.china_imports_2020_2025.argentina_china_monthly_2024.map(m => ({
+            period: m.period,
+            value: m.net_t,
+            status: m.disclosure + (m.fob_usd ? ` · USD ${numFmt.format(m.fob_usd)} FOB` : ''),
+          })),
+          'tonnes',
+          'Argentina monthly exports to China in 2024 (NCM 28369100, tonnes)',
+          'January 2024 is confidential (null); Feb–Dec 2024 sum to 47,609.122 t (USD 406,031,369.05 FOB).'
+        )
+      );
+      const chkWrap = C.element('div', 'table-wrap');
+      const chkTbl = C.element('table', 'hr-table');
+      const chkHead = C.element('thead');
+      const chkTrH = C.element('tr');
+      for (const h of ['2024 Argentina → China series', 'Net weight (kg)', 'FOB value (USD)', 'Coverage']) chkTrH.append(C.element('th', '', h));
+      chkHead.append(chkTrH);
+      const chkBody = C.element('tbody');
+      for (const c of reg.china_imports_2020_2025.argentina_china_2024_checks) {
+        const tr = C.element('tr');
+        tr.append(
+          C.element('td', '', c.series),
+          C.element('td', '', numFmt.format(c.net_kg)),
+          C.element('td', '', numFmt.format(c.fob_usd)),
+          C.element('td', '', c.coverage)
+        );
+        chkBody.append(tr);
+      }
+      chkTbl.append(chkHead, chkBody);
+      chkWrap.append(chkTbl);
+      chnCheckPanel.append(chkWrap);
+
+      chinaDuo = C.element('div', 'cm-audit-duo');
+      chinaDuo.append(chnOrigPanel, chnCheckPanel);
+    }
 
     // Section 2: Argentina INDEC Customs Disclosure (2020-2025) + Monthly Mining Output (72 months)
     const argCustomsPanel = C.panel('Argentina lithium carbonate exports · INDEC published routes vs. confidential code 999 (2020–2025)');
@@ -940,8 +1066,20 @@
       controls,
       mapGrid,
       flowBanner,
+      ...(chinaDuo ? [chinaDuo] : []),
       argDuo,
       drcBgsDuo,
+      ...(reg.china_imports_2020_2025 ? [
+        C.records(
+          'China lithium carbonate routes · National exports vs. China-reported imports (2020–2025)',
+          ['Year', 'Origin', 'National exports to China (t)', 'National publisher', 'UN exporter net (t)', 'China-reported UN imports (t)', 'WITS imports (t)', 'National minus China (t)', 'Disclosure'],
+          reg.china_imports_2020_2025.bilateral_comparison.map(r => [
+            r.year, r.origin_iso3, r.national_exports_t, r.national_publisher, r.un_exporter_net_t,
+            r.china_un_imports_net_t, r.wits_imports_t, r.national_minus_china_t, r.national_disclosure,
+          ]),
+          'china-lithium-carbonate-route-comparison-2020-2025.csv'
+        ),
+      ] : []),
       C.records(
         `Argentina & Chile bilateral border comparison in ${chosenYear} · Exporter vs. Foreign Importer net weight (HS 283691)`,
         ['Year', 'Origin', 'Destination ISO3', 'Partner economy', 'Exporter-reported (t)', 'Foreign importer-reported (t)', 'Reporting coverage'],
@@ -972,7 +1110,9 @@
           ['Chile lithium carbonate source packet (ZIP)', '/data/commodities/metals-2020-2025/Chile_lithium_carbonate_2020-2025.zip', true],
           ['Argentina & Chile two-border source packet (ZIP)', '/data/commodities/metals-2020-2025/Argentina_Chile_lithium_carbonate_2020-2025.zip', true],
           ['Argentina INDEC NCM 28369100 customs packet (ZIP)', '/data/commodities/metals-2020-2025/Argentina_lithium_carbonate_customs_2020-2025.zip', true],
-          ['11-tab Metal Statistics Workbook 2020–2025 (XLSX)', '/data/commodities/metals-2020-2025/metals_statistics_2020-2025.xlsx', true],
+          ['China lithium carbonate import origins & 2024 check packet (ZIP)', '/data/commodities/metals-2020-2025/China_lithium_carbonate_sources_2020-2025.zip', true],
+          ['13-tab Metal Statistics Workbook 2020–2025 (XLSX)', '/data/commodities/metals-2020-2025/metals_statistics_2020-2025.xlsx', true],
+          ['China 2020–2025 lithium carbonate imports chart (PDF)', '/data/commodities/metals-2020-2025/China_lithium_carbonate_imports_2020-2025.pdf', true],
           ['2024 Argentina export-vs-import border map (PDF)', '/data/commodities/metals-2020-2025/Argentina_lithium_trade_map_2024.pdf', true],
           ['Argentina 2020–2025 INDEC disclosure chart (PDF)', '/data/commodities/metals-2020-2025/Argentina_lithium_carbonate_customs_2020-2025.pdf', true],
           ['National metal series flat extract (CSV.GZ)', '/data/commodities/critical-metals-register.csv.gz', true],

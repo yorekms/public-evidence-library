@@ -50,7 +50,7 @@ METALS_ARCHIVE_DIR = COMMODITIES_DIR / "metals-2020-2025"
 FLOW_DIR = PUBLIC / "data" / "commodity-flows"
 
 CODEX_NOV26 = Path("/Users/yorek_mac/Documents/Codex/2026-11-26/new-chat-3")
-TMP_WORKBOOK = Path("/tmp/pel_metals_2020_2025.xlsx")
+TMP_WORKBOOK = Path("/tmp/pel_27_nov_sheet.xlsx")
 
 ISO2_TO_ISO3 = {
     "AR": "ARG", "AT": "AUT", "AU": "AUS", "AZ": "AZE", "BA": "BIH", "BE": "BEL",
@@ -96,16 +96,20 @@ def stage_source_packets() -> dict[str, dict]:
          "Reference 2024 side-by-side map contrasting Argentina's 1 named Comtrade export destination vs. 24 foreign importer reports."),
         ("Argentina_lithium_carbonate_customs_2020-2025.pdf", CODEX_NOV26 / "Argentina_lithium_carbonate_customs_2020-2025.pdf",
          "Reference 2020-2025 stacked bar chart of Argentina INDEC published destination weights vs. confidential code 999."),
+        ("China_lithium_carbonate_sources_2020-2025.zip", CODEX_NOV26 / "China_lithium_carbonate_sources_2020-2025.zip",
+         "27 Nov 2026 packet: China lithium carbonate imports by origin (WITS/Comtrade 2020-2025), national-vs-China route mirror table, and 2024 INDEC monthly China disclosure check."),
+        ("China_lithium_carbonate_imports_2020-2025.pdf", CODEX_NOV26 / "China_lithium_carbonate_imports_2020-2025.pdf",
+         "Reference 2020-2025 stacked bar chart of China's lithium carbonate imports from Chile, Argentina and other origins."),
         ("metals_statistics_2020-2025.xlsx", TMP_WORKBOOK,
-         "11-tab workbook (Chile copper & lithium, DR Congo CTCPM monthly/annual copper/cobalt/zinc, Argentina INDEC production & customs, BGS 2020-24)."),
+         "13-tab workbook (Chile copper & lithium, DR Congo CTCPM monthly/annual metals, Argentina INDEC production & customs, China import origins & 2024 monthly check, BGS 2020-24)."),
     ]
     archived = {}
     for filename, src_path, desc in to_stage:
         dest = METALS_ARCHIVE_DIR / filename
-        if not dest.exists():
-            if not src_path.exists():
-                raise FileNotFoundError(f"Required source artifact missing: {dest} (staging source {src_path} not found)")
+        if src_path.exists() and (not dest.exists() or src_path.read_bytes() != dest.read_bytes()):
             shutil.copy2(src_path, dest)
+        elif not dest.exists():
+            raise FileNotFoundError(f"Required source artifact missing: {dest} (staging source {src_path} not found)")
         raw = dest.read_bytes()
         archived[filename] = {
             "file": filename,
@@ -386,6 +390,66 @@ def parse_workbook_and_packets() -> dict:
             })
         assert len(cust_destinations) == 87
 
+    # 8. China Lithium Carbonate Import Origins & 2024 Monthly Check (27 Nov 2026 packet)
+    with zipfile.ZipFile(METALS_ARCHIVE_DIR / "China_lithium_carbonate_sources_2020-2025.zip") as z_chn:
+        chn_origins = []
+        for r in csv.DictReader(io.StringIO(z_chn.read("china_origins.csv").decode("utf-8"))):
+            chn_origins.append({
+                "year": int(r["Year"]),
+                "world_imports_t": clean_float(r["China imports, world (t)"], 4),
+                "from_argentina_t": clean_float(r["From Argentina (t)"], 4),
+                "from_chile_t": clean_float(r["From Chile (t)"], 4),
+                "other_origins_t": clean_float(r["Other origins (t)"], 4),
+                "argentina_share": clean_float(r["Argentina share"], 6),
+                "chile_share": clean_float(r["Chile share"], 6),
+                "combined_share": clean_float(r["Combined share"], 6),
+            })
+        chn_bilateral = []
+        for r in csv.DictReader(io.StringIO(z_chn.read("bilateral_comparison.csv").decode("utf-8"))):
+            chn_bilateral.append({
+                "year": int(r["Year"]),
+                "origin_iso3": r["Origin"],
+                "national_exports_t": clean_float(r["National exports to China (t)"], 6),
+                "national_publisher": r["National publisher"],
+                "un_exporter_net_t": clean_float(r["UN exporter net (t)"], 6),
+                "china_un_imports_net_t": clean_float(r["China-reported UN imports, net (t)"], 6),
+                "wits_imports_t": clean_float(r["WITS import quantity (t)"], 4),
+                "national_minus_china_t": clean_float(r["National exports minus China imports (t)"], 6),
+                "national_disclosure": r["National disclosure"],
+            })
+        arg_chn_2024_months = []
+        for r in csv.DictReader(io.StringIO(z_chn.read("argentina_monthly_2024.csv").decode("utf-8"))):
+            yr, mo = int(r["Year"]), int(r["Month"])
+            kg = clean_float(r["Published net kg"], 3)
+            fob = clean_float(r["Published FOB (USD)"], 2)
+            disc = r["INDEC disclosure"]
+            if disc == "Withheld":
+                assert kg is None and fob is None
+            arg_chn_2024_months.append({
+                "year": yr,
+                "month": mo,
+                "period": f"{yr}M{mo:02d}",
+                "net_kg": kg,
+                "net_t": round(kg / 1000.0, 6) if kg is not None else None,
+                "fob_usd": fob,
+                "disclosure": disc,
+            })
+        arg_chn_2024_checks = []
+        for r in csv.DictReader(io.StringIO(z_chn.read("argentina_2024_checks.csv").decode("utf-8"))):
+            arg_chn_2024_checks.append({
+                "series": r["Series or comparison"],
+                "net_kg": clean_float(r["Net kg"], 3),
+                "fob_usd": clean_float(r["FOB (USD)"], 2),
+                "coverage": r["Coverage"],
+            })
+        chn_sources = list(csv.DictReader(io.StringIO(z_chn.read("sources.csv").decode("utf-8"))))
+        chn_secondary = list(csv.DictReader(io.StringIO(z_chn.read("evidence/secondary_checks.csv").decode("utf-8"))))
+
+        assert len(chn_origins) == 6 and len(chn_bilateral) == 12 and len(arg_chn_2024_months) == 12
+        assert arg_chn_2024_months[0]["net_kg"] is None and arg_chn_2024_months[0]["disclosure"] == "Withheld"
+        sum_11m_kg = sum(m["net_kg"] for m in arg_chn_2024_months[1:])
+        assert abs(sum_11m_kg - 47609122.0) < 1e-3
+
     return {
         "bgs_selected_2020_2024": bgs_selected,
         "national_metal_series": national_series,
@@ -400,6 +464,14 @@ def parse_workbook_and_packets() -> dict:
         "argentina_indec_customs_2020_2025": {
             "annual": cust_annual,
             "destinations": cust_destinations,
+        },
+        "china_imports_2020_2025": {
+            "origins": chn_origins,
+            "bilateral_comparison": chn_bilateral,
+            "argentina_china_monthly_2024": arg_chn_2024_months,
+            "argentina_china_2024_checks": arg_chn_2024_checks,
+            "secondary_checks": chn_secondary,
+            "sources": chn_sources,
         },
     }
 
@@ -697,6 +769,88 @@ def build_three_lithium_flow_bundles(parsed: dict, archived: dict[str, dict]) ->
         "Argentina to INDEC declared partner destinations plus unallocated code 999",
     ))
 
+    # --- Bundle 4: China Lithium Carbonate Imports by Origin & Exporter Mirror Comparison (2020-2025) ---
+    cid4 = "trade_lithium_china_imports"
+    sid4 = "chn_wits_comtrade_origins_2020_2025"
+    sources4 = [{
+        "id": sid4,
+        "title": "China lithium carbonate imports (HS 283691) · WITS/Comtrade origins vs. INDEC & COCHILCO exports (2020–2025)",
+        "url": archived["China_lithium_carbonate_sources_2020-2025.zip"]["url"],
+        "upstream_url": "https://wits.worldbank.org/trade/comtrade/en/country/CHN/year/2025/tradeflow/Imports/partner/ALL/product/283691",
+        "sha256": archived["China_lithium_carbonate_sources_2020-2025.zip"]["sha256"],
+        "observed_as_of": "2026-11-27",
+        "license": "World Bank WITS / UN Comtrade, INDEC & COCHILCO public statistics; retain origin shares and border-perspective separation",
+        "period_basis": "Annual China import quantities in metric tonnes (2020–2025) paired with Argentina INDEC & Chile COCHILCO export ledgers",
+    }]
+    nodes4: dict[str, dict] = {}
+    edges4, records4 = [], []
+    chn_to = ensure_iso_node(nodes4, "CHN", "China", "Importing economy", sid4)
+    arg_node4 = ensure_iso_node(nodes4, "ARG", "Argentina", "Lithium carbonate origin", sid4)
+    chl_node4 = ensure_iso_node(nodes4, "CHL", "Chile", "Lithium carbonate origin", sid4)
+    nodes4["wits_origin:OTHER"] = {
+        "id": "wits_origin:OTHER",
+        "label": "Other origins (China world imports minus Chile & Argentina)",
+        "type": "customs_partner_area",
+        "scope": "world", "geo_id": None, "country_iso3": None, "country_name": None, "source_iso_code": None,
+        "state": None, "lat": None, "lon": None, "physical_location": False, "map_eligible": False,
+        "stage": "Residual origin group", "source_id": sid4, "record_ids": [],
+        "raw_fields": {"definition": "World import quantity minus Chile and Argentina in WITS HS 283691 table."},
+    }
+    bilat_by_key = {(r["year"], r["origin_iso3"]): r for r in parsed["china_imports_2020_2025"]["bilateral_comparison"]}
+    for orig_row in parsed["china_imports_2020_2025"]["origins"]:
+        yr_int = orig_row["year"]
+        yr = str(yr_int)
+        for origin_key, from_id, wits_t in [
+            ("CHL", chl_node4, orig_row["from_chile_t"]),
+            ("ARG", arg_node4, orig_row["from_argentina_t"]),
+            ("OTHER", "wits_origin:OTHER", orig_row["other_origins_t"]),
+        ]:
+            b = bilat_by_key.get((yr_int, origin_key))
+            rec_idx = len(records4)
+            rec_id = f"{cid4}:record:{rec_idx}"
+            records4.append({
+                "id": rec_id, "record_type": "china_import_origin_comparison",
+                "source_id": sid4, "source_row": f"china_origins:{yr}:{origin_key}",
+                "raw_fields": b if b else {"year": yr_int, "origin": "Other origins", "wits_imports_t": wits_t, "world_imports_t": orig_row["world_imports_t"]},
+            })
+            nodes4[from_id]["record_ids"].append(rec_id)
+            nodes4[chn_to]["record_ids"].append(rec_id)
+            edges4.append({
+                "id": f"{cid4}:edge:{len(edges4) + 1}",
+                "from_id": from_id, "to_id": chn_to, "year": yr,
+                "quantity": b["china_un_imports_net_t"] if b else wits_t,
+                "unit": "tonnes",
+                "national_exports_t": b["national_exports_t"] if b else None,
+                "un_exporter_net_t": b["un_exporter_net_t"] if b else None,
+                "commodity_id": "HS:283691",
+                "commodity_label": "HS 283691 · Lithium carbonate imports into China",
+                "evidence_type": "china_import_origin_comparison",
+                "stage_from": "Origin economy", "stage_to": "China customs import record",
+                "sector": b["national_disclosure"] if b else "Residual other origins",
+                "transport": "All modes",
+                "source_id": sid4, "source_row": f"china_origins:{yr}:{origin_key}",
+                "record_ids": [rec_id],
+                "flags": {"national_publisher": b["national_publisher"] if b else None},
+            })
+    metrics4 = [
+        {"id": "quantity", "label": "China-reported import net weight (UN Comtrade / WITS)", "unit": "tonnes", "field": "quantity", "additive": True},
+        {"id": "national_exports_t", "label": "Origin national export ledger to China (INDEC / COCHILCO)", "unit": "tonnes", "field": "national_exports_t", "additive": True},
+        {"id": "un_exporter_net_t", "label": "Origin UN Comtrade export net weight to China", "unit": "tonnes", "field": "un_exporter_net_t", "additive": True},
+    ]
+    lim4 = [
+        "From 2024 to 2025, China's reported lithium carbonate arrivals from Argentina rose 57.5% (46,509 t to 73,240 t; share rising from 19.8% to 30.1%) while arrivals from Chile fell 16.9% (183,634 t to 152,551 t; share falling from 78.2% to 62.8%).",
+        "Switch Measure to compare China's import declaration against INDEC/COCHILCO national export ledgers or UN exporter records; separate border ledgers are never summed.",
+        "In 2024, INDEC withheld January's Argentina–China monthly weight ('s'); its 11 published months (Feb–Dec) sum to 47,609,122 kg and USD 406,031,369.05 FOB — matching Argentina's UN Comtrade annual China record to within 2 kg and USD 0.00, while INDEC's annual destination release published 49,989,122 kg.",
+    ]
+    new_entries.append(write_pipeline_bundle(
+        cid4,
+        "China lithium carbonate imports · Argentina, Chile & other origins",
+        "Compares China's reported HS 283691 imports by origin (2020–2025) alongside Argentina INDEC and Chile COCHILCO national export ledgers.",
+        years, "quantity", metrics4, sources4, list(nodes4.values()), edges4, records4, lim4,
+        "Annual China lithium carbonate import origins (2020–2025). Withheld 2021–2022 Argentina export weights remain null.",
+        "Chile, Argentina and residual origins to China",
+    ))
+
     # Update commodity-flows/manifest.json idempotently
     manifest_path = FLOW_DIR / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
@@ -732,9 +886,9 @@ def main() -> None:
 
     register_doc = {
         "schema": "public-evidence.critical-metals-register/v1",
-        "title": "National Metal Registers & Border-Reporting Audit · Chile, Argentina, DR Congo & BGS (2020–2025)",
+        "title": "National Metal Registers & Border-Reporting Audit · Chile, Argentina, China, DR Congo & BGS (2020–2025)",
         "prepared_utc": datetime.now(timezone.utc).isoformat(),
-        "research_vintage": "26 November 2026",
+        "research_vintage": "27 November 2026",
         "archived_packets": archived,
         "flow_collections": [e["id"] for e in flow_entries],
         **parsed,

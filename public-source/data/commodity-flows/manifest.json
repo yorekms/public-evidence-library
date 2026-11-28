@@ -1,6 +1,6 @@
 {
   "schema": "public-evidence.supplemental-pipelines/v1",
-  "prepared_utc": "2026-11-27T14:38:38.794640+00:00",
+  "prepared_utc": "2026-11-28T00:40:40.073141+00:00",
   "raw_sources_archive": {
     "url": "/data/commodity-flows/comtrade-raw-sources.zip",
     "bytes": 1471859,
@@ -567,6 +567,57 @@
       "nodes": 25,
       "edges": 87,
       "records": 87,
+      "default_focus": "all",
+      "default_direction": "either"
+    },
+    {
+      "id": "trade_lithium_china_imports",
+      "title": "China lithium carbonate imports · Argentina, Chile & other origins",
+      "description": "Compares China's reported HS 283691 imports by origin (2020–2025) alongside Argentina INDEC and Chile COCHILCO national export ledgers.",
+      "years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "default_year": "2024",
+      "default_metric": "quantity",
+      "metrics": [
+        {
+          "id": "quantity",
+          "label": "China-reported import net weight (UN Comtrade / WITS)",
+          "unit": "tonnes",
+          "field": "quantity",
+          "additive": true
+        },
+        {
+          "id": "national_exports_t",
+          "label": "Origin national export ledger to China (INDEC / COCHILCO)",
+          "unit": "tonnes",
+          "field": "national_exports_t",
+          "additive": true
+        },
+        {
+          "id": "un_exporter_net_t",
+          "label": "Origin UN Comtrade export net weight to China",
+          "unit": "tonnes",
+          "field": "un_exporter_net_t",
+          "additive": true
+        }
+      ],
+      "time_semantics": "Annual China lithium carbonate import origins (2020–2025). Withheld 2021–2022 Argentina export weights remain null.",
+      "geographic_scope": "Chile, Argentina and residual origins to China",
+      "file": "trade_lithium_china_imports.json.gz",
+      "url": "/data/commodity-flows/trade_lithium_china_imports.json.gz",
+      "bytes": 3167,
+      "sha256": "b541bf2b201a0ec8d8f75f64ad867c985a2980593af349e943bbbfda7447a735",
+      "decoded_bytes": 24374,
+      "decoded_sha256": "746bd0e935af3919a7b4e14882d4782d0c6fb94737ac558ca83e256081a1b4ab",
+      "nodes": 4,
+      "edges": 18,
+      "records": 18,
       "default_focus": "all",
       "default_direction": "either"
     }
